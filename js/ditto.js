@@ -123,7 +123,7 @@ function searchbar_listener(event) {
     // event.preventDefault();
     var q = $('input[name=search]').val();
     if (q !== '') {
-      var url = 'https://github.com/ruanyf/es6tutorial/search?utf8=✓&q=' + encodeURIComponent(q);
+      var url = 'https://github.com/ruanqizhen/labview_book/search?utf8=✓&q=' + encodeURIComponent(q);
       window.open(url, '_blank');
       win.focus();
     }
@@ -132,7 +132,7 @@ function searchbar_listener(event) {
   if (event.which === 13) {
     var q = $('input[name=search]').val();
     if (q !== '') {
-      var url = 'https://github.com/ruanyf/es6tutorial/search?utf8=✓&q=' + encodeURIComponent(q);
+      var url = 'https://github.com/ruanqizhen/labview_book/search?utf8=✓&q=' + encodeURIComponent(q);
       location.href = url;
     }
   }
