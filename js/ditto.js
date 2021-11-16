@@ -405,7 +405,7 @@ function router() {
     $('#content code').map(function() {
       Prism.highlightElement(this);
     });
-
+/*
     // 加载disqus
     (function() {
       // http://docs.disqus.com/help/2/
@@ -423,7 +423,7 @@ function router() {
         (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
       })();
     })();
-
+*/
     var perc = ditto.save_progress ? store.get('page-progress') || 0 : 0;
 
     if (sectionId) {
