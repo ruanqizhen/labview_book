@@ -9,7 +9,7 @@ var CONFIG = {
   sidebar_file: "sidebar.md",
 
   // where the docs are actually stored on github - so you can edit
-  base_url: "https://github.com/ruanyf/es6tutorial/edit/gh-pages",
+  base_url: "https://github.com/ruanqizhen/labview_book/edit/gh-pages",
 };
 
 // **************************
