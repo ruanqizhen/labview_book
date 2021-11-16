@@ -9,8 +9,8 @@ description: >
 version:          1.0
 gitbook_version:  3.2.3
 
-url:              'http://lv.qizhen.xyz/'
-baseurl:          '/labview_book'
+url:              'http://lv.qizhen.xyz'
+baseurl:          '/'
 rss:              RSS
 
 toc:
