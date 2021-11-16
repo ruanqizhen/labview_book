@@ -1,10 +1,10 @@
 # Configurations
 title:            LabVIEW 编程经验
 longtitle:        《我和 LabVIEW》一书的初稿
-author:           HE Tao
-email:            sighingnow@gmail.com
+author:           Qizhen Ruan
+email:            ruanqizhen@gmail.com
 description: >
-  Build Jekyll site with the GitBook style.
+  我和 LabVIEW》一书的初稿
 
 version:          1.0
 gitbook_version:  3.2.3
