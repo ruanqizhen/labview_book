@@ -101,7 +101,6 @@ function init_sidebar_section() {
             }
             location.hash = menu[i + 1];
         });
-        // create_banner($(ditto.sidebar_id).find('p:nth-child(3)').first());
 
     }, "text").fail(function() {
         alert("Opps! can't find the sidebar file to display!");
@@ -242,28 +241,6 @@ function li_create_linkage(li_tag, header_level) {
   });
 }
 
-function create_banner(element) {
-  // 2021年10月9日
-  var deadline = new Date(2021, 9, 9);
-  if (deadline - (new Date()) < 0) return;
-
-  var styleStr = [
-    'margin: 1em 0',
-    'padding: 1em',
-    'background-color: #c4e0e1',
-    'border-radius: 5px',
-    'font-size: 90%',
-    // 'font-size: 75%',
-    // 'width: 210px',
-    'color: #333333'
-  ].join(';');
-
-  var text = '【免费课程】' +
-    '开课吧<span style="color: #4682BE;">《深度理解 Vue 3.0 核心源码》</span>精品课领取，讲解 Vue 3.0 源码，动手制作实战项目，快速上手Vue 3.0。';
-
-  var banner = $('<a href="https://t.1yb.co/AzbY" style="color: #333333;" target="_blank"><div style="' + styleStr + '">' + text + '</div></a>')
-    .insertAfter(element);
-}
 
 function create_page_anchors() {
   // create page anchors by matching li's to headers
@@ -301,8 +278,6 @@ function create_page_anchors() {
         .insertAfter('#content h1')
         .addClass('content-toc')
         .attr('id', 'content-toc');
-
-      create_banner(ul_tag);
 
       for (var j = 0; j < headers.length; j++) {
         var li_tag = $('<li></li>').html('<a href="#' + location.hash.split('#')[1] + '#' + headers[j] + '">' + headers[j] + '</a>');
