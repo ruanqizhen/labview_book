@@ -44,7 +44,7 @@ var getHash = function (hash) {
   }
 };
 
-var disqusCode = '<h3>留言</h3><div id="disqus_thread"></div>';
+//var disqusCode = '<h3>留言</h3><div id="disqus_thread"></div>';
 var menu = new Array();
 
 function initialize() {
@@ -392,7 +392,8 @@ function router() {
 
   $.get(path, function(data) {
     $(ditto.error_id).hide();
-    $(ditto.content_id).html(marked(data) + disqusCode);
+    //$(ditto.content_id).html(marked(data) + disqusCode);
+	$(ditto.content_id).html(marked(data));
     if ($(ditto.content_id + " h1").text() === ditto.document_title) {
       document.title = ditto.document_title;
     } else {
