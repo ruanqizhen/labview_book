@@ -63,4 +63,4 @@ Vista系统下截取。因此，书中不同截图窗口风格可能略有不同
 ### 更正和注解
 
 受本人水平所限，在编写此书的过程中难免会有疏忽和差错。在此，诚挚希望各位读者及时批评指正书中纰漏，也欢迎读者就书中内容进行讨论。
-欢迎读者直接在本书所在的[Github项目](https://github.com/ruanqizhen/labview_book/docs)中进行修改。
+欢迎读者直接在本书所在的[Github项目](https://github.com/ruanqizhen/labview_book/tree/main/docs)中进行修改。
