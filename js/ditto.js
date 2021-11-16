@@ -241,7 +241,6 @@ function li_create_linkage(li_tag, header_level) {
   });
 }
 
-
 function create_page_anchors() {
   // create page anchors by matching li's to headers
   // if there is a match, create click listeners
