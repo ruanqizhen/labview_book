@@ -127,15 +127,6 @@ function searchbar_listener(event) {
       win.focus();
     }
     return false;
-  /*
-  if (event.which === 13) {
-    var q = $('input[name=search]').val();
-    if (q !== '') {
-      var url = 'https://github.com/ruanqizhen/labview_book/search?utf8=✓&q=' + encodeURIComponent(q);
-      location.href = url;
-    }
-  }
-  */
 }
 
 function init_theme_button() {
