@@ -346,26 +346,9 @@ function router() {
 
   $.get(path, function(data) {
     $(ditto.error_id).hide();
-    //$(ditto.content_id).html(marked(data) + disqusCode);
-	$(ditto.content_id).html(marked(data) + utterancCode);
-	/*
-	    // 加载disqus
-	(function() {
-		var dsq = document.createElement('script');
-		dsq.type = 'text/javascript';
-		dsq.async = true;
-		dsq.src = 'https://utteranc.es/client.js';
-		dsq.setAttribute('repo', 'ruanqizhen/labview_book');
-		dsq.setAttribute('issue-term', 'pathname');
-		dsq.setAttribute('label', 'comment');
-		dsq.setAttribute('theme', 'github-light');
-		dsq.setAttribute('crossorigin', 'anonymous');
-		console.log($(ditto.content_id));
-		console.log(document.getElementsByTagName('content'));
-		(document.getElementsByTagName('disqus_thread')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
-    }());
-*/	
-
+    $(ditto.content_id).html(marked(data) + disqusCode);
+	//$(ditto.content_id).html(marked(data) + utterancCode);
+	
     if ($(ditto.content_id + " h1").text() === ditto.document_title) {
       document.title = ditto.document_title;
     } else {
@@ -434,7 +417,19 @@ function router() {
 
     }());
 	
-
+	    // 加载disqus
+	(function() {
+		var dsq = document.createElement('script');
+		dsq.type = 'text/javascript';
+		dsq.async = true;
+		dsq.src = 'https://utteranc.es/client.js';
+		dsq.setAttribute('repo', 'ruanqizhen/labview_book');
+		dsq.setAttribute('issue-term', 'pathname');
+		dsq.setAttribute('label', 'comment');
+		dsq.setAttribute('theme', 'github-light');
+		dsq.setAttribute('crossorigin', 'anonymous');
+		document.getElementById('disqus_thread').appendChild(dsq);
+    }());
 
   }).fail(function() {
     show_error();
