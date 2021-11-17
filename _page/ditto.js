@@ -109,7 +109,7 @@ function init_sidebar_section() {
 function init_searchbar() {
   var search = '<form class="searchBox" onSubmit="return searchbar_listener()">' +
     '<input name="search" type="search">' +
-    '<input type="image" class="searchButton" src="docs/images/magnifier.jpg" alt="Search" />' +
+    '<input type="image" class="searchButton" src="_page/magnifier.jpg" alt="Search" />' +
     '</form>';
   $(ditto.sidebar_id).find('h2').first().before($(search));
 }
