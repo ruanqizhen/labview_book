@@ -348,10 +348,6 @@ function router() {
     $(ditto.error_id).hide();
     $(ditto.content_id).html(marked(data) + disqusCode);
 	//$(ditto.content_id).html(marked(data));
-	
-
-	
-	ditto.appendChild(script);
 
     if ($(ditto.content_id + " h1").text() === ditto.document_title) {
       document.title = ditto.document_title;
