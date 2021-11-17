@@ -12,6 +12,7 @@
    1. ["Hello，World!"程序](#docs/hello_world)
    1. [如何学习LabVIEW](#docs/how_to_learn)
    1. [编写更复杂的程序](#docs/complex_vis)
+   1. [按自己的喜好设置编程环境](#docs/dev_environment)
 
 
 ## 后续
