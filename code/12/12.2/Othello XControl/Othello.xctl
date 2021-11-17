@@ -1,0 +1,68 @@
+﻿<?xml version='1.0' encoding='UTF-8'?>
+<XControl LVVersion="8608001">
+	<Property Name="NI.Lib.Description" Type="Str">查看程序详细说明请访问：http://ruanqizhen.spaces.live.com/blog/cns!5852D4F797C53FB6!3382.entry</Property>
+	<Property Name="NI.Lib.HelpPath" Type="Str"></Property>
+	<Property Name="NI.Lib.Icon" Type="Bin">#'#!!1!!!!)!"1!&amp;!!!-!%!!!@````]!!!!"!!%!!!)@!!!*Q(C=\&gt;;R&lt;2N"%)8B:U/"5H:AM)6JA3WQB7G"K1-,9!M$*9IP6M978ANMA&lt;'T]X_LE5$!"A3"*+R!?RK+@(OX_WFP?:!UWLVUJ`G][?]W0^*?8`\:,VX7`]\Y&amp;`N'VTR@VH]TXV@\;P_Z`:R`MU]`5.&gt;PX]98C4*66&amp;+BZ2MVG^TE*D?ZS5V?Z%6?Z%6?Z%7?Z%G?Z%G?Z%E?Z%%?Z%%?Z%%_$H+2CVTEE-TE:C)TK"H!H!R&amp;ZM6YD-&gt;YD)?0-B\D-2\D-2Z/E@%9D`%9D`&amp;QG9T(?)T(?)S(I9&lt;%YS$(9TQ-L]*4?!J0Y3E]4+H#5Q#+S9K"CU&amp;AK/AMXB3?QF.Y?+P#5XA+4_%J0(3L]"3?QF.Y#A_8D&amp;7JI6E/=DQ-I]34?"*0YEE]$+X%EXA34_**0%SHR*.Y%E1S94)Y"#58*3=E(R*0YO'8%E`C34S**`(1.?Z1DJ6:.-N"DC@Q"*\!%XA#$U-I]!3?Q".Y!A`$+P!%HM!4?!)05SHQ"*\!%U##3:F?Q7$"B=&amp;*12"Y_"G\*=:&gt;KC'*=5C^?&gt;7&lt;5LX:V*N)P4H5.VV^-^5X3&lt;XY[E66,Z:[%&gt;2`H"KNRKAH56_]H+A4LU@K1%X5HNJ27WJ$L;H6=OG64TS&gt;4DI?DTI=$JKG3@P^8LP&gt;4NPN6JP.2OPV7KP6[OUR])0D\9(Q]FT[2@,=N&lt;R`T2[?8OI]OU(\"-^'@&gt;@ZPR;MU2`PURF&gt;!!!!!!</Property>
+	<Property Name="NI.Lib.Version" Type="Str">1.0.0.0</Property>
+	<Property Name="NI.XClass.Flags" Type="Int">0</Property>
+	<Property Name="NI.XItem.DeclaredLeakProof" Type="Bool">false</Property>
+	<Property Name="NI.XItem.Express" Type="Bool">false</Property>
+	<Property Name="NI.XItem.Name" Type="Str">XControl 2</Property>
+	<Property Name="NI.XItem.SupportsFatalErrorOut" Type="Bool">false</Property>
+	<Item Name="Ability" Type="Folder">
+		<Item Name="Data.ctl" Type="Ability VI" URL="../Ability/Data.ctl">
+			<Property Name="NI.XItem.Name" Type="Str">Data</Property>
+		</Item>
+		<Item Name="State.ctl" Type="Ability VI" URL="../Ability/State.ctl">
+			<Property Name="NI.XItem.Name" Type="Str">State</Property>
+		</Item>
+		<Item Name="Facade.vi" Type="Ability VI" URL="../Ability/Facade.vi">
+			<Property Name="NI.XItem.Name" Type="Str">Facade</Property>
+		</Item>
+		<Item Name="Init.vi" Type="Ability VI" URL="../Ability/Init.vi">
+			<Property Name="NI.XItem.Name" Type="Str">Init</Property>
+		</Item>
+		<Item Name="Uninit.vi" Type="Ability VI" URL="../Ability/Uninit.vi">
+			<Property Name="NI.XItem.Name" Type="Str">UnInit</Property>
+		</Item>
+		<Item Name="Convert State for Save.vi" Type="Ability VI" URL="../Ability/Convert State for Save.vi">
+			<Property Name="NI.XItem.Name" Type="Str">ConvertStateForSave</Property>
+		</Item>
+	</Item>
+	<Item Name="Property" Type="Folder">
+		<Item Name="Current Color" Type="Property Folder">
+			<Property Name="NI.LibItem.Prop.Identifier" Type="Str">Current Color</Property>
+			<Property Name="NI.LibItem.Prop.Localized.LongName" Type="Str">Current Color</Property>
+			<Item Name="Current Color Read.vi" Type="Property VI" URL="../Property/Current Color Read.vi"/>
+		</Item>
+		<Item Name="Interactive Action Event" Type="Property Folder">
+			<Property Name="NI.LibItem.Prop.Identifier" Type="Str">Interactive Action Event</Property>
+			<Property Name="NI.LibItem.Prop.Localized.LongName" Type="Str">Interactive Action Event</Property>
+			<Item Name="Interactive Action Event Read.vi" Type="Property VI" URL="../Property/Interactive Action Event Read.vi"/>
+		</Item>
+		<Item Name="Available White Position" Type="Property Folder">
+			<Property Name="NI.LibItem.Prop.Identifier" Type="Str">Available White Position</Property>
+			<Property Name="NI.LibItem.Prop.Localized.LongName" Type="Str">Available White Position</Property>
+			<Item Name="Available White Position Read.vi" Type="Property VI" URL="../Property/Available White Position Read.vi"/>
+		</Item>
+	</Item>
+	<Item Name="Method" Type="Folder">
+		<Item Name="Play One Step.vi" Type="Method VI" URL="../Method/Play One Step.vi"/>
+		<Item Name="New Game.vi" Type="Method VI" URL="../Method/New Game.vi"/>
+	</Item>
+	<Item Name="SubVI" Type="Folder">
+		<Item Name="Check All Position.vi" Type="VI" URL="../SubVI/Check All Position.vi"/>
+		<Item Name="Mouse Coords to Chess Position.vi" Type="VI" URL="../SubVI/Mouse Coords to Chess Position.vi"/>
+		<Item Name="If The Position is in List.vi" Type="VI" URL="../SubVI/If The Position is in List.vi"/>
+		<Item Name="If Position Available.vi" Type="VI" URL="../SubVI/If Position Available.vi"/>
+		<Item Name="Put One Chese.vi" Type="VI" URL="../SubVI/Put One Chese.vi"/>
+		<Item Name="Positions Should Turn.vi" Type="VI" URL="../SubVI/Positions Should Turn.vi"/>
+		<Item Name="Get New Chess Color.vi" Type="VI" URL="../SubVI/Get New Chess Color.vi"/>
+	</Item>
+	<Item Name="Control" Type="Folder">
+		<Item Name="Method Call.ctl" Type="VI" URL="../Control/Method Call.ctl"/>
+		<Item Name="Pict Ring Chess.ctl" Type="VI" URL="../Control/Pict Ring Chess.ctl"/>
+		<Item Name="Chess Position.ctl" Type="VI" URL="../Control/Chess Position.ctl"/>
+		<Item Name="Interactive Action.ctl" Type="VI" URL="../Control/Interactive Action.ctl"/>
+	</Item>
+</XControl>
