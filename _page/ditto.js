@@ -335,7 +335,11 @@ function router() {
   } else {
     path = path + ".md";
   }
-	console.log(location);
+  
+  const path_split = path.split('/');
+  const last_item = path_split[path_split.length - 1];
+  const comment_term = path.split('.')[0];
+  console.log(comment_term);
 	
   // 取消scroll事件的监听函数
   // 防止改变下面的变量perc的值
