@@ -6,4 +6,4 @@
 
 本书的网页制作使用了开源项目[es6tutorial](https://github.com/ruanyf/es6tutorial)作为模板。
 
-![](_page/cover.png)
+![](_page/cover.jpg)
