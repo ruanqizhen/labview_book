@@ -374,7 +374,10 @@ function router() {
 		dsq.setAttribute('label', 'comment');
 		dsq.setAttribute('theme', 'github-light');
 		dsq.setAttribute('crossorigin', 'anonymous');
-        document.getElementsByTagName('disqus_thread')[0].appendChild(dsq);
+		console.log(document.getElementsByTagName('disqus_thread'));
+		console.log(document.getElementsByTagName('body'));
+		console.log(document.getElementsByTagName('disqus_thread'));
+        (document.getElementsByTagName('disqus_thread')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
       })();
     })();
 
