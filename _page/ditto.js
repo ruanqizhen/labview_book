@@ -374,7 +374,7 @@ function router() {
 		dsq.setAttribute('label', 'comment');
 		dsq.setAttribute('theme', 'github-light');
 		dsq.setAttribute('crossorigin', 'anonymous');
-        (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+        (document.getElementsByTagName('body')[0]).appendChild(dsq);
       })();
     })();
 
