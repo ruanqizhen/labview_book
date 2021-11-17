@@ -45,7 +45,7 @@ var getHash = function (hash) {
 };
 
 var disqusCode = '<h3>留言</h3><div id="disqus_thread"></div>';
-var utterancCode = '<h3>留言</h3><div><script src="https://utteranc.es/client.js" repo="ruanqizhen/labview_book" issue-term="pathname" label="comment" theme="github-light" crossorigin="anonymous" async></script></div>';
+var utterancCode = '<h3>留言</h3><script src="https://utteranc.es/client.js" repo="ruanqizhen/labview_book" issue-term="pathname" label="comment" theme="github-light" crossorigin="anonymous" async></script>';
 var menu = new Array();
 
 function initialize() {
