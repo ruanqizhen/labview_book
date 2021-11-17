@@ -21,8 +21,14 @@
   1. [应用实例](#docs/data_use_cases)
 1. [基本程序结构](#docs/structure)
 
+
+
+
+
 更新中……
-## 后续
+## 附录
+
+1. [后记和致谢](#docs/epilogue)
 
 ## 其他
 - [书稿](https://github.com/ruanqizhen/labview_book/tree/main/docs)
