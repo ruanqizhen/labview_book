@@ -80,7 +80,7 @@ function init_sidebar_section() {
 
         // 初始化内容数组
         var menuOL = $(ditto.sidebar_id + ' ol');
-        menuOL.attr('start', 0);
+        menuOL.attr('start', 1);
         menuOL.find('li a').map(function() {
             menu.push(this.href.slice(this.href.indexOf('#')));
         });
