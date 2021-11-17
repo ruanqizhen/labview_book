@@ -10,6 +10,7 @@
 
 1. [LabVIEW入门](#docs/getting_started)
    1. ["Hello，World!"程序](#docs/hello_world)
+   1. [如何学习LabVIEW](#docs/how_to_learn)
 
 
 ## 后续
