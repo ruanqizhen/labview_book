@@ -336,10 +336,6 @@ function router() {
     path = path + ".md";
   }
   
-  const path_split = path.split('/');
-  const last_item = path_split[path_split.length - 1];
-  const comment_term = path.split('.')[0];
-  console.log(comment_term);
 	
   // 取消scroll事件的监听函数
   // 防止改变下面的变量perc的值
@@ -424,16 +420,22 @@ function router() {
 	
 	    // 加载disqus
 	(function() {
-		var dsq = document.createElement('script');
-		dsq.type = 'text/javascript';
-		dsq.async = true;
-		dsq.src = 'https://utteranc.es/client.js';
-		dsq.setAttribute('repo', 'ruanqizhen/labview_book');
-		dsq.setAttribute('issue-term', 'pathname');
-		dsq.setAttribute('label', 'comment');
-		dsq.setAttribute('theme', 'github-light');
-		dsq.setAttribute('crossorigin', 'anonymous');
-		document.getElementById('disqus_thread').appendChild(dsq);
+	  const path_split = path.split('/');
+	  const last_item = path_split[path_split.length - 1];
+	  const comment_term = path.split('.')[0];
+	  console.log(path);
+	  console.log(comment_term);
+
+	  var dsq = document.createElement('script');
+	  dsq.type = 'text/javascript';
+	  dsq.async = true;
+	  dsq.src = 'https://utteranc.es/client.js';
+	  dsq.setAttribute('repo', 'ruanqizhen/labview_book');
+	  dsq.setAttribute('issue-term', comment_term);
+	  dsq.setAttribute('label', 'comment');
+	  dsq.setAttribute('theme', 'github-light');
+	  dsq.setAttribute('crossorigin', 'anonymous');
+	  document.getElementById('disqus_thread').appendChild(dsq);
     }());
 
   }).fail(function() {
