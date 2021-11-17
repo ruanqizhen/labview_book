@@ -23,3 +23,4 @@
 - [书稿](https://github.com/ruanqizhen/labview_book/tree/main/docs)
 - [示例代码](https://github.com/ruanqizhen/labview_book/tree/main/code)
 - [反馈意见](https://github.com/ruanqizhen/labview_book/issues)
+- [作者博客（墙外）](https://ruanqizhen.wordpress.com/)
