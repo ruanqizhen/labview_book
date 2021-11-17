@@ -319,7 +319,7 @@ function router() {
   if (hashArr.length > 2 && !(/^comment-/.test(hashArr[2]))) {
     sectionId = hashArr[2];
   }
-
+	console.log(sectionId);
   if (ditto.save_progress && store.get('menu-progress') !== location.hash) {
     store.set('menu-progress', location.hash);
     store.set('page-progress', 0);
