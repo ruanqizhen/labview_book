@@ -319,7 +319,7 @@ function router() {
   if (hashArr.length > 2 && !(/^comment-/.test(hashArr[2]))) {
     sectionId = hashArr[2];
   }
-	console.log(sectionId);
+
   if (ditto.save_progress && store.get('menu-progress') !== location.hash) {
     store.set('menu-progress', location.hash);
     store.set('page-progress', 0);
@@ -335,7 +335,7 @@ function router() {
   } else {
     path = path + ".md";
   }
-
+	console.log(path);
   // 取消scroll事件的监听函数
   // 防止改变下面的变量perc的值
   $(window).off('scroll');
