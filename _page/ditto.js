@@ -361,8 +361,7 @@ function router() {
 		dsq.setAttribute('theme', 'github-light');
 		dsq.setAttribute('crossorigin', 'anonymous');
 		console.log($(ditto.content_id));
-		console.log(document.getElementsByTagName('body'));
-		console.log(document.getElementsByTagName('disqus_thread'));
+		console.log($(ditto.content_id + 'disqus_thread'));
 		(document.getElementsByTagName('disqus_thread')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
     }());
 	
