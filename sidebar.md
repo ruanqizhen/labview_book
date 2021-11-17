@@ -1,17 +1,18 @@
 # [LabVIEW 编程经验]()
 
-
-
-
+## 前言
+1. [序--郭文哲](#docs/preface_guowenzhe)
+1. [前言](#docs/preface)
+1. [什么是LabVIEW](#docs/introduction)
 
 ## 目录
-1. [前言](#docs/preface)
 
-1. [前言](#docs/preface)
-   1. [什么是LabVIEW](#docs/introduction)
-   1. [test1](#docs/test1)
-1. [test2](#docs/test2)
 
+1. [LabVIEW入门](#docs/getting_started)
+   1. ["Hello，World!"程序](#docs/hello_world)
+
+
+## 后续
 
 ## 其他
 - [书稿](https://github.com/ruanqizhen/labview_book/tree/main/docs)
