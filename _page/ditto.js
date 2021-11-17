@@ -363,23 +363,21 @@ function router() {
     });
 
     // 加载disqus
-    (function() {
-      (function() {
-		var dsq = document.createElement('script');
-        dsq.type = 'text/javascript';
-        dsq.async = true;
-		dsq.src = 'https://utteranc.es/client.js';
-		dsq.setAttribute('repo', 'ruanqizhen/labview_book');
-		dsq.setAttribute('issue-term', 'pathname');
-		dsq.setAttribute('label', 'comment');
-		dsq.setAttribute('theme', 'github-light');
-		dsq.setAttribute('crossorigin', 'anonymous');
-		console.log(document.getElementsByTagName('disqus_thread'));
-		console.log(document.getElementsByTagName('body'));
-		console.log(document.getElementsByTagName('disqus_thread'));
-        (document.getElementsByTagName('disqus_thread')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
-      })();
-    })();
+
+	var dsq = document.createElement('script');
+	dsq.type = 'text/javascript';
+	dsq.async = true;
+	dsq.src = 'https://utteranc.es/client.js';
+	dsq.setAttribute('repo', 'ruanqizhen/labview_book');
+	dsq.setAttribute('issue-term', 'pathname');
+	dsq.setAttribute('label', 'comment');
+	dsq.setAttribute('theme', 'github-light');
+	dsq.setAttribute('crossorigin', 'anonymous');
+	console.log(document.getElementsByTagName('disqus_thread'));
+	console.log(document.getElementsByTagName('body'));
+	console.log(document.getElementsByTagName('disqus_thread'));
+	(document.getElementsByTagName('disqus_thread')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+
 
     var perc = ditto.save_progress ? store.get('page-progress') || 0 : 0;
 
