@@ -44,7 +44,7 @@ var getHash = function (hash) {
   }
 };
 
-//var disqusCode = '<h3>留言</h3><div id="disqus_thread"></div>';
+var disqusCode = '<h3>留言</h3><div id="disqus_thread"></div>';
 var utterancCode = '<h3>留言</h3><div><script src="https://utteranc.es/client.js" repo="ruanqizhen/labview_book" issue-number="1" label="comment" theme="github-light" crossorigin="anonymous" async></script></div>';
 var menu = new Array();
 
@@ -346,8 +346,13 @@ function router() {
 
   $.get(path, function(data) {
     $(ditto.error_id).hide();
-    $(ditto.content_id).html(marked(data) + utterancCode);
+    $(ditto.content_id).html(marked(data) + disqusCode);
 	//$(ditto.content_id).html(marked(data));
+	
+
+	
+	ditto.appendChild(script);
+
     if ($(ditto.content_id + " h1").text() === ditto.document_title) {
       document.title = ditto.document_title;
     } else {
@@ -360,25 +365,24 @@ function router() {
     $('#content code').map(function() {
       Prism.highlightElement(this);
     });
-/*
+
     // 加载disqus
     (function() {
-      // http://docs.disqus.com/help/2/
-      window.disqus_shortname = 'es6';
-      window.disqus_identifier = (location.hash ? location.hash.replace("#", "") : 'READEME');
-      window.disqus_title = $(ditto.content_id + " h1").text();
-      window.disqus_url = 'https://es6.ruanyifeng.com/' + (location.hash ? location.hash.replace("#", "") : 'README');
-
-      // http://docs.disqus.com/developers/universal/
       (function() {
-        var dsq = document.createElement('script');
+		var dsq = document.createElement('script');
         dsq.type = 'text/javascript';
         dsq.async = true;
-        dsq.src = 'https://' + window.disqus_shortname + '.disqus.com/embed.js';
+		dsq.setAttribute('src', 'https://utteranc.es/client.js');
+		dsq.setAttribute('repo', 'ruanqizhen/labview_book');
+		dsq.setAttribute('issue-term', 'title');
+		dsq.setAttribute('label', 'comment');
+		dsq.setAttribute('theme', 'github-light');
+		dsq.setAttribute('crossorigin', 'anonymous');
+
         (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
       })();
     })();
-*/
+
     var perc = ditto.save_progress ? store.get('page-progress') || 0 : 0;
 
     if (sectionId) {
