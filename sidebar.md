@@ -15,6 +15,7 @@
   1. [按自己的喜好设置编程环境](#docs/dev_environment)
 1. [数据](#docs/data)
   1. [数值](#docs/number)
+  1. [其它数据类型](#docs/other_datatypes)
 
 
 ## 后续
