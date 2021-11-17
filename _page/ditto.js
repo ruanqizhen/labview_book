@@ -346,10 +346,10 @@ function router() {
 
   $.get(path, function(data) {
     $(ditto.error_id).hide();
-    //$(ditto.content_id).html(marked(data) + disqusCode);
-	$(ditto.content_id).html(marked(data) + utterancCode);
+    $(ditto.content_id).html(marked(data) + disqusCode);
+	//$(ditto.content_id).html(marked(data) + utterancCode);
 	
-	/*    // 加载disqus
+	    // 加载disqus
 	(function() {
 		var dsq = document.createElement('script');
 		dsq.type = 'text/javascript';
@@ -361,10 +361,10 @@ function router() {
 		dsq.setAttribute('theme', 'github-light');
 		dsq.setAttribute('crossorigin', 'anonymous');
 		console.log($(ditto.content_id));
-		console.log($(ditto.content_id + 'disqus_thread'));
+		console.log(document.getElementsByTagName('content');
 		(document.getElementsByTagName('disqus_thread')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
     }());
-	*/
+	
 
     if ($(ditto.content_id + " h1").text() === ditto.document_title) {
       document.title = ditto.document_title;
