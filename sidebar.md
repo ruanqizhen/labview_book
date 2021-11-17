@@ -7,8 +7,8 @@
 ## 目录
 
 1. [前言](#docs/preface)
-1.1. [什么是LabVIEW](#docs/introduction)
-1.1. [test1](#docs/test1)
+   1. [什么是LabVIEW](#docs/introduction)
+   1. [test1](#docs/test1)
 1. [test2](#docs/test2)
 
 
