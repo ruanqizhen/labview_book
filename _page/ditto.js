@@ -45,6 +45,7 @@ var getHash = function (hash) {
 };
 
 //var disqusCode = '<h3>留言</h3><div id="disqus_thread"></div>';
+var utterancCode = '<h3>留言</h3><script src="https://utteranc.es/client.js" repo="ruanqizhen/labview_book" issue-term="pathname" label="comment" theme="github-light" crossorigin="anonymous" async></script></div>';
 var menu = new Array();
 
 function initialize() {
@@ -345,7 +346,7 @@ function router() {
 
   $.get(path, function(data) {
     $(ditto.error_id).hide();
-    //$(ditto.content_id).html(marked(data) + disqusCode);
+    $(ditto.content_id).html(marked(data) + utterancCode);
 	$(ditto.content_id).html(marked(data));
     if ($(ditto.content_id + " h1").text() === ditto.document_title) {
       document.title = ditto.document_title;
