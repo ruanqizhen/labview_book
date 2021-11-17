@@ -45,7 +45,7 @@ var getHash = function (hash) {
 };
 
 var disqusCode = '<h3>留言</h3><div id="disqus_thread"></div>';
-var utterancCode = '<h3>留言</h3><div><script src="https://utteranc.es/client.js" repo="ruanqizhen/labview_book" issue-number="1" label="comment" theme="github-light" crossorigin="anonymous" async></script></div>';
+var utterancCode = '<h3>留言</h3><div><script src="https://utteranc.es/client.js" repo="ruanqizhen/labview_book" issue-term="pathname" label="comment" theme="github-light" crossorigin="anonymous" async></script></div>';
 var menu = new Array();
 
 function initialize() {
@@ -348,6 +348,24 @@ function router() {
     $(ditto.error_id).hide();
     $(ditto.content_id).html(marked(data) + disqusCode);
 	//$(ditto.content_id).html(marked(data));
+	
+	    // 加载disqus
+	(function() {
+		var dsq = document.createElement('script');
+		dsq.type = 'text/javascript';
+		dsq.async = true;
+		dsq.src = 'https://utteranc.es/client.js';
+		dsq.setAttribute('repo', 'ruanqizhen/labview_book');
+		dsq.setAttribute('issue-term', 'pathname');
+		dsq.setAttribute('label', 'comment');
+		dsq.setAttribute('theme', 'github-light');
+		dsq.setAttribute('crossorigin', 'anonymous');
+		console.log(ditto.content_id);
+		console.log(document.getElementsByTagName('body'));
+		console.log(document.getElementsByTagName('disqus_thread'));
+		(document.getElementsByTagName('disqus_thread')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    }());
+	
 
     if ($(ditto.content_id + " h1").text() === ditto.document_title) {
       document.title = ditto.document_title;
@@ -417,21 +435,7 @@ function router() {
 
     }());
 	
-	    // 加载disqus
 
-	var dsq = document.createElement('script');
-	dsq.type = 'text/javascript';
-	dsq.async = true;
-	dsq.src = 'https://utteranc.es/client.js';
-	dsq.setAttribute('repo', 'ruanqizhen/labview_book');
-	dsq.setAttribute('issue-term', 'pathname');
-	dsq.setAttribute('label', 'comment');
-	dsq.setAttribute('theme', 'github-light');
-	dsq.setAttribute('crossorigin', 'anonymous');
-	console.log(document.getElementsByTagName('disqus_thread'));
-	console.log(document.getElementsByTagName('body'));
-	console.log(document.getElementsByTagName('disqus_thread'));
-	(document.getElementsByTagName('disqus_thread')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
 
   }).fail(function() {
     show_error();
