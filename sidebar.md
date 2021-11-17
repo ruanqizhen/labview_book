@@ -16,6 +16,7 @@
 1. [数据](#docs/data)
   1. [数值](#docs/number)
   1. [其它数据类型](#docs/other_datatypes)
+  1. [数据类型间的转换](#docs/datatype_cast)
 
 
 ## 后续
