@@ -81,10 +81,11 @@ function init_sidebar_section() {
         // 初始化内容数组
         var menuOL = $(ditto.sidebar_id + ' ol');
         menuOL.attr('start', 0);
-
+		console.log(menuOL);
         menuOL.find('li a').map(function() {
             menu.push(this.href.slice(this.href.indexOf('#')));
         });
+		console.log(menuOL);
         $('#pageup').on('click', function() {
             var hash = getHash().nav;
             for (var i = 0; i < menu.length; i++) {
