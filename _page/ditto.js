@@ -335,7 +335,8 @@ function router() {
   } else {
     path = path + ".md";
   }
-	console.log(path);
+	console.log(location);
+	
   // 取消scroll事件的监听函数
   // 防止改变下面的变量perc的值
   $(window).off('scroll');
