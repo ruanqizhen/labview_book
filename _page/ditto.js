@@ -346,10 +346,10 @@ function router() {
 
   $.get(path, function(data) {
     $(ditto.error_id).hide();
-    $(ditto.content_id).html(marked(data) + disqusCode);
-	//$(ditto.content_id).html(marked(data));
+    //$(ditto.content_id).html(marked(data) + disqusCode);
+	$(ditto.content_id).html(marked(data));
 	
-	    // 加载disqus
+	/*    // 加载disqus
 	(function() {
 		var dsq = document.createElement('script');
 		dsq.type = 'text/javascript';
@@ -364,7 +364,7 @@ function router() {
 		console.log($(ditto.content_id + 'disqus_thread'));
 		(document.getElementsByTagName('disqus_thread')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
     }());
-	
+	*/
 
     if ($(ditto.content_id + " h1").text() === ditto.document_title) {
       document.title = ditto.document_title;
