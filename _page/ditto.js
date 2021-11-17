@@ -370,7 +370,7 @@ function router() {
         dsq.async = true;
 		dsq.src = 'https://utteranc.es/client.js';
 		dsq.setAttribute('repo', 'ruanqizhen/labview_book');
-		dsq.setAttribute('issue-term', 'title');
+		dsq.setAttribute('issue-term', 'pathname');
 		dsq.setAttribute('label', 'comment');
 		dsq.setAttribute('theme', 'github-light');
 		dsq.setAttribute('crossorigin', 'anonymous');
