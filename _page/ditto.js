@@ -368,14 +368,14 @@ function router() {
 		var dsq = document.createElement('script');
         dsq.type = 'text/javascript';
         dsq.async = true;
-		dsq.setAttribute('src', 'https://utteranc.es/client.js');
+		dsq.src = 'https://utteranc.es/client.js';
 		dsq.setAttribute('repo', 'ruanqizhen/labview_book');
 		dsq.setAttribute('issue-term', 'title');
 		dsq.setAttribute('label', 'comment');
 		dsq.setAttribute('theme', 'github-light');
 		dsq.setAttribute('crossorigin', 'anonymous');
-
-        (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+        //(document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+		document.getElementsByTagName('disqus_thread').appendChild(dsq);
       })();
     })();
 
