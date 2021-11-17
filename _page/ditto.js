@@ -422,7 +422,7 @@ function router() {
 	(function() {
 	  const path_split = path.split('/');
 	  const last_item = path_split[path_split.length - 1];
-	  const comment_term = comment_term.split('.')[0];
+	  const comment_term = last_item.split('.')[0];
 	  console.log(path);
 	  console.log(comment_term);
 
