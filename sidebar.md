@@ -5,6 +5,7 @@
 
 
 ## 目录
+1. [前言](#docs/preface)
 
 1. [前言](#docs/preface)
    1. [什么是LabVIEW](#docs/introduction)
