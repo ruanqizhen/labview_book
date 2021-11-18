@@ -32,6 +32,7 @@
   1. [状态机](#docs/pattern_state_machine)
   1. [全局变量](#docs/pattern_global_data)
   1. [界面程序](#docs/pattern_ui)
+  1. [多态VI](#docs/pattern_polymorphic_vi)
   
   
   
