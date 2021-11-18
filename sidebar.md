@@ -36,7 +36,8 @@
    1. [Express VI](#docs/pattern_express_vi) 
    1. [传引用](#docs/pattern_pass_by_ref) 
 1. [调用外部程序](#docs/external_call) 
-   1. [动态链接库](#docs/external_call_dll) 
+   1. [动态链接库](#docs/external_call_dll)
+   1. [ActiveX](#docs/external_call_activex)
   
 1. 正在添加中……
 
