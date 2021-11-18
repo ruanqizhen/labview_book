@@ -27,7 +27,7 @@
   1. [while循环结构](#docs/structure_while_loop)
   1. [事件结构](#docs/structure_event)
   1. [定时结构](#docs/structure_timing)
-
+1. [常用程序结构模式](#docs/pattern)
 
 
 
