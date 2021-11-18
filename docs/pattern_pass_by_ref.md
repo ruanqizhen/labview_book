@@ -127,36 +127,28 @@ Number.vi"使用的都是图
 
 下列代码是一个在C++语言中开辟内存空间，保存LabVIEW中数据的一个范例函数：
 
-<table>
-<colgroup>
-<col style="width: 100%" />
-</colgroup>
-<thead>
-<tr class="header">
-<th><p>int __stdcall CreateBuffer // 为数据开辟空间并传出指针</p>
-<p>(const char data[], // 数据内容</p>
-<p>int size, // 数据大小</p>
-<p>char** bufPointer) // 用于返回新开辟空间的指针</p>
-<p>{</p>
-<p>char* buffer = new char[size+4]; // 开辟一块内存空间保存数据和数据的大小信息</p>
-<p>*((int*)buffer) = size; // 新开辟空间的头4字节，保存数据的大小信息</p>
-<p>memcpy (buffer+4, data, size); // 其余部分用于保存数据</p>
-<p>*bufPointer = buffer; // 把新开辟内存空间传给bufPointer参数</p>
-<p>return 0; // 函数返回</p>
-<p>}</p>
-<p>int __stdcall GetBufferData // 从数据的地址得到数据内容</p>
-<p>(char* bufPointer, // 数据地址</p>
-<p>char* data) // 用于返回数据内容</p>
-<p>{</p>
-<p>int size = * ((int*)bufPointer); // 得到数据的大小</p>
-<p>memcpy (data, bufPointer+4, size); // 把数据内容拷贝给调用函数提供的地址</p>
-<p>return 0; // 函数返回</p>
-<p>}</p></th>
-</tr>
-</thead>
-<tbody>
-</tbody>
-</table>
+```cpp
+int stdcall CreateBuffer ( // 为数据开辟空间并传出指针
+  const char data[],       // 数据内容
+  int size,                // 数据大小
+  char* bufPointer         // 用于返回新开辟空间的指针
+) {
+  char buffer = new char[size+4];  // 开辟一块内存空间保存数据和数据的大小信息
+  ((int)buffer) = size;            // 新开辟空间的头4字节，保存数据的大小信息
+  memcpy (buffer+4, data, size);   // 其余部分用于保存数据
+  *bufPointer = buffer;            // 把新开辟内存空间传给bufPointer参数
+  return 0;                        // 函数返回
+}
+
+int stdcall GetBufferData (   // 从数据的地址得到数据内容
+  char bufPointer,            // 数据地址
+  char data                   // 用于返回数据内容
+) {
+  int size = ((int)bufPointer);        // 得到数据的大小
+  memcpy (data, bufPointer+4, size);   // 把数据内容拷贝给调用函数提供的地址
+  return 0;                            // 函数返回
+}
+```
 
 在LabVIEW语言中，需要为某段被引用数据创建一个引用时，就利用上述函数，把这段数据保存到C语言中开辟的内存空间里。LabVIEW代码中传递的只是这个数据空间的地址值。后续程序若需要用到被引用数据，可以通过地址值得到数据的内容。
 
