@@ -26,12 +26,13 @@
   1. [for循环结构](#docs/structure_for_loop)
   1. [while循环结构](#docs/structure_while_loop)
   1. [事件结构](#docs/structure_event)
+  1. [定时结构](#docs/structure_timing)
 
 
 
 
 
-正在添加中……
+1. 正在添加中……
 
 ## 附录
 1. [参考书目](#docs/reference)
