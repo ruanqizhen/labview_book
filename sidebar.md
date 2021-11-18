@@ -25,6 +25,7 @@
   1. [禁用结构](#docs/structure_disable)
   1. [for循环结构](#docs/structure_for_loop)
   1. [while循环结构](#docs/structure_while_loop)
+  1. [事件结构](#docs/structure_event)
 
 
 
