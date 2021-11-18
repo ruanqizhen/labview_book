@@ -5,8 +5,7 @@
 1. [前言](#docs/preface)
 1. [什么是LabVIEW](#docs/preface_labview)
 
-## 目录
-
+## 正文目录
 
 1. [LabVIEW入门](#docs/ramp_up)
   1. ["Hello，World!"程序](#docs/ramp_up_hello_world)
@@ -28,9 +27,7 @@
   1. [事件结构](#docs/structure_event)
   1. [定时结构](#docs/structure_timing)
 1. [常用程序结构模式](#docs/pattern)
-
-
-
+  1. [错误处理机制](#docs/pattern_error_handling)
 
 1. 正在添加中……
 
