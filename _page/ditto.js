@@ -428,7 +428,8 @@ function router() {
 	  dsq.setAttribute('src', 'https://giscus.app/client.js');
 	  dsq.setAttribute('data-repo', 'ruanqizhen/labview_book');
 	  dsq.setAttribute('data-category', 'Announcements');
-	  dsq.setAttribute('data-mapping', comment_term);
+	  dsq.setAttribute('data-mapping', 'specific');
+	  dsq.setAttribute('data-term', comment_term);
 	  dsq.setAttribute('data-reactions-enabled', '1');
 	  dsq.setAttribute('data-emit-metadata', '0');
 	  dsq.setAttribute('data-theme', 'light');
