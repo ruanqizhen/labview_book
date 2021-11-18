@@ -42,6 +42,7 @@
 1. [VI 服务器](#docs/vi_server)
    1. [运行中改变界面](#docs/vi_server_for_ui)
    1. [装载和运行子VI](#docs/vi_server_for_subvi)
+   1. [动态创建和修改VI](#docs/vi_server_for_vi)
   
 1. 正在添加中……
 
