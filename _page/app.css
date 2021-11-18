@@ -84,7 +84,8 @@ body {
 
 #sidebar ol {
     margin: 0;
-    padding: 0px 20px;
+    padding-left: 20px;
+    padding-top: 0;
 }
 
 #sidebar ul li:before {  /* a hack to have dashes as a list style */
@@ -97,10 +98,10 @@ body {
 #sidebar ol li {
     margin-top: 0;
     margin-bottom: 0.2rem;
-    margin-left: 10px;
+    margin-left: 0px;
     padding: 0;
 
-    text-indent: -5px;  /* to compensate for the padding for the dash */
+    text-indent: 5px;  /* to compensate for the padding for the dash */
     font-size: 0.7rem;
 }
 
