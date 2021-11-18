@@ -28,8 +28,14 @@
   1. [定时结构](#docs/structure_timing)
 1. [常用程序结构模式](#docs/pattern)
   1. [错误处理机制](#docs/pattern_error_handling)
-
-1. 正在添加中……
+  1. [可重入VI](#docs/pattern_reentrant_vi)
+  1. [状态机](#docs/pattern_state_machine)
+  
+  
+  
+  
+  
+1. [正在添加中……]
 
 ## 附录
 1. [参考书目](#docs/reference)
