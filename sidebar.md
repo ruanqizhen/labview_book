@@ -34,6 +34,7 @@
   1. [界面程序](#docs/pattern_ui)
   1. [多态VI](#docs/pattern_polymorphic_vi)
   1. [Express VI](#docs/pattern_express_vi) 
+  1. [传引用](#docs/pattern_pass_by_ref) 
   
   
 1. 正在添加中……
