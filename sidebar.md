@@ -30,12 +30,12 @@
   1. [错误处理机制](#docs/pattern_error_handling)
   1. [可重入VI](#docs/pattern_reentrant_vi)
   1. [状态机](#docs/pattern_state_machine)
+  1. [全局变量](#docs/pattern_global_data)
   
   
   
   
-  
-1. [正在添加中……]
+1. 正在添加中……
 
 ## 附录
 1. [参考书目](#docs/reference)
