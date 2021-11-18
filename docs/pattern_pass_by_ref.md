@@ -139,6 +139,7 @@ int stdcall CreateBuffer ( // 为数据开辟空间并传出指针
   *bufPointer = buffer;            // 把新开辟内存空间传给bufPointer参数
   return 0;                        // 函数返回
 }
+
 int stdcall GetBufferData (   // 从数据的地址得到数据内容
   char bufPointer,            // 数据地址
   char data                   // 用于返回数据内容
