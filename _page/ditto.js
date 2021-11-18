@@ -357,10 +357,11 @@ function router() {
     create_page_anchors();
 
     // 完成代码高亮
+	/*
     $('#content code').map(function() {
       Prism.highlightElement(this);
     });
-
+	*/
 
     var perc = ditto.save_progress ? store.get('page-progress') || 0 : 0;
 
@@ -416,7 +417,7 @@ function router() {
 
     }());
 	
-	    // 加载disqus
+	// 加载注释模块
 	(function() {
 	  const path_split = path.split('/');
 	  const last_item = path_split[path_split.length - 1];
