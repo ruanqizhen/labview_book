@@ -72,7 +72,7 @@ function initialize() {
 
 function init_sidebar_section() {
     $.get(ditto.sidebar_file, function (data) {
-        $(ditto.sidebar_id).html(marked(data));
+        $(ditto.sidebar_id).html(marked.parse(data));
 
         if (ditto.search_bar) {
            init_searchbar();
@@ -346,7 +346,7 @@ function router() {
 
   $.get(path, function(data) {
     $(ditto.error_id).hide();
-    $(ditto.content_id).html(marked(data) + utterancCode);
+    $(ditto.content_id).html(marked.parse(data) + utterancCode);
 	
     if ($(ditto.content_id + " h1").text() === ditto.document_title) {
       document.title = ditto.document_title;
