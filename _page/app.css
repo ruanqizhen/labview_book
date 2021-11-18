@@ -100,8 +100,6 @@ body {
     margin-bottom: 0.2rem;
     margin-left: 0px;
     padding: 0;
-
-    text-indent: 5px;  /* to compensate for the padding for the dash */
     font-size: 0.7rem;
 }
 
