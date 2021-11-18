@@ -127,7 +127,7 @@ Number.vi"使用的都是图
 
 下列代码是一个在C++语言中开辟内存空间，保存LabVIEW中数据的一个范例函数：
 
-```c++
+```cpp
 int stdcall CreateBuffer ( // 为数据开辟空间并传出指针
   const char data[],       // 数据内容
   int size,                // 数据大小
