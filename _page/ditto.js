@@ -441,6 +441,7 @@ function router() {
 	  dsq.setAttribute('data-mapping', comment_term);
 	  //dsq.setAttribute('data-reactions-enabled', '{{ site.comments.giscus.reactions_enabled | default: 1 }}');
 	  //dsq.setAttribute('data-theme', '{{ site.comments.giscus.theme | default: "light" }}');
+	  dsq.setAttribute('lang', 'zh-CN');
 	  dsq.setAttribute('crossorigin', 'anonymous');
 	  document.getElementById('utteranc_thread').appendChild(dsq);
     }());
