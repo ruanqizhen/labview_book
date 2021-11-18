@@ -425,11 +425,22 @@ function router() {
 	  var dsq = document.createElement('script');
 	  dsq.type = 'text/javascript';
 	  dsq.async = true;
+	  /*
 	  dsq.src = 'https://utteranc.es/client.js';
 	  dsq.setAttribute('repo', 'ruanqizhen/labview_book');
 	  dsq.setAttribute('issue-term', comment_term);
 	  dsq.setAttribute('label', 'comment');
 	  dsq.setAttribute('theme', 'github-light');
+	  dsq.setAttribute('crossorigin', 'anonymous');
+	  */
+	  dsq.setAttribute('src', 'https://giscus.app/client.js');
+	  dsq.setAttribute('data-repo', 'ruanqizhen/labview_book');
+	  //dsq.setAttribute('data-repo-id', '{{ site.comments.giscus.repo_id }}');
+	  //dsq.setAttribute('data-category', '{{ site.comments.giscus.category_name }}');
+	  //dsq.setAttribute('data-category-id', '{{ site.comments.giscus.category_id }}');
+	  dsq.setAttribute('data-mapping', comment_term);
+	  //dsq.setAttribute('data-reactions-enabled', '{{ site.comments.giscus.reactions_enabled | default: 1 }}');
+	  //dsq.setAttribute('data-theme', '{{ site.comments.giscus.theme | default: "light" }}');
 	  dsq.setAttribute('crossorigin', 'anonymous');
 	  document.getElementById('utteranc_thread').appendChild(dsq);
     }());
