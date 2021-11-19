@@ -314,7 +314,6 @@ function statistics() {
   var hm = document.createElement("script");
   hm.src = "https://hm.baidu.com/hm.js?b3f6e7ec9302021671173e3fad14f4cd";
   var s = document.getElementsByTagName("script")[0];
-  s.parentNode.insertBefore(hm, s);
 }
 
 
