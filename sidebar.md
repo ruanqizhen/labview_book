@@ -49,6 +49,7 @@
    1. [Express VI](#docs/measurement_express_vi)
    1. [数据采集](#docs/measurement_daq)
    1. [显示](#docs/measurement_display)
+   1. [存储](#docs/measurement_storage)
   
 1. 正在添加中……
 
