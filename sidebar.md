@@ -67,6 +67,7 @@
 1. [代码风格与优化](#docs/optimization)
    1. [LabVIEW的运行机制](#docs/optimization_mechanism)
    1. [内存优化](#docs/optimization_memory)
+   1. [多线程编程](#docs/optimization_multi_thread)
   
 1. 正在添加中……
 
