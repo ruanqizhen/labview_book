@@ -56,6 +56,7 @@
    1. [其它查找程序错误的工具和方法](#docs/debug_more_tools)
    1. [LabVIEW代码中常见的错误](#docs/debug_errors)
    1. [提高程序运行效率](#docs/debug_performance)
+   1. [DLL调试](#docs/debug_dll)
   
 1. 正在添加中……
 
