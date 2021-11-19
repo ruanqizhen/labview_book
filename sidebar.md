@@ -51,6 +51,7 @@
    1. [显示](#docs/measurement_display)
    1. [存储](#docs/measurement_storage)
 1. [调试](#docs/debug)
+   1. [集成调试环境](#docs/debug_ide)
   
 1. 正在添加中……
 
