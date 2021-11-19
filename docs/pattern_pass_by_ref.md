@@ -159,7 +159,6 @@ int stdcall GetBufferData (   // 从数据的地址得到数据内容
 
 图 .65使用借助C语言创建的数据引用
 
-[]{#_Toc228873498 .anchor}
 
 ## 数据引用节点
 
@@ -169,8 +168,7 @@ int stdcall GetBufferData (   // 从数据的地址得到数据内容
 "编程-\>应用程序控制-\>内存控制"中，分别是
 "新数据值引用"和"删除数据值引用"。"新数据值引用"用于创建一个数据的引用，"删除数据值引用"可以从引用中取回原来的数据。
 
-![Qr code Description automatically
-generated](images/image327.png)\
+![](images/image327.png)\
 图4.66"内存控制"函数选板
 
 在4.8.3
@@ -178,22 +176,20 @@ generated](images/image327.png)\
 
 比如图4.67所示程序，程序输入了一个数组，然后需要在两个并行的子VI中同时对这个数组中的数据进行修改。每个子VI可能修改了数组不同的元素，程序运行结束后输出的数组应当把这两个子VI中的修改都包含进来。因此，程序一开始需要为数组数据生成一个引用，然后把引用分别传递到两个子VI中去。两个子VI都运行结束后，再从引用中取回数据。
 
-![Diagram Description automatically
-generated](images/image328.png)\
+![](images/image328.png)\
 图4.67 "新数据值引用"与"删除数据值引用"节点
 
 LabVIEW中绝大多数的函数和子VI都是值传递的。当它们需要使用到被引用的数据时，必须把引用转为数据，处理过的数据可能还需要再转为引用（如图4.68所示的程序）。在此过程中，往往又会产生数据拷贝，如果数据量很大，则程序运行效率就会比较差。为此，LabVIEW
 新添了一个"元素同址操作结构"（在函数选板"编程-\>结构"上），用来处理从引用中取出、放回数据的过程。配合使用"元素同址操作结构"后，LabVIEW会尽量使用数组原地址，而不再复制从引用中取出的数据，这样就充分利用了传引用的效率。比如图4.69所示的程序，与图4.68所示的程序功能是完全相同的，但LabVIEW会对后面一幅图中的程序进行优化，继而提高了效率。（本书会在第11章更详细得介绍程序效率）
 
-![Diagram Description automatically
-generated](images/image329.png)\
+![](images/image329.png)\
 图4.68 数据与引用相互转换
 
- ![https://upslla.blu.livefilestore.com/y1mEULQ4GNnZakWu2aKiOaXl0SwhIeQHqYiXwUIDVwXNTwII-EKc38cZ11ti_MHROtDzr7fQ8Qwt13iB_rnyIAcr_7FiBpiVUjzocXOpH44lqWUdEGBBOxOLVaEfeLuJk5r9qtsACwuhxYocozKLUbgxQ/image_thumb%5b19%5d.png](images/image330.png)
+ ![](images/image330.png)
 
 图4.69 使用"元素同址操作结构"的程序框图
 
-## [传引用引起的死锁](http://ruanqizhen.wordpress.com/2011/05/08/reference-%e6%ad%bb%e9%94%81%e9%97%ae%e9%a2%98/)
+## 传引用引起的死锁
 
 上一节提到，LabVIEW中的引用常常和"元素同址操作结构"配合使用。为了保证多线程安全，"元素同址操作结构"对一个引用的数据进行处理时，会锁住引用指向的数据。若其它线程需对同一数据进行操作，必须等到"元素同址操作结构"中所有代码执行完毕方可。这样就避免了多线程读写同一内存数据所产生的竞争问题。
 
