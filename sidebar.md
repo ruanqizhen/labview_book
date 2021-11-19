@@ -57,6 +57,8 @@
    1. [LabVIEW代码中常见的错误](#docs/debug_errors)
    1. [提高程序运行效率](#docs/debug_performance)
    1. [DLL调试](#docs/debug_dll)
+1. [管理LabVIEW项目](#docs/manage)
+   1. [项目浏览器](#docs/manage_project)
   
 1. 正在添加中……
 
