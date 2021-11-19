@@ -309,10 +309,6 @@ function show_loading() {
   return loading;
 }
 
-function statistics() {
-
-}
-
 
 function router() { 
   var path = location.hash.replace(/#([^#]*)(#.*)?/, './$1');
@@ -346,8 +342,6 @@ function router() {
 
   // otherwise get the markdown and render it
   var loading = show_loading();
-
-  statistics();
 
   $.get(path, function(data) {
     $(ditto.error_id).hide();
@@ -444,6 +438,14 @@ function router() {
 	  dsq.setAttribute('crossorigin', 'anonymous');
 	  document.getElementById('utteranc_thread').appendChild(dsq);
     }());
+	
+	// 访问流量统计
+	(function () {
+	  var dsq = document.createElement('script');
+	  dsq.type = 'text/javascript';
+	  dsq.setAttribute('src', 'https://s4.cnzz.com/z_stat.php?id=1280609189&web_id=1280609189');
+	  document.getElementById('utteranc_thread').appendChild(dsq);
+	}());
 
   }).fail(function() {
     show_error();
