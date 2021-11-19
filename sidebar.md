@@ -74,6 +74,7 @@
 1. [面向对象编程](#docs/oop)
    1. [基础知识](#docs/oop_basic)
    1. [LabVIEW的类](#docs/oop_lv_class)
+   1. [应用实例](#docs/oop_use_cases)
 
 ## 附录
 1. [参考书目](#docs/reference)
