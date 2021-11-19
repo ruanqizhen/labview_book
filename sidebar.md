@@ -45,6 +45,7 @@
    1. [动态创建和修改VI](#docs/vi_server_for_vi)
    1. [网络服务和ActiveX接口](#docs/vi_server_for_net)
 1. [测试测量应用程序设计](#docs/measurement)
+   1. ["采集、处理、显示"型程序的结构模型](#docs/measurement_r_p_d)
   
 1. 正在添加中……
 
