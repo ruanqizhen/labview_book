@@ -47,6 +47,7 @@
 1. [测试测量应用程序设计](#docs/measurement)
    1. ["采集、处理、显示"型程序](#docs/measurement_r_p_d)
    1. [Express VI](#docs/measurement_express_vi)
+   1. [数据采集](#docs/measurement_daq)
   
 1. 正在添加中……
 
