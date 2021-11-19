@@ -168,15 +168,6 @@ input.searchButton {
     border-radius: 5px;
 }
 
-#content code {
-    color: #a6e22e;
-    font-size: 0.7rem;
-    font-weight: normal;
-    font-family: Consolas,"Courier New",Courier,FreeMono,monospace;
-
-    background: #111;
-    border-radius: 2px;
-}
 
 #content p code,
 #content li>code,
