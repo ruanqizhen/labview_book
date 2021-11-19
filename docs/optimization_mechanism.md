@@ -51,67 +51,38 @@ else条件语句是C语言中最常用的语句之一，在LabVIEW中，可以�
 
 例如，用C语言编写的语句如下：
 
-<table>
-<colgroup>
-<col style="width: 100%" />
-</colgroup>
-<thead>
-<tr class="header">
-<th><p>if (conditionA)</p>
-<p>{</p>
-<p>if (conditionB)</p>
-<p>{</p>
-<p>if (conditionC)</p>
-<p>{</p>
-<p>……</p>
-<p>}</p>
-<p>else</p>
-<p>{</p>
-<p>……</p>
-<p>}</p>
-<p>}</p>
-<p>else</p>
-<p>{</p>
-<p>if (conditionD)</p>
-<p>{</p>
-<p>……</p>
-<p>}</p>
-<p>else</p>
-<p>{</p>
-<p>……</p>
-<p>}</p>
-<p>}</p>
-<p>}</p>
-<p>else</p>
-<p>{</p>
-<p>if (conditionE)</p>
-<p>{</p>
-<p>if (conditionF)</p>
-<p>{</p>
-<p>……</p>
-<p>}</p>
-<p>else</p>
-<p>{</p>
-<p>……</p>
-<p>}</p>
-<p>}</p>
-<p>else</p>
-<p>{</p>
-<p>if (conditionG)</p>
-<p>{</p>
-<p>……</p>
-<p>}</p>
-<p>else</p>
-<p>{</p>
-<p>……</p>
-<p>}</p>
-<p>}</p>
-<p>}</p></th>
-</tr>
-</thead>
-<tbody>
-</tbody>
-</table>
+```cpp
+if (conditionA) {
+    if (conditionB) {
+        if (conditionC) {
+            ……
+        } else {
+            ……
+        }
+    } else {
+        if (conditionD) {
+            ……
+        } else {
+            …… 
+        }
+    }
+} else {
+    if (conditionE) {
+        if (conditionF) {
+            ……
+        } else {
+            ……
+        }
+    } else {
+        if (conditionG) {
+            ……
+        } else {
+            ……
+        }
+    }
+}
+```
+
 
 如果在LabVIEW中按照与C语言完全一模一样的逻辑来实现此功能，LabVIEW的程序框图将出现多层嵌套（图
 11.3）。在文本语言中，即便有多层条件嵌套，但所有代码都是平铺开的。程序员只需拖动鼠标，就可以查看全部程序代码。而在LabVIEW中，每次只能显示条件结构一个条件分支的代码。如果程序员，想要查看条件"condition
@@ -242,7 +213,7 @@ LabVIEW的这种做法，其最大的好处是节约了大量开辟、回收内�
 11.5所示的两个Delay
 VI），在理论上来说，数据流驱动语言是应该在两个线程内同时运行这两个子VI的代码的。但是，由于这两次调用会使用到同一块数据区，为了避免两次运行的互相干扰，引起数据混乱，LabVIEW实际上是顺序执行这两次调用的。每次只能运行其中一个子VI。至于哪个子VI被先调用是不确定的。
 
-![x1pnp_rgmi5o50VQfbvYrXGFYi9Lj2Xxx3YSH0i4-GFaCNJc4iW0_x3PjgIOfgOzM3iqPPvngmktMoxGkPRw1PyUqwbtvXOnBylYxvw1Sd2DHvH1NTFCnCgZWTRvsOwPK6w9Np3zEpaJWE](images/image674.png)
+![](images/image674.png)
 
 图 .5并行调用同一子VI两次
 
