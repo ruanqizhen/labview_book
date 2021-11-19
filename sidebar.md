@@ -65,6 +65,7 @@
    1. [常用规范和实现方法](#docs/ui_standard)
    1. [界面设计实例](#docs/ui_cases)
 1. [代码风格与优化](#docs/optimization)
+   1. [LabVIEW的运行机制](#docs/optimization_mechanism)
   
 1. 正在添加中……
 
