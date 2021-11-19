@@ -61,6 +61,7 @@
    1. [项目浏览器](#docs/manage_project)
    1. [库](#docs/manage_library)
    1. [发布产品](#docs/manage_release)
+1. [界面设计](#docs/ui)
   
 1. 正在添加中……
 
