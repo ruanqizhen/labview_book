@@ -24,21 +24,12 @@ VI服务器提供的另一种接口协议是ActiveX服务。ActiveX接口主要�
 下面的程序是使用VB
 Script编写的一段代码。这段代码实现了打开一个VI的前面板并运行它的功能。
 
-<table>
-<colgroup>
-<col style="width: 100%" />
-</colgroup>
-<thead>
-<tr class="header">
-<th><p>Set lvapp = CreateObject("LabVIEW.Application")</p>
-<p>Set vi = lvapp.GetVIReference("C:\temp\test.vi")</p>
-<p>vi.FPWinOpen = True</p>
-<p>vi.Run</p></th>
-</tr>
-</thead>
-<tbody>
-</tbody>
-</table>
+```vb
+Set lvapp = CreateObject("LabVIEW.Application")
+Set vi = lvapp.GetVIReference("C:\temp\test.vi")
+vi.FPWinOpen = True
+vi.Run
+```
 
 由于IE支持VB
 Script，这段代码还可以嵌在HTML文件中实现这样的功能：页面上有一处超链接指向一个VI，点击这个链接，就可以打开相应的VI。其他浏览器使用JavaScript也可以实现类似的功能。
