@@ -54,6 +54,7 @@
    1. [集成调试环境](#docs/debug_ide)
    1. [断点和探针](#docs/debug_probe)
    1. [其它查找程序错误的工具和方法](#docs/debug_more_tools)
+   1. [LabVIEW代码中常见的错误](#docs/debug_errors)
   
 1. 正在添加中……
 
