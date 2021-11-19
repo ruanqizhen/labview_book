@@ -103,6 +103,10 @@ body {
     font-size: 0.7rem;
 }
 
+#sidebar p {
+    margin-bottom: 1px;
+}
+
 form.searchBox {
   width: 180px;
   border: 1px solid #4682BE;
