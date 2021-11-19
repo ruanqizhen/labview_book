@@ -59,6 +59,7 @@
    1. [DLL调试](#docs/debug_dll)
 1. [管理LabVIEW项目](#docs/manage)
    1. [项目浏览器](#docs/manage_project)
+   1. [库](#docs/manage_library)
   
 1. 正在添加中……
 
