@@ -52,6 +52,7 @@
    1. [存储](#docs/measurement_storage)
 1. [调试](#docs/debug)
    1. [集成调试环境](#docs/debug_ide)
+   1. [断点和探针](#docs/debug_probe)
   
 1. 正在添加中……
 
