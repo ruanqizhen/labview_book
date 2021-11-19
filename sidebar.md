@@ -68,6 +68,8 @@
    1. [LabVIEW的运行机制](#docs/optimization_mechanism)
    1. [内存优化](#docs/optimization_memory)
    1. [多线程编程](#docs/optimization_multi_thread)
+   1. [代码编写规范和技巧](#docs/optimization_coding_style)
+1. [界面的模块划分和XControl](#docs/uimodule)
   
 1. 正在添加中……
 
