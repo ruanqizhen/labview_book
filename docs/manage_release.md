@@ -275,15 +275,13 @@ Project Libraries 。
 库是编程时候由程序员创建出来的。比如图9.36所示的这个工程，创建了一个叫做"My
 Algorithm Library.lvlib"的库。它包含两个VI，其中一个是私有的。
 
-![Graphical user interface, text, application Description automatically
-generated](images/image568.png)\
+![](images/image568.png)\
 图9.36 用于生成打包库的项目
 
 而打包库则是通过一个项目的生成规范，从库编译而来的。比如图9.36所示的项目，鼠标右击"程序生成规范"，可以选择新建一个"打包库"类型的生成规范。在这个生成规范中指定把"My
 Algorithm Library.lvlib"编译成打包库（图9.37）。
 
-![Graphical user interface, text, application Description automatically
-generated](images/image569.png)\
+![](images/image569.png)\
 图9.37 选择打包库中的内容
 
 编译的结果是在指定的路径下生成了一个名为"My Algorithm
@@ -291,32 +289,28 @@ Library.lvlibp"的文件。它的后缀名仅比库文件多了一个字母p。
 
 双击这个文件，可以打开它，看到它里面包含的公有VI（图9.38）。
 
-![Graphical user interface, text, application Description automatically
-generated](images/image570.png)\
+![](images/image570.png)\
 图9.38 查看Packed Project Library中的内容
 
 如果需要在其它项目中使用到这个打包库，可以直接把它加到另一个项目中去。如图9.39是一个演示项目。
 
-![Graphical user interface, text, application Description automatically
-generated](images/image571.png)\
+![](images/image571.png)\
 图9.39 使用Packed Project Library
 
 从使用者角度来看，打包库看上去和库非常相似，用法也完全相同。
 
 打包库与库
 
--   
--   
--   
--   
+- 都是将功能相关的一组VI封装起来的方法；
+- 库中的VI可以具有层次机构；
+- 库中的VI都带有名字空间，名字空间是带有后缀名的库名；
+- 都可以方便地放在项目管理器里使用。
 
-都是将功能相关的一组VI封装起来的方法；库中的VI可以具有层次机构；库中的VI都带有名字空间，名字空间是带有后缀名的库名；都可以方便地放在项目管理器里使用尽管它们十分相似，打包库与库相比，还是有一些明显区别的：
+尽管它们十分相似，打包库与库相比，还是有一些明显区别的：
 
--   
--   
--   
--   
--   
--   
-
-打包库是通过编译生成的；打包库中的VI是编译后产生的，它们不能被修改；打包库包含有私有VI，但用户无法看到也不能使用它们；打包库把VI，.lvlib以及其它用到的文件都打成一个压缩包，用户在磁盘上就只能看到一个.lvlibp文件，看不到VI文件；打包库很适合作为最终产品发布给用户使用；在项目中使用打包库可以缩短编译时间，因为打包库中的VI是已编译好的，不需要再随项目编译一遍。这也要求打包库与使用打包库的项目是在同一版本的LabVIEW下编译的。
+- 打包库是通过编译生成的；
+- 打包库中的VI是编译后产生的，它们不能被修改；
+- 打包库包含有私有VI，但用户无法看到也不能使用它们；
+- 打包库把VI，.lvlib以及其它用到的文件都打成一个压缩包，用户在磁盘上就只能看到一个.lvlibp文件，看不到VI文件；
+- 打包库很适合作为最终产品发布给用户使用；
+- 在项目中使用打包库可以缩短编译时间，因为打包库中的VI是已编译好的，不需要再随项目编译一遍。这也要求打包库与使用打包库的项目是在同一版本的LabVIEW下编译的。

@@ -296,20 +296,13 @@ C语言中的结构（struct），在一些简单情况下，可以和LabVIEW中
 
 C语言中的一个结构：
 
-<table>
-<colgroup>
-<col style="width: 100%" />
-</colgroup>
-<thead>
-<tr class="header">
-<th><p>typedef struct {</p>
-<p>char a;</p>
-<p>int b } MyStct; </p></th>
-</tr>
-</thead>
-<tbody>
-</tbody>
-</table>
+```cpp
+typedef struct {
+    char a;
+    int b 
+} MyStct; 
+```
+
 
 显然，元素a只占用一个字节，而元素b占用四个字节。假设结构中的元素a所在的地址是0xAAAA0000，那么，元素b占用四个字节的存放地址是与结构的字节对齐设置相关的。如果采用1字节对齐，则b是紧挨着a存放的，b的地址就是：0xAAAA0001；如果采用2字节对齐，b的存放
 地址是紧挨着a的第一个偶数地址，也就是：0xAAAA0002；如果采用4字节对齐，b的存放地址是紧挨着a的第一个4整数倍地址，也就是：0xAAAA0004。当然还可以把程序设置为8字节、16字节对齐等。
@@ -434,21 +427,12 @@ C语言的函数可以带返回值，它对应CLN节点的第一个输出参数�
 
 C语言函数常有指针类型的参数。在LabVIEW中有时只能得到一个指向某个数据的指针。例如下面这个函数在C语言中的声明：
 
-<table>
-<colgroup>
-<col style="width: 100%" />
-</colgroup>
-<thead>
-<tr class="header">
-<th><p>#pragma pack (1)</p>
-<p>typedef struct { char a; char* str; int b} MyStct;</p>
-<p>MyStct* testStruct;</p>
-<p>long TestStructure(MyStct* tempStct);</p></th>
-</tr>
-</thead>
-<tbody>
-</tbody>
-</table>
+```cpp
+#pragma pack (1)
+typedef struct { char a; char* str; int b} MyStct;
+MyStct* testStruct;
+long TestStructure(MyStct* tempStct);
+```
 
 在LabVIEW中使用CLN节点调用这个函数，只能返回以整数类型表示的str的指针，无法得到字符串的内容。
 
