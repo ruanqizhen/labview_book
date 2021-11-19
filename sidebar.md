@@ -6,7 +6,6 @@
 1. [什么是LabVIEW](#docs/preface_labview)
 
 ## 正文目录
-
 1. [LabVIEW入门](#docs/ramp_up)
    1. ["Hello，World!"程序](#docs/ramp_up_hello_world)
    1. [如何学习LabVIEW](#docs/ramp_up_how_to_learn)
@@ -62,6 +61,7 @@
    1. [库](#docs/manage_library)
    1. [发布产品](#docs/manage_release)
 1. [界面设计](#docs/ui)
+   1. [界面设计原理](#docs/ui_principle)
   
 1. 正在添加中……
 
