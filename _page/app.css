@@ -52,9 +52,13 @@ body {
 }
 
 #sidebar h1 {
-    font-size: 25px;
+    font-size: 0.8rem;
     margin-bottom: 5px;
     padding-bottom: 0px;
+}
+
+#sidebar h2 {
+    font-size: 0.8rem;
 }
 
 #sidebar h1 a:link, #sidebar h1 a:visited {
