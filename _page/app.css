@@ -121,8 +121,8 @@ input[type=search] {
 
 input.searchButton {
   position: absolute;
-  top: 0;
-  left: 160px;
+  top: 1px;
+  left: 180px;
   height: 18px;
 }
 
