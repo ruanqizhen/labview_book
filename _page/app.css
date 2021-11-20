@@ -223,6 +223,11 @@ input.searchButton {
   color: #ED1C24;
 }
 
+#content img {
+    max-width: 90%;
+    border-radius: 5px;
+}
+
 #content ul {
     display: block;
     list-style-type: none;
