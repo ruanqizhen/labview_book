@@ -1,6 +1,6 @@
 # LabVIEW 编程经验
 
-笔者多年前写了这本《我和LabVIEW - 一个NI工程师的十年编程经验》，后由[北航出版社出版发行](http://service.buaapress.com.cn/mzs/book/detail/id/2624)，ISBN：9787512408487。非常遗憾的是，后来由于工作变动，笔者再也没有能够继续研究LabVIEW编程。工业领域使用的LabVIEW之前一直只有收费版的，没有授权无法使用。最近LabVIEW开始发行社区免费版，笔者也许有机会可以再继续维护本书了，尽管依然还有缺少硬件的困难。
+笔者多年前写了这本《我和LabVIEW - 一个NI工程师的十年编程经验》，后由[北航出版社出版发行](http://service.buaapress.com.cn/mzs/book/detail/id/2624)，ISBN：9787512408487。非
 
 ![](_page/cover.jpg)
 
@@ -9,6 +9,8 @@
 本书所有的文字都保存在[docs文件夹](https://github.com/ruanqizhen/labview_book/tree/main/docs)下。相关的示例代码保存在[code文件夹](https://github.com/ruanqizhen/labview_book/tree/main/code)下。
 
 笔者并没有发行版书籍的电子文档，开源的是本书的原稿。原稿与发行版内容基本相同，主要是少了漂亮的排版。本书在排版增印的过程中不断修改了一些错漏之处，原稿不包含这些修改，会比印刷版多一些问题，希望可以在将来不断修正。文档在转换成开源格式过程中也出现了一些新的排版问题，尤其是表格和图片，也需要继续花时间修正。
+
+由于工作变动，笔者近些年没有能够继续研究LabVIEW编程。工业领域使用的LabVIEW之前一直只有收费版的，没有授权无法使用。最近LabVIEW开始发行社区免费版，笔者也许有机会可以再继续维护本书了，尽管依然还有缺少硬件的困难。
 
 本书的网页制作使用了开源项目[《ECMAScript 6入门》](https://github.com/ruanyf/es6tutorial)作为模板。
 
