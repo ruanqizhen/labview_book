@@ -61,15 +61,6 @@ body {
     color: #333;
 }
 
-#sidebar h2 {
-    font-size: 0.7rem;
-}
-
-#sidebar h5 {
-    margin-top: 20px;
-    margin-bottom: 0;
-}
-
 #sidebar a:visited, #sidebar a:link {
     color: #4682BE;
     text-decoration: none;
