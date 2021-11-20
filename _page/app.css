@@ -58,6 +58,7 @@ body {
 
 #sidebar h2 {
     font-size: 0.8rem;
+	margin-bottom: 3px;
 }
 
 #sidebar h1 a:link, #sidebar h1 a:visited {
