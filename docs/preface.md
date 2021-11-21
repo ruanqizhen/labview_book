@@ -56,12 +56,12 @@ LabVIEW学习过程中的常见问题及易犯的错误。我曾经作为LabVIEW
 XP系统下截取，部分在Windows
 Vista系统下截取。因此，书中不同截图窗口风格可能略有不同。
 
-受篇幅的限制，本书一般只收录一些关键设置和程序关键部分的截图。没有收录的程序框图，读者在学习本书时可以自己尝试编写，也可以直接下载本书的示例辅助学习。本书所用到的全部示例，包含插图中出现的VI，都保存在本书所在的[Github项目](https://github.com/ruanqizhen/labview_book/tree/main/code)中。
+受篇幅的限制，本书一般只收录一些关键设置和程序关键部分的截图。没有收录的程序框图，读者在学习本书时可以自己尝试编写，也可以直接下载本书的示例辅助学习。本书所用到的全部示例，包含插图中出现的VI，都保存在本书所在的[GitHub项目](https://github.com/ruanqizhen/labview_book/tree/main/code)中。
 
 ## 更正和注解
 
 受本人水平所限，在编写此书的过程中难免会有疏忽和差错。在此，诚挚希望各位读者及时批评指正书中纰漏，也欢迎读者就书中内容进行讨论。
-欢迎读者直接在本书所在的[Github项目](https://github.com/ruanqizhen/labview_book/tree/main/docs)中进行修改。
+欢迎读者直接在本书所在的[GitHub项目](https://github.com/ruanqizhen/labview_book/tree/main/docs)中进行修改。
 
 ## 第二版说明
 
