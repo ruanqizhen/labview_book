@@ -44,7 +44,7 @@ var getHash = function (hash) {
   }
 };
 
-var utterancCode = '<h3>留言</h3><div id="utteranc_thread"></div>';
+var utterancCode = '<h3>留言</h3><div hidden id="cnzz"></div><div id="utteranc_thread"></div>';
 var menu = new Array();
 
 function initialize() {
@@ -444,7 +444,7 @@ function router() {
 	  var dsq = document.createElement('script');
 	  dsq.type = 'text/javascript';
 	  dsq.setAttribute('src', 'https://s4.cnzz.com/z_stat.php?id=1280609189&web_id=1280609189');
-	  document.getElementById('utteranc_thread').appendChild(dsq);
+	  document.getElementById('cnzz').appendChild(dsq);
 	}());
 
   }).fail(function() {
