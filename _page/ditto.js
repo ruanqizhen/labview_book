@@ -84,6 +84,7 @@ function init_sidebar_section() {
         menuOL.find('li a').map(function() {
             menu.push(this.href.slice(this.href.indexOf('#')));
         });
+		console.log(menuOL);
         $('#pageup').on('click', function() {
             var hash = getHash().nav;
             for (var i = 0; i < menu.length; i++) {
