@@ -444,6 +444,7 @@ function router() {
 	  var dsq = document.createElement('script');
 	  dsq.type = 'text/javascript';
 	  dsq.setAttribute('src', 'https://s4.cnzz.com/z_stat.php?id=1280609189&web_id=1280609189');
+	  dsq.async = true;
 	  document.getElementById('cnzz').appendChild(dsq);
 	}());
 
