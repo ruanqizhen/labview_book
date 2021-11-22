@@ -1,6 +1,7 @@
 # [LabVIEW 编程经验]()
 
 ## 前言
+1. [开源共享版本说明]()
 1. [序--郭文哲](#docs/preface_guowenzhe)
 1. [前言](#docs/preface)
 1. [什么是LabVIEW](#docs/preface_labview)
