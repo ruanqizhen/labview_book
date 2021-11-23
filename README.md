@@ -1,6 +1,6 @@
 # LabVIEW 编程经验
 
-《我和LabVIEW - 一个NI工程师的十年编程经验》，由[北航出版社出版发行](http://service.buaapress.com.cn/mzs/book/detail/id/2624)，ISBN：9787512408487。本书是作者在学习和使用 LabVIEW 编程过程中的经验总结。书中由浅入深地对 LabVIEW 最常用的功能和 LabVIEW 学习过程中常见的问题进行了一一介绍。
+《我和LabVIEW - 一个NI工程师的十年编程经验》，由[北航出版社出版发行](http://service.buaapress.com.cn/mzs/book/detail/id/2624)，ISBN：9787512408487。本书是笔者在学习和使用 LabVIEW 编程过程中的经验总结。书中由浅入深地对 LabVIEW 最常用的功能和 LabVIEW 学习过程中常见的问题进行了一一介绍。
 
 ![](_page/cover.jpg)
 
