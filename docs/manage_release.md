@@ -214,8 +214,7 @@ LabVIEW在生成DLL文件的同时，还会生成相应的.h文件和.lib文件�
 
 图 .32 web发布工具
 
-LabVIEW会为这个VI生成一个html文件，放置在web服务器的根目录下。web服务器的根目录在LabVIEW的选项中配置，默认路径为C:\\Program
-Files\\National Instruments\\LabVIEW 8.6\\www。
+LabVIEW会为这个VI生成一个html文件，放置在web服务器的根目录下。web服务器的根目录在LabVIEW的选项中配置，默认路径为\[LabVIEW\]\\www。
 
 只要网络上的其它计算机打开网页浏览器，输入作为web服务器的计算机名或IP地址，即可看到LabVIEW的web服务页面。将需要被访问的VI在web服务器计算机中装入内存，在另一台计算机网页浏览器地址栏的IP地址的后面加上斜杠和刚刚生成的html文件的名称，即可访问和控制刚刚被选中的VI（图
 9.33）。
