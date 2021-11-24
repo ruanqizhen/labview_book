@@ -72,7 +72,7 @@
    1. [内存优化](#docs/optimization_memory)
    1. [多线程编程](#docs/optimization_multi_thread)
    1. [代码编写规范和技巧](#docs/optimization_coding_style)
-   1. [编译器优化内嵌子VI](#docs/optimization_inline_subvi)
+   1. [编译器优化与内嵌子VI](#docs/optimization_inline_subvi)
 1. [面向对象编程](#docs/oop)
    1. [基础知识](#docs/oop_basic)
    1. [LabVIEW的类](#docs/oop_lv_class)
