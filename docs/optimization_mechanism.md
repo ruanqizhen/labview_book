@@ -246,12 +246,10 @@ LabVIEW为了解决这个问题，于是给VI增加了一个可重入属性。�
 
 ![image](images_2/image11.png)
 
-被分离出来的编译好的可执行代码由LabVIEW统一管理，在Windows 7
-系统中，文件夹\[%USERPROFILE\$\]\\Documents\\LabVIEW
-Data\\VIObjCache\\\[LabVIEW version number\]\\ 下有一个objFileDB.vidb
+被分离出来的编译好的可执行代码由LabVIEW统一管理，在 Windows 7 系统中，文件夹\[%USERPROFILE\$\]\\Documents\\LabVIEW Data\\VIObjCache\\\[LabVIEW version number\]\\ 下有一个objFileDB.vidb
 文件，这就是用来存储LabVIEW 程序所有可执行代码的数据库。
 
 当程序在不同平台下协同开发时，或者程序会被发布到不同平台下去，就可以考虑采用可执行代码与源代码分离的策略，避免不必要的VI变动。
 
-理论上，可执行代码与源代码分离开来，还可以提高程序的加载速度：程序可以各取所需，只加载源代码或只加载可执行代码。
+理论上，可执行代码与源代码分离开来，还可以提高程序的加载速度：程序可以按需装载，只加载源代码或只加载可执行代码。
 
