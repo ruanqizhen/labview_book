@@ -41,11 +41,11 @@ LabVIEW中有一个属性节点可以用来查看内存中所有的VI，利用�
 
 首先，给一个子类的对象设置一些数据。然后把它当做父类类型的数据，平化成XML文本，存盘：
 
-![](images_12/image1.png)
+![](images_2/image12.png)
 
 关闭LabVIEW，然后重新打开LabVIEW。再编写一个反向程序，把XML数据转换成父类类型的数据：
 
-![](images_13/image2.png)
+![](images_2/image13.png)
 
 发现函数 Unflatten From XML 返回了一个错误，输出值value返回的是一个空的数据。
 
