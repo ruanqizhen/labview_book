@@ -63,15 +63,10 @@
 
 图 .39一个通用的用户自定义事件方案，利用事件数据区分其用途
 
-图 4.39是对图
-4.36初始化事件程序的改进方案。LabVIEW也自带有实现了类似功能的VI，程序中也可直接使用LabVIEW自带的VI。
+图 4.39是对图 4.36初始化事件程序的改进方案。LabVIEW也自带有实现了类似功能的VI，程序中也可直接使用LabVIEW自带的VI。
 
-与图
-4.39类似的VI在路径"\[LabVIEW\]\\resource\\importtools\\Common\\Event\\Method"中。图
-4.40是应用这种单用户事件的程序，它使用了上述LabVIEW自带的事件管理VI，与使用图
-4.39中的VI的思路是完全相同的。图中与"Create
-Event.vi"（发生事件VI）输入参数相连的"Event
-in"是"类"常量，有关"类"的详细内容将在以后续章节中再做介绍。
+与图 4.39类似的VI在路径"\[LabVIEW\]\\resource\\importtools\\Common\\Event\\Method"中。图 4.40是应用这种单用户事件的程序，它使用了上述LabVIEW自带的事件管理VI，与使用图
+4.39中的VI的思路是完全相同的。图中与"Create Event.vi"（发生事件VI）输入参数相连的"Event in"是"类"常量，有关"类"的详细内容将在以后续章节中再做介绍。
 
 用户在抛出"用户事件"时，需要给这个事件指定一个"事件名"。循环事件结构捕获到这个事件后，跳入"用户事件"处理分支。在处理这个事件之前，首先查看一下"事件名"，然后再根据"事件名"对事件做不同的处理。
 
@@ -118,9 +113,8 @@ LabVIEW对光标进行操作的VI在"编程-\>对话框与用户界面-\>光标"
 
 图 .42控件的值(信号)属性
 
-[]{#_Toc228873483 .anchor}
 
-## [回调VI](http://ruanqizhen.wordpress.com/2010/09/20/%e5%9b%9e%e8%b0%83vi/)
+## 回调VI
 
 LabVIEW界面程序最常用的结构就是循环事件结构。用事件结构截获用户在界面上对控件的操作，然后做出相应处理。而在文本语言中，常用的事件处理方法与LabVIEW是不同的。文本语言常常使用回调函数来处理界面事件。比如，某个按钮按下时，需要进行一个fft运算。那么就写一段函数来完成fft运算，再把这个函数与按钮按下事件关联起来。开发语言通常已经做好了对事件的监控，一旦发现发生了按钮按下事件，就去调用与它关联的fft运算函数。这个由程序员自己编写，被系统调用的函数就叫做回调函数。
 
@@ -130,13 +124,10 @@ LabVIEW也可以采用与文本语言相类似的方法来处理事件：不是�
 
 比如图4.42所示的这个例子。程序界面上有两个仪表盘：左表始终在运转，每10秒钟旋转一圈；右表由按钮控制，按下按钮才旋转一圈。若把旋转右表这段程序作为子VI放到事件结构的按钮值改变事件处理分支中，它势必会打断左表的旋转。因此，考虑把它放到回调VI中。（当然，也可在事件处理分支中采用动态调用子程序的方式处理）。
 
-![A screenshot of a computer screen Description automatically generated
-with low
-confidence](images/image285.png)\
+![](images/image285.png)\
 图4.42 分别控制左右两块表的主程序界面
 
-![Graphical user interface, application Description automatically
-generated](images/image286.png)\
+![](images/image286.png)\
 图4.43 分别控制左右两块表的程序框图
 
 程序的代码也比较简单。先看代码的右半部份：这是一个典型的循环事件结构，用来控制左表的旋转。但是注意，右表的控制并不是在这个结构中实现的。
@@ -157,8 +148,7 @@ ActiveX"上。这个节点主要是为了给ActiveX和.NET控件的事件注册�
 
 在回调VI中编写一小段代码，让右表旋转一圈，整个程序就完成了。运行该程序，左右表可以各自运行，互不影响。
 
-![Graphical user interface, text, application Description automatically
-generated](images/image287.png)\
+![](images/image287.png)\
 图4.44 回调VI的程序框图
 
 读者调试图4.42所示的例子时，也许会发现这样一个问题：若右表尚在旋转中，就按下停止按钮，VI虽然停止了运行，但右表仍然会继续旋转到底才停止。这是因为回调VI是被系统调用的，main.vi停止后，回调VI并不会同时停止运行，它只有等待自身运行结束才会停止。
@@ -174,7 +164,7 @@ generated](images/image287.png)\
 
 下面举一个简单的示例：分别在两个风格完全不同的界面上，实现同一个简单的功能，即在界面上点一下按钮，就返回一个随机数值。这个示例的项目由三个VI组成（图4.45）：Main.vi为该程序的功能VI；Interface1，和Interface2分别是两个不同风格的界面VI。程序的功能是在Main.vi中实现的，它采用了经典的事件结构。
 
-![image](images/image288.png)\
+![](images/image288.png)\
 图4.45 演示同一功能多个界面的项目
 
 实现上述项目，可以使用两种不同的方法。第一种方法简单易行，适合不太复杂的界面；第二种方法更为通用，可以应对复杂需求。下面分别介绍一下两种实现方法。
@@ -183,33 +173,33 @@ generated](images/image287.png)\
 
 在第一种方法中，程序的启动VI是interface1.vi或interface2.vi。图4.46是interface1.vi的前面板，由三个简单控件组成。
 
-![image](images/image289.png)\
+![](images/image289.png)\
 图4.46 interface1.vi的前面板
 
 interface1.vi的程序框图并不进行任何具体工作，而仅是把界面上所有控件的引用传递给Main.vi，并将Main.vi作为子VI调用起来。
 
-![image](images/image290.png)\
+![](images/image290.png)\
 图4.47 interface1.vi的程序框图
 
 Main.vi并无需要显示的界面，它的前面板上的控件仅用于输入数据。
 
-![image](images/image291.png)\
+![](images/image291.png)\
 图4.48 Main.vi的前面板
 
 在Main.vi中，首先通过动态注册的方式，让事件结构接收interface1.vi中控件的事件；然后，当用户按下interface1.vi中的"get
 value"按钮时，就产生一个随机数赋值给numeric控件。
 
-![image](images/image292.png)\
+![](images/image292.png)\
 图4.49 Main.vi的程序框图
 
 interface2.vi的前面板具有与interface1.vi完全相同的控件，仅是它们的风格与布局完全不同。
 
-![image](images/image293.png)\
+![](images/image293.png)\
 图4.50 interface2.vi的前面板
 
 interface2.vi的程序框图则与interface1.vi完全相同。
 
-![image](images/image294.png)\
+![](images/image294.png)\
 图4.51 interface2.vi的程序框图
 
 由于程序的功能完全是在main.vi中实现的，所以程序功能需要变动时，只要更新这一个VI就可以了。
@@ -218,16 +208,14 @@ interface2.vi的程序框图则与interface1.vi完全相同。
 
 在第二种方法中，程序的启动VI是Main.vi，因此interface1.vi和interface2.vi的程序框图就更加简单了，它甚至不需要调用任何子VI，只要有一个while循环，能够让VI持续运行就可以（图4.52）。
 
-![Graphical user interface, application Description automatically
-generated](images/image295.png)\
+![](images/image295.png)\
 图4.52 第二种实现方式中，interface1.vi的程序框图
 
 但是Main.vi中的程序变得相对复杂了（图4.53），它要负责把界面VI打开运行，并显示出界面。在这个方法中，界面VI没有主动把控件引用传递个Main.vi，因此Main.vi需要自己打开这些控件的引用。程序在打开控件引用时，使用了"打开VI对象引用"这一函数，这个函数可以根据控件的名称来找到它的引用。这个函数没有在LabVIEW默认的函数选板中，本书会在6.4.1节中介绍如何得到这个函数。
 
 在得到控件的引用之后，程序其它部分与第一种方式都是相同的。这样一来，该程序就具备了和传统的主VI一样的能力了：如读写界面上控件的值，接收控件发出的事件等等。
 
-![Graphical user interface Description automatically
-generated](images/image296.png)\
+![](images/image296.png)\
 图4.53 第二种实现方式中，Main.vi的程序框图
 
 在这个实现方案中interface2.vi的程序框图与interface1.vi完全相同。需要注意的是，这个方案是通过控件的标签来找到每一个控件的。这就要求每个界面VI上，相对应的控件必须都具有相同的标签。
@@ -313,6 +301,5 @@ generated](images/image296.png)\
 </tbody>
 </table>
 
-![C:\\Users\\Qizhen
-Ruan\\Desktop\\界面比较中的图.png](images/image297.png)\
+![](images/image297.png)\
 图4.90 一个队列消息驱动的主界面VI的程序框图示例
