@@ -1,5 +1,7 @@
 # Table of contents
 
+1. [开源共享版本说明](README.md)
+
 ## 前言
 1. [序--郭文哲](docs/preface_guowenzhe.md)
 1. [前言](docs/preface.md)
