@@ -85,10 +85,10 @@
 1. [后记和致谢](docs/epilogue.md)
 
 ## 其他
-- [书稿](https://github.com/ruanqizhen/labview_book/tree/main/docs.md)
-- [示例代码](https://github.com/ruanqizhen/labview_book/tree/main/code.md)
-- [问题讨论和意见反馈](https://github.com/ruanqizhen/labview_book/discussions.md)
-- [北京航空航天大学出版社](http://press.buaa.edu.cn/.md)
-- [作者博客（墙外）](https://ruanqizhen.wordpress.com/.md)
+- [书稿](https://github.com/ruanqizhen/labview_book/tree/main/docs)
+- [示例代码](https://github.com/ruanqizhen/labview_book/tree/main/code)
+- [问题讨论和意见反馈](https://github.com/ruanqizhen/labview_book/discussions)
+- [北京航空航天大学出版社](http://press.buaa.edu.cn/)
+- [作者博客（墙外）](https://ruanqizhen.wordpress.com/)
 
 
