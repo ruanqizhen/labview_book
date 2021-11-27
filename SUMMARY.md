@@ -89,7 +89,7 @@
 
 ## 其他
 
-* [阅读本书 GitHub Pages 版](https://lv.qizhen.xyz)
+* [在 GitHub Pages 阅读本书](https://lv.qizhen.xyz)
 * [示例代码](https://github.com/ruanqizhen/labview\_book/tree/main/code)
 * [问题讨论和意见反馈](https://github.com/ruanqizhen/labview\_book/discussions)
 * [北京航空航天大学出版社](http://press.buaa.edu.cn)
