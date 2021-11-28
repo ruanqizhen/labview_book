@@ -2,30 +2,90 @@
 <html>
 <head>
   <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge, chrome=1">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="keywords" content="LabVIEW 编程 经验 教程 学习 开源 免费 共享 示例">
   <meta name="description" content="《我和LabVIEW:一个NI工程师的十年编程经验》，是一本广受好评的的畅销书。介绍了各种控件，节点，结构的使用方法和编程模式，调试优化等高级功能。">
   <title>LabVIEW 编程经验</title>
-  <link rel="stylesheet" type="text/css" href="_page/app.css">
-  <link rel="shortcut icon" href="/favicon.ico" type="image/x-icon">
   <link rel="icon" href="/favicon.ico" type="image/x-icon">
-  <script src="_page/jquery-1.11.0.min.js"></script>
-  <script src="_page/jquery-ui.min.js"></script>
-  <script src="_page/marked.min.js"></script>
-  <script src="_page/store.js"></script>
-  <script src="_page/ditto.js"></script>
+  <link rel="stylesheet" href="https://unpkg.com/docsify-themeable/dist/css/theme-simple.css">
+  <script src="//cdn.jsdelivr.net/npm/docsify-edit-on-github"></script>
 </head>
 <body>
-  <div id="sidebar"></div>
-  <div id="content"></div>
-  <div id="back_to_top">回到顶端</div>
-  <div id="edit">编辑</div>
-  <div id="theme">更换背景</div>
-  <div id="loading">Loading ...</div>
-  <div id="error">Oops! ... File not found!</div>
-  <div id="flip"><div id="pageup">上一章节</div><div id="pagedown">下一章节</div></div>
-  <div class="progress-indicator-2"></div>
-  <script src="_page/config.js"></script>  
+  <div id="app"></div>
+  <script>
+    window.$docsify = {
+      name: '<b>LabVIEW 编程经验</b>',
+	  nameLink: '/#/README',
+	  loadSidebar: 'sidebar.md',
+      repo: 'https://github.com/ruanqizhen/labview_book',
+	  subMaxLevel: 4,
+      auto2top: true,
+      search: 'auto',
+      search: {
+        paths: 'auto',
+        placeholder: '搜索',
+        noData: '找不到结果',
+        depth: 6,
+        hideOtherSidebarContent: false,
+      },
+	  ga: 'G-9EFRGQK2N0',
+	  pagination: {
+		previousText: '上一章节',
+		nextText: '下一章节',
+		crossChapter: true,
+		crossChapterText: true,
+	  },
+	  progress: {
+        position: "top",
+        color: "var(--theme-color,#42b983)",
+        height: "3px",
+      },
+	  plugins: [
+        EditOnGithubPlugin.create('https://github.com/ruanqizhen/labview_book/blob/main/', null, '编辑'),
+		
+		function(hook, vm) {
+		  hook.doneEach(function() {
+		  	var cnzz = document.createElement('script');
+			  cnzz.type = 'text/javascript';
+			  cnzz.setAttribute('src', 'https://s4.cnzz.com/z_stat.php?id=1280609189&web_id=1280609189');
+			  cnzz.async = true;
+			  document.getElementById('main').appendChild(cnzz);
+	  
+			const path = vm.route.path === '/' ? '/README' : vm.route.path;
+		  	const path_split = path.split('/');
+			const last_item = path_split[path_split.length - 1];
+		    var dsq = document.createElement('script');
+			  dsq.type = 'text/javascript';
+			  dsq.async = true;
+			  dsq.setAttribute('src', 'https://giscus.app/client.js');
+			  dsq.setAttribute('data-repo', 'ruanqizhen/labview_book');
+			  dsq.setAttribute('data-repo-id', 'R_kgDOGYjRCQ');
+			  dsq.setAttribute('data-category', 'Announcements');
+			  dsq.setAttribute('data-category-id', 'DIC_kwDOGYjRCc4B_4dq');
+			  dsq.setAttribute('data-mapping', 'specific');
+			  dsq.setAttribute('data-term', last_item);
+			  dsq.setAttribute('data-reactions-enabled', '1');
+			  dsq.setAttribute('data-emit-metadata', '0');
+			  dsq.setAttribute('data-theme', 'light');
+			  dsq.setAttribute('data-lang', 'zh-CN');
+			  dsq.setAttribute('crossorigin', 'anonymous');
+			  document.getElementById('main').appendChild(dsq);
+		  });
+		},
+
+      ],
+
+	  
+    }
+  </script>
+  <script src="https://unpkg.com/docsify/lib/docsify.min.js"></script>
+  <script src="https://unpkg.com/docsify-themeable"></script>
+  <script src="//cdn.jsdelivr.net/npm/docsify@4/lib/plugins/search.min.js"></script>
+  <script src="//cdn.jsdelivr.net/npm/docsify@4/lib/plugins/ga.min.js"></script>
+  <script src="./docsify-pagination.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/docsify-progress@latest/dist/progress.min.js"></script>
+
   <noscript>
     <p>本书是作者在学习和使用LabVIEW过程中的经验总结。书中由浅入深地对LabVIEW最常用的功能和LabVIEW学习过程中常见的问题进行了一一介绍。</p>
     <p>此外，对于LabVIEW帮助文档中没有涉及的内容，如LabVIEW程序设计的原理、原则，如何选取最适合当前情景的编程方法，编程时的注意事项，LabVIEW的学习方法等，本书都进行了较为详细的介绍。。</p>
@@ -33,5 +93,6 @@
     <p>还增添了对读者提问的解答以及新版本LabVIEW的一些常用功能介绍。</p>
 	<p>本书可作为大、中专院校通信、测控等相关专业的教学参考书，也可作为相关工程技术人员设计开发仪器或自动测试系统的技术参考书。</p>
   </noscript>
+
 </body>
 </html>
