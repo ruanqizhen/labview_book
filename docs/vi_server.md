@@ -1,11 +1,8 @@
 # VI服务器
 
-(概念)
+### VI服务器的概念
 
-## VI服务器
-
-VI服务器（VI Server）是从LabVIEW
-5.0开始提供的一个功能。它是由LabVIEW提供的、用以帮助用户通过编程来控制VI（包括VI上的控件、函数、子VI等）和LabVIEW环境设置等的一整套函数。
+VI服务器（VI Server）是从LabVIEW 5.0开始提供的一个功能。它是由LabVIEW提供的、用以帮助用户通过编程来控制VI（包括VI上的控件、函数、子VI等）和LabVIEW环境设置等的一整套函数。
 
 VI服务器的服务由LabVIEW提供，客户端可以通过三种方法调用服务器提供的服务：
 
@@ -25,10 +22,9 @@ TCP/IP：用于远程机器。通过TCP/IP协议调用另一台计算机上LabVI
 
 图 .1设置是否以ActiveX和TCP/IP协议的方式提供VI服务
 
-## VI Scripting
+### VI Scripting
 
-VI
-Scripting的主要功能是通过编程修改应用程序和LabVIEW的设置，也可以在程序运行时修改程序和界面控件的属性，调用它们的某些方法。VI
+VI Scripting的主要功能是通过编程修改应用程序和LabVIEW的设置，也可以在程序运行时修改程序和界面控件的属性，调用它们的某些方法。VI
 Scripting最常用的场合包括：在程序运行时改变程序界面，程序运行时装入子VI，控制另一线程代码的执行，批量创建或修改多个VI等。
 
 与VI
