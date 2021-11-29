@@ -11,14 +11,13 @@
 图标是VI前面板或程序框图窗口右上方的那个正方形图案，它是一个32×32像素点的256色图片（图
 1.22）。
 
-![Graphical user interface, application, table Description automatically
-generated](images/image28.png)
+![](images/image28.png)
 
 图 1.22箭头所指为VI的图标
 
 图标是LabVIEW特有的一个优势。与LabVIEW相比，文本编程语言不需要,也不可能为每一个编写出来的函数设置图标。人脑对图像的处理速度要比处理同样信息量的文字快得多。因此，阅读一个编写风格良好的LabVIEW代码要比阅读一个文本程序的代码更容易、更快速。比如图1.23中这个VI，一看就知道它和生成波形有关。
 
-![http://ruanqizhen.files.wordpress.com/2009/12/1ceb0e2d9ca683756d056b70effea618.png?w=40](images/image29.png)\
+![](images/image29.png)\
 图1.23 一个VI的图标
 
 VI 的图标虽然会给这个 VI
@@ -37,8 +36,7 @@ VI 图标。下文着重介绍一下LabVIEW 2009之后的新图标编辑器
 
 对于一个新创建的VI，清空LabVIEW默认设置的图标，点击一下已有的模板，这个模板就被复制到新VI的图标上了。
 
-![Graphical user interface, application Description automatically
-generated](images/image30.png)\
+![](images/image30.png)\
 图1.24 图标编辑器的"模板"页
 
 对于LabVIEW
@@ -46,20 +44,17 @@ generated](images/image30.png)\
 
 既然是本书介绍的第一个VI，就用一个数字"1"来作为它的图标吧。
 
-![Graphical user interface, application Description automatically
-generated](images/image31.png)\
+![](images/image31.png)\
 图1.25 "图标文本"页
 
 对于很多人来说，选取图形大概是图标编辑器中最有用的部分了。VI开发者最头疼的就是如何绘制即能体现程序功能、又简明好看的图标。如果能从现成的库里选取几个图形，组成一个合适的图标，那肯定是开发者的心愿。"符号"选项页就提供了大量候选的小图片元素，可以直接把它们拖到右侧图标框上。
 
-![Graphical user interface, application Description automatically
-generated](images/image32.png)\
+![](images/image32.png)\
 图1.26 图标编辑器的"符号"页
 
 图标编辑器中制作的图标是有图层的。图标中的模板背景、文字、图形元素等，都被保存在了独立的图层中。有了图层，就可以只针对图标中某一图层进行修改，而不影响其它图层上的内容。比如将这一图层上的图形挪动一下位置、设置为半透明等。
 
-![Graphical user interface, application Description automatically
-generated](images/image33.png)\
+![](images/image33.png)\
 图1.26 图标编辑器的"图层"页
 
 图标编辑器还有一个额外的优点：它是开源的LabVIEW代码程序，它的主VI位于"\<labview>\\resource\\plugins\\lv_icon.vi"。
@@ -69,8 +64,7 @@ generated](images/image33.png)\
 2009的图标编辑器在功能上改进了不少，但早期版本的图标编辑器（图1.27所示）也具有一定的优点。比如，新图标编辑器启动速度慢、无法书写清晰的小字号文字、运行不稳定等。旧版本的图标编辑器并没有从新版本的LabVIEW中移除，用户仍然还可以使用它：给
 "\<labview>\\resource\\plugins\\lv_icon.vi"改个名字，再打开图标编辑器时，LabVIEW找不到新的编辑器，就会自动打开旧版本的那个。
 
-![Graphical user interface, application Description automatically
-generated](images/image34.png)
+![](images/image34.png)
 
 图 1.27 LabVIEW 2009版之前的图标编辑器
 
