@@ -453,7 +453,7 @@ str，LabVIEW的CLN节点可以把它映射为字符串类型。在LabVIEW中调
 
 这个节点有三个输入：一是指针，或者称为数据的内存地址；二是数据类型；三是字节对齐方式。为它们提供正确的参数，GetValueByPointer.xnode就会把指针所指向的数据返回出来。
 
-![image](images/image364.jpeg)
+![](images/image364.jpeg)
 
 图 .6使用GetValueByPointer.xnode得到指针指向的内容
 
@@ -481,9 +481,7 @@ LabVIEW》中。若需要查阅此书，可以使用google搜索该书名，马�
 从菜单项"工具-\>导入-\>共享库"可以启动导入共享库工具。导入共享库工具可以方便地把Windows、Linux、Mac
 OS系统上共享库文件中的函数包装成VI。在Windows操作系统上，共享库文件就是DLL动态链接库文件。对于不熟悉C语言的用户而言，在程序中直接使用VI，要比配置CLN节点便捷得多。
 
-LabVIEW自带了一个用于演示这一工具的示例："\[LabVIEW\]\\examples\\dll\\regexpr\\Import
-Shared Library Tutorial
-GUI.vi"。首次使用导入共享库工具之前，可以打开示例，根据提示学习这个工具的用法。
+LabVIEW自带了一个用于演示这一工具的示例："\[LabVIEW\]\\examples\\dll\\regexpr\\Import Shared Library Tutorial GUI.vi"。首次使用导入共享库工具之前，可以打开示例，根据提示学习这个工具的用法。
 
 导入共享库工具以向导的形式，一步一步地提示用户把DLL函数包装成为VI。首先要求用户提供一个DLL文件，一个头(.h)文件。工具可以查看到DLL文件提供了哪些可供用户使用的函数，然后就针对这些函数进行转换。头文件中包含了这些函数的声明。函数声明定义了一个函数包括多少个参数，以及每个参数的数据类型。该工具根据这些信息来为所生成包装的VI设定合适的控件。
 
