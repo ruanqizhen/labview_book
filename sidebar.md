@@ -1,5 +1,6 @@
+
 <b>前言</b>
-* [开源共享版本说明](README)
+* [开源共享版本说明]()
 * [序--郭文哲](docs/preface_guowenzhe)
 * [前言](docs/preface)
 * [什么是LabVIEW](docs/preface_labview)
