@@ -83,8 +83,8 @@
 * [后记和致谢](docs/epilogue)
 
 <b>其他</b>
-* [在 GitBook 阅读本书](https://labview.qizhen.xyz)
-* [示例代码](https://github.com/ruanqizhen/labview_book/tree/main/code)
-* [问题讨论和意见反馈](https://github.com/ruanqizhen/labview_book/discussions)
-* [北京航空航天大学出版社](http://press.buaa.edu.cn)
-* [作者博客（墙外）](https://ruanqizhen.wordpress.com)
+[· 在 GitBook 阅读本书](https://labview.qizhen.xyz)
+[· 示例代码](https://github.com/ruanqizhen/labview_book/tree/main/code)
+[· 问题讨论和意见反馈](https://github.com/ruanqizhen/labview_book/discussions)
+[· 北京航空航天大学出版社](http://press.buaa.edu.cn)
+[· 作者博客（墙外）](https://ruanqizhen.wordpress.com)
