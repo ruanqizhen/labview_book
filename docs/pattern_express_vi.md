@@ -1,12 +1,12 @@
 # Express VI
 
-## \[什么是 Express VI]
+## 什么是 Express VI
 
 Express VI 是指那些带有配置对话框，可以在编辑VI时就设置输入参数值的VI。Express VI是专为简化常见类型的程序而设计的。一些LabVIEW常见的程序模式，比如完成数据采集、波形的频域变换等功能的程序，都可以使用一两个Express VI，做一些简单配置，就可以完成。为了便于程序员寻找，LabVIEW中的常用的Express VI都可以在函数选板"Express"中找到；也有一些功能复杂，不太常用的Express VI被按照功能归类到了其它子函数选板中。
 
 从函数选板上直接就可以看出Express VI与普通VI的区别：Express VI 的图标周围有一圈浅蓝色的边框。如图4.51中的 "时间延迟"和"已用时间"VI。
 
-!](images/image306.png) \
+![](images/image306.png) \
 图4.51：函数选板上的Express VI
 
 Express VI在使用时，也与普通VI有些不同。Express VI通常都配有一个配置对话框（图 4.52），用于设定Express VI运行时所需的一些数据，因而不必再在程序框图上输入数据。这就大大简化了程序框图。Express VI的功能通常都比一般的VI强大。某些常见的简单程序，譬如基本的数据采集显示程序，仅需使用几个Express VI就可以实现。加之使用它编程也比较简单，所以得名"Express VI（中文直译快捷VI）"。
