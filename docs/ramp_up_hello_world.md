@@ -7,7 +7,7 @@ World!"程序作为我们的第一个LabVIEW程序，即在屏幕上显示"您�
 
 ## 启动界面
 
-我们以LabVIEW8.6中文版为例，启动LabVIEW，首先显示出来的是LabVIEW的启动界面，如图
+我们以LabVIEW 8.6中文版为例，启动LabVIEW，首先显示出来的是LabVIEW的启动界面，如图
 1.1所示：
 
 ![](images/image2.png)
