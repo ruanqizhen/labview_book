@@ -1,20 +1,17 @@
 # Express VI
 
-## \[什么是 Express VI]
+## 什么是 Express VI
 
 Express VI 是指那些带有配置对话框，可以在编辑VI时就设置输入参数值的VI。Express VI是专为简化常见类型的程序而设计的。一些LabVIEW常见的程序模式，比如完成数据采集、波形的频域变换等功能的程序，都可以使用一两个Express VI，做一些简单配置，就可以完成。为了便于程序员寻找，LabVIEW中的常用的Express VI都可以在函数选板"Express"中找到；也有一些功能复杂，不太常用的Express VI被按照功能归类到了其它子函数选板中。
 
 从函数选板上直接就可以看出Express VI与普通VI的区别：Express VI 的图标周围有一圈浅蓝色的边框。如图4.51中的 "时间延迟"和"已用时间"VI。
 
-![Graphical user interface, application Description automatically
-generated](images/image306.png) \
+![](images/image306.png) \
 图4.51：函数选板上的Express VI
 
 Express VI在使用时，也与普通VI有些不同。Express VI通常都配有一个配置对话框（图 4.52），用于设定Express VI运行时所需的一些数据，因而不必再在程序框图上输入数据。这就大大简化了程序框图。Express VI的功能通常都比一般的VI强大。某些常见的简单程序，譬如基本的数据采集显示程序，仅需使用几个Express VI就可以实现。加之使用它编程也比较简单，所以得名"Express VI（中文直译快捷VI）"。
 
-![http://ruanqizhen.files.wordpress.com/2009/06/e0bad7dd59c3c0d7ec27dd358e1a8dc3.png?w=100](images/image307.png) ![Graphical user interface, text Description
-automatically
-generated](images/image308.png) \
+![](images/image307.png)  ![](images/image308.png) \
 图4.52："时间延迟"Express VI和它的对话框
 
 Express VI的功能强大、使用便捷，但付出的代价是效率较低。在一些功能简单的应用程序中，它所调用的Express VI也许包含了大量应用程序根本用不到的功能。这部分功能既占用内存空间，又会影响程序的运行速度。所以，对于效率要求较高的程序，不适合使用Express VI。
@@ -23,8 +20,7 @@ Express VI的功能强大、使用便捷，但付出的代价是效率较低。�
 
 普通子VI被放置到程序框图上时，其默认的显示方式是图标。在以图标方式显示时，可以在其右键菜单中选择"显示项->接线端"，将其连线板显示出来。它还有另一种显示方式：可扩展节点。在子VI的右键菜单中放弃选择"显示为图标"便可以更改其显示方式。以可扩展节点方式显示的子VI，可以通过拖拽框图的下边框线把所有的接线端都移至下方列出（图 4.53右侧的子VI）。
 
-![A picture containing qr code Description automatically
-generated](images/image309.png)
+![](images/image309.png)
 
 图 4.53子VI的三种不同显示方式
 
@@ -34,13 +30,11 @@ Express VI与普通子VI一样，也有这几种显示方式。不过，Express 
 
 比如图 4.54中的"ex\_subFileWrite.vi"子VI，其输入输出参数非常之多，使用可扩展节点方式可以清楚地显示出每个参数的连线情况。如果使用图标方式，则根本无法分清参数是如何连接的（图 4.55）。
 
-![Diagram Description automatically
-generated](images/image310.png)
+![](images/image310.png)
 
 图 4.54使用可扩展节点方式显示一个参数众多的子VI
 
-![Diagram Description automatically
-generated](images/image311.png)
+![](images/image311.png)
 
 图 4.55使用图标方式显示一个参数众多的子VI
 
@@ -56,31 +50,26 @@ Express VI 的行为与普通子VI有所不同：在程序框图上双击一个E
 
 把"数据转换1"Express VI的 "结果数据类型" 配置为"一维波形数组"（如图4.56所示），再把Express VI 转换为普通VI并查看其程序框图（如图4.57所示），可以看到这个Express VI 的程序框图由一个简单的子VI构成（如图4.58所示）。
 
-![Graphical user interface Description automatically
-generated](images/image312.png)\
+![](images/image312.png)\
 图4.56 "数据转换1"Express VI 的配置对话框
 
 。
 
-![Graphical user interface Description automatically
-generated](images/image313.png) \
+![](images/image313.png) \
 图4.57：打开Express VI的前面板，然后打开程序框图
 
-![Graphical user interface, text, application Description automatically
-generated](images/image314.png) \
+![](images/image314.png) \
 图4.58： "数据转换1" Express VI 的程序框图
 
 把"数据转换2"Express VI的 "结果数据类型" 配置为"二维标量数据"；标量数据类型配置为"布尔"。使用同样方法打开"数据转换2"Express VI 的程序框图。可以看到，它与"数据转换1"的程序框图完全不同，因为它们需要完成的功能是完全不同的。
 
-![Graphical user interface Description automatically
-generated](images/image315.png) \
+![](images/image315.png) \
 图4.59："数据转换2" Express VI 的配置对话框
 
-![Graphical user interface, diagram Description automatically
-generated](images/image316.png) \
+![](images/image316.png) \
 图4.60："数据转换2" Express VI的程序框图
 
-## [Express VI 的优缺点](http://ruanqizhen.wordpress.com/2009/07/15/express-vi-3-%E4%BC%98%E7%BC%BA%E7%82%B9/)
+## Express VI 的优缺点
 
 相当一部分使用LabVIEW的用户并非计算机软件或相关专业的人士，他们或许并不擅长编写复杂的程序。为此，LabVIEW想尽办法，降低编程难度，以满足非计算机专业人士的需求。 降低编程难度的手段之一，就是使用简单的参数配置来代替复杂的程序逻辑。比如完成某一功能，如果仅仅是在某一面板上选择几个参数，肯定要比在程序框图上编写代码容易得多。
 
@@ -96,6 +85,6 @@ Express VI大大简化了编程的难度，但也带有它固有的缺陷。到�
 
 Express VI的另一缺点是其效率较一般VI低。一般而言，Express VI功能复杂，而应用程序通常只会用到其中的一部分，它的其它众多功能在这个应用程序中是毫无用处的。而由于Express VI提供了众多附加功能，通常它的代码比一般VI更臃肿，运行速度也慢一些。
 
-## 开发自己的[Express VI](http://ruanqizhen.wordpress.com/2009/07/20/express-vi-4-%E6%89%A7%E8%A1%8C%E4%BB%A3%E7%A0%81%E5%92%8C%E9%85%8D%E7%BD%AE%E5%AF%B9%E8%AF%9D%E6%A1%86/)
+## 开发自己的 Express VI
 
 除了 LabVIEW 自带的 Express VI，如果编程者愿意，也可以创建自己的 Express VI。在LabVIEW8.6以后的版本中，打开"工具->高级->创建或编辑Express VI"菜单项，将弹出一个"创建或编辑Express VI"的对话框，并可按部就班制作出一个Express VI。
