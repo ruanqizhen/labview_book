@@ -8,7 +8,7 @@
 <b>正文目录</b>
 * [LabVIEW 入门](docs/ramp_up)
    * [安装](docs/ramp_up_install)
-   * ["Hello，World!"程序](docs/ramp_up_hello_world)
+   * [“Hello，World!”程序](docs/ramp_up_hello_world)
    * [如何学习 LabVIEW](docs/ramp_up_how_to_learn)
    * [编写更复杂的程序](docs/ramp_up_complex_vis)
    * [按自己的喜好设置编程环境](docs/ramp_up_dev_environment)
