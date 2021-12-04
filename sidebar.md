@@ -3,7 +3,7 @@
 * [开源共享版本说明]()
 * [序 --郭文哲](docs/preface_guowenzhe)
 * [前言](docs/preface)
-* [什么是LabVIEW](docs/preface_labview)
+* [什么是 LabVIEW](docs/preface_labview)
 
 <b>正文目录</b>
 * [LabVIEW 入门](docs/ramp_up)
@@ -22,8 +22,7 @@
    * [顺序结构](docs/structure_sequence)
    * [条件结构](docs/structure_condition)
    * [禁用结构](docs/structure_disable)
-   * [for 循环结构](docs/structure_for_loop)
-   * [while 循环结构](docs/structure_while_loop)
+   * [循环结构](docs/structure_loop)
    * [事件结构](docs/structure_event)
    * [定时结构](docs/structure_timing)
 * [常用程序结构模式](docs/pattern)
