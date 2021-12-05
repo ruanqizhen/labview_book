@@ -125,7 +125,7 @@ VI的这一特性在有些场合表现出了非常好的优点。比如，一个
 
 ![images_2/w_20211205161710.png](images_2/w_20211205161710.png "在实例间共享副本的属性")
 
-## 可重入VI的两种数据空间分配方式
+## 数据空间分配方式
 
 LabVIEW 8.6 之后，在设置VI为可重入时，有两个数据空间分配选项：“让各个实例间共享空间”和“为每个实例预分配空间”。（见上图）（Shared clone reentrant execution & Preallocated clone reentrant execution）
 
