@@ -23,7 +23,7 @@
 RT、LabVIEW FPGA等，那么在这一层还会显示出这些相应的目标设备。如图图
 9.2所示。
 
-![](images/image532.emf)
+![](images/image532.png)
 
 图 .2包含有多个目标设备的项目
 
