@@ -25,8 +25,9 @@
   <script>
     window.$docsify = {
       name: '<b>LabVIEW 编程经验</b>',
-	  loadSidebar: 'sidebar.md',
-	  subMaxLevel: 4,
+      relativePath: true,
+      loadSidebar: 'sidebar.md',
+      subMaxLevel: 4,
       auto2top: true,
       search: 'auto',
       search: {
@@ -36,14 +37,14 @@
         depth: 6,
         hideOtherSidebarContent: false,
       },
-	  ga: 'G-9EFRGQK2N0',
-	  pagination: {
-		previousText: '上一章节',
-		nextText: '下一章节',
-		crossChapter: true,
-		crossChapterText: true,
-	  },
-	  plugins: [
+      ga: 'G-9EFRGQK2N0',
+      pagination: {
+        previousText: '上一章节',
+        nextText: '下一章节',
+        crossChapter: true,
+        crossChapterText: true,
+      },
+      plugins: [
         EditOnGithubPlugin.create('https://github.com/ruanqizhen/labview_book/blob/main/', null, '编辑'),
 		
 		function(hook, vm) {
