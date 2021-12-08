@@ -24,6 +24,13 @@ sudo dpkg -i *.deb
 
 LabVIEW 会被安装到文件夹 `/usr/local/natinst/LabVIEW-20xx-64` 下（把xx替换成对应的版本）。 运行这个文件夹下 `./labviewprofull` 命令即可启动LabVIEW。
 
+LabVIEW 安装包自带的系统程序启动菜单项可能也不适合Debian：
+
+![images_2/image18.png](images_2/image18.png "Linux 系统的开始菜单")
+
+Linux 系统启动菜单项被保存在文件夹 `/usr/share/applications/` 下，这里会看到一个 labview64-20xx.desktop 文件。如果遇到了问题，可以用文本编辑器打开这个文件，把键值Exec修改成：`Exec=/usr/local/natinst/LabVIEW-2021-64/labviewprofull %u`。这样就可以使用系统启动菜单启动LabVIEW了。
+
+
 Debian不是LabVIEW官方支持的系统，可能会遇到某些问题并且无法得到官方解决方案。所以如果是用于项目开发，请务必选用官方支持的操作系统。但是对于学习来说，越是折腾越有利于拓宽知识面。
 
 LabVIEW 2021 启动后的画面如下，可以选择新建或是打开已有的文件：
