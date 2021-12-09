@@ -31,7 +31,7 @@
   * [定时结构](docs/structure\_timing.md)
 * [常用程序结构模式](docs/pattern.md)
   * [错误处理机制](docs/pattern\_error\_handling.md)
-  * [可重入 VI](docs/pattern\_reentrant\_vi.md)
+  * [可重入 VI 和递归算法](docs/pattern\_reentrant\_vi.md)
   * [状态机](docs/pattern\_state\_machine.md)
   * [全局变量](docs/pattern\_global\_data.md)
   * [界面程序](docs/pattern\_ui.md)
