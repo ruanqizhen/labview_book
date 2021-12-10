@@ -27,7 +27,7 @@
    * [定时结构](/docs/structure_timing)
 * [常用程序结构模式](/docs/pattern)
    * [错误处理机制](/docs/pattern_error_handling)
-   * [可重入 VI](/docs/pattern_reentrant_vi)
+   * [可重入 VI 和递归算法](/docs/pattern_reentrant_vi)
    * [状态机](/docs/pattern_state_machine)
    * [全局变量](/docs/pattern_global_data)
    * [界面程序](/docs/pattern_ui)
