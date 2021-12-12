@@ -13,6 +13,7 @@
 		<Item Name="Chair.lvclass" Type="LVClass" URL="../Chair/Chair.lvclass"/>
 		<Item Name="Furniture.lvclass" Type="LVClass" URL="../Furniture/Furniture.lvclass"/>
 		<Item Name="Table.lvclass" Type="LVClass" URL="../Table/Table.lvclass"/>
+		<Item Name="put_chair_cushions.vi" Type="VI" URL="../Chair/put_chair_cushions.vi"/>
 		<Item Name="setup_furnitures.vi" Type="VI" URL="../setup_furnitures.vi"/>
 		<Item Name="test.vi" Type="VI" URL="../test.vi"/>
 		<Item Name="Dependencies" Type="Dependencies"/>
