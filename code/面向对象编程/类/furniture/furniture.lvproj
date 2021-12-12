@@ -10,11 +10,11 @@
 		<Property Name="server.vi.callsEnabled" Type="Bool">true</Property>
 		<Property Name="server.vi.propertiesEnabled" Type="Bool">true</Property>
 		<Property Name="specify.custom.address" Type="Bool">false</Property>
-		<Item Name="Child.lvclass" Type="LVClass" URL="../Child/Child.lvclass"/>
-		<Item Name="Parent.lvclass" Type="LVClass" URL="../Parent/Parent.lvclass"/>
-		<Item Name="test_data.vi" Type="VI" URL="../test_data.vi"/>
-		<Item Name="test_default_value.vi" Type="VI" URL="../test_default_value.vi"/>
-		<Item Name="test_methods.vi" Type="VI" URL="../test_methods.vi"/>
+		<Item Name="Chair.lvclass" Type="LVClass" URL="../Chair/Chair.lvclass"/>
+		<Item Name="Furniture.lvclass" Type="LVClass" URL="../Furniture/Furniture.lvclass"/>
+		<Item Name="Table.lvclass" Type="LVClass" URL="../Table/Table.lvclass"/>
+		<Item Name="setup_furnitures.vi" Type="VI" URL="../setup_furnitures.vi"/>
+		<Item Name="test.vi" Type="VI" URL="../test.vi"/>
 		<Item Name="Dependencies" Type="Dependencies"/>
 		<Item Name="Build Specifications" Type="Build"/>
 	</Item>
