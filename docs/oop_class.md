@@ -96,7 +96,8 @@ Parent类的实例调用Parent.lvclass:dynamic.vi返回值是“Parent Dynamic V
 
 
 基于静态分配模板的VI与基于动态分配模板的VI的本文的区别仅在于：动态分配的VI的类输入输出接线端是动态分配的，而静态分配的VI则不是。如果在开始设计的时候，生成了一个基于静态分配模板的VI，但是后来发现它应该是基于动态分配模板的VI，那么也不需要重新在生成一遍，只要改变它的接线端的类型就可以了。
-![images/image780.png](images/image780.png “动态分配类输入/输出的接线端”)
+
+![images/image780.png](images/image780.png "动态分配类输入/输出的接线端")
 
 
 ## 属性(数据)
