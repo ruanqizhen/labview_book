@@ -78,9 +78,10 @@
   * [编译器优化与内嵌子VI](docs/optimization\_inline\_subvi.md)
 * [面向对象编程](docs/oop.md)
   * [基础知识](docs/oop\_basic.md)
-  * [LabVIEW 的类](docs/oop\_lv\_class.md)
+  * [类](docs/oop\_class.md)
+  * [类的优缺点](docs/oop\_class\_pro\_con.md)
   * [应用实例](docs/oop\_use\_cases.md)
-  * [LVClass 的内存加载](docs/oop\_performance.md)
+
 
 ## 附录
 
