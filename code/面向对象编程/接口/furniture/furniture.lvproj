@@ -11,8 +11,9 @@
 		<Property Name="server.vi.propertiesEnabled" Type="Bool">true</Property>
 		<Property Name="specify.custom.address" Type="Bool">false</Property>
 		<Item Name="Chair.lvclass" Type="LVClass" URL="../Chair/Chair.lvclass"/>
-		<Item Name="Furniture.lvclass" Type="LVClass" URL="../Furniture/Furniture.lvclass"/>
+		<Item Name="IChair.lvclass" Type="LVClass" URL="../IChair/IChair.lvclass"/>
 		<Item Name="IFurniture.lvclass" Type="LVClass" URL="../IFurniture/IFurniture.lvclass"/>
+		<Item Name="ITable.lvclass" Type="LVClass" URL="../ITable/ITable.lvclass"/>
 		<Item Name="Table.lvclass" Type="LVClass" URL="../Table/Table.lvclass"/>
 		<Item Name="put_chair_cushions.vi" Type="VI" URL="../Chair/put_chair_cushions.vi"/>
 		<Item Name="setup_furnitures.vi" Type="VI" URL="../setup_furnitures.vi"/>
