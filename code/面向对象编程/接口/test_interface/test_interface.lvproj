@@ -10,8 +10,11 @@
 		<Property Name="server.vi.callsEnabled" Type="Bool">true</Property>
 		<Property Name="server.vi.propertiesEnabled" Type="Bool">true</Property>
 		<Property Name="specify.custom.address" Type="Bool">false</Property>
+		<Item Name="CParent.lvclass" Type="LVClass" URL="../CParent/CParent.lvclass"/>
+		<Item Name="IBar.lvclass" Type="LVClass" URL="../IBar/IBar.lvclass"/>
 		<Item Name="IChildFoo.lvclass" Type="LVClass" URL="../IChildFoo/IChildFoo.lvclass"/>
 		<Item Name="IParent.lvclass" Type="LVClass" URL="../IParent/IParent.lvclass"/>
+		<Item Name="test.vi" Type="VI" URL="../test.vi"/>
 		<Item Name="Dependencies" Type="Dependencies"/>
 		<Item Name="Build Specifications" Type="Build"/>
 	</Item>
