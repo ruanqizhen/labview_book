@@ -124,7 +124,7 @@ Parent类的实例调用Parent.lvclass:dynamic.vi返回值是“Parent Dynamic V
 
 
 
-## 一个应用示例
+## 应用示例
 
 ### 需求
 
