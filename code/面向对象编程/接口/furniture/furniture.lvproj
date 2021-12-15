@@ -17,6 +17,7 @@
 		<Item Name="ITable.lvclass" Type="LVClass" URL="../ITable/ITable.lvclass"/>
 		<Item Name="Table.lvclass" Type="LVClass" URL="../Table/Table.lvclass"/>
 		<Item Name="put_chair_cushions.vi" Type="VI" URL="../Chair/put_chair_cushions.vi"/>
+		<Item Name="put_tablecloths.vi" Type="VI" URL="../put_tablecloths.vi"/>
 		<Item Name="setup_furnitures.vi" Type="VI" URL="../setup_furnitures.vi"/>
 		<Item Name="test.vi" Type="VI" URL="../test.vi"/>
 		<Item Name="Dependencies" Type="Dependencies">
