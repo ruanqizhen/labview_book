@@ -38,7 +38,7 @@
 *用于重写的VI：这个选项是专门给子类用的，用来创建覆盖父类的方法VI。它创建的是一个基于动态分配模板的VI，只是LabVIEW 帮忙在程序框图上添加了一些调用父类同名方法的代码。
 *类型定义：创建用户自定义控件，用于自定义一些在模块里可能需要用到的数据类型。
 
-下面我们研究一下“基于动态分配模板的VI”和“基于静态分配模板的VI”个子的行为是什么样的。
+下面我们研究一下“基于动态分配模板的VI”和“基于静态分配模板的VI”各自的行为是什么样的。
 
 首先在Parent类中创建一个基于静态分配模板的VI，叫做static.vi。这个VI的功能比较简单，只是返回一行文字“Parent Static VI”。
 
@@ -67,24 +67,23 @@
 
 上图中，偏紫色图标的VI都属于Parent类，偏黄色图标的VI都属于Child类。
 
-static.vi由于是基于静态分配模板的VI，不能被子孙类覆盖，所以可以确定，被调用的永远是Parent类中的那个static.vi，返回值也一定是“Pareent Static VI”，不论输入的类型是哪一种。
+static.vi由于是基于静态分配模板的VI，不能被子孙类覆盖，所以可以确定，被调用的永远是Parent类中的那个static.vi，返回值也一定是“Parent Static VI”，不论输入的类型是哪一种。
 
 Parent类的实例调用Parent.lvclass:dynamic.vi返回值是“Parent Dynamic VI”；Child类的实例调用Child.lvclass:dynamic.vi返回值是“Child Dynamic VI”。这也是比较确定的。
 
-需要注意的是最后一条测试，“message 6”中的文字：我们把一个Child类的实例泛化成Parent类的一个实例，然后用它去调用dynamic.vi。这里的实例是由Child类生成的，所以不论它在之后的程序中被当做哪个祖先类的实例传递，它都始终是一个Child实例，所以无论之后怎么转换，调用dynamic.vi，运行的都是Child类中的那个dynamic.vi。所以这里返回的文字是“Child Dynamic VI”。只有当子类中没有实现（重写）某个基于动态分配模板的VI，程序才会调用它父类中的同名VI。
+需要注意的是最后一条测试，“message 6”中的文字：我们把一个Child类的实例泛化成Parent类的一个实例，然后用它去调用dynamic.vi。这里的实例是由Child类生成的，不论它在程序中使用哪个祖先类的类型传递数据，它都始终是一个Child类实例，所以程序调用它的dynamic.vi，运行的都一定是Child类中的那个dynamic.vi。我们可以看到这里返回的文字是“Child Dynamic VI”。只有当子类中没有实现（重写）某个基于动态分配模板的VI是，程序才会调用它父类中的同名VI。
 
-下面我们再改动一下Parent.lavclass:static.vi，让它调用Parent.lvclass:dynamic.vi：
+下面我们再改动一下Parent.lavclass:static.vi的程序逻辑，让它去调用一下Parent.lvclass:dynamic.vi：
 
 ![images_2/image35.png](images_2/image35.png "静态VI调用动态VI")
 
-然后我们再在测试VI中，使用一个例泛化成Parent类的实例的Child类的实例调用这个Parent.lavclass:static.vi。返回值会是什么呢？
+然后我们再在测试程序中，使用一个泛化成Parent类类型的Child类的实例调用这个Parent.lavclass:static.vi。返回值会是什么呢？
 
 ![images_2/image36.png](images_2/image36.png "测试静态VI调用动态VI")
 
-尽管子类中没有static.vi，测试程序确定调用的是父类中的static.vi，但是由于传入的实例属于Child类，那么static.vi中调用的依然是Child类中的dynamic.vi。一个基于动态分配模板的VI，即便是在其它类的VI中被调用，依然还是会运行实例所属的类中的VI。
+尽管Child子类中没有static.vi，测试程序确定调用的是父类中的static.vi，但是由于传入的实例属于Child类，那么父类的static.vi中调用的依然是Child类中的dynamic.vi。一个基于动态分配模板的VI，即便是在其它类的VI中被调用，依然还是会运行实例所属的类中的方法。
 
-
-这也就是面向对象编程中“多态的含义”。程序在编写的时候，总是使用父类中的方法，但程序运行时，调用的是哪个方法是根据传入的实例的具体类型来决定的。换句话说，这个被调用的父类的方法是抽象的，它会根据传入对象具体类型的不同表现出多种形态，所以叫做多态。
+这也就是面向对象编程中“多态的含义”。我们可以总是使用父类中的方法编写程序，但在程序运行时，调用的是哪个方法是根据传入的实例的具体类型来决定的。换句话说，这个被调用的父类的方法是抽象的，它会根据传入对象具体类型的不同表现出多种形态，所以叫做多态。
 
 那么如果一个父类的VI被子类覆盖之后，是不是就无法在子类中被调用了？在子类中调用父类同名方法时，不能如同调用一般的子VI那样，直接把父类的方法拖拽过来。这种调用方式是无效的，而必须使用函数选板中的"编程-\>簇，类与变体-\>调用父类方法"节点来调用父类的方法。如果在新建类的方法时，选择“用于重写的VI”，系统会自动把这个节点加在新生成的VI程序框图上。
 
@@ -124,7 +123,7 @@ Parent类的实例调用Parent.lvclass:dynamic.vi返回值是“Parent Dynamic V
 
 
 
-## 一个应用示例
+## 应用示例
 
 ### 需求
 
