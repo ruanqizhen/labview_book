@@ -32,7 +32,6 @@
    * [全局变量](/docs/pattern_global_data)
    * [界面程序](/docs/pattern_ui)
    * [多态 VI](/docs/pattern_polymorphic_vi)
-   * [Express VI](/docs/pattern_express_vi)
    * [传引用](/docs/pattern_pass_by_ref)
 * [调用外部程序](/docs/external_call)
    * [动态链接库](/docs/external_call_dll)
