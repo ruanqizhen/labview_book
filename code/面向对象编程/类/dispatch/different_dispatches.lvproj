@@ -16,6 +16,7 @@
 		<Item Name="test_data.vi" Type="VI" URL="../test_data.vi"/>
 		<Item Name="test_default_value.vi" Type="VI" URL="../test_default_value.vi"/>
 		<Item Name="test_methods.vi" Type="VI" URL="../test_methods.vi"/>
+		<Item Name="test_property_node.vi" Type="VI" URL="../test_property_node.vi"/>
 		<Item Name="Dependencies" Type="Dependencies"/>
 		<Item Name="Build Specifications" Type="Build"/>
 	</Item>
