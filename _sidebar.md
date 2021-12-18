@@ -76,6 +76,7 @@
    * [基础知识](/docs/oop_basic)
    * [类](/docs/oop_class)
    * [类的优缺点](/docs/oop_class_pro_con)
+   * [接口](/docs/oop_interface)
    * [应用实例](/docs/oop_use_cases)
 
 

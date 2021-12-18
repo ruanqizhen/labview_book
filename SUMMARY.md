@@ -80,6 +80,7 @@
   * [基础知识](docs/oop\_basic.md)
   * [类](docs/oop\_class.md)
   * [类的优缺点](docs/oop\_class\_pro\_con.md)
+  * [接口](docs/oop\_interface.md)
   * [应用实例](docs/oop\_use\_cases.md)
 
 
