@@ -73,7 +73,7 @@ Parent类的实例调用Parent.lvclass:dynamic.vi返回值是“Parent Dynamic V
 
 需要注意的是最后一条测试，“message 6”中的文字。因为Child类继承自Parent类，Child类可以被认为是Parent类的一个子集。如果一个对象属于Child类，也就必然属于Parent类。因此在程序中我们可以把这个Child类的对象的数据类型转化成为Parent类的数据类型，然后用它去调用dynamic.vi。这里的实例是由Child类生成的，不论它在程序中使用哪个祖先类的数据类型表示它，它都始终还是一个Child类实例，所以程序调用它的dynamic.vi，运行的一定还是Child类中的那个dynamic.vi。我们可以看到这里返回的文字是“Child Dynamic VI”。只有当子类中没有实现（重写）某个基于动态分配模板的VI时，程序才会调用它父类中的同名VI。
 
-下面我们再改动一下Parent.lavclass:static.vi的程序逻辑，让它去调用一下Parent.lvclass:dynamic.vi：
+下面我们再改动一下Parent.lvclass:static.vi的程序逻辑，让它去调用一下Parent.lvclass:dynamic.vi：
 
 ![images_2/image35.png](images_2/image35.png "静态VI调用动态VI")
 
