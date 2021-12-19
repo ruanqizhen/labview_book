@@ -182,7 +182,7 @@ Parent类的实例调用Parent.lvclass:dynamic.vi返回值是“Parent Dynamic V
 
 ### 方法（VI）
 
-首先实现父类家具类中的方法。返回售价（get_price）方法可被子类直接调用，不需要被子类重写，所以可以使用基于静态分配模板的VI。它的功能就是把家具的成本价乘以利润和交税参数后返回：
+首先实现父类家具类中的方法。返回售价（get_price.vi）方法可被子类直接调用，不需要被子类重写，所以可以使用基于静态分配模板的VI。它的功能就是把家具的成本价乘以利润和交税参数后返回：
 
 ![images_2/image44.png](images_2/image44.png "家具类的返回售价方法")
 
@@ -194,7 +194,7 @@ Parent类的实例调用Parent.lvclass:dynamic.vi返回值是“Parent Dynamic V
 
 ![images_2/image46.png](images_2/image46.png "椅子类重写了组装方法")
 
-椅子类中还有一个构造方法（construct.vi），用于初始化椅子的数据。它首先调用家居类中的数据访问VI，设置产品编号和成本价，然后再把靠垫型号写入到椅子类的数据当中去。桌子类已有一个构造方法，与之类似。
+椅子类中还有一个构造方法（construct.vi），用于初始化椅子的数据。它首先调用家居类中的数据访问VI，设置产品编号和成本价，然后再把靠垫型号写入到椅子类的数据当中去。桌子类也有一个构造方法，与之类似。
 
 ![images_2/image47.png](images_2/image47.png "椅子类的构造方法")
 
