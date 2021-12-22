@@ -33,8 +33,7 @@ n毫秒，每次程序执行到它的时候，会暂停在这里，函数每隔n
 一般情况下，若程序并不要求非常精确的计时，则 "等待" 与
 "等待下一个整数倍毫秒"的区别不大，选用哪个函数都可以。只有在计时精度要求较高的时候，才需要考虑它们之间的细微差别。
 
-![Graphical user interface, application, Teams Description automatically
-generated](images/image235.png)\
+![](images/image235.png)\
 图：3.61 循环框内的定时函数
 
 单纯解释概念比较抽象，还是用程序来演示一下。假设图3.61程序中 "Read Data"
@@ -58,8 +57,7 @@ n\<50，在默认情况下，上图的两个程序，循环每迭代一次，所
 300ms......。假如误差是±4毫秒，那么它实际每次醒来的时间就是100±4ms,
 200±4ms, 300±4ms......，这个误差不会被累积。
 
-![A picture containing table Description automatically
-generated](images/image236.png)
+![](images/image236.png)
 
 图3.61 两种定时函数的累积误差
 
@@ -91,8 +89,7 @@ generated](images/image236.png)
 
 在前面的程序里，延时函数与循环中其它的代码是并行的，这样，只要其它代码耗时很少，就可以认为循环每次迭代的时间就是由延时函数的输入参数来决定的。但有时候，延时函数需要与其它代码串行，比如必须在某两个节点之间延时。
 
-![Qr code Description automatically
-generated](images/image239.png)
+![](images/image239.png)
 
 图6.64 串行方式使用"等待"与"等待下一个整数倍毫秒"函数
 

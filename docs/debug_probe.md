@@ -100,13 +100,11 @@ Queue"。
 从LabVIEW
 2009开始，LabVIEW默认把所有探针的数据显示全部集成在了一个窗口内，如图8.15所示。
 
-![Graphical user interface, text, application Description automatically
-generated](images/image502.png)\
+![](images/image502.png)\
 图8.15 集成的探针监视窗口
 
 与之前LabVIEW中每个探针都有一个独立窗口相比，新的探针管理器无疑更加整洁。新探针管理器中，只有选中的探针的数值会被显示在"Probe
 Display"窗口中。有时候，希望调试程序时可以同时看到多个探针的值。在探针监视窗口中选中某一个探针，点击窗口左上角的"在新窗口中打开"按钮，就可以为这个探针新建一个独立的显示窗口（如图8.16所示）。这样，不同的探针数据就可以同时显示了。
 
-![Graphical user interface, text, application Description automatically
-generated](images/image503.png)\
+![](images/image503.png)\
 图8.16 在独立窗口显示探针数据

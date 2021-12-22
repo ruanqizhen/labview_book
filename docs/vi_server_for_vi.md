@@ -7,8 +7,7 @@
 从LabVIEW
 2010开始，打开这些高级功能的开关被放置在LabVIEW的选项对话框中。在选项中的VI服务器页面，可以看到VI脚本选项，只要选中这一选项，VI脚本功能就被激活了。
 
-![Graphical user interface, text, application Description automatically
-generated](images/image429.png)\
+![](images/image429.png)\
 图6.31 在LabVIEW的选项对话框中打开VI脚本功能
 
 在激活了VI脚本的授权之后，"应用程序控制"函数选板上会多出一个名为VI脚本的子选板（图
@@ -16,19 +15,15 @@ generated](images/image429.png)\
 Control.vi的功能非常类似。由于VI脚本函数选板已经提供了"遍历查找图形对象"VI，在程序里就可以使用这个VI替代Get
 Control.vi。
 
-![Graphical user interface Description automatically generated with low
-confidence](images/image430.png)\
-![Qr code Description automatically
-generated](images/image431.png)
+![](images/image430.png)\
+![](images/image431.png)
 
 图 6.32授权后才能使用的VI脚本函数
 
 激活VI脚本的授权后，可使用的属性和方法也会增加很多。图
 6.33是属性节点选择VI属性的菜单，其中"包含已编译代码"、"程序框图"、"程序框图窗口"等属性都是在激活授权后出现的。这些授权后获得的属性和方法功能更加强大，比如可以使用它们创建或修改VI的代码。
 
-![Graphical user interface Description automatically generated with
-medium
-confidence](images/image432.png)
+![](images/image432.png)
 
 图 6.33更多的VI属性设置
 

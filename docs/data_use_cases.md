@@ -90,26 +90,21 @@ VI和公式节点都只能在程序编辑时，设定固定的公式，程序运
 的列表框、树形等控件的每个条目的前端，都可以为其选择并显示出一个图标。选中控件的右键菜单"显示项-\>符号"（
 图2.70），就可以把选取的图标显示出来。
 
-![Graphical user interface, table, Excel Description automatically
-generated](images/image156.png)\
+![](images/image156.png)\
 图2.70 显示列表框的符号
 
 控件中每个条目的图标的图案可以直接通过控件每个条目的右键菜单"项符号"来选择（图2.71），也可通过在程序中设置控件的"项符号"属性来设置。控件自带的图标都比较简单，并且总共只有40个。（最后一个图标其实不是"图标"，而是分割线，编程时可能会使用到。）
 
-![Graphical user interface, application Description automatically
-generated](images/image157.png)\
+![](images/image157.png)\
 图2.71 选择条目的符号类型
 
 这些控件自带的图案种类非常有限，但LabVIEW允许编程者自己定义列表空等控件条目的符号。以列表框控件为例，编程时，使用控件的"自定义项符号-->设置为自定义符号"方法，可以为控件添加自定义的图标。这个方法节点有两个输入:"索引"表示图标的序号(应该给新图标选择一个大于40的序号，以免覆盖掉控件自带的图标)；第二个输入参数"图像"则是自定义图标的图片（图2.72）。
 
-![Graphical user interface, text, application Description automatically
-generated](images/image158.png)\
+![](images/image158.png)\
 图2.72 设置条目自定义图标的程序
 
 在这个例子中，图片
 VI.png是一张彩色的系统用来表示.vi文件的图标。打开这个图片文件，得到它的图像数据，然后设置给列表框控件。其显示效果为图2.73中控件的最后一个条目。
 
-![Graphical user interface, application, table, Excel Description
-automatically
-generated](images/image159.png)\
+![](images/image159.png)\
 图2.73 使用自定义符号的显示效果

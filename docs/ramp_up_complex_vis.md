@@ -57,12 +57,12 @@ VI 图标。下文着重介绍一下LabVIEW 2009之后的新图标编辑器
 ![](images/image33.png)\
 图1.26 图标编辑器的"图层"页
 
-图标编辑器还有一个额外的优点：它是开源的LabVIEW代码程序，它的主VI位于"\<labview>\\resource\\plugins\\lv_icon.vi"。
+图标编辑器还有一个额外的优点：它是开源的LabVIEW代码程序，它的主VI位于"\[labview]\\resource\\plugins\\lv_icon.vi"。
 如果想参考一下这个复杂程序是如何编写的，打开来就可以看到源代码了。
 
 尽管LabVIEW
 2009的图标编辑器在功能上改进了不少，但早期版本的图标编辑器（图1.27所示）也具有一定的优点。比如，新图标编辑器启动速度慢、无法书写清晰的小字号文字、运行不稳定等。旧版本的图标编辑器并没有从新版本的LabVIEW中移除，用户仍然还可以使用它：给
-"\<labview>\\resource\\plugins\\lv_icon.vi"改个名字，再打开图标编辑器时，LabVIEW找不到新的编辑器，就会自动打开旧版本的那个。
+"\[labview]\\resource\\plugins\\lv_icon.vi"改个名字，再打开图标编辑器时，LabVIEW找不到新的编辑器，就会自动打开旧版本的那个。
 
 ![](images/image34.png)
 

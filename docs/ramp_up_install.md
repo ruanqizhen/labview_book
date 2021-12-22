@@ -8,17 +8,17 @@ Windows 系统下的安装和激活过程都非常直观，只要根据安装程
 
 对于Linux系统下的安装需要注意，LabVIEW官方只支持RedHat家族的Linux发行版本。但台式机上安装的Linux大多属于Debian家族，比如Ubuntu、Deepin等。在Debian家族的系统上安装LabVIEW，需要先把安装包里的 .rpm 文件全部转换为 .deb 才可以。具体步骤如下：
 首先安装用于转换安装包的工具 alien：
-```bash
+```sh
 sudo apt-get install alien
 ```
 
 然后把下载的LabVIEW安装包解压缩，在解压缩后的文件夹路径下运行如下命令把所有 .rpm 安装包文件转换为 .deb 格式安装包。有一些 rpm 安装包是给32位系统的，可能无法转换，把所有名字中带有“i386”的文件删除即可。
-```bash
+```sh
 sudo alien *.rpm --scripts
 ```
 
 最后，运行下面的命令安装所有的deb安装包：
-```bash
+```sh
 sudo dpkg -i *.deb
 ```
 
