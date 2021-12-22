@@ -88,7 +88,7 @@ export default function DocItem(props) {
 
               <DocItemFooter {...props} />
             </article>
-
+            <script async src="https://s4.cnzz.com/z_stat.php?id=1280609189&web_id=1280609189"></script>
 			<Giscus
 			  repo='ruanqizhen/labview_book'
 			  repoId='R_kgDOGYjRCQ'
