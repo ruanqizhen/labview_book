@@ -105,7 +105,7 @@ Parent类的实例调用Parent.lvclass:dynamic.vi返回值是“Parent Dynamic V
 
 因为数据都是私有的，所以也不存在继承的问题，子类不能继承父类的数据。如果子类需要使用父类里的数据，也需要通过调用父类提供的方法间接调用。
 
-我们可以为刚刚创建的创建一些数据：
+我们可以为刚刚创建的类添加一些数据：
 
 ![images_2/image39.png](images_2/image39.png "为类添加数据")
 
