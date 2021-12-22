@@ -131,41 +131,14 @@ C语言中经常在函数间传递指针或者数据的地址。在32位的程�
 在DLL函数和VI之间并没有专门的、用于传递布尔值的数据类型，它也是利用数值类型来传递的。输入时先把布尔值转换为数值，再传递给DLL函数；输出时再把数值转换为布尔值。
 
 在C语言中，有多种表示布尔类型的数据类型，如"bool"、"BOOL"等。它们的存储长度可能不相同，有的用一个字节表示，有的用四个字节表示。在使用时需要查看一下在被调用的DLL文件中布尔类型是以何种长度存储的，再使用对应的数值数据来表示它。
-```
-<table>
-<colgroup>
-<col style="width: 13%" />
-<col style="width: 43%" />
-<col style="width: 43%" />
-</colgroup>
-<thead>
-<tr class="header">
-<th><strong>输入/输出</strong></th>
-<th>输入</th>
-<th>输出或兼作输入输出</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td><strong>C语言声明</strong></td>
-<td>bool visible;</td>
-<td>bool* visible;</td>
-</tr>
-<tr class="even">
-<td><strong>LabVIEW</strong><br />
-<strong>中的配置</strong></td>
-<td><img src="images/image343.png" style="width:2.4434in;height:1.21021in" /></td>
-<td><img src="images/image344.png" style="width:2.44143in;height:1.20144in" /></td>
-</tr>
-<tr class="odd">
-<td><strong>LabVIEW</strong><br />
-<strong>的使用</strong></td>
-<td><img src="images/image345.png" style="width:1.59444in;height:0.50972in" /></td>
-<td><img src="images/image346.png" style="width:1.47153in;height:0.42431in" /></td>
-</tr>
-</tbody>
-</table>
-```
+
+|  |  |  |
+| ---- | ----------- | ----------- |
+| 输入/输出 | 输入 | 输出或兼作输入输出 |
+| C语言声明 | `bool visible;` | `bool* visible;` |
+| LabVIEW 中的配置 | ![](images/image343.png) | ![](images/image344.png) |
+| LabVIEW 的使用 | ![](images/image345.png) | ![](images/image346.png) |
+
 表 .2布尔型数据的设置
 
 ### 数值型数组
@@ -183,41 +156,14 @@ C语言中经常在函数间传递指针或者数据的地址。在32位的程�
 第二种方法是直接在参数配置面板上进行设置。在"最小尺寸"中写入一个固定的数值，LabVIEW会按此大小为输出的数组开辟内存空间。在"最小尺寸"栏中参数可以输入一个固定数值。此外，如果该CLN节点调用的参数中有整型参数，这些参数的名称就会出现在该栏的选择项中，也就是说，也可以选择某个参数作为"最小尺寸"。这样LabVIEW会按照所选参数运行时的输入值来开辟相应大小的空间。
 
 如果没有给输出数据分配内存，或分配的空间不够大，程序运行时就可能出现数组越界的运行错误，LabVIEW会莫名其妙崩溃。更糟糕的是，LabVIEW也许并不是在出现数组越界错误的瞬间崩溃的，而往往是在其之后的某一个不确定的时刻崩溃。如果意识不到程序中有这种错误，或者程序中有很多个类似的CLN节点，那么，调试并查找排除这一错误可能要花费大量的时间和精力。
-```
-<table>
-<colgroup>
-<col style="width: 12%" />
-<col style="width: 43%" />
-<col style="width: 43%" />
-</colgroup>
-<thead>
-<tr class="header">
-<th><strong>输入/输出</strong></th>
-<th>输入</th>
-<th>输出或兼作输入输出</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td><strong>C语言声明</strong></td>
-<td>int values[];</td>
-<td>int values[];</td>
-</tr>
-<tr class="even">
-<td><strong>LabVIEW</strong><br />
-<strong>中的配置</strong></td>
-<td><img src="images/image347.png" style="width:2.54306in;height:1.69811in" /></td>
-<td><img src="images/image348.png" style="width:2.49803in;height:1.6911in" /></td>
-</tr>
-<tr class="odd">
-<td><strong>LabVIEW</strong><br />
-<strong>的使用</strong></td>
-<td><img src="images/image349.png" style="width:0.82986in;height:0.39653in" /></td>
-<td><img src="images/image350.png" style="width:2.51875in;height:0.5in" /></td>
-</tr>
-</tbody>
-</table>
-```
+
+|  |  |  |
+| ---- | ----------- | ----------- |
+| 输入/输出 | 输入 | 输出或兼作输入输出 |
+| C语言声明 | `int values[];` | `int values[];` |
+| LabVIEW 中的配置 | ![](images/image347.png) | ![](images/image348.png) |
+| LabVIEW 的使用 | ![](images/image349.png) | ![](images/image350.png) |
+
 表 .3数组型数据的设置
 
 ### 字符串类型
