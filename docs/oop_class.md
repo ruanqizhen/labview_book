@@ -109,7 +109,7 @@ Parent类的实例调用Parent.lvclass:dynamic.vi返回值是“Parent Dynamic V
 
 ![images_2/image39.png](images_2/image39.png "为类添加数据")
 
-子类和父类中可以添加同名的数据。类的数据可以有初始值设定，初始值就是对应控件的默认值。上图中，如果message控件的默认是空字符串，那么新创建出来的实例中message的数据都是空字符串；如果把message控件的默认值改为字符串“init”，那么新创建出来的实例中message的数据都是“init”。
+子类和父类中可以添加同名的数据。类的数据可以有初始值设定，初始值就是对应控件的默认值。上图中，如果message控件的默认值是空字符串，那么新创建出来的实例中message的数据都是空字符串；如果把message控件的默认值改为字符串“init”，那么新创建出来的实例中message的数据都是“init”。
 
 我们可以使用类的“新建-\>用于数据成员访问的VI”菜单创建一些用于读写数据的VI。
 
