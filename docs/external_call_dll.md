@@ -115,26 +115,20 @@ C语言中经常在函数间传递指针或者数据的地址。在32位的程�
 如果在C语言函数参数声明中有const关键字，可以选中"常量"选项。LabVIEW把一个数据传递给DLL中的函数时，通常需要为数据生成一份拷贝，让DLL函数使用这个拷贝数据。这样做的目的，是为了防止数据在DLL中被修改，外部程序又不知道，因而引起错误。设置"常量"属性，就说明这个参数一定不会在DLL中被改动，LabVIEW可以不为它生成一份拷贝，以节约内存。
 
 表 5.1列举了DLL函数的数值型数据在C语言和LabVIEW中的设置方法。
+
+|  |  |  |
+| ---- | ----------- | ----------- |
+| 输入/输出 | 输入 | 输出或兼作输入输出 |
+| C语言声明 | `float red;` | `float* red;` |
+| LabVIEW 中的配置 | ![](images/image339.png) | ![](images/image340.png) |
+| LabVIEW 的使用 | ![](images/image341.png) | ![](images/image342.png) |
+
+
 ```
-<table>
-<colgroup>
-<col style="width: 14%" />
-<col style="width: 42%" />
-<col style="width: 42%" />
-</colgroup>
-<thead>
-<tr class="header">
-<th><strong>输入/输出</strong></th>
-<th>输入</th>
-<th>输出或兼作输入输出</th>
-</tr>
-</thead>
+
+
 <tbody>
-<tr class="odd">
-<td><strong>C语言声明</strong></td>
-<td>float red;</td>
-<td>float* red;</td>
-</tr>
+
 <tr class="even">
 <td><strong>LabVIEW</strong><br />
 <strong>中的配置</strong></td>
