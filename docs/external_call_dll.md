@@ -169,41 +169,14 @@ C语言中经常在函数间传递指针或者数据的地址。在32位的程�
 ### 字符串类型
 
 字符串的使用与数组是非常类似的。实际上，在C语言中字符串就是一个I8数组。
-```
-<table>
-<colgroup>
-<col style="width: 12%" />
-<col style="width: 43%" />
-<col style="width: 43%" />
-</colgroup>
-<thead>
-<tr class="header">
-<th><strong>输入/输出</strong></th>
-<th>输入</th>
-<th>输出或兼作输入输出</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td><strong>C语言声明</strong></td>
-<td>char* name;</td>
-<td>char* name;</td>
-</tr>
-<tr class="even">
-<td><strong>LabVIEW</strong><br />
-<strong>中的配置</strong></td>
-<td><img src="images/image351.png" style="width:2.58294in;height:1.19699in" /></td>
-<td><img src="images/image352.png" style="width:2.59973in;height:1.22882in" /></td>
-</tr>
-<tr class="odd">
-<td><strong>LabVIEW</strong><br />
-<strong>的使用</strong></td>
-<td><img src="images/image353.png" style="width:0.82986in;height:0.39653in" /></td>
-<td><img src="images/image354.png" style="width:2.58472in;height:0.50972in" /></td>
-</tr>
-</tbody>
-</table>
-```
+
+|  |  |  |
+| ---- | ----------- | ----------- |
+| 输入/输出 | 输入 | 输出或兼作输入输出 |
+| C语言声明 | `char* name;` | `char* name;` |
+| LabVIEW 中的配置 | ![](images/image351.png) | ![](images/image352.png) |
+| LabVIEW 的使用 | ![](images/image353.png) | ![](images/image354.png) |
+
 表 .4字符串型数据的设置
 
 ## 结构型参数的设置
@@ -237,52 +210,15 @@ Cluster第一个元素还应该是I8型的a。但是，不能紧接着就放b。
 C语言的结构中如果还嵌套了数组，是不能直接对应于LabVIEW中嵌套了数组的簇的。在LabVIEW中，只能把数组的元素都拆开来放在簇中。
 
 表 5.5列举了C与LabVIEW中一些常见结构数据类型数据的对应关系。
-```
-<table>
-<colgroup>
-<col style="width: 67%" />
-<col style="width: 32%" />
-</colgroup>
-<thead>
-<tr class="header">
-<th><strong>C</strong></th>
-<th><strong>LabVIEW</strong></th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td>#pragma pack (1)<br />
-typedef struct { char a; int b} MyStct;<br />
-MyStct* testStruct;</td>
-<td><img src="images/image355.jpeg" style="width:0.55694in;height:0.88681in" alt="image" /></td>
-</tr>
-<tr class="even">
-<td>#pragma pack (2)<br />
-typedef struct { char a; int b} MyStct;<br />
-MyStct* testStruct;</td>
-<td><img src="images/image356.jpeg" style="width:0.90556in;height:0.75486in" alt="image" /></td>
-</tr>
-<tr class="odd">
-<td>#pragma pack (4)<br />
-typedef struct { char a; int b} MyStct;<br />
-MyStct* testStruct;</td>
-<td><img src="images/image357.jpeg" style="width:1.06597in;height:0.92431in" alt="image" /></td>
-</tr>
-<tr class="even">
-<td>#pragma pack (1)<br />
-typedef struct { char a; char* str; int b} MyStct;<br />
-MyStct* testStruct;</td>
-<td><img src="images/image358.jpeg" style="width:1.20764in;height:0.75486in" alt="image" /></td>
-</tr>
-<tr class="odd">
-<td>#pragma pack (1)<br />
-typedef struct { char a; char str[5]; int b} MyStct;<br />
-MyStct* testStruct;</td>
-<td><img src="images/image359.jpeg" style="width:0.74514in;height:1.4625in" alt="image" /></td>
-</tr>
-</tbody>
-</table>
-```
+
+| C | LabVIEW |
+| ----------- | ----- |
+| #pragma pack (1) <br /> typedef struct { char a; int b} MyStct; <br /> MyStct* testStruct; | ![](images/image355.jpeg) | 
+| #pragma pack (2) <br /> typedef struct { char a; int b} MyStct; <br /> MyStct* testStruct; | ![](images/image356.jpeg) | 
+| #pragma pack (4) <br /> typedef struct { char a; int b} MyStct; <br /> MyStct* testStruct; | ![](images/image357.jpeg) | 
+| #pragma pack (1) <br /> typedef struct { char a; char* str; int b} MyStct <br /> MyStct* testStruct; | ![](images/image358.jpeg) | 
+| #pragma pack (1) <br /> typedef struct { char a; char str[5]; int b} MyStct; <br /> MyStct* testStruct; | ![](images/image359.jpeg) | 
+
 表 .5不同结构类型与簇的对应关系
 
 表
@@ -292,43 +228,14 @@ MyStct* testStruct;</td>
 5.5中，所有的C语言中声明的testStruct变量，都是指向结构的指针。也就是说C函数的变量类型为结构的指针时，才能在LabVIEW中使用簇与之对应。CLN节点的配置面板中，并没有一个专门的参数类型叫做"struct"或者"簇"，只要选择"匹配至数据类型"就可以了。
 
 如果参数仅用于输入，它的类型很可能直接使用结构，而非结构的指针。考虑到C函数参数的压栈顺序，把一个结构体作为参数传给函数，等价于把结构中每个元素分别作为参数传递给函数。结构参数类型，在LabVIEW中的设置方法如下表所示：
-```
-<table>
-<colgroup>
-<col style="width: 11%" />
-<col style="width: 44%" />
-<col style="width: 44%" />
-</colgroup>
-<thead>
-<tr class="header">
-<th><strong>输入/输出</strong></th>
-<th>输入</th>
-<th>输出或兼作输入输出</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td><strong>C语言声明</strong></td>
-<td>typedef struct{int left; int top;} Position;<br />
-long TestStructure(Position inPos);</td>
-<td>typedef struct{int left; int top;} Position;<br />
-long TestStructure(Position *pos);</td>
-</tr>
-<tr class="even">
-<td><strong>LabVIEW</strong><br />
-<strong>中的配置</strong></td>
-<td><img src="images/image360.png" style="width:2.39426in;height:0.70169in" /></td>
-<td><img src="images/image361.png" style="width:2.42256in;height:0.94798in" /></td>
-</tr>
-<tr class="odd">
-<td><strong>LabVIEW</strong><br />
-<strong>的使用</strong></td>
-<td><img src="images/image362.png" style="width:0.94306in;height:0.59444in" /></td>
-<td><img src="images/image363.png" style="width:1.48125in;height:0.88681in" /></td>
-</tr>
-</tbody>
-</table>
-```
+
+|  |  |  |
+| ---- | ----------- | ----------- |
+| 输入/输出 | 输入 | 输出或兼作输入输出 |
+| C语言声明 | typedef struct{int left; int top;} Position;<br /> long TestStructure(Position inPos); | typedef struct{int left; int top;} Position;<br /> long TestStructure(Position *pos); |
+| LabVIEW 中的配置 | ![](images/image360.png) | ![](images/image361.png) |
+| LabVIEW 的使用 | ![](images/image362.png) | ![](images/image363.png) |
+
 表 .6结构型数据的设置
 
 ## 返回值的设置
