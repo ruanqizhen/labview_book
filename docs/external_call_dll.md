@@ -124,26 +124,6 @@ C语言中经常在函数间传递指针或者数据的地址。在32位的程�
 | LabVIEW 的使用 | ![](images/image341.png) | ![](images/image342.png) |
 
 
-```
-
-
-<tbody>
-
-<tr class="even">
-<td><strong>LabVIEW</strong><br />
-<strong>中的配置</strong></td>
-<td><img src="images/image339.png" style="width:2.4603in;height:1.21496in" /></td>
-<td><img src="images/image340.png" style="width:2.44488in;height:1.22642in" /></td>
-</tr>
-<tr class="odd">
-<td><strong>LabVIEW</strong><br />
-<strong>的使用</strong></td>
-<td><img src="images/image341.png" style="width:0.83333in;height:0.39583in" /></td>
-<td><img src="images/image342.png" style="width:1.11458in;height:0.40625in" /></td>
-</tr>
-</tbody>
-</table>
-```
 表 .1数值数据类型的设置
 
 ### 布尔类型
