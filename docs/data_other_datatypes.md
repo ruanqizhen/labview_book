@@ -19,63 +19,16 @@ LabVIEW中有众多数据类型，限于篇幅，我们不可能对每一种类�
 
 但枚举控件的数据类型是属于枚举型；而下拉列表属于数值型。表
 2.2列举了两者在属性和应用方面的主要区别。
-```
-<table>
-<colgroup>
-<col style="width: 21%" />
-<col style="width: 40%" />
-<col style="width: 38%" />
-</colgroup>
-<thead>
-<tr class="header">
-<th>控件类型</th>
-<th>下拉列表</th>
-<th>枚举</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td>数据类型</td>
-<td><p><img src="images/image79.png" style="width:0.86458in;height:0.16667in" /></p>
-<p>数值型</p></td>
-<td><p><img src="images/image80.png" style="width:0.61458in;height:0.16667in" /></p>
-<p>枚举型</p></td>
-</tr>
-<tr class="even">
-<td>表示法</td>
-<td><p>支持任何浮点实数类型，包括：EXT, DBL, SGL, I64, I32, I16, I8, U64, U32, U16, U8</p>
-<p><img src="images/image81.png" style="width:1.6875in;height:1.8125in" /></p></td>
-<td><p>只支持三种无符号整数类型：U32, U16, U8</p>
-<p><img src="images/image82.png" style="width:1.6875in;height:1.8125in" /></p></td>
-</tr>
-<tr class="odd">
-<td>设置数值</td>
-<td>可以给每个条目设定任意的值，但是不能有数值相同的条目。</td>
-<td>只能按照顺序给每个条目设定一个整数值。从0开始，之后每个条目加1。</td>
-</tr>
-<tr class="even">
-<td>作为条件结构的条件</td>
-<td><p>在条件结构的选择标签中，按照每个条目的值来判断条件是否满足。条件结构无法知道下拉列表中有多少条目，必须手工输入所有可能出现的条件值。</p>
-<p><img src="images/image83.png" style="width:2.23958in;height:0.59375in" /></p></td>
-<td><p>按照每个条目的标签来判断条件是否满足。条件结构知道枚举类型中每个条目，条件结构鼠标右键菜单中可以选择自动为每个枚举中的条目添加分支。</p>
-<p><img src="images/image84.png" style="width:2.03125in;height:0.59375in" /></p></td>
-</tr>
-<tr class="odd">
-<td>动态修改条目标签</td>
-<td>可以通过控件的属性设置，在程序运行时，动态修改下拉列表每一项的标签。</td>
-<td>只能在编辑状态下修改枚举型每一项的标签。VI运行时不能修改。</td>
-</tr>
-<tr class="even">
-<td>类型严格性</td>
-<td><p>所有下拉列表都是同一种数据类型，条目有所不同的两个下拉列表可以直接相互赋值。</p>
-<p><img src="images/image85.png" style="width:2.21875in;height:0.16667in" /></p></td>
-<td><p>拥有不同条目的枚举属于不同数据类型，它们之间不能直接赋值。如需赋值，需要首先强制转换成一般数值类型，再转换成另一枚举类型。</p>
-<p><img src="images/image86.png" style="width:1.88542in;height:0.16667in" /></p>
-<p><img src="images/image87.png" style="width:1.88542in;height:0.16667in" /></p></td>
-</tr>
-</tbody>
-</table>
-```
+
+| 控件类型 | ![](images/image79.png) | ![](images/image80.png) |
+| ----- | ----------- | ----------- |
+| 数据类型 | 数值型 | 枚举型 |
+| 表示法 | 支持任何浮点实数类型，包括：EXT, DBL, SGL, I64, I32, I16, I8, U64, U32, U16, U8 <br /> ![](images/image81.png) | 只支持三种无符号整数类型：U32, U16, U8 <br /> ![](images/image82.png) |
+| 设置数值 | 可以给每个条目设定任意的值，但是不能有数值相同的条目。 | 只能按照顺序给每个条目设定一个整数值。从0开始，之后每个条目加1。 |
+| 作为条件结构的条件 | 在条件结构的选择标签中，按照每个条目的值来判断条件是否满足。条件结构无法知道下拉列表中有多少条目，必须手工输入所有可能出现的条件值。 <br /> ![](images/image83.png) | 按照每个条目的标签来判断条件是否满足。条件结构知道枚举类型中每个条目，条件结构鼠标右键菜单中可以选择自动为每个枚举中的条目添加分支。 <br /> ![](images/image84.png) |
+| 动态修改条目标签 | 可以通过控件的属性设置，在程序运行时，动态修改下拉列表每一项的标签。 | 只能在编辑状态下修改枚举型每一项的标签。VI运行时不能修改。 |
+| 类型严格性 | 所有下拉列表都是同一种数据类型，条目有所不同的两个下拉列表可以直接相互赋值。 <br /> ![](images/image85.png)  | 拥有不同条目的枚举属于不同数据类型，它们之间不能直接赋值。如需赋值，需要首先强制转换成一般数值类型，再转换成另一枚举类型。  <br /> ![](images/image86.png)   <br /> ![](images/image87.png)  |
+
 表 .2比较下拉菜单与枚举类型
 
 通过表 2.2的对比，我们可以得出以下结论：
