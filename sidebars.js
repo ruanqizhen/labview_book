@@ -212,7 +212,25 @@ const sidebars = {
     {
       type: 'category',
       label: '附录',
-      items: ['reference', 'epilogue'],
+      items: [
+		'reference', 
+		'epilogue',
+		{
+		  type: 'link',
+		  label: '示例代码',
+		  href: 'https://github.com/ruanqizhen/labview_book/tree/main/code',
+		},
+		{
+		  type: 'link',
+		  label: '问题讨论和意见反馈',
+		  href: 'https://github.com/ruanqizhen/labview_book/discussions',
+		},
+		{
+		  type: 'link',
+		  label: '作者博客（墙外）',
+		  href: 'https://ruanqizhen.wordpress.com',
+		},
+	  ],
     },
   ],
 
