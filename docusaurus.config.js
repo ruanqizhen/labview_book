@@ -63,8 +63,8 @@ const config = {
         items: [
           {
             href: 'https://github.com/ruanqizhen/labview_book',
-            label: 'GitHub',
             position: 'right',
+            className: 'header-github-link',
           },
         ],
       },
