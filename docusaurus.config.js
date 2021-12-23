@@ -74,6 +74,21 @@ const config = {
       },
     }
   ),
+  plugins: [
+    function cnzzPlugin(context, options) {
+      return {
+        name: 'cnzz-plugin',
+        injectHtmlTags({content}) {
+		  return {
+			postBodyTags: [`<div hidden>
+              <script type="text/javascript" src="https://s4.cnzz.com/z_stat.php?id=1280609189&web_id=1280609189"></script>
+			  </div>`
+			],
+		  };
+		},
+      };
+    },
+  ],
 };
 
 module.exports = config;
