@@ -87,22 +87,18 @@ export default function DocItem(props) {
               </div>
 
               <DocItemFooter {...props} />
-			  <div>
-              <script async src="https://s4.cnzz.com/z_stat.php?id=1280609189&web_id=1280609189"></script>
-		      <script src="https://giscus.app/client.js"
-				data-repo="ruanqizhen/labview_book"
-				data-repo-id="R_kgDOGYjRCQ"
-				data-category="Announcements"
-				data-category-id="DIC_kwDOGYjRCc4B_4dq"
-				data-mapping="title"
-				data-reactions-enabled="1"
-				data-emit-metadata="1"
-				data-theme="light"
-				data-lang="zh-CN"
-				crossorigin="anonymous"
-				async>
-		      </script>
-			  </div>
+
+			  <Giscus
+			    repo='ruanqizhen/labview_book'
+			    repoId='R_kgDOGYjRCQ'
+			    category='Announcements'
+			    categoryId='DIC_kwDOGYjRCc4B_4dq'
+			    mapping='pathname'
+			    reactionsEnabled='1'
+			    emitMetadata='1'
+			    theme='light'
+			    lang='zh-CN'
+			  />
             </article>
 
             <DocPaginator previous={metadata.previous} next={metadata.next} />
