@@ -210,7 +210,7 @@ Parent类的实例调用Parent.lvclass:dynamic.vi返回值是“Parent Dynamic V
 
 ![images_2/image49.png](images_2/image49.png "为一组椅子放置靠垫的VI")
 
-接下来再写一个VI用于组装所有的家具（setup_funitures.vi）。因为这个VI要处理所以类型的家具，它的输入输出控件就不能再是桌子或椅子类了，而必须是家具类型。这个VI稍微复杂一点，首先针对每一个家具调用“组装方法”，再调用“返回售价”方法，再把两个方法返回的字符串合并起来：
+接下来再写一个VI用于组装所有的家具（setup_funitures.vi）。因为这个VI要处理所有类型的家具，它的输入输出控件就不能再是桌子或椅子类了，而必须是家具类型。这个VI稍微复杂一点，首先针对每一个家具调用“组装方法”，再调用“返回售价”方法，再把两个方法返回的字符串合并起来：
 
 ![images_2/image50png](images_2/image50.png "组装一组家具的VI")
 
