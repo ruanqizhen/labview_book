@@ -96,3 +96,13 @@ Number的缩写，表示它不是一个数值。如果波形中某个点的数�
 程序运行效果如图7.36所示（Plot0曲线被加粗）\
 ![image](images/image477.png)\
 图7.36 Plot0曲线被选中后加粗
+
+### 时频联合谱图
+
+如果安装了“Advanced Signal Processing Toolkit”工具包，信号处理会变得更加容易。这个工具包包含了针对时序信号分析、时频联合分析以及小波分析所需的各种函数和工具。
+
+例如[上文](data_graph)提到的时频分析运算过程，使用"Advanced Signal Processing Toolkit"工具中的一个"STFT Spectrogram"Express VI就可以完成。工具包中还提供了其它LabVIEW中没有的时频联合分析方法，如Gabor Spectrogram、Adapt Spectrogram等。此外，使用此工具还可以对得到的时频联合谱图做进一步处理，如把谱图上某一区域的信号分离出来。
+
+![images/image474.png](images/image474.png "使用STFT Spectrogram Express VI计算信号的时频联合谱图")
+
+![images/image475.png](images/image475.png "STFT Spectrogram Express VI的配置对话框")

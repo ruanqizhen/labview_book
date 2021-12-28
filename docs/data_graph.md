@@ -181,14 +181,7 @@ XY图形在每一个坐标点只有两个选项：有数据或者没有数据。
 
 ![images/image473.png](images/image473.png "声音能量在不同时段和频率上的分布")
 
-
-如果把程序改为从声卡或其它数据采集设备中读入数据，就可以对采集到的信号进行实时分析了。如果还安装了“Advanced Signal Processing Toolkit”工具包，信号处理会变得更加容易。这个工具包包含了针对时序信号分析、时频联合分析以及小波分析所需的各种函数和工具。
-
-例如上文提到的时频分析运算过程，使用"Advanced Signal Processing Toolkit"工具中的一个"STFT Spectrogram"Express VI就可以完成。工具包中还提供了其它LabVIEW中没有的时频联合分析方法，如Gabor Spectrogram、Adapt Spectrogram等。此外，使用此工具还可以对得到的时频联合谱图做进一步处理，如把谱图上某一区域的信号分离出来。
-
-![images/image474.png](images/image474.png "使用STFT Spectrogram Express VI计算信号的时频联合谱图")
-
-![images/image475.png](images/image475.png "STFT Spectrogram Express VI的配置对话框")
+如果把程序改为从声卡或其它数据采集设备中读入数据，就可以对采集到的信号进行实时分析了。
 
 ### 数据分析
 
