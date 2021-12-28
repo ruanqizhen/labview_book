@@ -58,6 +58,7 @@ const sidebars = {
         'data_datatype_cast', 
         'data_and_controls',
         'data_use_cases',
+		'data_graph',
       ],
     },
     {
