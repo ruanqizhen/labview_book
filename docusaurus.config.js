@@ -94,6 +94,7 @@ const config = {
         hashed: true,
         language: ["en", "zh"],
 		docsRouteBasePath: "/",
+		highlightSearchTermsOnTargetPage: true,
       },
     ],
   ],
