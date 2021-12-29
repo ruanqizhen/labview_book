@@ -27,7 +27,16 @@ html[data-theme='dark'] .docusaurus-highlight-code-line {
   background-color: rgba(0, 0, 0, 0.3);
 }
 
-.navbar__title {
+
+.main-wrapper h1,
+.markdown > h1 {
+  font-size: 2.2em;
+}
+
+.markdown > h2 {
   font-size: 1.5em;
 }
 
+.markdown > h3 {
+  font-size: 1.2em;
+}
