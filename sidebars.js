@@ -228,6 +228,11 @@ const sidebars = {
 		},
 		{
 		  type: 'link',
+		  label: '北航出版社出版',
+		  href: 'http://service.buaapress.com.cn/mzs/book/detail/id/2624',
+		},
+		{
+		  type: 'link',
 		  label: '作者博客（墙外）',
 		  href: 'https://ruanqizhen.wordpress.com',
 		},
