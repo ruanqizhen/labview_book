@@ -87,14 +87,12 @@ LabVIEW默认的颜色配置和控件风格，与系统的风格还是有区别�
 
 使界面保持一致性的前提是：在设计开发时必须遵循一定的规范。规范定义了程序界面的细节。比如：所有对话框都是相同的颜色、所有的按钮都是固定大小、所有文字都是一致的字体字号，等等。
 
-这个规范可以由公司内部定义，也可以遵循现有的行业规范。凡是开发Windows系统风格的程序，可以遵循微软定义的界面规范。微软在www.msdn.com网站上登载有关于Windows程序界面规范的介绍。对于一般的LabVIEW程序，可以遵循LabVIEW程序开发规范。网页<http://zone.ni.com/devzone/cda/tut/p/id/4434>上刊登有一篇文档："LabVIEW
-Development Guidelines: LabVIEW Style Guide (Chapter
-6)"。这篇文档规定了LabVIEW程序的面板颜色、文字的字体大小、如何排列控件等等细节。
+这个规范可以由公司内部定义，也可以遵循现有的行业规范。凡是开发Windows系统风格的程序，可以遵循微软定义的界面规范。微软在<www.msdn.com>网站上登载有关于Windows程序界面规范的介绍。对于一般的LabVIEW程序，可以遵循LabVIEW程序开发规范。网页<http://zone.ni.com/devzone/cda/tut/p/id/4434>上刊登有一篇文档："LabVIEW Development Guidelines: LabVIEW Style Guide (Chapter 6)"。这篇文档规定了LabVIEW程序的面板颜色、文字的字体大小、如何排列控件等等细节。
 
 ## 界面元素的关联
 
-![http://byfiles.storage.live.com/y1pIcO_924THoc4Zkb3q7xKAT4DSSoD3gGmkpNbWOd92JiOtpn6WNR0RBPXr-NFyWAiG6IgBZ1fQoA](images/image575.jpeg)    
-![http://byfiles.storage.live.com/y1pIcO_924THocIExDRiq21dnrysvYUbH5vC9rT17ITiDQJTU-fZ_adBpLZHohusXBpECEMCLN-ypo](images/image576.jpeg)
+![](images/image575.jpeg)    
+![](images/image576.jpeg)
 
 图 .4两个菜单
 
@@ -110,8 +108,8 @@ As","Save All"等，与保存相关的条目都排列在一起。
 
 仅仅把相关内容摆在一起还不够。看一下图 10.5。
 
-![http://byfiles.storage.live.com/y1pIcO_924THoftAWsQFaotdfVcdcWd4u3K4BB6gRgE17ZZDmlPmfdVqrH3Js81kdhfBW12btLDd9g](images/image577.jpeg)  
-![http://byfiles.storage.live.com/y1pIcO_924THoc-BOwEQfz7DQPOESc5GMtMXO0Q00ovM397tUQYiuPB-7vBDCrwkClyoNrC67DQBIk](images/image578.jpeg)
+![](images/image577.jpeg)  
+![](images/image578.jpeg)
 
 图 .5小朋友的名字
 
@@ -126,7 +124,7 @@ As","Save All"等，与保存相关的条目都排列在一起。
 
 值得注意的是，颜色只能作为辅助方式。只有在前几种方法不适用的时候，才需要用颜色来表示关联。颜色与前面提到的其它几种方式不同。人们都喜欢排列整齐、布局合理的界面，但喜欢界面颜色丰富的人就不那么多了。相反，颜色艳丽、对比度高的界面往往会使人视觉疲劳，甚至于让人感到反感。
 
-![http://byfiles.storage.live.com/y1pIcO_924THoe5rrno6QFVM7uUJgE6F67Y5pnGlp8DatCuyxwfmy_EWe4c9gp-h18B6a8B50O5tqA](images/image579.jpeg)
+![](images/image579.jpeg)
 
 图 .6 LabVIEW颜色配置
 
