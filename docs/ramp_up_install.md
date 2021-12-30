@@ -10,11 +10,21 @@ Windows 系统下的安装和激活过程都非常直观，只要根据安装程
 首先安装用于转换安装包的工具 alien：
 ```sh
 sudo apt-get install alien
-```然后把下载的 LabVIEW 安装包解压缩，在解压缩后的文件夹路径下运行如下命令把所有 .rpm 安装包文件转换为 .deb 格式安装包。有一些 rpm 安装包是给 32 位系统的，可能无法转换，把所有名字中带有 “i386” 的文件删除即可。```sh
+```
+
+然后把下载的 LabVIEW 安装包解压缩，在解压缩后的文件夹路径下运行如下命令把所有 .rpm 安装包文件转换为 .deb 格式安装包。有一些 rpm 安装包是给 32 位系统的，可能无法转换，把所有名字中带有 “i386” 的文件删除即可。
+
+```sh
 sudo alien *.rpm --scripts
-```最后，运行下面的命令安装所有的 deb 安装包：```sh
+```
+
+最后，运行下面的命令安装所有的 deb 安装包：
+
+```sh
 sudo dpkg -i *.deb
-```LabVIEW 会被安装到文件夹`/usr/local/natinst/LabVIEW-20xx-64`下（把 xx 替换成对应的版本）。 运行这个文件夹下`./labviewprofull` 命令即可启动 LabVIEW。
+```
+
+LabVIEW 会被安装到文件夹`/usr/local/natinst/LabVIEW-20xx-64`下（把 xx 替换成对应的版本）。 运行这个文件夹下`./labviewprofull` 命令即可启动 LabVIEW。
 
 LabVIEW 安装包自带的系统程序启动菜单项可能也不适合 Debian：
 
