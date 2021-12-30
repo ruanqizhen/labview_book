@@ -50,11 +50,33 @@ else 条件语句是 C 语言中最常用的语句之一，在 LabVIEW 中，可
 例如，用 C 语言编写的语句如下：
 
 ```cpp
-if (conditionA) {if (conditionB) {if (conditionC) {……} else {……}
-    } else {if (conditionD) {……} else {……}
+if (conditionA) {
+    if (conditionB) {
+        if (conditionC) {
+            ……
+        } else {
+            ……
+        }
+    } else {
+        if (conditionD) {
+            ……
+        } else {
+            ……
+        }
     }
-} else {if (conditionE) {if (conditionF) {……} else {……}
-    } else {if (conditionG) {……} else {……}
+} else {
+    if (conditionE) {
+        if (conditionF) {
+            ……
+        } else {
+            ……
+        }
+    } else {
+        if (conditionG) {
+            ……
+        } else {
+            ……
+        }
     }
 }
 ```
