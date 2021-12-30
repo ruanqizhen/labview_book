@@ -16,6 +16,10 @@
 *.lvlps
 .cache/
 
+# Jupyter
+.ipynb_checkpoints
+*/.ipynb_checkpoints/*
+
 # Dependencies
 /node_modules
 
