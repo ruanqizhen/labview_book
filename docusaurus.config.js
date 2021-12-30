@@ -60,13 +60,6 @@ const config = {
           src: 'img/logo.png',
 		  href: '/'
         },
-        items: [
-          {
-            href: 'https://github.com/ruanqizhen/labview_book',
-            position: 'right',
-            className: 'header-github-link',
-          },
-        ],
       },
       prism: {
         theme: lightCodeTheme,
@@ -88,6 +81,15 @@ const config = {
 		},
       };
     },
+	[
+      require.resolve("@easyops-cn/docusaurus-search-local"),
+      {
+        hashed: true,
+        language: ["en", "zh"],
+		docsRouteBasePath: "/",
+		highlightSearchTermsOnTargetPage: true,
+      },
+    ],
   ],
 };
 
