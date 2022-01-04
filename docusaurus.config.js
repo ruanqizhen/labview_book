@@ -92,7 +92,7 @@ const config = {
 		highlightSearchTermsOnTargetPage: true,
       },
     ],
-    "./static/plugin/plugin-image-zoom",
+    "./src/plugin/plugin-image-zoom",
   ],
 };
 
