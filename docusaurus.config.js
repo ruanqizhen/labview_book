@@ -66,7 +66,6 @@ const config = {
         theme: lightCodeTheme,
         darkTheme: darkCodeTheme,
       },
-	  zoomSelector: '.markdown img',
     }
   ),
   plugins: [
@@ -92,7 +91,6 @@ const config = {
 		highlightSearchTermsOnTargetPage: true,
       },
     ],
-	'plugin-image-zoom',
   ],
 };
 
