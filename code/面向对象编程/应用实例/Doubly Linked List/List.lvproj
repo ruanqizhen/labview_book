@@ -1,5 +1,5 @@
 ﻿<?xml version='1.0' encoding='UTF-8'?>
-<Project Type="Project" LVVersion="10008000">
+<Project Type="Project" LVVersion="21008000">
 	<Item Name="My Computer" Type="My Computer">
 		<Property Name="NI.SortType" Type="Int">3</Property>
 		<Property Name="server.app.propertiesEnabled" Type="Bool">true</Property>
@@ -17,10 +17,9 @@
 			<Item Name="Demo - Object Data.vi" Type="VI" URL="../Demo/Demo - Object Data.vi"/>
 			<Item Name="Demo - Custome Node.vi" Type="VI" URL="../Demo/Demo - Custome Node.vi"/>
 		</Item>
-		<Item Name="ListNodeVirtual.lvclass" Type="LVClass" URL="../ListNodeVirtual/ListNodeVirtual.lvclass"/>
-		<Item Name="ListNode.lvclass" Type="LVClass" URL="../ListNode/ListNode.lvclass"/>
-		<Item Name="DoubleLinkedList.lvclass" Type="LVClass" URL="../DoubleLinkedList/DoubleLinkedList.lvclass"/>
-		<Item Name="Readme.txt" Type="Document" URL="../Readme.txt"/>
+		<Item Name="IDoublyNode.lvclass" Type="LVClass" URL="../IDoublyNode/IDoublyNode.lvclass"/>
+		<Item Name="DoublyNode.lvclass" Type="LVClass" URL="../DoublyNode/DoublyNode.lvclass"/>
+		<Item Name="DoublyLinkedList.lvclass" Type="LVClass" URL="../DoublyLinkedList/DoublyLinkedList.lvclass"/>
 		<Item Name="Dependencies" Type="Dependencies"/>
 		<Item Name="Build Specifications" Type="Build"/>
 	</Item>
