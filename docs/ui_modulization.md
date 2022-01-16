@@ -94,7 +94,7 @@ Scripting 的函数和节点，打开子界面 VI 的引用，再把它传递给
 回过头再来考虑一下上一节所提到的向导型应用程序界面的实现方法。它的主要问题在于主界面上控件太多，不便维护。现在借助于子面板控件，可以找到一条更为合理的实现途径：使用插件框架式程序架构来编写向导型的程序。图
 12.11 是这种插件框架式程序结构的示意图。
 
-![http://byfiles.storage.live.com/y1pIcO_924THocfalbG4F7lL0oQsRoV6TB7cz6QpE4q49RVgRHauk5CxPEcRBVjipQeIiONsD6zK9w](images/image746.jpeg)
+![](images/image746.png)
 
 图 .11 插件框架式的程序结构
 
