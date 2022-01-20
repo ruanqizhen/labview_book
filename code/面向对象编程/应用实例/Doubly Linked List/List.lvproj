@@ -14,7 +14,7 @@
 		<Item Name="demo.vi" Type="VI" URL="../demo.vi"/>
 		<Item Name="DoublyLinkedList.lvclass" Type="LVClass" URL="../DoublyLinkedList/DoublyLinkedList.lvclass"/>
 		<Item Name="DoublyNode.lvclass" Type="LVClass" URL="../DoublyNode/DoublyNode.lvclass"/>
-		<Item Name="DoublyNodeRef.lvclass" Type="LVClass" URL="../DoublyNodeRef/DoublyNodeRef.lvclass"/>
+		<Item Name="Iterator.lvclass" Type="LVClass" URL="../Iterator/Iterator.lvclass"/>
 		<Item Name="IDoublyNode.lvclass" Type="LVClass" URL="../IDoublyNode/IDoublyNode.lvclass"/>
 		<Item Name="Dependencies" Type="Dependencies">
 			<Item Name="vi.lib" Type="Folder">
