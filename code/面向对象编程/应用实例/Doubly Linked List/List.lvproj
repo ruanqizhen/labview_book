@@ -11,7 +11,6 @@
 		<Property Name="server.vi.callsEnabled" Type="Bool">true</Property>
 		<Property Name="server.vi.propertiesEnabled" Type="Bool">true</Property>
 		<Property Name="specify.custom.address" Type="Bool">false</Property>
-		<Item Name="test.vi" Type="VI" URL="../test.vi"/>
 		<Item Name="demo.vi" Type="VI" URL="../demo.vi"/>
 		<Item Name="DoublyLinkedList.lvclass" Type="LVClass" URL="../DoublyLinkedList/DoublyLinkedList.lvclass"/>
 		<Item Name="DoublyNode.lvclass" Type="LVClass" URL="../DoublyNode/DoublyNode.lvclass"/>
