@@ -12,6 +12,7 @@
 		<Property Name="server.vi.propertiesEnabled" Type="Bool">true</Property>
 		<Property Name="specify.custom.address" Type="Bool">false</Property>
 		<Item Name="demo.vi" Type="VI" URL="../demo.vi"/>
+		<Item Name="IList.lvclass" Type="LVClass" URL="../IList/IList.lvclass"/>
 		<Item Name="DoublyLinkedList.lvclass" Type="LVClass" URL="../DoublyLinkedList/DoublyLinkedList.lvclass"/>
 		<Item Name="IDoublyNode.lvclass" Type="LVClass" URL="../IDoublyNode/IDoublyNode.lvclass"/>
 		<Item Name="DoublyNode.lvclass" Type="LVClass" URL="../DoublyNode/DoublyNode.lvclass"/>
