@@ -177,7 +177,7 @@ XML 文本的缺点是效率较低。因为把数据转为 XML 格式后，增�
 
 ### 数据平化至 JSON
 
-XML 的功能极其强大。XML 标准的制定者为它设计的功能可能过于复杂了一些，以至于大多数使用者都仅仅需要 XML 功能的一小部分。LabVIEW 用户使用到 XML 的时候基本上也仅仅就是用它把数据以保存成人眼可以直接识别的文本，XML 的 DTD、XSD、XPath、XSLT等一大堆复杂的规范根本使用不到，但这些复杂规范的存在却大大增加了 XML 的学习难度和使用成本。因此，在 XML 标准推出 6 年之后的 2002 年，一些 JavaScript 程序员设计了 JSON 数据格式，用于在某些应用中取代 XML。JSON 是 JavaScript Object Notation 的缩写。JSON 之后很快就被加入了 ECMA (European Computer Manufacturers Association) 组织定制的 JavaScript 语言的标准。时至今日，JSON 已经远比 XML 的应用更加广泛。几乎所有的编程语言都已经支持 JSON。
+XML 的功能极其强大。XML 标准的制定者为它设计的功能可能过于复杂了一些，以至于绝大多数的使用者都仅仅只需要 XML 的一小部分功能。LabVIEW 用户使用到 XML 的时候基本上也只是用它把一些并不算太复杂的数据转换为人眼可以直接识别的文本，XML 的 DTD、XSD、XPath、XSLT等一大堆复杂的规范根本使用不到，但这些复杂规范的存在却大大增加了 XML 的复杂度和使用成本。因此，在 XML 标准推出 6 年之后的 2002 年，一些 JavaScript 程序员设计了 JSON 数据格式，用于在某些应用中取代 XML。JSON 是 JavaScript Object Notation 的缩写。JSON 之后很快就被纳入了 ECMA (European Computer Manufacturers Association) 组织定制的 JavaScript 语言的标准。时至今日，JSON 的应用已经远比 XML 的应用更加广泛，几乎所有的编程语言都已经支持 JSON。
 
 JSON 的格式非常简单：数值数据直接以文本的方式写出；字符串数据用双引号表示；数组用方括号表示；簇用花括号表示。比如下面这个示例：
 
