@@ -127,7 +127,7 @@ string.vi 的程序框图：
 
 ![images_2/z047.png](images_2/z047.png "自适应 VI 可以接收不同类型的数据")
 
-## 自适应 VI 工作原理
+### 自适应 VI 工作原理
 
 自适应 VI 是一种特殊的 VI，它看上去与普通的 VI 几乎没有任何区别。最明显的差别在于自适应 VI 的文件名是 \*.vim。一个普通的 VI 的后缀名被改为 .vim 后，就变成了自适应 VI。自适应 VI 必须是[可重入](pattern_reentrant_vi)的[内嵌 VI](optimization_inline_subvi)。
 
