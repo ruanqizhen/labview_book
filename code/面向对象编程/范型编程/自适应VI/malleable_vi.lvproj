@@ -10,6 +10,11 @@
 		<Property Name="server.vi.callsEnabled" Type="Bool">true</Property>
 		<Property Name="server.vi.propertiesEnabled" Type="Bool">true</Property>
 		<Property Name="specify.custom.address" Type="Bool">false</Property>
+		<Item Name="Untitled 2.vim" Type="VI" URL="../Untitled 2.vim"/>
+		<Item Name="Untitled 4.vi" Type="VI" URL="../Untitled 4.vi"/>
+		<Item Name="shuffle_array.vim" Type="VI" URL="../shuffle_array.vim"/>
+		<Item Name="shuffle_string_and _array.vim" Type="VI" URL="../shuffle_string_and _array.vim"/>
+		<Item Name="test_shuffle_array.vi" Type="VI" URL="../test_shuffle_array.vi"/>
 		<Item Name="Dependencies" Type="Dependencies"/>
 		<Item Name="Build Specifications" Type="Build"/>
 	</Item>
