@@ -207,7 +207,7 @@ const sidebars = {
         'oop_class_pro_con', 
         'oop_interface',
         'oop_use_cases',
-        'opp_generic',
+        'oop_generic',
       ],
     },
     {
