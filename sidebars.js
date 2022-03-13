@@ -90,7 +90,6 @@ const sidebars = {
         'pattern_state_machine', 
         'pattern_global_data',
         'pattern_ui',
-        'pattern_polymorphic_vi',
         'pattern_pass_by_ref',
       ],
     },
@@ -208,6 +207,7 @@ const sidebars = {
         'oop_class_pro_con', 
         'oop_interface',
         'oop_use_cases',
+        'opp_generic',
       ],
     },
     {
