@@ -10,11 +10,14 @@
 		<Property Name="server.vi.callsEnabled" Type="Bool">true</Property>
 		<Property Name="server.vi.propertiesEnabled" Type="Bool">true</Property>
 		<Property Name="specify.custom.address" Type="Bool">false</Property>
-		<Item Name="Untitled 2.vim" Type="VI" URL="../Untitled 2.vim"/>
-		<Item Name="Untitled 4.vi" Type="VI" URL="../Untitled 4.vi"/>
+		<Item Name="assert_not_string.vim" Type="VI" URL="../assert_not_string.vim"/>
+		<Item Name="assert_same_type.vim" Type="VI" URL="../assert_same_type.vim"/>
 		<Item Name="shuffle_array.vim" Type="VI" URL="../shuffle_array.vim"/>
 		<Item Name="shuffle_string_and _array.vim" Type="VI" URL="../shuffle_string_and _array.vim"/>
+		<Item Name="test_assert_not_string.vi" Type="VI" URL="../test_assert_not_string.vi"/>
+		<Item Name="test_assert_same_type.vi" Type="VI" URL="../test_assert_same_type.vi"/>
 		<Item Name="test_shuffle_array.vi" Type="VI" URL="../test_shuffle_array.vi"/>
+		<Item Name="test_shuffle_string.vi" Type="VI" URL="../test_shuffle_string.vi"/>
 		<Item Name="Dependencies" Type="Dependencies"/>
 		<Item Name="Build Specifications" Type="Build"/>
 	</Item>
