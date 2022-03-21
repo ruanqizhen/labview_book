@@ -17,9 +17,12 @@ XNode 本质上就是一组有特定格式要求的库和 VI，XControl 本质�
 笔者主要在 Linux 系统下使用 LabVIEW。在 Linux 系统下启用 XNode 功能要方便的多，只需要将如下配置拷贝到 LabVIEW 的配置文件中即可：
 
 ```ini
-
-
-
+SuperSecretPrivateSpecialStuff=True
+XNodeDevelopment_LabVIEWInternalTag=True
+XnodeWizardMenu=True
+XnodewizardMode=True
+XTraceXnode=True
+XNodeDebugWindow=True
 ```
 
 在 Linux 系统下，LabVIEW 的配置文件的路径是：“/home/<username\>/natinst/.config/LabVIEW-x/labview.conf”。
