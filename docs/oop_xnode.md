@@ -98,7 +98,7 @@ GetBounds 功能 VI 用于设定当前 XNode 图标的尺寸。打开这个功�
 
 ![images_2/z076.png](images_2/z076.png "把尺寸设大")
 
-在次打开测试 VI 查看，会发现 XNode 的图标大了一倍：
+再次打开测试 VI 查看，会发现 XNode 的图标大了一倍：
 
 ![images_2/z077.png](images_2/z077.png "大图标 XNode")
 
