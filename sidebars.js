@@ -208,6 +208,7 @@ const sidebars = {
         'oop_interface',
         'oop_use_cases',
         'oop_generic',
+        'oop_xnode',
       ],
     },
     {
