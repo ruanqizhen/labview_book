@@ -172,7 +172,7 @@ OnResize2 功能 VI 有一个输入，这里传入的数据就是用户调整后
 
 GetImage VI 也要做相应的修改，不再用常量来绘制图标，所有图片中的图块面积，曲线的长短、粗细等都必须根据 XNode 的尺寸按比例计算得到：
 
-![images_2/z084.png](images_2/z084.png "GetImage")
+![images_2/z085.png](images_2/z085.png "GetImage")
 
 完成这些代码修改后，XNode 的尺寸就可以被用户通过鼠标拖拽来调节了。
 
