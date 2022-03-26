@@ -59,5 +59,56 @@ LabVIEW 自带的一些节点也是使用 XNode 技术制作的。比如 Match R
 
 ![images_2/z071.png](images_2/z071.png "Match Regular Expression 的执行代码")
 
-与子 VI 有一些不同：子 VI 的代码是固定的，写好的什么样，就一直是什么样；XNode 的运行代码是动态生成的，是会根据配置选项，连接的数据线等条件的改变而改变的。我们看到上图中的运行代码似乎什么事都没做，那是因为 Match Regular Expression 没有连接任何输入输出，确实不需做任何工作。如果
+与子 VI 有一些不同：子 VI 的代码是固定的，写好的什么样，就一直是什么样；XNode 的运行代码是动态生成的，是会根据配置选项，连接的数据线等条件的改变而改变的。
 
+XNode 功能强大，可以制作出很多不同类型的节点。比如，“Error Ring”是比较类似于数据接线端的节点；“定时循环结构(Timed Loop)”是一种结构节点。
+
+## 功能 VI
+
+XNode 与 [XControl](ui_xcontrol) 相似，通过一些特定的功能 VI 来控制 XNode 的行为和功能。不同之处在于数量， XNode 的功能 VI 的数量比 XControl 多了一个数量级。我们接下来会逐一介绍这其中一些最重要的功能 VI 的用法。
+
+### State
+
+首先，我们先创建一个新的 XNode：
+
+![images_2/z072.png](images_2/z072.png "新建的 XNode")
+
+这是会发现，新创建出来的 XNode，只有一个默认的“状态(State)”功能控件。它与 XControl 中的 State 功能控件功能完全相同。它是一个簇控件，簇中包含了用于定义 XNode 行为和功能的全部变量。如果哪个数据需要在不同的功能 VI 之间被使用，可以就把它们存放在 State 功能控件里。我们暂时还不需要什么数据，所以可以暂时不去改变默认的 State 功能控件，将来需要用到时，在做修改。
+
+新建的 XNode 没有任何功能 VI，XNode 所有的功能 VI 都是可选的。那么这个空的 XNode 能运行吗？
+
+我们在创建一个测试 VI，然后把新建的 XNode 拖到测试 VI 的程序框图上，可以看到新建 XNode 看上去就是一个空白方块，并且测试 VI 是可以运行的，没有语法错误。只是新建的 XNode 也是空的，运行起来不做任何事情。
+
+![images_2/z073.png](images_2/z073.png "调用 XNode")
+
+### GetBounds
+
+新建 XNode 在其它 VI 的程序框图上是上去是一个空白的方块，大小就是一个子 VI 图标的大小。这在高分辨率显示器上看上去显得太小,子 VI 的图标大小是没法调节的，最大就是 32*32 像素，但 XNode 的图标尺寸是可以调节的，下面我们就使用 GetBounds 功能 VI 把它改大。
+
+首先，为新建的 XNode 添加个这个功能 VI。鼠标右键点击 XNode 项目，选择“Ability”：
+
+![images_2/z074.png](images_2/z074.png "添加功能 VI 菜单")
+
+LabVIEW 会弹出一个对话框，列出了 XNode 所有的功能 VI：
+
+![images_2/z075.png](images_2/z075.png "添加功能 VI 对话框")
+
+对话框还给出了每个功能 VI 的简单说明。我们找到 GetBounds，然后点击添加。
+GetBounds 功能 VI 用于设定当前 XNode 图标的尺寸。打开这个功能 VI，可以看到他有一个名为“Bounds”的输出，这是我们唯一需要设置的，把尺寸设置大一点 64*64：
+
+![images_2/z076.png](images_2/z076.png "把尺寸设大")
+
+再次打开测试 VI 查看，会发现 XNode 的图标大了一倍：
+
+![images_2/z077.png](images_2/z077.png "大图标 XNode")
+
+
+
+
+
+
+
+
+
+
+。。。。。。。。。。。。。。
