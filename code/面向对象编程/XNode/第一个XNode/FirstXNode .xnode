@@ -18,6 +18,9 @@
 	<Item Name="GetImage.vi" Type="Ability VI" URL="../GetImage.vi">
 		<Property Name="NI.XItem.Name" Type="Str">Image</Property>
 	</Item>
+	<Item Name="GetTerms4.vi" Type="Ability VI" URL="../GetTerms4.vi">
+		<Property Name="NI.XItem.Name" Type="Str">GetTerms4</Property>
+	</Item>
 	<Item Name="Initialize.vi" Type="Ability VI" URL="../Initialize.vi">
 		<Property Name="NI.XItem.Name" Type="Str">Initialize</Property>
 	</Item>
