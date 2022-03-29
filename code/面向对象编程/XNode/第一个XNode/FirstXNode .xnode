@@ -9,6 +9,9 @@
 	<Property Name="NI.XItem.Express" Type="Bool">false</Property>
 	<Property Name="NI.XItem.Name" Type="Str">XNode 1</Property>
 	<Property Name="NI.XItem.SupportsFatalErrorOut" Type="Bool">true</Property>
+	<Item Name="AdaptToInputs.vi" Type="Ability VI" URL="../AdaptToInputs.vi">
+		<Property Name="NI.XItem.Name" Type="Str">AdaptToInputs</Property>
+	</Item>
 	<Item Name="GetBounds.vi" Type="Ability VI" URL="../GetBounds.vi">
 		<Property Name="NI.XItem.Name" Type="Str">Bounds</Property>
 	</Item>
