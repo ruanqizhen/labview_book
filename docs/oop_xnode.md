@@ -205,6 +205,25 @@ GetImage VI 也要做相应的修改，不再用常量来绘制图标，所有�
 
 这样就可以让 XNode 跟其它节点连通数据线了。XNode 的数据接线端已经选择了 Adaptive （自适应），所以任何类型的数据都可以与之相连。但是 Adaptive 对于输出接线端并不起作用。如何才能 XNode 的输出接线端的数据类型保持与输入端的类型相同呢？
 
+### AdaptToInputs
+
+当连接到 XNode 的数据线发生变化时，AdaptToInputs 功能 VI 会被调用。这个功能 VI 的一个主要输入是“State In”，它是一个数组，包含了目前连接到 XNode 每个接线端的数据类型。接线端用在 GetTerms4 功能 VI 中定义的 Id 表示。假如我们打算让 XNode 的输出数据与输入数据类型保持一致，那么我们需要记住输入数据是什么类型的，这一信息也是要记录在 XNode 的状态数据中：
+
+首先，在 State 功能控件里添加一个数据，用来表示输入数据的类型：
+
+![images_2/z089.png](images_2/z089.png "State")
+
+然后，在 AdaptToInputs 功能 VI 中读出 XNode 的“data in”接线端连接的数据的类型，把这个信息保存传递给状态数据。当数据类型有变化时，是需要重新绘制 XNode 的接线端的，所以这个功能 VI 的 Reply 输出需要包含一个“UpateTerms”命令，通知 LabVIEW 更新 XNode 的接线端。
+
+![images_2/z090.png](images_2/z090.png "AdaptToInputs")
+
+GetTerms4 功能 VI 也要做相应修改，它不再使用 Adaptive 自适应数据类型，而是从状态中读出所需的数据类型，然后设置接线端为相应类型。
+
+![images_2/z091.png](images_2/z091.png "GetTerms4")
+
+这样，XNode 的输出段也可以根据输入数据进行调整了：
+
+![images_2/z092.png](images_2/z092.png "测试输出数据类型")
 
 
 。。。。。。。。。。。。。。
