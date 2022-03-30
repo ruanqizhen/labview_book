@@ -9,8 +9,18 @@
 	<Property Name="NI.XItem.Express" Type="Bool">false</Property>
 	<Property Name="NI.XItem.Name" Type="Str">XNode 1</Property>
 	<Property Name="NI.XItem.SupportsFatalErrorOut" Type="Bool">true</Property>
+	<Item Name="internal" Type="Folder">
+		<Item Name="about_dialog.vi" Type="VI" URL="../about_dialog.vi"/>
+		<Item Name="get_new_control_position.vi" Type="VI" URL="../get_new_control_position.vi"/>
+	</Item>
 	<Item Name="AdaptToInputs.vi" Type="Ability VI" URL="../AdaptToInputs.vi">
 		<Property Name="NI.XItem.Name" Type="Str">AdaptToInputs</Property>
+	</Item>
+	<Item Name="BuildMenu5.vi" Type="Ability VI" URL="../BuildMenu5.vi">
+		<Property Name="NI.XItem.Name" Type="Str">BuildMenu5</Property>
+	</Item>
+	<Item Name="GenerateCode.vi" Type="Ability VI" URL="../GenerateCode.vi">
+		<Property Name="NI.XItem.Name" Type="Str">GenerateCode</Property>
 	</Item>
 	<Item Name="GetBounds.vi" Type="Ability VI" URL="../GetBounds.vi">
 		<Property Name="NI.XItem.Name" Type="Str">Bounds</Property>
@@ -29,6 +39,9 @@
 	</Item>
 	<Item Name="OnResize2.vi" Type="Ability VI" URL="../OnResize2.vi">
 		<Property Name="NI.XItem.Name" Type="Str">OnResize2</Property>
+	</Item>
+	<Item Name="SelectMenu5.vi" Type="Ability VI" URL="../SelectMenu5.vi">
+		<Property Name="NI.XItem.Name" Type="Str">SelectMenu5</Property>
 	</Item>
 	<Item Name="State.ctl" Type="Ability VI" URL="../State.ctl">
 		<Property Name="NI.XItem.Name" Type="Str">State</Property>
