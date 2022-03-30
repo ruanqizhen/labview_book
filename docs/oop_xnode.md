@@ -71,7 +71,7 @@ XNode 功能强大，可以制作出很多不同类型的节点。比如，“Er
 
 ## 功能 VI
 
-XNode 与 [XControl](ui_xcontrol) 相似，通过一些特定的功能 VI 来控制 XNode 的行为和功能。不同之处在于数量， XNode 的功能 VI 的数量比 XControl 多了一个数量级。我们接下来会逐一介绍这其中一些最重要的功能 VI 的用法。
+XNode 与 [XControl](ui_xcontrol) 相似，通过一些特定的功能 VI 来控制 XNode 的行为和功能。不同之处在于数量， XNode 的功能 VI 的数量比 XControl 多了一个数量级。我们接下来会逐一介绍这其中一些最重要的功能 VI 的用法，我们使用一个示例来演示这些功能 VI 的使用方法。假设，我们需要制作一个 XNode，这个 XNode 的输入是一个簇类型数据，XNode 会把簇中元素反向排列，组成一个新的簇类型数据，然后输出。除了这个核心功能，我们还希望演示 XNode 可以有能够变化的外观，能够自动处理各种不同的簇数据类型，有功能菜单等辅助功能。
 
 ### State
 
@@ -225,5 +225,55 @@ GetTerms4 功能 VI 也要做相应修改，它不再使用 Adaptive 自适应�
 
 ![images_2/z092.png](images_2/z092.png "测试输出数据类型")
 
+根据我们最初的设计，我们需要改变一下代码，给这个 XNode 增加一些更复杂的行为。首先，这个 XNode 并不应该接收任何数据类型，它只能处理簇数据类型。这一限制可以添加在 AdaptToInputs 功能 VI 中。这里，我们需要用到一些专用于检查数据类型的函数和 VI，用于查看输入的数据类型到底是什么。这些函数和 VI 可以在函数选板“Programming -> Cluster,Class,&Variant -> Variant -> Data Type Parsing”上找到。这里用了“Get Type Information.vi”，检查“data in”接线端连接的数据类型是否是一种簇类型，如果是，就把这个类型存状态数据；否则，就把一个空数据类型记入状态数据。在这里我们又让这个功能 VI 传递了一个“UpdateImageAndBounds”命令给 Reply，通知 LabVIEW 再处理完这个功能 VI 后再调用更新 XNode 图标尺寸和图形的功能 VI。
+
+![images_2/z093.png](images_2/z093.png "AdaptToInputs")
+
+当 XNode 的输入是一个簇的时候，我们希望输入的也是一个簇，但是簇中元素的数序要与输入的簇的元素顺序相反。因此，我们没有一个现成的数据类型由来设定输出接线端，只能根据输入类型，编程创造一个新的数据类型给输出接线端。这一逻辑在 GetTerms4 功能 VI 中。程序首先调用“Get Type Information.vi”检查当前的输入数据类型是否是簇，如果是，调用“Get Cluster Information.vi”得到簇中每个元素的数据类型，这一信息以数组的形式返回。所以只要把这一数组的顺序颠倒，就是我们需要的输出的簇的元素信息了。把这一新生成的信息通过“Set Cluster Information.vi”写入到一个簇数据类型中，新生成的数据类型就是我们需要的 XNode 的输出数据类型。
+
+![images_2/z094.png](images_2/z094.png "GetTerms4")
+
+这里在做一个额外的功能，如果 XNode 连接的数据类型合法（是一个簇），就把图标的哭脸改为笑脸。在 GetImage 功能 VI 中，根据当前的输入数据类型，画出不同方向的嘴巴，就实现了这一功能：
+
+![images_2/z095.png](images_2/z095.png "GetImage")
+
+再次把这个 XNonde 拖到测试 VI 里，发现 XNode 已经可以对输入输出类型做正确的处理了：
+
+![images_2/z096.png](images_2/z096.png "测试输入输出数据类型")
+
+### GenerateCode
+
+到目前为止，我们已经完成了 XNode 的大部分与界面相关的功能。下面我们实现它运行时的逻辑功能。XNode 通过 GenerateCode 功能 VI 定义 XNode 运行时的逻辑。需要格外注意的是，我们不是直接在 GenerateCode 功能 VI 中实现 XNode 运行时的逻辑，而是要在 GenerateCode 功能 VI 中编写一段代码，当这段代码运行时，生成一段程序，这段生成出来的程序才是 XNode 运行时调用的代码。
+
+比如，我们设计的这个 XNode，它的运行逻辑大致应当是如下这样：
+
+![images_2/z097.png](images_2/z097.png "运行逻辑")
+
+它在运行时，拿到输入的簇，松绑每个元素，然后在按照相反的顺序把所有元素捆绑成一个新的簇。那么在 GenerateCode 的代码中，我们就要编写一段程序，在一个临时 VI 的程序框图中，添加上相应的捆绑、松绑函数，然后把相应的数据线连接好。在 GenerateCode 功能 VI 中编写的代码是用来生成另一段 LabVIEW 代码，这就需要大量依赖各种 [VI Scripting](vi_server_for_vi) 功能。
+
+实现好的 GenerateCode 功能 VI 如下图所示：
+
+![images_2/z098.png](images_2/z098.png "GenerateCode")
+
+这个功能 VI 有两个最主要的输入：
+
+* Diagram： 是指向一个临时 VI 程序框图的引用，这个程序框图上的代码就是 XNode 在运行时回去调用的代码。有了这个引用，我们就可以使用 VI Scripting 功能在它上面编写 LabVIEW 代码了。
+* Terms： 是一个数组，列出了那个临时 VI 所有的输入输出接线端，也是为了方便我们用 VI Scripting 功能处理它们。
+
+GenerateCode 功能 VI 的逻辑大致如下，先判断一下 XNode 当前的输入数据类型是否是簇，如果是，则在临时 VI 上创建一个送绑函数，根据 XNode 当前输入的簇的元素个数，调整送绑函数输出端的个数；类似的再创建一个捆绑函数；最后连接好所有的数据线。
+
+这样， XNode 就可以真正的在程序里被使用了：
+
+![images_2/z099.gif](images_2/z099.gif "运行 XNode")
+
+这个示例 XNode 的运行逻辑是非常简单的，所以它的全部逻辑都可以使用 VI Scripting 编写出来。真正项目里使用的节点很少有这样简单的，GenerateCode 功能 VI 通常都会变得非常非常复杂。一个可以简化 GenerateCode 的技巧是，先为 XNode 的运行逻辑编写好一个模板 VI，这样，在 GenerateCode 功能 VI 里可以先把所有模板中的代码拷贝到那个临时 VI 里去，这样比 用 VI Scripting 一个一个节点的添加和连线简单得多。
+
+### Initialize
+
+Initialize 功能 VI 用于初始化状态数据。与 XControl 不同， XNode 没有 Uninitialize （反初始化功）能 VI，所以，在 Initialize 功能 VI 中打开任何资源都要在这个 VI 中就关闭，我们可能找不到其它更适合关闭资源的地方了。
+
+![images_2/z100.png](images_2/z100.png "GenerateCode")
+
+示例中的 Initialize 功能 VI 仅仅初始化了一些状态数据，如果在 State 功能控件中设置了控件的默认值，不使用 Initialize 功能 VI 也可以。
 
 。。。。。。。。。。。。。。
