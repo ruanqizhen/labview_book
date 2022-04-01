@@ -276,4 +276,31 @@ Initialize 功能 VI 用于初始化状态数据。与 XControl 不同， XNode 
 
 示例中的 Initialize 功能 VI 仅仅初始化了一些状态数据，如果在 State 功能控件中设置了控件的默认值，不使用 Initialize 功能 VI 也可以。
 
-。。。。。。。。。。。。。。
+### BuildMenu5
+
+如果希望给 XNode 添加一些菜单功能，就需要使用到 BuildMenu5 功能 VI。这个 VI 的两个最主要输入数据是菜单引用，和菜单类型。菜单类型有四种：“Operate Object Operate”可以简单理解为是鼠标左键点击产生的菜单，但是鼠标左键点击的行为是需要额外定义的，比较复杂。我们在演示里就使用了第二种“Operate Object Popup”，这是鼠标右键点击 XNode 时，LabVIEW 弹出的系统菜单，我们可以使用菜单相关的函数，对菜单里的项目进行增删。
+
+![images_2/z101.png](images_2/z101.png "BuildMenu5")
+
+我们为 XNode 增加了一个名为“About This XNode”的菜单项：
+
+![images_2/z102.png](images_2/z102.png "右键菜单")
+
+### SelectMenu5
+
+BuildMenu5 功能 VI 只是为 XNode 增加了一些菜单项目，但是用户点击菜单后做什么事，则是在另一个功能 VI： SelectMenu5 中定义的。我们可以在 SelectMenu5 修改某些状态数据，从而完成一些复杂的操作，比如改变 XNode 的外观，增加一些接线端等等操作。在演示程序里，我们仅仅让它弹出一个对话框：
+
+![images_2/z103.png](images_2/z103.png "SelectMenu5")
+
+对话框可以自己编写，也可以使用 LabIVEW 自带的 VI。
+
+![images_2/z104.gif](images_2/z104.gif "SelectMenu5")
+
+### GetDisplayName3
+
+最后，我们再给 XNode 设置一个有意义的名字，方便搜索或阅读程序。这个功能需要使用 GetDisplayName3 功能 VI。这个 VI 有两个输出，“Type Name”主要用于搜索和查找；“Instance Name”用于显示标签。通常它们都是相同的名字。
+
+![images_2/z105.png](images_2/z105.png "GetDisplayName3")
+
+至此，我们就已经完成了一个功能比较完善的 XNode 了。
+
