@@ -25,6 +25,9 @@
 	<Item Name="GetBounds.vi" Type="Ability VI" URL="../GetBounds.vi">
 		<Property Name="NI.XItem.Name" Type="Str">Bounds</Property>
 	</Item>
+	<Item Name="GetDisplayName3.vi" Type="Ability VI" URL="../GetDisplayName3.vi">
+		<Property Name="NI.XItem.Name" Type="Str">GetDisplayName3</Property>
+	</Item>
 	<Item Name="GetGrowInfo.vi" Type="Ability VI" URL="../GetGrowInfo.vi">
 		<Property Name="NI.XItem.Name" Type="Str">GrowInfo</Property>
 	</Item>
