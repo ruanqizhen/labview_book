@@ -82,7 +82,7 @@ const config = {
         injectHtmlTags({content}) {
 		  return {
 			postBodyTags: [`<div hidden>
-              <script type="text/javascript" src="https://s4.cnzz.com/z_stat.php?id=1280609189&web_id=1280609189"></script>
+              <script type="text/javascript" src="https://hm.baidu.com/hm.js?b3f6e7ec9302021671173e3fad14f4cd"></script>
 			  </div>`
 			],
 		  };
