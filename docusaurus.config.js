@@ -81,9 +81,7 @@ const config = {
         name: 'cnzz-plugin',
         injectHtmlTags({content}) {
 		  return {
-			postBodyTags: [`<div hidden>
-              <script type="text/javascript" src="https://hm.baidu.com/hm.js?b3f6e7ec9302021671173e3fad14f4cd"></script>
-			  </div>`
+			postBodyTags: ['<script type="text/javascript" src="https://hm.baidu.com/hm.js?b3f6e7ec9302021671173e3fad14f4cd"></script>'
 			],
 		  };
 		},
