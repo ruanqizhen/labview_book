@@ -215,8 +215,9 @@ const sidebars = {
       type: 'category',
       label: '附录',
       items: [
-		'reference', 
-		'epilogue',
+	    'appendix_problem',
+		'appendix_reference', 
+		'appendix_epilogue',
 		{
 		  type: 'link',
 		  label: '示例代码',
