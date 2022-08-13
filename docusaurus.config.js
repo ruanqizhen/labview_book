@@ -71,20 +71,27 @@ const config = {
 		{name: 'keywords', content: 'LabVIEW, 编程, 经验, 教程, 开源, 免费, 电子书, 下载, PDF, 示例'},
 		{name: 'description', content: '《我和LabVIEW:一个NI工程师的十年编程经验》，是一本广受好评的的畅销书。介绍了各种控件，节点，结构的使用方法和编程模式，调试优化等高级功能。'},
 		{name: 'author', content: 'Qizhen Ruan 阮奇桢'},
-		{name: 'sogou_site_verification', content: 'zamt1S8Mci'},
 	  ],
     }
   ),
   plugins: [
-    function cnzzPlugin(context, options) {
+    function baiduPlugin(context, options) {
       return {
-        name: 'cnzz-plugin',
+        name: 'baidu-plugin',
         injectHtmlTags({content}) {
 		  return {
-			postBodyTags: [`<div hidden>
-              <script type="text/javascript" src="https://s4.cnzz.com/z_stat.php?id=1280609189&web_id=1280609189"></script>
-			  </div>`
+			postBodyTags: ['<script type="text/javascript" src="https://hm.baidu.com/hm.js?b3f6e7ec9302021671173e3fad14f4cd"></script>'
 			],
+		  };
+		},
+      };
+    },
+    function sogouPlugin(context, options) {
+      return {
+        name: 'sogou-plugin',
+        injectHtmlTags({content}) {
+		  return {
+			headTags: ['<meta name="sogou_site_verification" content="zamt1S8Mci" />'],
 		  };
 		},
       };
