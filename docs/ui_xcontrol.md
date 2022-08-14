@@ -335,7 +335,7 @@ XControl 的使用方法与普通控件是相同的（除了事件处理稍微�
 
 值得一提的是，这个示例程序中实现了一个简单的人工智能下棋功能。每次调用“Computer Play One Step.vi”，它就会返回一个电脑认为最优的落子位置。
 
-![images_2/z106.gif](images_2/z106.gif "Computer Play One Step.vi")
+![images_2/z106.png](images_2/z106.png "Computer Play One Step.vi")
 
 这个 VI 遍历当前可以落子的每一个位置，为每个位置打分（调用 predict_score.vi），然后玄奇得分最高的那个位置返回。代码中有个延时，可以去掉。延时只是因为这个打分一瞬间就完成了，看上去有点别扭。让它等一等再返回结果，看上去就好像电脑在思考一样。
 
