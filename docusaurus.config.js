@@ -47,7 +47,11 @@ const config = {
   themeConfig: (
     /** @type {import('@docusaurus/preset-classic').ThemeConfig} */
     {
-	  hideableSidebar: true,
+	  docs: {
+        sidebar: {
+          hideable: true,
+        },
+      },
       colorMode: {
         defaultMode: 'light',
         disableSwitch: false,
@@ -82,16 +86,6 @@ const config = {
 		  return {
 			postBodyTags: ['<script type="text/javascript" src="https://hm.baidu.com/hm.js?b3f6e7ec9302021671173e3fad14f4cd"></script>'
 			],
-		  };
-		},
-      };
-    },
-    function sogouPlugin(context, options) {
-      return {
-        name: 'sogou-plugin',
-        injectHtmlTags({content}) {
-		  return {
-			headTags: ['<meta name="sogou_site_verification" content="zamt1S8Mci" />'],
 		  };
 		},
       };
