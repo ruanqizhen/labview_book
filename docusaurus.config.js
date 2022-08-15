@@ -14,7 +14,6 @@ const config = {
   onBrokenMarkdownLinks: 'warn',
   favicon: 'img/favicon.ico',
   projectName: 'labview_book', // Usually your repo name.
-
   presets: [
     [
       'classic',
@@ -35,7 +34,6 @@ const config = {
 		sitemap: {
           changefreq: 'weekly',
           priority: 0.5,
-          trailingSlash: false,
         },
         gtag: {
           trackingID: 'G-9EFRGQK2N0',
