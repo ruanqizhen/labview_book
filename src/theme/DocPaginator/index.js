@@ -17,6 +17,7 @@ export default function DocPaginatorWrapper(props) {
 		inputPosition='top'
 		theme='light'
 		lang='zh-CN'
+		defaultCommentOrder='newest'
 	  />
     </>
   );
