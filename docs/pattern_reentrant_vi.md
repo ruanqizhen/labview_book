@@ -190,7 +190,7 @@ VI 的这一特性在有些场合表现出了非常好的优点。比如，一�
 
 ## 数据空间分配方式
 
-LabVIEW 8.6 之后，在设置 VI 为可重入时，有两个数据空间分配选项：“让各个实例间共享空间” 和 “为每个实例预分配空间”。（见上图）（Shared clone reentrant execution & Preallocated clone reentrant execution）
+LabVIEW 8.6 之后，在设置 VI 为可重入时，有两个数据空间分配选项：“让各个实例间共享空间”（Shared clone reentrant execution） 和 “为每个实例预分配空间”（Preallocated clone reentrant execution）。
 
 “为每个实例预分配空间” 是旧版本 LabVIEW（8.6 之前）设置可重入 VI 时的唯一选项。它是指程序在运行前，编译的时候就为每个可重入 VI 的实例分配好各自的数据空间。比如说这个子 VI 被主 VI 在 3 处不同的地方调用了，那么就分配 3 份数据副本给它。但是，这种分配数据空间的方式有两个主要的问题。
 
