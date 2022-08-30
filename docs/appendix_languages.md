@@ -51,9 +51,9 @@ LabVIEW 年年出新版本，因为每个新版本只是修修 bug 或扩展一�
    * `TRUE a b ≡ (λx.λy.x) a b = (λy.a) b = a`
 * 逻辑运算中的“假”被定义为：`FALSE ≡ λx.λy.y`。也就是输入两个参数，返回第二个。推算一下 
    * `FALSE a b ≡ (λx.λy.y) a b = (λy.y) b = b`
-* 判断语句 if，假设我们需要当变量 b 为 真时，返回 t；当 b 为假时返回 f。那么可以定义 `IF b t f ≡ λb.b t f`。 推算一下 
-   * `IF TRUE t f ≡ ((λb.b) (λx.λy.x)) t f = (λx.λy.x) t f = t`
-   * `IF FALSE t f ≡ ((λb.b) (λx.λy.y)) t f = (λx.λy.y) t f = f`
+* 判断语句 if，假设我们需要当变量 b 为 真时，返回 t；当 b 为假时返回 f。那么可以定义 `IF ≡ λx.x` 即 `IF b t f ≡ λx.x b t f`。 推算一下 
+   * `IF TRUE t f ≡ (λx.x) (λx.λy.x) t f = (λx.λy.x) t f = t`
+   * `IF FALSE t f ≡ (λx.x) (λx.λy.y) t f = (λx.λy.y) t f = f`
 * 有了以上的基础，逻辑运算的定义就简单多了，比如：
    * `AND a b ≡ IF a b FALSE`
    * `OR a b ≡ IF a TRUE b`
