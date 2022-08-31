@@ -29,7 +29,7 @@ LabVIEW 年年出新版本，因为每个新版本只是修修 bug 或扩展一�
 这些问题，一直到笔者学习到一门叫做 Lambda Calculus 的编程语言时才得到解答。Lambda Calculus 是由 Alonzo Church 发明设计的。 Lambda Calculus 是一种极度精简的编程语言。类似简洁的编程语言还有 SKI，Iota 和 Jot 等，不过 Lambda Calculus 始终还是最经典、最著名的。Lambda Calculus 精简到了什么程度呢？只需要用几行文字就可以把它的全部语法描述清楚：
 
 * Lambda Calculus 中用到的全部字符包括：小写英文字母，英文句号，小括号和一个希腊字母 lambda “λ”。
-* 名字 name：由单个英文小写字母构成，格式为 \<name\>。 比如 x，y，a 等；
+* 名字 name：由单个英文小写字母构成，格式为 <name\>。 比如 x，y，a 等；
 * 函数定义 function：由“λ”字符跟一个变量名，跟一个英文句号，再跟一个表达式，结构为 λ<name\>.<expression\>。比如 `λx.x`，这个函数写成数学的形式是 f(x) = x；
 * 函数调用 application：由函数定义加另一段表达式构成，格式<function\><expression\>。比如： `(λx.x)a`，这表示，把 a 作为参数传递给前面那个函数，运算结果就是 a。
 * name, function, application 又被统称为 expression （表达式）。
