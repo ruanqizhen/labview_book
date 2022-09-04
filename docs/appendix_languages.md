@@ -29,9 +29,9 @@ LabVIEW 年年出新版本，因为每个新版本只是修修 bug 或扩展一�
 这些问题，一直到笔者学习到一门叫做 Lambda Calculus 的编程语言时才得到解答。Lambda Calculus 是由 Alonzo Church 发明设计的。 Lambda Calculus 是一种极度精简的编程语言。类似简洁的编程语言还有 SKI，Iota 和 Jot 等，不过 Lambda Calculus 始终还是最经典、最著名的。Lambda Calculus 精简到了什么程度呢？只需要用几行文字就可以把它的全部语法描述清楚：
 
 * Lambda Calculus 中用到的全部字符包括：小写英文字母，英文句号，小括号和一个希腊字母 lambda “λ”。
-* 名字 name：由单个英文小写字母构成，格式为 \<name\>。 比如 x，y，a 等；
-* 函数定义 function：由“λ”字符跟一个变量名，跟一个英文句号，再跟一个表达式，结构为 λ\<name\>.\<expression\>。比如 `λx.x`，这个函数写成数学的形式是 f(x) = x；
-* 函数调用 application：由函数定义加另一段表达式构成，格式\<function\>\<expression\>。比如： `(λx.x)a`，这表示，把 a 作为参数传递给前面那个函数，运算结果就是 a。
+* 名字 name：由单个英文小写字母构成，格式为 <name\>。 比如 x，y，a 等；
+* 函数定义 function：由“λ”字符跟一个变量名，跟一个英文句号，再跟一个表达式，结构为 λ<name\>.<expression\>。比如 `λx.x`，这个函数写成数学的形式是 f(x) = x；
+* 函数调用 application：由函数定义加另一段表达式构成，格式<function\><expression\>。比如： `(λx.x)a`，这表示，把 a 作为参数传递给前面那个函数，运算结果就是 a。
 * name, function, application 又被统称为 expression （表达式）。
 * 括号用于控制计算的优先级。有时代码里也会加入空格以方便阅读。
 
@@ -47,18 +47,27 @@ LabVIEW 年年出新版本，因为每个新版本只是修修 bug 或扩展一�
 读者已经发现了，这个编程语言不但没有循环、条件等结构，甚至连数字、加减法等也没有。是的，编程语言必须提供的功能仅仅只是函数调用，只要有了函数调用，其它所有的运算都可以通过函数调用来实现。下面介绍一下如何在 Lambda Calculus 中定义和实现一些基本的编程功能：
 
 * 实现多参数函数，这个方法有个专用名叫函数柯里化。比如实现函数f(x, y, z) = ((x, y), z) 可以使用如下的代码： `λx.λy.λz.xyz`
-* 逻辑运算中的“真”被定义为：`TRUE ≡ λx.λy.x`。这里对于“真”的定义是：输入两个参数，返回第一个。推算一下 `TRUE a b ≡ (λx.λy.x) a b = (λy.a) b = a`
-* 逻辑运算中的“假”被定义为：`FALSE ≡ λx.λy.y`。也就是输入两个参数，返回第二个。推算一下 `FALSE a b ≡ (λx.λy.y) a b = (λy.y) b = b`
-* 判断语句 if，假设我们需要当变量 b 为 真时，返回 t；当 b 为假时返回 f。那么可以定义 `IF b t f ≡ λb.b t f`。 推算一下 `IF TRUE t f ≡ ((λb.b) (λx.λy.x)) t f = (λx.λy.x) t f = t ; IF FALSE b t f ≡ (λb.b t f) (λx.λy.y) = (λx.λy.y) t f = f`
-* 有了以上的基础，逻辑运算的定义就简单多了，比如：`AND a b ≡ IF a b FALSE； OR a b ≡ IF a TRUE b； NOT a ≡ IF a FALSE TRUE`
+* 逻辑运算中的“真”被定义为：`TRUE ≡ λx.λy.x`。这里对于“真”的定义是：输入两个参数，返回第一个。推算一下
+   * `TRUE a b ≡ (λx.λy.x) a b = (λy.a) b = a`
+* 逻辑运算中的“假”被定义为：`FALSE ≡ λx.λy.y`。也就是输入两个参数，返回第二个。推算一下 
+   * `FALSE a b ≡ (λx.λy.y) a b = (λy.y) b = b`
+* 判断语句 if，假设我们需要当变量 b 为 真时，返回 t；当 b 为假时返回 f。那么可以定义 `IF ≡ λx.x` 即 `IF b t f ≡ λx.x b t f`。 推算一下 
+   * `IF TRUE t f ≡ (λx.x) (λx.λy.x) t f = (λx.λy.x) t f = t`
+   * `IF FALSE t f ≡ (λx.x) (λx.λy.y) t f = (λx.λy.y) t f = f`
+* 有了以上的基础，逻辑运算的定义就简单多了，比如：
+   * `AND a b ≡ IF a b FALSE`
+   * `OR a b ≡ IF a TRUE b`
+   * `NOT a ≡ IF a FALSE TRUE`
 * 定义数字：
    * `0 ≡ λf.λx.x` 可发现 `0 ≡ FALSE`
    * `1 ≡ λf.λx.f x`
    * `2 ≡ λf.λx.f (f x)`
-   * `3 ≡ λf.λx.f (f (f x) x)`
+   * `3 ≡ λf.λx.f (f (f x))`
    * ……
-* 为了方便数字运算还要先定义一个辅助的“后继函数”：`S = λn.λf.λx.f((n f) x)` 。调用这个函数会得到输出参数的下一个数，比如 `S4 = 5`。试验一下：`S 0 ≡ (λn.λf.λx.f((n f) x)) (λf.λx.x) = λf.λx.f(λx.x f) x) = λf.λx.f x ≡ 1`
-* 加法就可以定义为： `ADD ≡ λa λb.(a S) b` 。 拭一下：`ADD 2 3 = (λa λb.(a S) b) 2 3 = 2 S 3 ≡ (λf.λx.f (f x)) S 3 = λx. S (S x) 3 = S (S 3) = S 4 = 5`
+* 为了方便数字运算还要先定义一个辅助的“后继函数”：`S = λn.λf.λx.f((n f) x)` 。调用这个函数会得到输出参数的下一个数，比如 `S4 = 5`。试验一下：
+   * `S 0 ≡ (λn.λf.λx.f((n f) x)) (λf.λx.x) = λf.λx.f(λx.x f) x) = λf.λx.f x ≡ 1`
+* 加法就可以定义为： `ADD ≡ λa λb.(a S) b` 。 拭一下：
+   * `ADD 2 3 = (λa λb.(a S) b) 2 3 = 2 S 3 ≡ (λf.λx.f (f x)) S 3 = λx. S (S x) 3 = S (S 3) = S 4 = 5`
 
 以上是 Lambda Calculus 一些最基本的功能，作为一个图灵完全的语言，它能做的远不止这些，其它编程语言能做的，它也都可以做。但是使用它，所有的功能都需要程序员自己实现，效率太过低下。尽管 Lambda Calculus 不能成为一门实用的编程语言，但作为最经典的教学语言，对后来编程语言的发展产生了深远的影响。函数式编程就是受此启发而来的。如今，Lambda 函数更是成了主流编程语言的标配。
 
