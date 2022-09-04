@@ -212,6 +212,25 @@ System Exec VI。
 
 LabVIEW 调用 Python 的代码，只能使用 Python 自己的解释器，所以必须要在电脑上安装 Python。 LabVIEW 的每一个版本只能支持几个特定版本的 Python （比如 LabVIEW 2021 只可以调用 Python 3.6~3.9），而且，给 LabVIEW 调用的 Python 代码可能会依赖某些特殊的库。为了避免不同版本的 Python 和库等发生冲突，最好使用工具来管理所需的库和环境。Python 最常用的环境管理工具是 Conda。在开源社区中最流行的包含 Conda 的 Python 安装包是 [Miniconda](https://docs.conda.io/en/latest/miniconda.html )，和 [Anaconda](https://www.anaconda.com/ )。Miniconda 比较精简，安装包只包含了最关键的库，其它库可等到需要是在安装，适合轻量级的 Python 用户。Anaconda 的安装包比 Miniconda 大十倍，包含了几乎所有常用的库，适合存储资源宽松的用户使用。
 
+```
+conda config --set auto_activate_base false
+
+
+$ conda create --name lv python=3.9
+
+
+(base) qizhen@deep:~$ conda env list
+# conda environments:
+#
+base                  *  /home/qizhen/anaconda3
+lv                       /home/qizhen/anaconda3/envs/lv
+
+
+(base) qizhen@deep:~$ conda activate lv
+(lv) qizhen@deep:~$ 
+
+
+```
 conda ....
 
 
