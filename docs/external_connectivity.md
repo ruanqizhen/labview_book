@@ -210,21 +210,21 @@ System Exec VI。
 
 ### 安装 Python
 
-LabVIEW 调用 Python 的代码，只能使用 Python 自己的编译器，所以必须要在电脑上安装 Python。 LabVIEW 的每一个版本只能支持几个特定版本的 Python （比如 LabVIEW 2021 只可以调用 Python 3.6~3.9），而且，给 LabVIEW 调用的 Python 代码可能会依赖某些特殊的库。为了避免不同版本的 Python 和库等发生冲突，最好使用工具来管理所需的库和环境。Python 最常用的环境管理工具是 Conda。在开源社区中最流行的包含 Conda 的 Python 安装包是 [Miniconda](https://docs.conda.io/en/latest/miniconda.html )，和 [Anaconda](https://www.anaconda.com/ )。Miniconda 比较精简，安装包只包含了最关键的库，其它库可等到需要是在安装，适合轻量级的 Python 用户。Anaconda 的安装包比 Miniconda 大十倍，包含了几乎所有常用的库，适合存储资源宽松的用户使用。
+LabVIEW 调用 Python 的代码，只能使用 Python 自己的解释器，所以必须要在电脑上安装 Python。 LabVIEW 的每一个版本只能支持几个特定版本的 Python （比如 LabVIEW 2021 只可以调用 Python 3.6~3.9），而且，给 LabVIEW 调用的 Python 代码可能会依赖某些特殊的库。为了避免不同版本的 Python 和库等发生冲突，最好使用工具来管理所需的库和环境。Python 最常用的环境管理工具是 Conda。在开源社区中最流行的包含 Conda 的 Python 安装包是 [Miniconda](https://docs.conda.io/en/latest/miniconda.html )，和 [Anaconda](https://www.anaconda.com/ )。Miniconda 比较精简，安装包只包含了最关键的库，其它库可等到需要是在安装，适合轻量级的 Python 用户。Anaconda 的安装包比 Miniconda 大十倍，包含了几乎所有常用的库，适合存储资源宽松的用户使用。
 
 conda ....
 
 
 ### 调用 Python 的方法
 
-在 LabVIEW 2018 之前，只能通过调用 EXE 的方式，把 Python 编译器当作一个应用程序启动起来，再通过设置命令行参数来运行相应的 Python 程序。其它脚本语言的程序也可以通过类似方式来调用。但是，由于 Python 越来越普及，LabVIEW 在 2018 之后增加了三个专用于调用 Python 程序的节点。
+在 LabVIEW 2018 之前，只能通过调用 EXE 的方式，把 Python 解释器当作一个应用程序启动起来，再通过设置命令行参数来运行相应的 Python 程序。其它脚本语言的程序也可以通过类似方式来调用。但是，由于 Python 越来越普及，LabVIEW 在 2018 之后增加了三个专用于调用 Python 程序的节点。
 
 ![images_2/z113.png](images_2/z113.png "调用 Python")
 
 这三个节点分别是：
-* Open Python Session： 用于启动 Python 编译器。它有两个参数，一是“Python version”，表示 Python 编译器的版本。笔者使用的 LabVIEW 2021 只支持 Python 3.6, 3.7, 3.8, 3.9。笔者安装在计算机上的版本是 3.9，所以这里只能输入 3.9。另一个参数是“Python path”，表示 Python 编译器的位置。如果安装了多个 Python 环境，需要选择那个对应环境下 Python 编译器的路径。
+* Open Python Session： 用于启动 Python 解释器。它有两个参数，一是“Python version”，表示 Python 解释器的版本。笔者使用的 LabVIEW 2021 只支持 Python 3.6, 3.7, 3.8, 3.9。笔者安装在计算机上的版本是 3.9，所以这里只能输入 3.9。另一个参数是“Python path”，表示 Python 解释器的位置。如果安装了多个 Python 环境，需要选择那个对应环境下 Python 解释器的路径。
 * Python Node： 用于调用一个 Python 代码中的函数。输入“module path”是被调用 Python 程序的文件路径；“function name”是 被调用的 Python 程序的函数名。这个节点下部可拉伸的部分，用于设置传递给 Python 函数的参数，以及读取 Python 函数的返回值。Python Node 的配置方法比调用 DLL 简单，可以使用链接的常量或控件来指定参数的数据类型，当然这些数据类型必须与 Python 程序中的设置保持一致。
-* Close Python Session： 调用结束后，用于关闭 Python 编译器。
+* Close Python Session： 调用结束后，用于关闭 Python 解释器。
 
 ### 编写一个测试 VI
 
@@ -257,7 +257,7 @@ def my_add(a, b):
 
 函数有两个输入参数： a 和 b。函数返回 a+b 的值。因此，在 LabVIEW 程序中，把整数 2 和 3 输入给这个 Python 函数时，函数的返回结果是 5。
 
-Python 的变量和输入输出参数不需要预先定义数据类型，所以，对于同样一段 Python 代码，LabVIEW 可以采用不同的输入输出参数类型。比如，把实数 2.6 和 3.7 传递给同样一个 Python 函数，函数的返回值为 6.3。
+Python 的变量和输入输出参数可以是动态类型的，也就是说，在 Python 代码中不需要预先定义变量的数据类型，Python 解释器会在运行时检查变量的数据类型是否合法。所以，对于同样一段 Python 代码，LabVIEW 可以采用不同的输入输出参数类型。比如，把实数 2.6 和 3.7 传递给同样一个 Python 函数，函数的返回值为 6.3。
 
 ![images_2/z117.png](images_2/z117.png "使用实数参数")
 
@@ -273,3 +273,36 @@ Python 的变量和输入输出参数不需要预先定义数据类型，所以�
 
 ![images_2/z120.png](images_2/z120.png "使用簇参数")
 
+在上述的程序中，如果传入的两个参数是不同数据类型，比如一个参数是实数，另一个是字符串，那么 Python 解释器在运行时，会发现实数与字符串无法进行“+”操作，从而报错。在 Python 代码中可以为变量添加建议数据类型，比如下面的代码，建议输入参数的数据类型是字符串：
+
+```python
+def string_concat(a: str, b: str) -> str:
+	return a + b
+	
+print(string_concat(2, 3))
+```
+
+但是，即便把整数作为参数传给这个函数，Python 解释器也并不会报错。（Python 有专用的工具和开发环境，可以报告这种类型错误。）LabVIEW 在调用这个函数时，也同样可以输入其他类型数据。
+
+如果 Python 函数参数的类型是数值、字符串或簇（在 Python 中是 tuples），那么这些参数就是通过值传递的，Python 函数内部的任何操作都不会改变这些参数；Python 函数内部如果有这些类型的数据，也不能通过输出参数的方式传递到 VI 中，只能通过返回值把它们从 Python 传递到 LabVIEW；但如果输入参数的类型是数组，那么在调用 Python 函数时，会采用传引用的方式（关于传值和传引用还可以参考 [LabVIEW 的运行机制](optimization_mechanism) 一节），也就是说，Python 函数可以改变输入的数据，在通过同一个参数把修改后的值输出出来。比如下面这个 VI：
+
+![images_2/z121.png](images_2/z121.png "使用数组输出")
+
+它调用了一个叫做 append_array 的 Python 函数，函数没有返回值。函数有两个输入，分别是字符串数组 a，和字符串 b。在 Python 函数内部，对两个输入数据都做了改变，首先把 b 复制一份在衔接起来，如果 b 的输入值是 "pig"，在操作后，b 在函数内的值就变成了 "pigpig"。接下来又把字符串 b 追加在数组 a 后面。如果 a 的输入值是 ["dog", "cat"]，在操作之后，就会变成是 ["dog", "cat", "pigpig"]。
+
+运行上图的 VI，由于输入数据 a 是一个数组，我们可以从输出数据中看到 Python 函数内部对它的改变，因此，控件 a out 中的数据是 ["dog", "cat", "pigpig"]；输入数据 b 是一个字符串，是传值的，Python 函数内部对它的改变不会输出出来，所以控件 b out 中的数据是 "pig"。
+
+Python 允许函数有多个返回值，比如运行下面的程序，将会得到 x = 5; y = "pig":
+
+```python
+def return_both(a, b) -> str:
+	return a, b
+	
+x, y = return_both(5, "pig")
+```
+
+返回多个数据只是为了书写方便，这本质上相当于这个 Python 函数返回了一个类型为 tuples 的数据 (5, "pig")。在 LabVIEW 中，可以使用簇来接收 tuples 数据。运行下面的 VI，就会看到簇控件 "return value" 中的数据为 (5, "pig")：
+
+![images_2/z122.png](images_2/z122.png "返回多个数据")
+
+LabVIEW 调用 Python 函数只能传递以上介绍到的几种简单数据类型，复杂类型，比如类、map 等等是无法直接传递给 Python 函数的。如果需要处理复杂类型的数据，那么可以或者把复杂数据类型拆解成简单数据类型在传递，或者把复杂数据类型平化成 [JSON 或 XML](data_datatype_cast) 数据再传递。
