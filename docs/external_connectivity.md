@@ -212,26 +212,37 @@ System Exec VI。
 
 LabVIEW 调用 Python 的代码，只能使用 Python 自己的解释器，所以必须要在电脑上安装 Python。 LabVIEW 的每一个版本只能支持几个特定版本的 Python （比如 LabVIEW 2021 只可以调用 Python 3.6~3.9），而且，给 LabVIEW 调用的 Python 代码可能会依赖某些特殊的库。为了避免不同版本的 Python 和库等发生冲突，最好使用工具来管理所需的库和环境。Python 最常用的环境管理工具是 Conda。在开源社区中最流行的包含 Conda 的 Python 安装包是 [Miniconda](https://docs.conda.io/en/latest/miniconda.html )，和 [Anaconda](https://www.anaconda.com/ )。Miniconda 比较精简，安装包只包含了最关键的库，其它库可等到需要是在安装，适合轻量级的 Python 用户。Anaconda 的安装包比 Miniconda 大十倍，包含了几乎所有常用的库，适合存储资源宽松的用户使用。
 
-```
+在 Linux 上安装 Conda 后，Conda 在打开终端时就会自动启动，在命名提示符之前显示当前的环境。如果不希望自动运行 Conda，可以使用如下命令将其关闭： 
+
+```sh
 conda config --set auto_activate_base false
+```
 
+在 Windows 上，需要启动 Conda 安装包创建的启动项，来启动带有 Conda 的 PowerShell，或命令行。
 
-$ conda create --name lv python=3.9
+接下来我们需要创建一个新的环境，专供 LabVIEW 调用 Python 函数。创建新环境使用 conda create 命名，并且我们为新的环境起名为 lv，并且在新环境中 Python 的版本为 3.9：
 
+```sh
+(base) qizhen@deep:~$ conda create --name lv python=3.9
+```
 
+使用 conda env list 命令可以列出所有创建的环境。并且显示出每个环境所在的文件夹，我们需要记住这个文件夹路径，在配置 LabVIEW 调用 Python 代码时，会用到这一路径。
+
+```sh
 (base) qizhen@deep:~$ conda env list
 # conda environments:
 #
 base                  *  /home/qizhen/anaconda3
 lv                       /home/qizhen/anaconda3/envs/lv
+```
 
+上面列出的两个环境中，lv 是我们新建的，base 是默认的环境。如果需要对先创建的环境进行配置，或测试，先要切换到新环境，运行 conda activate 命令：
 
+```sh
 (base) qizhen@deep:~$ conda activate lv
 (lv) qizhen@deep:~$ 
-
-
 ```
-conda ....
+可以看到，命令提示中的环境名 (base) 已经被切换为 (lv) 了。接下来我们就可以配置当前的环境，比如使用 pip 命令安装 Python 的库，或者运行某段 Python 代码。
 
 
 ### 调用 Python 的方法
