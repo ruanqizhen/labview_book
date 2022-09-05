@@ -348,7 +348,29 @@ LabVIEW 调用 Python 函数只能传递以上介绍到的几种简单数据类�
 
 我们挑选一个小功能演示一下 LabVIEW 调用 Python 代码，生成 QRCode。LabVIEW 本身不具备生成 QRCode 的功能，它只能通过包装某些开源的库来实现这一功能。Python 就具备这样一些开源库，比如 Python 的 qrcode 库。首先在 Python 环境中，使用 pip 命令安装这个库：
 
-。。。。
+```
+(base) qizhen@deep:~$ conda activate lv
+(lv) qizhen@deep:~$ pip install qrcode[pil]
+Collecting qrcode[pil]
+  Downloading qrcode-7.3.1.tar.gz (43 kB)
+     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 43.5/43.5 kB 2.7 MB/s eta 0
+00:00
+  Preparing metadata (setup.py) ... done
+Collecting pillow
+  Downloading Pillow-9.2.0-cp39-cp39-manylinux_2_28_x86_64.whl (3.2 MB)
+     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 3.2/3.2 MB 4.4 MB/s eta 0:0
+:00
+Building wheels for collected packages: qrcode
+  Building wheel for qrcode (setup.py) ... done
+  Created wheel for qrcode: filename=qrcode-7.3.1-py3-none-any.whl size=40386 sha256=ff22258cd1a100
+c88e4636b93a077a5ad0319933e434e098140210242f0637c
+  Stored in directory: /home/qizhen/.cache/pip/wheels/93/54/16/55cec87f8d902ed84b94ab8fdb7e89ae1158
+06e130bc83b03
+Successfully built qrcode
+Installing collected packages: qrcode, pillow
+Successfully installed pillow-9.2.0 qrcode-7.3.1
+(lv) qizhen@deep:~$ 
+```
 
 Python 中很多图像处理相关的库都是用到了 pillow，一个图像处理库。所以，在安装 qrcode 的同时也安装了 pillow。
 
