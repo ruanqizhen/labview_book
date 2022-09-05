@@ -341,3 +341,24 @@ x, y = return_both(5, "pig")
 ![images_2/z122.png](images_2/z122.png "返回多个数据")
 
 LabVIEW 调用 Python 函数只能传递以上介绍到的几种简单数据类型，复杂类型，比如类、map 等是无法直接传递给 Python 函数的。如果需要处理复杂类型的数据，可以把复杂数据类型拆解成简单数据类型再传递，或者把复杂类型数据平化成 [JSON 或 XML](data_datatype_cast) 再传递。
+
+### 应用实例
+
+大多数 Python 可以完成的功能，LabVIEW 也能够完成。但是 Python 也具有一些 LabVIEW 不具备的优势，最重要的一点是 Python 拥有强大的开源社区。开源社区为 Python 贡献了开源免费资源包（或者库函数），其中一些资源是其它语言上无法找到的，比如在人工智能领域，目前超过 90% 的研究成果（发表的论文）都是基于 Pytorch 库的。有些常用功能尽管在其它语言上也有类似的功能，但可能不如在 Python 上使用起来那么方便。
+
+我们挑选一个小功能演示一下 LabVIEW 调用 Python 代码，生成 QRCode。LabVIEW 本身不具备生成 QRCode 的功能，它只能通过包装某些开源的库来实现这一功能。Python 就具备这样一些开源库，比如 Python 的 qrcode 库。首先在 Python 环境中，使用 pip 命令安装这个库：
+
+。。。。
+
+Python 中很多图像处理相关的库都是用到了 pillow，一个图像处理库。所以，在安装 qrcode 的同时也安装了 pillow。
+
+安装好所需的库，我们就可以编写一个 VI，通过 Python 来调用这个库了：
+
+![images_2/z123.png](images_2/z123.png "生成 QRCode 的程序")
+
+在这个演示 VI 中，我们写了一个名为 gen_qrcode 的 Python 函数，它的功能就是调用 qrcode 库函数来生成一个 QRCode。这个简单演示中，所有设置，比如 QRCode 的尺寸、风格等都采用了默认值。我们新建的 Python 函数有两个输入参数，一个是 QRCode 的内容，这里使用了本书的网址作为内容；另一个参数是生成 QRCode 的保存位置，我们生成了一个临时文件用于保存它。VI 在生成 QRCode 后，又把它显示在了前面板的图片控件上：
+
+![images_2/z124.png](images_2/z124.png "生成的 QRCode")
+
+现在可以扫码打开本书的主页了。
+
