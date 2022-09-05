@@ -91,8 +91,7 @@ const sidebars = {
       },
       items: [ 
         'external_call_dll', 
-        'external_call_activex', 
-        'external_call_dotnet', 
+        'external_connectivity', 
       ],
     },
     {
