@@ -341,3 +341,46 @@ x, y = return_both(5, "pig")
 ![images_2/z122.png](images_2/z122.png "返回多个数据")
 
 LabVIEW 调用 Python 函数只能传递以上介绍到的几种简单数据类型，复杂类型，比如类、map 等是无法直接传递给 Python 函数的。如果需要处理复杂类型的数据，可以把复杂数据类型拆解成简单数据类型再传递，或者把复杂类型数据平化成 [JSON 或 XML](data_datatype_cast) 再传递。
+
+### 应用实例
+
+大多数 Python 可以完成的功能，LabVIEW 也能够完成。但是 Python 也具有一些 LabVIEW 不具备的优势，最重要的一点是 Python 拥有强大的开源社区。开源社区为 Python 贡献了开源免费资源包（或者库函数），其中一些资源是其它语言上无法找到的，比如在人工智能领域，目前超过 90% 的研究成果（发表的论文）都是基于 Pytorch 库的。有些常用功能尽管在其它语言上也有类似的功能，但可能不如在 Python 上使用起来那么方便。
+
+我们挑选一个小功能演示一下 LabVIEW 调用 Python 代码，生成 QRCode。LabVIEW 本身不具备生成 QRCode 的功能，它只能通过包装某些开源的库来实现这一功能。Python 就具备这样一些开源库，比如 Python 的 qrcode 库。首先在 Python 环境中，使用 pip 命令安装这个库：
+
+```
+(base) qizhen@deep:~$ conda activate lv
+(lv) qizhen@deep:~$ pip install qrcode[pil]
+Collecting qrcode[pil]
+  Downloading qrcode-7.3.1.tar.gz (43 kB)
+     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 43.5/43.5 kB 2.7 MB/s eta 0
+00:00
+  Preparing metadata (setup.py) ... done
+Collecting pillow
+  Downloading Pillow-9.2.0-cp39-cp39-manylinux_2_28_x86_64.whl (3.2 MB)
+     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 3.2/3.2 MB 4.4 MB/s eta 0:0
+:00
+Building wheels for collected packages: qrcode
+  Building wheel for qrcode (setup.py) ... done
+  Created wheel for qrcode: filename=qrcode-7.3.1-py3-none-any.whl size=40386 sha256=ff22258cd1a100
+c88e4636b93a077a5ad0319933e434e098140210242f0637c
+  Stored in directory: /home/qizhen/.cache/pip/wheels/93/54/16/55cec87f8d902ed84b94ab8fdb7e89ae1158
+06e130bc83b03
+Successfully built qrcode
+Installing collected packages: qrcode, pillow
+Successfully installed pillow-9.2.0 qrcode-7.3.1
+(lv) qizhen@deep:~$ 
+```
+
+Python 中很多图像处理相关的库都是用到了 pillow，一个图像处理库。所以，在安装 qrcode 的同时也安装了 pillow。
+
+安装好所需的库，我们就可以编写一个 VI，通过 Python 来调用这个库了：
+
+![images_2/z123.png](images_2/z123.png "生成 QRCode 的程序")
+
+在这个演示 VI 中，我们写了一个名为 gen_qrcode 的 Python 函数，它的功能就是调用 qrcode 库函数来生成一个 QRCode。这个简单演示中，所有设置，比如 QRCode 的尺寸、风格等都采用了默认值。我们新建的 Python 函数有两个输入参数，一个是 QRCode 的内容，这里使用了本书的网址作为内容；另一个参数是生成 QRCode 的保存位置，我们生成了一个临时文件用于保存它。VI 在生成 QRCode 后，又把它显示在了前面板的图片控件上：
+
+![images_2/z124.png](images_2/z124.png "生成的 QRCode")
+
+现在可以扫码打开本书的主页了。
+
