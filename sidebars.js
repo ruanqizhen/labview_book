@@ -14,10 +14,7 @@ const sidebars = {
         type: 'doc',
         id: 'README',
       },
-      items: [
-        'preface_guowenzhe', 
-        'preface_labview'
-      ],
+      items: [],
     },
     {
       type: 'category',
@@ -27,6 +24,7 @@ const sidebars = {
         id: 'ramp_up',
       },
       items: [ 
+		'preface_labview',
         'ramp_up_install', 
         'ramp_up_hello_world', 
         'ramp_up_how_to_learn', 
