@@ -58,7 +58,6 @@ const sidebars = {
       items: [ 
         'structure_sequence', 
         'structure_condition', 
-        'structure_disable', 
         'structure_loop',
         'structure_event',
         'structure_timing',
@@ -131,7 +130,7 @@ const sidebars = {
       items: [ 
         'debug_ide', 
         'debug_probe', 
-        'debug_more_tools', 
+        'debug_disable', 
         'debug_errors',
         'debug_performance',
         'debug_dll',
