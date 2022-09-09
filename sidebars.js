@@ -60,7 +60,6 @@ const sidebars = {
         'structure_condition', 
         'structure_loop',
         'structure_event',
-        'structure_timing',
       ],
     },
     {
