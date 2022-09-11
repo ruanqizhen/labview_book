@@ -59,7 +59,6 @@ const sidebars = {
         'structure_sequence', 
         'structure_condition', 
         'structure_loop',
-        'structure_event',
       ],
     },
     {
