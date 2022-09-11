@@ -34,7 +34,7 @@ const sidebars = {
     },
     {
       type: 'category',
-      label: '数据',
+      label: 'LabVIEW 编程基础',
       link: {
         type: 'doc',
         id: 'data',
@@ -45,20 +45,10 @@ const sidebars = {
         'data_datatype_cast', 
         'data_and_controls',
         'data_use_cases',
-		'data_graph',
-      ],
-    },
-    {
-      type: 'category',
-      label: '基本程序结构',
-      link: {
-        type: 'doc',
-        id: 'structure',
-      },
-      items: [ 
         'structure_sequence', 
         'structure_condition', 
         'structure_loop',
+		'data_graph',
       ],
     },
     {
