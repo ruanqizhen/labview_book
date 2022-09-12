@@ -29,7 +29,6 @@ const sidebars = {
         'ramp_up_hello_world', 
         'ramp_up_how_to_learn', 
         'ramp_up_complex_vis',
-        'ramp_up_dev_environment',
       ],
     },
     {
@@ -49,6 +48,7 @@ const sidebars = {
         'structure_condition', 
         'structure_loop',
 		'data_graph',
+		'ramp_up_dev_environment',
       ],
     },
     {
