@@ -18,7 +18,7 @@ const sidebars = {
     },
     {
       type: 'category',
-      label: 'LabVIEW 入门',
+      label: '初识 LabVIEW',
       link: {
         type: 'doc',
         id: 'ramp_up',
