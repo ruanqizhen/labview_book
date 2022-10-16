@@ -59,6 +59,7 @@ const sidebars = {
 		'pattern_ui',
         'pattern_global_data',
         'pattern_pass_by_ref',
+		'pattern_file',
       ],
     },
     {
