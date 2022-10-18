@@ -210,11 +210,11 @@ C 语言的结构中如果还嵌套了数组，是不能直接对应于 LabVIEW 
 
 | C | LabVIEW |
 | ----------- | ----- |
-| <pre>#pragma pack (1) <br /> typedef struct {char a; int b} MyStct; <br /> MyStct* testStruct;</pre> | ![](images/image355.jpeg) | 
-| <pre>#pragma pack (2) <br /> typedef struct {char a; int b} MyStct; <br /> MyStct* testStruct;</pre> | ![](images/image356.jpeg) | 
-| <pre>#pragma pack (4) <br /> typedef struct {char a; int b} MyStct; <br /> MyStct* testStruct;</pre> | ![](images/image357.jpeg) | 
-| <pre>#pragma pack (1) <br /> typedef struct {char a; char* str; int b} MyStct <br /> MyStct* testStruct;</pre> | ![](images/image358.jpeg) | 
-| <pre>#pragma pack (1) <br /> typedef struct {char a; char str [5]; int b} MyStct; <br /> MyStct* testStruct;</pre> | ![](images/image359.jpeg) | 
+| <pre><code data-lang="c">#pragma pack (1) <br />typedef struct {char a; int b} MyStct; <br />MyStct* testStruct;</code></pre> | ![](images/image355.jpeg) | 
+| <pre>#pragma pack (2) <br />typedef struct {char a; int b} MyStct; <br />MyStct* testStruct;</pre> | ![](images/image356.jpeg) | 
+| <pre>#pragma pack (4) <br />typedef struct {char a; int b} MyStct; <br />MyStct* testStruct;</pre> | ![](images/image357.jpeg) | 
+| <pre>#pragma pack (1) <br />typedef struct {char a; char\* str; int b} MyStct <br />MyStct* testStruct;</pre> | ![](images/image358.jpeg) | 
+| <pre>#pragma pack (1) <br />typedef struct {char a; char str [5]; int b} MyStct; <br />MyStct* testStruct;</pre> | ![](images/image359.jpeg) | 
 
 表 .5 不同结构类型与簇的对应关系
 
