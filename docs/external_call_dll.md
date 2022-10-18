@@ -210,7 +210,7 @@ C 语言的结构中如果还嵌套了数组，是不能直接对应于 LabVIEW 
 
 | C | LabVIEW |
 | ----------- | ----- |
-| <pre class="language-cpp codeBlockContainer_Ckt0 theme-code-block">#pragma pack (1) <br />typedef struct {char a; int b} MyStct; <br />MyStct* testStruct;</pre> | ![](images/image355.jpeg) | 
+| <code class="language-cpp">#pragma pack (1) <br />typedef struct {char a; int b} MyStct; <br />MyStct* testStruct;</code> | ![](images/image355.jpeg) | 
 | <pre>#pragma pack (2) <br />typedef struct {char a; int b} MyStct; <br />MyStct* testStruct;</pre> | ![](images/image356.jpeg) | 
 | <pre>#pragma pack (4) <br />typedef struct {char a; int b} MyStct; <br />MyStct* testStruct;</pre> | ![](images/image357.jpeg) | 
 | <pre>#pragma pack (1) <br />typedef struct {char a; char\* str; int b} MyStct <br />MyStct* testStruct;</pre> | ![](images/image358.jpeg) | 
