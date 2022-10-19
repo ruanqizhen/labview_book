@@ -210,7 +210,7 @@ C 语言的结构中如果还嵌套了数组，是不能直接对应于 LabVIEW 
 
 | C | LabVIEW |
 | ----------- | ----- |
-| <code class="language-cpp">#pragma pack (1) <br />typedef struct {char a; int b} MyStct; <br />MyStct* testStruct;</code> | ![](images/image355.jpeg) | 
+| <pre>#pragma pack (1) <br />typedef struct {char a; int b} MyStct; <br />MyStct* testStruct;</pre> | ![](images/image355.jpeg) | 
 | <pre>#pragma pack (2) <br />typedef struct {char a; int b} MyStct; <br />MyStct* testStruct;</pre> | ![](images/image356.jpeg) | 
 | <pre>#pragma pack (4) <br />typedef struct {char a; int b} MyStct; <br />MyStct* testStruct;</pre> | ![](images/image357.jpeg) | 
 | <pre>#pragma pack (1) <br />typedef struct {char a; char\* str; int b} MyStct <br />MyStct* testStruct;</pre> | ![](images/image358.jpeg) | 
@@ -229,7 +229,7 @@ C 语言的结构中如果还嵌套了数组，是不能直接对应于 LabVIEW 
 |  |  |  |
 | ---- | ----------- | ----------- |
 | 输入 / 输出 | 输入 | 输出或兼作输入输出 |
-| C 语言声明 | typedef struct {int left; int top;} Position;<br /> long TestStructure (Position inPos); | typedef struct {int left; int top;} Position;<br /> long TestStructure (Position *pos); |
+| C 语言声明 | <pre>typedef struct {int left; int top;} Position;<br />long TestStructure (Position inPos);</pre> | <pre>typedef struct {int left; int top;} Position;<br />long TestStructure (Position *pos);</pre> |
 | LabVIEW 中的配置 | ![](images/image360.png) | ![](images/image361.png) |
 | LabVIEW 的使用 | ![](images/image362.png) | ![](images/image363.png) |
 
@@ -273,7 +273,7 @@ str，LabVIEW 的 CLN 节点可以把它映射为字符串类型。在 LabVIEW �
 
 "\[LabVIEW\]\\vi.lib\\Utility\\importsl\\GetValueByPointer\\GetValueByPointer.xnode"。
 
-.xnode 文件是 NI 内部使用的一种文件格式，用户不可以编辑这类文件，但可以当成子 VI 那样来使用。
+[XNode](oop_xnode) 可以被看做是一种功能更复杂的 VI，这里可以就把它当成子 VI 那样使用。
 
 这个节点有三个输入：一是指针，或者称为数据的内存地址；二是数据类型；三是字节对齐方式。为它们提供正确的参数，GetValueByPointer.xnode 就会把指针所指向的数据返回出来。
 
