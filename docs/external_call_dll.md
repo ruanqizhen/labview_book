@@ -198,26 +198,23 @@ typedef struct {
 显然，元素 a 只占用一个字节，而元素 b 占用四个字节。假设结构中的元素 a 所在的地址是 0xAAAA0000，那么，元素 b 占用四个字节的存放地址是与结构的字节对齐设置相关的。如果采用 1 字节对齐，则 b 是紧挨着 a 存放的，b 的地址就是：0xAAAA0001；如果采用 2 字节对齐，b 的存放
 地址是紧挨着 a 的第一个偶数地址，也就是：0xAAAA0002；如果采用 4 字节对齐，b 的存放地址是紧挨着 a 的第一个 4 整数倍地址，也就是：0xAAAA0004。当然还可以把程序设置为 8 字节、16 字节对齐等。
 
-C 语言中，字节对齐数可以由 "#pragma
-pack" 指令指定，也可以在项目属性里指定。但是 LabVIEW 的簇，只能是 1 字节对齐的。因此，C 语言中，非 1 字节对齐的结构与 Cluster 对应时，必须做适当调整，才可使数据正确传输。
+C 语言中，字节对齐数可以由 `#pragma pack` 指令指定，也可以在项目属性里指定。但是 LabVIEW 的簇，只能是 1 字节对齐的。因此，C 语言中，非 1 字节对齐的结构与 Cluster 对应时，必须做适当调整，才可使数据正确传输。
 
-比如，结构 `typedef struct {char a; int b}`
-MyStct; 是 2 字节对齐的，那么，对应的 LabVIEW
-Cluster 第一个元素还应该是 I8 型的 a。但是，不能紧接着就放 b。因为 C 语言中，b 的起始地址不是紧挨着 a 的，它们中间还有一个无意义的一字节数据。虽然在 C 的结构体中没有表现出来，在 LabVIEW 中却需要把它考虑进去。也就是说，在 LabVIEW 与之对应的簇的元素 a、b 之间还应添加一个一字节长的元素。
+比如，结构 `typedef struct {char a; int b} MyStct;` 是 2 字节对齐的，那么，对应的 LabVIEW Cluster 第一个元素还应该是 I8 型的 a。但是，不能紧接着就放 b。因为 C 语言中，b 的起始地址不是紧挨着 a 的，它们中间还有一个无意义的一字节数据。虽然在 C 的结构体中没有表现出来，在 LabVIEW 中却需要把它考虑进去。也就是说，在 LabVIEW 与之对应的簇的元素 a、b 之间还应添加一个一字节长的元素。
 
 如果是自己编写一个 DLL 给 LabVIEW 调用，为了简便起见，可以把 C 代码中所有的结构都设为 1 字节对齐。
 
 C 语言的结构中如果还嵌套了数组，是不能直接对应于 LabVIEW 中嵌套了数组的簇的。在 LabVIEW 中，只能把数组的元素都拆开来放在簇中。
 
-表 5.5 列举了 C 与 LabVIEW 中一些常见结构数据类型数据的对应关系。
+下表列举了 C 与 LabVIEW 中一些常见结构数据类型数据的对应关系。
 
 | C | LabVIEW |
 | ----------- | ----- |
-| #pragma pack (1) <br /> typedef struct {char a; int b} MyStct; <br /> MyStct* testStruct; | ![](images/image355.jpeg) | 
-| #pragma pack (2) <br /> typedef struct {char a; int b} MyStct; <br /> MyStct* testStruct; | ![](images/image356.jpeg) | 
-| #pragma pack (4) <br /> typedef struct {char a; int b} MyStct; <br /> MyStct* testStruct; | ![](images/image357.jpeg) | 
-| #pragma pack (1) <br /> typedef struct {char a; char* str; int b} MyStct <br /> MyStct* testStruct; | ![](images/image358.jpeg) | 
-| #pragma pack (1) <br /> typedef struct {char a; char str [5]; int b} MyStct; <br /> MyStct* testStruct; | ![](images/image359.jpeg) | 
+| <pre>#pragma pack (1) <br />typedef struct {char a; int b} MyStct; <br />MyStct* testStruct;</pre> | ![](images/image355.jpeg) | 
+| <pre>#pragma pack (2) <br />typedef struct {char a; int b} MyStct; <br />MyStct* testStruct;</pre> | ![](images/image356.jpeg) | 
+| <pre>#pragma pack (4) <br />typedef struct {char a; int b} MyStct; <br />MyStct* testStruct;</pre> | ![](images/image357.jpeg) | 
+| <pre>#pragma pack (1) <br />typedef struct {char a; char\* str; int b} MyStct <br />MyStct* testStruct;</pre> | ![](images/image358.jpeg) | 
+| <pre>#pragma pack (1) <br />typedef struct {char a; char str [5]; int b} MyStct; <br />MyStct* testStruct;</pre> | ![](images/image359.jpeg) | 
 
 表 .5 不同结构类型与簇的对应关系
 
@@ -232,7 +229,7 @@ C 语言的结构中如果还嵌套了数组，是不能直接对应于 LabVIEW 
 |  |  |  |
 | ---- | ----------- | ----------- |
 | 输入 / 输出 | 输入 | 输出或兼作输入输出 |
-| C 语言声明 | typedef struct {int left; int top;} Position;<br /> long TestStructure (Position inPos); | typedef struct {int left; int top;} Position;<br /> long TestStructure (Position *pos); |
+| C 语言声明 | <pre>typedef struct {int left; int top;} Position;<br />long TestStructure (Position inPos);</pre> | <pre>typedef struct {int left; int top;} Position;<br />long TestStructure (Position *pos);</pre> |
 | LabVIEW 中的配置 | ![](images/image360.png) | ![](images/image361.png) |
 | LabVIEW 的使用 | ![](images/image362.png) | ![](images/image363.png) |
 
@@ -276,7 +273,7 @@ str，LabVIEW 的 CLN 节点可以把它映射为字符串类型。在 LabVIEW �
 
 "\[LabVIEW\]\\vi.lib\\Utility\\importsl\\GetValueByPointer\\GetValueByPointer.xnode"。
 
-.xnode 文件是 NI 内部使用的一种文件格式，用户不可以编辑这类文件，但可以当成子 VI 那样来使用。
+[XNode](oop_xnode) 可以被看做是一种功能更复杂的 VI，这里可以就把它当成子 VI 那样使用。
 
 这个节点有三个输入：一是指针，或者称为数据的内存地址；二是数据类型；三是字节对齐方式。为它们提供正确的参数，GetValueByPointer.xnode 就会把指针所指向的数据返回出来。
 
