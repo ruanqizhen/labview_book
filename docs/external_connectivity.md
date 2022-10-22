@@ -265,7 +265,7 @@ lv                       /home/qizhen/anaconda3/envs/lv
 
 ![images_2/z114.png](images_2/z114.png "直接运行 Python 代码")
 
-Python 代码的函数被写在一个字符串常量中。程序运行时，先把代码保存到一个临时生成的 .py 文件中，然后在调用使用 Python Node 调用刚刚保存的 .py 文件就可以把字符串常量中的 Python 函数运行起来了。如果字符串常量中的 Python 代码中只有一个函数，那么我们可以使用上图程序中的“匹配正则表达式”节点（Match Regular Expression），把 Python 函数的函数名自动提取出来。
+Python 代码的函数被写在一个字符串常量中。程序运行时，先把代码保存到一个临时生成的 .py 文件中，然后在调用使用 Python Node 调用刚刚保存的 .py 文件就可以把字符串常量中的 Python 函数运行起来了。如果字符串常量中的 Python 代码中只有一个函数，那么我们可以使用上图程序中的“匹配正则表达式”节点（Match Regular Expression），把 Python 函数的函数名自动提取出来。关于正则表达式的使用，可以参考 [字符串](data_string) 一节中的介绍。
 
 对于上面的这段代码，如果把它做成一个子 VI，然后把 Python 代码作为输入，这样使用起来就更方便了。制作这样子 VI 的难点在于“Python Node”所需的输入输出是可变的，我们能制作一个参数数目和数据类型可变的子 VI 吗？就像“Python Node”这样？答案是肯定的，但是它比普通子 VI 制作起来要更复杂一些。有兴趣的读者可以参考 [XNode](oop_xnode) 一节。
 
