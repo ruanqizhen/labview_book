@@ -1,4 +1,4 @@
-![](cover/121/png)
+![](cover/121.png)
 
 # LabVIEW 入门
 
