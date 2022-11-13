@@ -1,5 +1,7 @@
 # VI 服务器
 
+![](cover/130.png)
+
 ### VI 服务器的概念
 
 VI 服务器（VI Server）是从 LabVIEW 5.0 开始提供的一个功能。它是由 LabVIEW 提供的、用以帮助用户通过编程来控制 VI（包括 VI 上的控件、函数、子 VI 等）和 LabVIEW 环境设置等的一整套函数。
