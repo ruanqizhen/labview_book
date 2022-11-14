@@ -182,6 +182,10 @@ const sidebars = {
     {
       type: 'category',
       label: '附录',
+      link: {
+        type: 'doc',
+        id: 'appendix',
+      },
       items: [
 	    'appendix_problem',
 		'appendix_languages',

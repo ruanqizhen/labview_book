@@ -1,5 +1,7 @@
 # 参考书目
 
+![](cover/108.png)
+
 1.  National Instruments Corporation,
     LabVIEW Basic I: Introduction Course Manual, 2008.
 
