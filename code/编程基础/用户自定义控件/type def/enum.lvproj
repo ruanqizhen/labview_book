@@ -12,6 +12,8 @@
 		<Property Name="specify.custom.address" Type="Bool">false</Property>
 		<Item Name="enmu_sub.vi" Type="VI" URL="../enmu_sub.vi"/>
 		<Item Name="enum_main.vi" Type="VI" URL="../enum_main.vi"/>
+		<Item Name="numeric_type_def.ctl" Type="VI" URL="../../numeric_type_def.ctl"/>
+		<Item Name="test_numberic_type_def.vi" Type="VI" URL="../../test_numberic_type_def.vi"/>
 		<Item Name="Dependencies" Type="Dependencies"/>
 		<Item Name="Build Specifications" Type="Build"/>
 	</Item>
