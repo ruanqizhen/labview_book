@@ -32,7 +32,7 @@ const sidebars = {
       label: 'LabVIEW 编程基础',
       link: {
         type: 'doc',
-        id: 'data',
+        id: 'basic__',
       },
       items: [ 
         'data_number', 
