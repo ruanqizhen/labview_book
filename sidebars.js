@@ -42,7 +42,7 @@ const sidebars = {
         'structure_cond_seq',
         'data_custome_control',
         'data_and_controls',
-        'ramp_up_dev_environment',
+        'basic_dev_environment',
       ],
     },
     {

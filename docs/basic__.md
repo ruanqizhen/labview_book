@@ -1,6 +1,6 @@
 # LabVIEW 编程基础
 
-![](cover/105.png)
+![](cover/basic.png)
 
 这一章将要介绍 LabVIEW 编程中的一些基本知识，比如 LabVIEW 中最常用的几种数据类型、控件、结构、子 VI 和函数等。
 

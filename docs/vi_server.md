@@ -1,6 +1,6 @@
 # VI 服务器
 
-![](cover/130.png)
+![](cover/vi_server.png)
 
 ### VI 服务器的概念
 

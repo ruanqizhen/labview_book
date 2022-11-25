@@ -1,6 +1,6 @@
 # LabVIEW 的一些问题
 
-![](cover/122.png)
+![](cover/problem.png)
 
 这一节，记录笔者在使用 LabVIEW 过程中遇到的一些问题，以及 LabVIEW 一些不太完善的方面。
 
