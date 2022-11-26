@@ -6,6 +6,7 @@ export default function DocPaginatorWrapper(props) {
   return (
     <>
       <DocPaginator {...props} />
+	  <br />
 	  <Giscus
 		repo='ruanqizhen/labview_book'
 		repoId='R_kgDOGYjRCQ'
