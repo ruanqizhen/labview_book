@@ -17,7 +17,7 @@ const sidebars = {
       label: '初识 LabVIEW',
       link: {
         type: 'doc',
-        id: 'ramp_up',
+        id: 'ramp_up__',
       },
       items: [ 
         'preface_labview',
@@ -50,7 +50,7 @@ const sidebars = {
       label: '常用程序结构模式',
       link: {
         type: 'doc',
-        id: 'pattern',
+        id: 'pattern__',
       },
       items: [ 
         'pattern_error_handling', 
@@ -67,7 +67,7 @@ const sidebars = {
       label: '调用外部程序',
       link: {
         type: 'doc',
-        id: 'external_call',
+        id: 'external_call__',
       },
       items: [ 
         'external_call_dll', 
@@ -79,7 +79,7 @@ const sidebars = {
       label: 'VI 服务器',
       link: {
         type: 'doc',
-        id: 'vi_server',
+        id: 'vi_server__',
       },
       items: [ 
         'vi_server_for_ui', 
@@ -93,7 +93,7 @@ const sidebars = {
       label: '测试测量应用程序设计',
       link: {
         type: 'doc',
-        id: 'measurement',
+        id: 'measurement__',
       },
       items: [ 
         'measurement_r_p_d', 
@@ -108,7 +108,7 @@ const sidebars = {
       label: '调试',
       link: {
         type: 'doc',
-        id: 'debug',
+        id: 'debug__',
       },
       items: [ 
         'debug_ide', 
@@ -124,7 +124,7 @@ const sidebars = {
       label: '管理 LabVIEW 项目',
       link: {
         type: 'doc',
-        id: 'manage',
+        id: 'manage__',
       },
       items: [ 
         'manage_project', 
@@ -137,7 +137,7 @@ const sidebars = {
       label: '界面设计',
       link: {
         type: 'doc',
-        id: 'ui',
+        id: 'ui__',
       },
       items: [ 
         'ui_principle', 
@@ -152,7 +152,7 @@ const sidebars = {
       label: '代码风格与优化',
       link: {
         type: 'doc',
-        id: 'optimization',
+        id: 'optimization__',
       },
       items: [ 
         'optimization_mechanism', 
@@ -167,7 +167,7 @@ const sidebars = {
       label: '面向对象编程',
       link: {
         type: 'doc',
-        id: 'oop',
+        id: 'oop__',
       },
       items: [ 
         'oop_basic', 
@@ -184,7 +184,7 @@ const sidebars = {
       label: '附录',
       link: {
         type: 'doc',
-        id: 'appendix',
+        id: 'appendix__',
       },
       items: [
         'appendix_problem',
