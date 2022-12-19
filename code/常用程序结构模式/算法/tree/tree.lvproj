@@ -10,7 +10,8 @@
 		<Property Name="server.vi.callsEnabled" Type="Bool">true</Property>
 		<Property Name="server.vi.propertiesEnabled" Type="Bool">true</Property>
 		<Property Name="specify.custom.address" Type="Bool">false</Property>
-		<Item Name="create_tree.vi" Type="VI" URL="../create_tree.vi"/>
+		<Item Name="demo.vi" Type="VI" URL="../demo.vi"/>
+		<Item Name="insert_node.vi" Type="VI" URL="../insert_node.vi"/>
 		<Item Name="node_info.vi" Type="VI" URL="../node_info.vi"/>
 		<Item Name="Dependencies" Type="Dependencies"/>
 		<Item Name="Build Specifications" Type="Build"/>
