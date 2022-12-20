@@ -10,11 +10,9 @@
 		<Property Name="server.vi.callsEnabled" Type="Bool">true</Property>
 		<Property Name="server.vi.propertiesEnabled" Type="Bool">true</Property>
 		<Property Name="specify.custom.address" Type="Bool">false</Property>
-		<Item Name="demo_.raverse.vi" Type="VI" URL="../demo_.raverse.vi"/>
-		<Item Name="demo_create.vi" Type="VI" URL="../demo_create.vi"/>
-		<Item Name="in_order_traverse.vi" Type="VI" URL="../in_order_traverse.vi"/>
-		<Item Name="insert_node.vi" Type="VI" URL="../insert_node.vi"/>
-		<Item Name="node_info.vi" Type="VI" URL="../node_info.vi"/>
+		<Item Name="BFS.vi" Type="VI" URL="../BFS.vi"/>
+		<Item Name="get_next_states.vi" Type="VI" URL="../get_next_states.vi"/>
+		<Item Name="three_pitcher.vi" Type="VI" URL="../three_pitcher.vi"/>
 		<Item Name="Dependencies" Type="Dependencies"/>
 		<Item Name="Build Specifications" Type="Build"/>
 	</Item>
