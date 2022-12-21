@@ -60,18 +60,30 @@ const sidebars = {
         'pattern_global_data',
         'pattern_pass_by_ref',
         'pattern_file',
+        'external_call_dll', 
+        'external_connectivity',
       ],
     },
     {
       type: 'category',
-      label: '调用外部程序',
+      label: '程序规范与优化',
       link: {
         type: 'doc',
-        id: 'external_call__',
+        id: 'optimization__',
       },
       items: [ 
-        'external_call_dll', 
-        'external_connectivity', 
+	    'pattern_algorithm',
+        'debug_ide', 
+        'debug_probe', 
+        'debug_disable', 
+        'debug_errors',
+        'debug_performance',
+        'debug_dll',		
+        'optimization_mechanism', 
+        'optimization_memory', 
+        'optimization_multi_thread', 
+        'optimization_coding_style',
+        'optimization_inline_subvi',
       ],
     },
     {
@@ -105,22 +117,6 @@ const sidebars = {
     },
     {
       type: 'category',
-      label: '调试',
-      link: {
-        type: 'doc',
-        id: 'debug__',
-      },
-      items: [ 
-        'debug_ide', 
-        'debug_probe', 
-        'debug_disable', 
-        'debug_errors',
-        'debug_performance',
-        'debug_dll',
-      ],
-    },
-    {
-      type: 'category',
       label: '管理 LabVIEW 项目',
       link: {
         type: 'doc',
@@ -147,21 +143,7 @@ const sidebars = {
         'ui_xcontrol',
       ],
     },
-    {
-      type: 'category',
-      label: '代码风格与优化',
-      link: {
-        type: 'doc',
-        id: 'optimization__',
-      },
-      items: [ 
-        'optimization_mechanism', 
-        'optimization_memory', 
-        'optimization_multi_thread', 
-        'optimization_coding_style',
-        'optimization_inline_subvi',
-      ],
-    },
+
     {
       type: 'category',
       label: '面向对象编程',
