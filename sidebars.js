@@ -72,11 +72,9 @@ const sidebars = {
         id: 'optimization__',
       },
       items: [ 
-	    'pattern_algorithm',
         'debug_ide', 
-        'debug_probe', 
-        'debug_disable', 
         'debug_errors',
+        'pattern_algorithm',
         'debug_performance',
         'debug_dll',		
         'optimization_mechanism', 
