@@ -252,7 +252,7 @@ Iterator 类只有一个成员变量，是一个指向节点的引用。
 
 ![images_2/z032.png](images_2/z032.png "get_next 的程序框图")
 
-程序首先通过输入的 Iterator 对象得到它包含的唯一的数据：一个指向 IDoublyNode 的引用。再通过元素同址操作结构得到引用指向的节点，再得到这个节点的下一个节点的引用。得到下个节点的引用之后，再包装成一个 Iterator 的对象。这也是为了上层程序可以只关注 Iterator,而不必再考虑更底层的 IDoublyNode 和 DoublyNode。
+程序首先通过输入的 Iterator 对象得到它包含的唯一的数据：一个指向 IDoublyNode 的引用。再通过元素同址操作结构得到引用指向的节点，再得到这个节点的下一个节点的引用。得到下个节点的引用之后，再包装成一个 Iterator 的对象。这也是为了上层程序可以只关注 Iterator，而不必再考虑更底层的 IDoublyNode 和 DoublyNode。
 
 
 
