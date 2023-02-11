@@ -76,7 +76,6 @@ const sidebars = {
         'debug_errors',
         'pattern_algorithm',
         'debug_performance',
-        'debug_dll',		
         'optimization_mechanism', 
         'optimization_memory', 
         'optimization_multi_thread', 
