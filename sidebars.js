@@ -80,7 +80,6 @@ const sidebars = {
         'optimization_memory', 
         'optimization_multi_thread', 
         'optimization_coding_style',
-        'optimization_inline_subvi',
       ],
     },
     {
