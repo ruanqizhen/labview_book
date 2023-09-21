@@ -82,18 +82,23 @@ const sidebars = {
         'optimization_coding_style',
       ],
     },
-    {
+	{
       type: 'category',
-      label: 'VI 服务器',
+      label: '界面设计',
       link: {
         type: 'doc',
-        id: 'vi_server__',
+        id: 'ui__',
       },
       items: [ 
         'vi_server_for_ui', 
         'vi_server_for_subvi', 
         'vi_server_for_vi', 
         'vi_server_for_net',
+        'ui_principle', 
+        'ui_standard', 
+        'ui_cases', 
+        'ui_modulization',
+        
       ],
     },
     {
@@ -122,24 +127,9 @@ const sidebars = {
         'manage_project', 
         'manage_library', 
         'manage_release', 
+		'ui_xcontrol',
       ],
     },
-    {
-      type: 'category',
-      label: '界面设计',
-      link: {
-        type: 'doc',
-        id: 'ui__',
-      },
-      items: [ 
-        'ui_principle', 
-        'ui_standard', 
-        'ui_cases', 
-        'ui_modulization',
-        'ui_xcontrol',
-      ],
-    },
-
     {
       type: 'category',
       label: '面向对象编程',
