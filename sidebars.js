@@ -84,7 +84,7 @@ const sidebars = {
     },
 	{
       type: 'category',
-      label: '界面设计',
+      label: '用户界面',
       link: {
         type: 'doc',
         id: 'ui__',
