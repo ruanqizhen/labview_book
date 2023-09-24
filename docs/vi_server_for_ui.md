@@ -19,7 +19,7 @@ TCP/IP：用于远程机器。通过 TCP/IP 协议调用另一台计算机上 La
 
 在 LabVIEW 的菜单中选择“工具 -\> 选项...”，弹出“选项菜单”，然后可以在“VI 服务器”页面设置是否开启以上提到的这些功能：
 
-![](images/image388.png "设置是否以 ActiveX 和 TCP/IP 协议的方式提供 VI 服务")
+![](images/image429.png "开启 VI 服务器")
 
 
 ### VI Scripting
