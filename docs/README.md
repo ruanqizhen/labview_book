@@ -6,7 +6,7 @@
 
 ![images_2/cover.png](images_2/cover.png "原书封面")
 
-在征得北航出版社的同意后，笔者将本书的全部内容在 GitHub 网站上开源共享，希望能够帮助更多的读者。由于原书名有些不太适合当前情况，开源项目将原书名缩短为更通用的名字。同时也欢迎读者加入这个项目，如果有意修改书中的错误、增删内容、补充示例等，可以直接在项目中进行。如有任何问题，可在留言区留言。GitHub 是全球最大的开源项目托管平台，修改本书以及留言讨论需要一个 GitHub 账号，注册是免费的。
+在征得北航出版社的同意后，笔者将本书的全部内容在 GitHub 网站上开源共享，希望能够帮助更多的读者。由于原书名有些不太适合当前情况，开源项目将原书名缩短为更通用的名字。同时也欢迎读者加入这个项目，如果有意修改书中的错误、增删内容、补充示例等，可以直接在项目中进行。如有任何问题，可在留言区留言，也可以在[知乎](https://www.zhihu.com/question/335418423)、[豆瓣](https://book.douban.com/subject/11631705/)相关的条目下留言。GitHub 是全球最大的开源项目托管平台，修改本书以及留言讨论需要一个 GitHub 账号，注册是免费的。
 
 为提高阅读体验，可以使用本书阅读页面：<https://lv.qizhen.xyz/> 或 <https://labview.qizhen.xyz/>。本书所有的文字和图片都保存在 GitHub [docs 文件夹](https://github.com/ruanqizhen/labview_book/tree/main/docs) 下。相关的示例代码保存在 [code 文件夹](https://github.com/ruanqizhen/labview_book/tree/main/code) 下，书中提到的示例基本都可以在此文件夹下找到，唯有少数示例因为过于简单或版权问题没有提供出来。
 
