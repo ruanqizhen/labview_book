@@ -70,18 +70,18 @@ LabVIEW 也曾经搞过类似的网页版本的 LabVIEW UI Builder，可是它�
 
 ```python
 async def foo(some_arguments):
-	# read a file
-	return "something from foo"
+    # read a file
+    return "something from foo"
 
 async def bar(some_arguments):
-	# write to a database
-	return "something from bar"
+    # write to a database
+    return "something from bar"
 	
 async def main():
-	results = await asyncio.gather(
-		foo("file_name")
-		bar("database")
-	)
+    results = await asyncio.gather(
+        foo("file_name"),
+        bar("database"),
+    )
 ```
 
 这段程序只用了一条语句就可以让函数 foo 和 bar 同时运行，一点也不比 LabVIEW 中实现并行运行更困难。
