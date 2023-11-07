@@ -17,7 +17,8 @@ export default function DocPaginatorWrapper(props) {
 		emitMetadata='1'
 		inputPosition='top'
 		theme='light'
-		lang='zh-CN'
+		lang='en'
+        loading="lazy"
 	  />
     </>
   );
