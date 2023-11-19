@@ -1,6 +1,6 @@
-# LabVIEW 编程经验
+# LabVIEW 教程
 
-## 开源共享版本说明
+## 关于本书
 
 《我和 LabVIEW - 一个 NI 工程师的十年编程经验》，由[北京航空航天大学出版社出版发行](http://service.buaapress.com.cn/mzs/book/detail/id/2624)，ISBN：9787512408487。这本书是笔者在学习和使用 LabVIEW 编程过程中的经验总结。书中通俗易懂地介绍了 LabVIEW 最常用的功能以及在 LabVIEW 学习过程中经常遇到的问题。
 
