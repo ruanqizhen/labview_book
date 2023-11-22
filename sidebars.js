@@ -80,6 +80,8 @@ const sidebars = {
         'optimization_memory', 
         'optimization_multi_thread', 
         'optimization_coding_style',
+        'manage_project', 
+        'manage_release', 
       ],
     },
 	{
@@ -98,7 +100,7 @@ const sidebars = {
         'ui_standard', 
         'ui_cases', 
         'ui_modulization',
-        
+		'ui_xcontrol',
       ],
     },
     {
@@ -114,20 +116,6 @@ const sidebars = {
         'measurement_daq', 
         'measurement_display',
         'measurement_storage',
-      ],
-    },
-    {
-      type: 'category',
-      label: '管理 LabVIEW 项目',
-      link: {
-        type: 'doc',
-        id: 'manage__',
-      },
-      items: [ 
-        'manage_project', 
-        'manage_library', 
-        'manage_release', 
-		'ui_xcontrol',
       ],
     },
     {
