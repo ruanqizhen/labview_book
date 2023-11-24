@@ -1,9 +1,11 @@
 import React from 'react';
 import DocPaginator from '@theme-original/DocPaginator';
 import Giscus from '@giscus/react';
+import { useLocation } from 'react-router-dom';
 
 export default function DocPaginatorWrapper(props) {
-  let giscus_term = window.location.pathname.split('/').pop();
+  let location = useLocation();
+  let giscus_term = location.pathname.split('/').pop();
   if (giscus_term == '') giscus_term = 'index';
   return (
     <>
