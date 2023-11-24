@@ -67,6 +67,12 @@ const config = {
           src: 'img/logo.png',
 		  href: '/'
         },
+        items: [
+          {
+            type: 'localeDropdown',
+            position: 'right',
+          },
+        ],
       },
       prism: {
         theme: lightCodeTheme,
@@ -112,6 +118,20 @@ const config = {
       crossorigin: 'anonymous',
     },
   ],
+  i18n: {
+    defaultLocale: 'zh-cn',
+    locales: ['zh-cn', 'en'],
+    localeConfigs: {
+      en: {
+        label: 'English',
+        direction: 'ltr',
+      },
+      'zh-cn':{
+        label: '中文',
+        direction: 'ltr',
+      },
+    },
+  },
 };
 
 module.exports = config;

@@ -1,0 +1,50 @@
+{
+  "version.label": {
+    "message": "Next",
+    "description": "The label for version current"
+  },
+  "sidebar.tutorialSidebar.category.初识 LabVIEW": {
+    "message": "初识 LabVIEW",
+    "description": "The label for category 初识 LabVIEW in sidebar tutorialSidebar"
+  },
+  "sidebar.tutorialSidebar.category.LabVIEW 编程基础": {
+    "message": "LabVIEW 编程基础",
+    "description": "The label for category LabVIEW 编程基础 in sidebar tutorialSidebar"
+  },
+  "sidebar.tutorialSidebar.category.常用程序结构模式": {
+    "message": "常用程序结构模式",
+    "description": "The label for category 常用程序结构模式 in sidebar tutorialSidebar"
+  },
+  "sidebar.tutorialSidebar.category.程序规范与优化": {
+    "message": "程序规范与优化",
+    "description": "The label for category 程序规范与优化 in sidebar tutorialSidebar"
+  },
+  "sidebar.tutorialSidebar.category.用户界面": {
+    "message": "用户界面",
+    "description": "The label for category 用户界面 in sidebar tutorialSidebar"
+  },
+  "sidebar.tutorialSidebar.category.测试测量应用程序设计": {
+    "message": "测试测量应用程序设计",
+    "description": "The label for category 测试测量应用程序设计 in sidebar tutorialSidebar"
+  },
+  "sidebar.tutorialSidebar.category.面向对象编程": {
+    "message": "面向对象编程",
+    "description": "The label for category 面向对象编程 in sidebar tutorialSidebar"
+  },
+  "sidebar.tutorialSidebar.category.附录": {
+    "message": "附录",
+    "description": "The label for category 附录 in sidebar tutorialSidebar"
+  },
+  "sidebar.tutorialSidebar.link.示例代码": {
+    "message": "示例代码",
+    "description": "The label for link 示例代码 in sidebar tutorialSidebar, linking to https://github.com/ruanqizhen/labview_book/tree/main/code"
+  },
+  "sidebar.tutorialSidebar.link.问题讨论和意见反馈": {
+    "message": "问题讨论和意见反馈",
+    "description": "The label for link 问题讨论和意见反馈 in sidebar tutorialSidebar, linking to https://github.com/ruanqizhen/labview_book/discussions"
+  },
+  "sidebar.tutorialSidebar.link.作者个人主页": {
+    "message": "作者个人主页",
+    "description": "The label for link 作者个人主页 in sidebar tutorialSidebar, linking to https://qizhen.xyz"
+  }
+}
