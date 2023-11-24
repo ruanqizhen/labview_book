@@ -3,7 +3,7 @@ import DocPaginator from '@theme-original/DocPaginator';
 import Giscus from '@giscus/react';
 
 export default function DocPaginatorWrapper(props) {
-  let giscus_term = location.pathname.split('/').pop();
+  let giscus_term = window.location.pathname.split('/').pop();
   if (giscus_term == '') giscus_term = 'index';
   return (
     <>

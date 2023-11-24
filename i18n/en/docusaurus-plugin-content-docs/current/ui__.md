@@ -1,5 +1,3 @@
 # 界面设计
 
-![](cover/ui.png)
-
-这一章介绍如何设计和编写即专业又美观的 LabVIEW 程序的用户界面。
+Translations will be coming soon ......
