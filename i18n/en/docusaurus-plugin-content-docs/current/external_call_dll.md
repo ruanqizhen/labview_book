@@ -1,3 +1,3 @@
-# 调用动态链接库
+# Dynamic Link Libraries
 
 Translations will be coming soon ......

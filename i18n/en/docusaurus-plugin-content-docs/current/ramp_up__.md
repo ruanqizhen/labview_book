@@ -1,3 +1,3 @@
-# 初识 LabVIEW
+# Encounter with LabVIEW
 
 Translations will be coming soon ......

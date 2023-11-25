@@ -1,3 +1,3 @@
-# 按自己的喜好设置编程环境
+# Customizing the Environment
 
 Translations will be coming soon ......

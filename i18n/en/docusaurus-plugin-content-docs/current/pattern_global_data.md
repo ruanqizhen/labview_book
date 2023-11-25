@@ -1,3 +1,3 @@
-# 全局变量和功能全局变量
+# Global Data
 
 Translations will be coming soon ......

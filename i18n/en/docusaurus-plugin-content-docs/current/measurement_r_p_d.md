@@ -1,3 +1,3 @@
-# 采集、处理、显示
+# Modular
 
 Translations will be coming soon ......

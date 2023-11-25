@@ -1,3 +1,3 @@
-# 数据采集
+# Data Acquisition
 
 Translations will be coming soon ......

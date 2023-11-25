@@ -1,3 +1,3 @@
-# LabVIEW 代码中常见的错误
+# Common Errors in LabVIEW Code
 
 Translations will be coming soon ......

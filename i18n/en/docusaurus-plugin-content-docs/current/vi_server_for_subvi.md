@@ -1,3 +1,3 @@
-# 装载和运行子 VI
+# Loading and Executing Sub VI
 
 Translations will be coming soon ......

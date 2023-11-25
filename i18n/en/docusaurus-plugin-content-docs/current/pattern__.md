@@ -1,3 +1,3 @@
-# 常用程序结构模式
+# Common Patterns
 
 Translations will be coming soon ......

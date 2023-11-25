@@ -1,3 +1,3 @@
-# 安装
+# Install
 
 Translations will be coming soon ......

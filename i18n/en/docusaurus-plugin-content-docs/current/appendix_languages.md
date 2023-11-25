@@ -1,3 +1,3 @@
-# 其它一些编程语言
+# Other Programming Languages
 
 Translations will be coming soon ......

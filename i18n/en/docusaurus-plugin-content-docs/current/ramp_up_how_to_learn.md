@@ -1,3 +1,3 @@
-# 如何学习 LabVIEW
+# How Do We Learn
 
 Translations will be coming soon ......

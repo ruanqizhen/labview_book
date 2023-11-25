@@ -1,3 +1,3 @@
-# 调试
+# Debugging
 
 Translations will be coming soon ......

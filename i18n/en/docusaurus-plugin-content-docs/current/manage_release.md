@@ -1,3 +1,3 @@
-# 发布产品
+# Build Specifications
 
 Translations will be coming soon ......

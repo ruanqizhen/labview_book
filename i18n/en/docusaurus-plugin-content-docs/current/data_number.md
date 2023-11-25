@@ -1,3 +1,3 @@
-# 数值和布尔数据
+# Numeric and Boolean
 
 Translations will be coming soon ......

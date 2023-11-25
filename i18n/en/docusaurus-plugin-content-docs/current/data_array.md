@@ -1,3 +1,3 @@
-# 数组和循环结构
+# Array and Loop
 
 Translations will be coming soon ......

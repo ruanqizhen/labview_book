@@ -1,3 +1,3 @@
-# 泛型编程
+# Generic programming
 
 Translations will be coming soon ......

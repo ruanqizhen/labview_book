@@ -1,3 +1,3 @@
-# LabVIEW 教程
+# LabVIEW Tutorial
 
 Translations will be coming soon ......

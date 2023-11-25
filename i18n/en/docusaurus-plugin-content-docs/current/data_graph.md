@@ -1,3 +1,3 @@
-# 图形化显示数据
+# Graphical Representation of Data
 
 Translations will be coming soon ......

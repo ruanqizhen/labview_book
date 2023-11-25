@@ -1,3 +1,3 @@
-# 内存优化
+# Memory Optimization
 
 Translations will be coming soon ......

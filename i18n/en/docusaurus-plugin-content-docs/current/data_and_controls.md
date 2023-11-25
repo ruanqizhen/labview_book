@@ -1,3 +1,3 @@
-# 控件的局部变量和属性
+# Local Variables and Properties
 
 Translations will be coming soon ......

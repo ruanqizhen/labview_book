@@ -1,3 +1,3 @@
-# 多线程编程
+# Multithreading
 
 Translations will be coming soon ......

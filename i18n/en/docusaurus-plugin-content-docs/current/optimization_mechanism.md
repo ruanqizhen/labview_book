@@ -1,3 +1,3 @@
-# LabVIEW 的运行机制
+# Execution Mechanism 
 
 Translations will be coming soon ......

@@ -1,3 +1,3 @@
-# LabVIEW 编程基础
+# LabVIEW Programming Fundamentals
 
 Translations will be coming soon ......

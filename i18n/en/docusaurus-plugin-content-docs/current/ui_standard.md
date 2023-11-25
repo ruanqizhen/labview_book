@@ -1,3 +1,3 @@
-# 常用规范和实现方法
+# UI Implementation Methods
 
 Translations will be coming soon ......

@@ -1,3 +1,3 @@
-# 类
+# Class
 
 Translations will be coming soon ......

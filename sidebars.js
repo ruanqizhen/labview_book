@@ -4,13 +4,9 @@
 const sidebars = {
   tutorialSidebar: [
     {
-      type: 'category',
+      type: 'doc',
       label: '前言',
-      link: {
-        type: 'doc',
-        id: 'README',
-      },
-      items: [],
+      id: 'README',
     },
     {
       type: 'category',
@@ -40,7 +36,7 @@ const sidebars = {
         'data_string', 
         'data_graph',
         'structure_cond_seq',
-        'data_custome_control',
+        'data_custom_control',
         'data_and_controls',
         'basic_dev_environment',
       ],

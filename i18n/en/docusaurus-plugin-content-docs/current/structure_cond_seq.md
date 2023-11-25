@@ -1,3 +1,3 @@
-# 条件结构和顺序结构
+# Case and Sequence Structures
 
 Translations will be coming soon ......

@@ -1,3 +1,3 @@
-# 界面设计原理
+# Principles of UI Design
 
 Translations will be coming soon ......

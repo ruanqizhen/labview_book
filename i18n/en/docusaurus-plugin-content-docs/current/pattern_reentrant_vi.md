@@ -1,3 +1,3 @@
-# 可重入 VI 和递归算法
+# Reentrant VIs
 
 Translations will be coming soon ......

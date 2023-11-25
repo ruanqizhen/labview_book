@@ -1,3 +1,3 @@
-# 网络服务和 ActiveX 接口
+# Web Service and ActiveX
 
 Translations will be coming soon ......

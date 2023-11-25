@@ -1,3 +1,3 @@
-# 简单算法和数据结构
+# Simple Data Structures and Algorithms
 
 Translations will be coming soon ......

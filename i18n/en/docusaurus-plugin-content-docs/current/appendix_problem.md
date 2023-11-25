@@ -1,3 +1,3 @@
-# LabVIEW 的一些问题
+# The Challenges of LabVIEW
 
 Translations will be coming soon ......

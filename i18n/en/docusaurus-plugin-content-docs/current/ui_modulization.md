@@ -1,3 +1,3 @@
-# 复杂界面的模块划分
+# UI Components
 
 Translations will be coming soon ......

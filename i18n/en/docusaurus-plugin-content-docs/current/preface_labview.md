@@ -1,3 +1,3 @@
-# 什么是 LabVIEW
+# What is LabVIEW
 
 Translations will be coming soon ......

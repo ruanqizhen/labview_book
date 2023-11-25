@@ -1,3 +1,3 @@
-# 调用其它外部程序或组件
+# Calling Python and others
 
 Translations will be coming soon ......

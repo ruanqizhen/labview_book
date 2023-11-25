@@ -1,3 +1,3 @@
-# 类的优缺点
+# Pros and Cons
 
 Translations will be coming soon ......

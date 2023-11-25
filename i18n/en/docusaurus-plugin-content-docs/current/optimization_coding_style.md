@@ -1,3 +1,3 @@
-# 代码编写规范和技巧
+# Specifications and Techniques
 
 Translations will be coming soon ......

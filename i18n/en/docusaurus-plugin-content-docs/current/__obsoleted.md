@@ -1,3 +1,3 @@
-# 一些废弃的内容
+# Obsoleted
 
 Translations will be coming soon ......

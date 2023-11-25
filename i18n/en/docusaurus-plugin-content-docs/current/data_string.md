@@ -1,3 +1,3 @@
-# 字符串和路径数据
+# String and Path
 
 Translations will be coming soon ......

@@ -1,3 +1,3 @@
-# 面向对象编程
+# Object Oriented Programming
 
 Translations will be coming soon ......

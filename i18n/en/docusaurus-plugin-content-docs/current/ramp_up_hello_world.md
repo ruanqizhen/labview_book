@@ -1,3 +1,3 @@
-# “Hello，World!” 程序
+# Hello，World!
 
 Translations will be coming soon ......
