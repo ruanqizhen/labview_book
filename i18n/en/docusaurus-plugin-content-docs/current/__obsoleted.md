@@ -1,3 +1,0 @@
-# Obsoleted
-
-Translations will be coming soon ......
