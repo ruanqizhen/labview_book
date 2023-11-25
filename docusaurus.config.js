@@ -30,6 +30,7 @@ const config = {
 		  path: './docs',
 		  remarkPlugins: [math],
 		  rehypePlugins: [katex],
+          editLocalizedFiles: true,
         },
 		blog: false,
         theme: {
