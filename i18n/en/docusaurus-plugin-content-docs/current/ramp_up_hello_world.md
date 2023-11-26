@@ -36,107 +36,107 @@ A VI is comprised of two main components: the "Front Panel" with a gray backgrou
 
 ## Editing the Front Panel
 
-Now, let's start implementing our first LabVIEW program by first designing its interface, which means editing the front panel of the VI.
+We're now set to begin crafting our first LabVIEW program, starting with designing its interface, which involves editing the VI's front panel.
 
-When the front panel of the VI is the active window, we might also see another floating window - the LabVIEW Controls Palette:
+When the front panel is the active window in LabVIEW, another floating window, known as the LabVIEW Controls Palette, may appear:
 
 ![images/image5.png](../../../../docs/images/image5.png "Controls Palette")
 
-This active window might be closed and not appear initially. In that case, right-clicking on a blank area of the VI's front panel will bring up the Controls Palette as a pop-up menu:
+Sometimes, this active window might not be open initially. If this is the case, right-clicking on an empty space within the VI's front panel will cause the Controls Palette to pop up:
 
-![images_2/z125.png](../../../../docs/images_2/z125.png "Controls Palette")
+![images_2/z125.png](../../../../docs/images_2/z125.png "Popup Controls Palette")
 
-If needed, you can pin the Controls Palette to always appear when the VI front panel is active by clicking the pin icon at the top-left corner of the palette. If it obstructs the view, you can close it and have it only appear when right-clicking.
+If you find it useful, you can pin the Controls Palette to ensure it's always visible when working on the VI front panel by clicking the pin icon in the top-left corner of the palette. However, if you find it obstructive, you have the option to close it and make it appear only when needed by right-clicking.
 
-Different versions of LabVIEW have slightly varied styles for the Controls Palette, but its purpose and method of use remain the same. The palette categorically lists various controls and their icons. Some control categories may be collapsed; clicking on them will expand to show the controls or subcategories within. For most controls, we can easily discern their types and intended functions from their icons. When designing the program interface, we select the required controls from the Controls Palette.
+Although the appearance of the Controls Palette may vary slightly across different LabVIEW versions, its functionality and usage remain consistent. It organizes a range of controls along with their icons into categories. Some of these categories might be collapsed; expanding them will reveal the specific controls or further subcategories they contain. The types and purposes of most controls can be readily identified from their icons. For interface design, the necessary controls are selected directly from the Controls Palette.
 
-Our program needs to display text, so we should choose a text or string display control on the front panel. On the Controls Palette, the first three subclasses in the first row typically relate to numeric, Boolean, and string controls, respectively. Clicking on the third column of icons in the first row (related to text display categories) will bring up its sub-palette:
+Our program is designed to display text, which means we need to select a text or string display control for the front panel. On the Controls Palette, the first row typically contains subclasses for numeric, Boolean, and string controls. By clicking on the third column of icons in the first row, which pertains to text display categories, we can access its sub-palette:
 
-![images/image6.png](../../../../docs/images/image6.png "文本控件子选板")
+![images/image6.png](../../../../docs/images/image6.png "String Control Palette")
 
-Continue by clicking on the "String Indicator" control, then click on the VI's front panel, and this control will be placed there. Alternatively, we can drag and drop the selected control directly onto a specific location on the front panel.
+Proceed by selecting the "String Indicator" control. Clicking on the VI's front panel will place the control there. Alternatively, you can drag and drop the selected control to a specific location on the front panel.
 
-Moving the mouse to the edge of the newly placed control will reveal eight small blue squares on its border.
+Hovering the cursor over the edge of the newly placed control will display eight small dark squares along its border.
 
-![images/image7.gif](../../../../docs/images/image7.gif "设计好的 VI 界面")
+![images/image7.gif](../../../../docs/images/image7.gif "VI Interface")
 
-When the cursor is moved to the edge of the control, it changes to the familiar arrow shape. At this point, pressing the left mouse button allows for dragging the control to a new position. If the cursor is moved over the small blue squares on the border, it turns into a two-way arrow, and clicking allows for resizing the control. After adjusting the control to the desired size and position, the interface for our first VI is complete.
+When the cursor is at the edge of the control, it changes to the standard arrow shape, allowing you to drag the control to a new position by pressing the left mouse button. If the cursor is positioned over one of the small dark squares, it turns into a two-way arrow for resizing the control. Once the control is adjusted to the desired size and location, the interface for our first VI is all set.
 
-## Edit Block Diagram
+## Editing the Block Diagram
 
-The logical functionality of a program is implemented in its block diagram. When we place a control on the VI front panel, a corresponding terminal is automatically added to the VI block diagram:
+The block diagram is where the logical functionality of a LabVIEW program is realized. Placing a control on the VI's front panel automatically adds a corresponding terminal to the VI's block diagram:
 
-![](../../../../docs/images/image8.png "放置控件后的程序框图")
+![](../../../../docs/images/image8.png "Block Diagram with a Control Terminal")
 
-Data sent to this terminal in the block diagram is then displayed on the front panel control when the program runs. We can pass the string "Hello World!" to this terminal named "String," and upon running the program, the "String" control on the interface will display these words.
+Data directed to this terminal in the block diagram will be displayed by the corresponding control on the front panel during the program's execution. For instance, if we send the string "Hello World!" to the terminal labeled "String," the "String" control on the interface will show these words when the program is run.
 
-When the VI block diagram window is active, a floating window similar to the Controls Palette appears (or can be brought up by right-clicking on a blank area of the block diagram). This is the Functions Palette. The Functions Palette is used in the same way as the Controls Palette, but it contains icons representing functions, structures, constants, and built-in VIs in LabVIEW that control program execution. We need to find a string constant from it to hold the words "Hello World!"
+With the VI block diagram window active, a floating window resembling the Controls Palette may appear (or can be summoned by right-clicking on a blank area of the block diagram). This window is the Functions Palette. The Functions Palette operates similarly to the Controls Palette but differs in that it features icons representing functions, structures, constants, and built-in VIs within LabVIEW that are essential for controlling the execution of the program. Our task now is to locate a string constant to store the "Hello World!" text.
 
-Just like with the Controls Palette, click on the icons on the Functions Palette and navigate to "Programming -> String" to find the String Constant:
+In a manner akin to using the Controls Palette, click on the icons in the Functions Palette and navigate to "Programming -> String" to find the String Constant:
 
-![](../../../../docs/images/image9.png "字符串子选板")
+![](../../../../docs/images/image9.png "String Functions Palette")
 
-Drag the string constant to the VI block diagram. Immediately typing on the keyboard allows you to enter text into the string constant.
+Drag the string constant onto the VI block diagram. You can immediately start typing on the keyboard to enter text into the string constant.
 
-LabVIEW uses wires to pass data. Move the cursor to the right middle side of the string constant, and the cursor will change to a spool-like shape. Clicking here will draw a wire from the string constant. Clicking again at the middle left side of the terminal on the String display control will connect the two elements with a wire.
+LabVIEW uses wires for data transfer. Position the cursor to the right-middle side of the string constant, and the cursor will transform into a spool-like icon. Clicking in this state will initiate a wire from the string constant. Then, clicking at the middle left side of the terminal on the String display control will establish a wired connection between the two elements.
 
-![](../../../../docs/images/image10.gif "准备连线")
+![](../../../../docs/images/image10.gif "Initiating a Wire")
 
-With this, our entire program is complete. On the front panel of the VI, click the first arrow-shaped button on the left side of the toolbar to run the VI. You can then see the result of the program execution on the VI front panel:
+With this wiring, our entire program is now ready. To execute the VI, click on the first arrow-shaped button located on the left side of the toolbar on the front panel. The execution results of the program will be visible on the VI front panel:
 
 ![](../../../../docs/images/image11.gif "程序运行结果")
 
-If there are errors in the program, the run button's arrow on the toolbar will appear broken, and the program won't run. The button's name changes from "Run" to "List Errors." Clicking this button will pop up an error list dialog box. Errors must be corrected according to the list's prompts, and the program code modified. Only when the run button resumes its arrow shape can the program be run.
+Should there be any errors in the program, the run button's arrow on the toolbar will turn into a broken shape, indicating that the program cannot be run. The button's label will also change from "Run" to "List Errors." Clicking this button will display a dialog box listing the errors. These errors need to be addressed as per the prompts in the list, and the program code should be accordingly modified. The program can only be executed once the run button reverts to its regular arrow form.
 
-As the first program in learning LabVIEW, we should save it for posterity. Select "File -> Save" from the menu, or use the shortcut "Ctrl+S," then choose a suitable path and filename to save the VI.
+As this is our initial foray into LabVIEW programming, it's good practice to save the program. To do so, select "File -> Save" from the menu or use the shortcut "Ctrl+S," then choose an appropriate path and filename to save the VI.
 
-That's how straightforward and easy to learn LabVIEW programming is!
+This simplicity is what makes LabVIEW programming so accessible and easy to learn!
 
-## The Operational Logic of LabVIEW Programs
+## The Execution Logic of LabVIEW Programs
 
-Currently, most common programming languages are text-based. For example, languages like VC and C# allow for what-you-see-is-what-you-get editing of interfaces, but their logical parts are still scripted in text. Some graphical programming languages, such as Scratch (refer to the section on "[Other Programming Languages](appendix_languages)"), use graphical representations for code logic but still adhere to a procedural approach, similar to traditional procedural text programming languages like C.
+In the realm of programming, most prevalent languages are text-based. For instance, languages like VC and C# feature what-you-see-is-what-you-get (WYSIWYG) editing for interfaces, yet the logic behind them is scripted in text. Some graphical programming languages, such as Scratch (as detailed in the "[Other Programming Languages](appendix_languages)" section), employ graphical representations to depict code logic but still follow a procedural approach akin to traditional procedural text-based programming languages like C.
 
-However, as seen in the earlier example, LabVIEW is markedly different from text-based programming languages. Not only does it feature graphical editing of program interfaces, but its programming logic is also implemented through a "drawing" approach. Furthermore, the core consideration in LabVIEW programming is not the problem-solving process, but how data flows between code segments. To help readers understand the differences between LabVIEW and text-based programming languages, this book will often compare LabVIEW with text-based languages like C and Java.
+Contrastingly, LabVIEW stands out significantly from these text-based languages. It not only allows for graphical interface editing but also adopts a unique "drawing" method for implementing programming logic. The primary focus in LabVIEW programming is on how data flows among code segments, rather than the procedural problem-solving process typical in other languages. To aid in comprehending the distinctions between LabVIEW and conventional text-based languages, this book will frequently draw comparisons between LabVIEW and languages such as C and Java.
 
-Due to its graphical programming characteristics, LabVIEW is sometimes misunderstood and equated with graphical design and control applications like CAD or specialized software for circuit boards and chemical machinery. However, LabVIEW's flexibility and powerful features are unparalleled by general industry application software; it is indeed a programming language.
+Owing to its graphical programming nature, LabVIEW is sometimes mistakenly likened to graphical design and control applications like CAD or specific software used for designing circuit boards and chemical machinery. However, the versatility and powerful features of LabVIEW surpass those of standard industry applications, affirming its status as a true programming language.
 
-To explain LabVIEW programs more clearly, let's first define some terms used in LabVIEW programming. All graphical elements on the VI front panel and block diagram are referred to as **objects**. The most common graphical objects on the VI front panel are **controls**, used for inputting or displaying data. Sometimes, there are other objects on the front panel, like decorative lines or pictures, which do not contain data for program execution. All graphical objects in the VI block diagram can be divided into two parts: **nodes** and **wires**. Wires, also known as data lines, connect the terminals of controls, as seen in the simple program we wrote earlier. Wires are easily identifiable in the block diagram. All other objects in the block diagram are collectively referred to as nodes.
+For a clearer explanation of LabVIEW programming, it's essential to define some commonly used terms. All graphical elements within the VI's front panel and block diagram are termed as **objects**. On the VI front panel, the most prevalent graphical objects are **controls**, utilized for data input or display. Occasionally, the front panel may also contain other types of objects, such as decorative lines or images, which don’t play a role in the program's execution. Within the VI block diagram, graphical objects can be categorized into two main groups: **nodes** and **wires**. Wires, also known as data lines, are responsible for connecting control terminals, exemplified in the simple program we previously crafted. Wires are easily distinguishable within the block diagram. Conversely, all other block diagram entities are collectively identified as nodes.
 
-Nodes can be further classified into several types, including:
+Nodes in LabVIEW can be categorized into several distinct types:
 
-- **Terminals:** As previously mentioned, terminals correspond to a control on the VI front panel and are used to read or write control data. Terminals function similarly to parameters in text programming languages, with data exchange happening through terminals. 
-- **Functions:** Functions are built-in nodes in LabVIEW that perform basic, indivisible tasks. They are akin to operators and low-level library functions in text programming languages. For example, LabVIEW's addition function (![](../../../../docs/images/image12.png))  is similar to the "+" operator in text languages, and its string length function (![](../../../../docs/images/image13.png)) is comparable to the strlen() function in C or len() function in Python.
-- **Structures:** Structures control the execution sequence of a program. They are similar to keywords in text languages that control program flow. For instance, LabVIEW's for loop structure (![](../../../../docs/images/image14.png)) is similar to the for statement in C or Python.
-- **Sub VIs:** A VI called by another VI is known as a sub VI, analogous to a subfunction in text programming languages.
-- **Decorations:** The block diagram of a VI can also contain nodes unrelated to program execution, such as a background image or explanatory text. These elements are purely for making the code more readable and understandable, much like comments in text programming languages.
+- **Terminals:** As mentioned earlier, terminals correspond to controls on the VI front panel, serving to read or write data from these controls. Much like parameters in text-based programming languages, data exchange in LabVIEW occurs through these terminals.
+- **Functions:** These are fundamental nodes in LabVIEW that carry out basic, non-divisible tasks, similar to operators and built-in library functions in text-based languages. For example, LabVIEW's addition function (![](../../../../docs/images/image12.png))  parallels the "+" operator in text languages, while its string length function (![](../../../../docs/images/image13.png)) can be compared to the strlen() function in C or len() function in Python.
+- **Structures:** Structures in LabVIEW dictate the sequence of program execution, akin to the flow-control keywords in text-based languages. For example, the for loop structure in LabVIEW (![](../../../../docs/images/image14.png)) is similar to the for statement in C or Python.
+- **Sub VIs:** These are essentially VIs called within another VI, functioning similarly to subfunctions in text programming languages.
+- **Decorations:** The block diagram of a VI might also include decorative nodes that do not impact program execution, such as background images or explanatory text. These are akin to comments in text-based languages and serve to enhance the readability and comprehension of the code.
  
-In text-based languages, the fundamental execution order of a program is typically the order in which the statements are written. This means, in the absence of any flow-altering jump statements, the program executes each line of code from top to bottom. In LabVIEW, the program's execution order is controlled by wiring, i.e., the program executes along the wires on the block diagram.
+In most text-based languages, the basic execution order of a program typically follows the sequence in which the statements are written. Without any flow-altering jump statements, the program executes each line of code sequentially from top to bottom. In contrast, LabVIEW's execution order is governed by the wiring on the block diagram, meaning the program executes along the paths defined by these wires.
 
-We can understand the execution order of LabVIEW programs as follows:
+The execution logic of LabVIEW programs can be understood as follows:
 
-Data starts at a source node on the block diagram and flows along the connected wire to an input terminal of the next node. After being processed at this node, the data flows out from the node's output terminal along the wire to the next node, continuing until it reaches a terminal node. The order of data flow determines the execution sequence of the program. Therefore, programs written in LabVIEW are described as dataflow-driven.
+Data originates from a source node on the block diagram and follows the connecting wire to an input terminal of the subsequent node. After processing at this node, the data exits through the node's output terminal and continues along the wire to the next node. This flow persists until the data reaches a terminal node. Thus, the sequence of data flow dictates the execution order, characterizing LabVIEW programs as dataflow-driven.
 
-![](../../../../docs/images/image15.png "一段简单数学运算程序")
+![](../../../../docs/images/image15.png "simple mathematical operation")
 
-The above figure shows a simple mathematical operation program. In a basic VI, the initial and final nodes of data are usually the terminals of controls. Data flows from the "Initial Value" terminal, along the wire to the "Add 1" function, then out from the right side of the "Add 1" function, through the wire to the "Square Root" function, and finally into the "Result" terminal.
+The figure above illustrates a simple mathematical operation program. In a basic VI, data typically originates and terminates at the control terminals. Data moves from the "Initial Value" terminal, travels along the wire to the "Add 1" function, exits from the right side of the "Add 1" function, proceeds through the wire to the "Square Root" function, and finally enters the "Result" terminal.
 
-Why do data flow out of the "Initial Value" and into the "Result" when both are terminals? This is because every control in LabVIEW can be set as either a control or an indicator, determining the direction of data flow. When set as a control, data flows out of its terminal; when set as an indicator, data flows into its terminal.
+The reason data flows out of "Initial Value" and into "Result", although both are terminals, is due to the dual nature of controls in LabVIEW. They can be configured either as a control or an indicator, which dictates the direction of data flow. When configured as a control, data flows out from its terminal; as an indicator, data flows into its terminal.
 
-By default, whether a control functions as a control or an indicator depends on the characteristics of the physical entity it represents. For example, a switch control is by default a control, whereas a lightbulb control is an indicator. Right-clicking on a control and selecting the "Change to Control/Indicator" option in the shortcut menu allows for changing the data flow direction of the control.
+By default, the function of a control as either a control or an indicator is determined by the properties of the physical entity it represents. For instance, a switch control typically serves as a control, while a lightbulb control usually acts as an indicator. Changing a control’s data flow direction can be done by right-clicking on it and selecting the "Change to Control/Indicator" option from the context menu.
 
-Functions and sub VIs usually have multiple terminals with fixed directions. Data always flows into functions through their input terminals and out through their output terminals.
+Functions and sub VIs generally possess multiple terminals, each with a fixed direction. Data invariably flows into functions via their input terminals and exits through their output terminals.
 
-Wires can have branches. Data flowing out of a terminal can simultaneously flow to multiple receiving terminals. When data reaches a branching point on a wire, a copy is automatically generated, creating two identical and independent sets of data, each flowing to their respective next nodes. Subsequent nodes then process each set of data independently. (This is a simplified explanation; LabVIEW does not necessarily create a copy at every branch. More precise descriptions will be provided later in this book.) As shown below:
+Wires are capable of branching. Data flowing out of one terminal can simultaneously be directed to several receiving terminals. Upon reaching a junction on a wire, the data is automatically duplicated, creating two identical and independent sets of data, each traveling to their respective subsequent nodes. These nodes then process the two data sets independently. (This description is simplified for clarity; LabVIEW doesn't always duplicate data at every branch. More detailed explanations will be provided in later sections of this book.) As demonstrated below:
 
-![](../../../../docs/images/image16.png "两份独立数据，各自进行运算")
+![](../../../../docs/images/image16.png "data directed into 2 branches")
 
-Conversely, a receiving terminal cannot simultaneously accept data from different sources. If such wiring is attempted, the wire turns into a dashed line:
+Conversely, a receiving terminal cannot concurrently receive data from different sources. Attempting such a connection will result in the wire turning into a dashed line:
 
-![](../../../../docs/images/image17.png "数据线分叉")
+![](../../../../docs/images/image17.png "connect 2 sources")
 
-At this point, if you click the "List Errors" button (the same button as "Run") on the toolbar of the VI block diagram window, an error message will appear:
+In such cases, clicking the "List Errors" button (which also functions as the "Run" button) on the VI block diagram window’s toolbar will display an error message:
 
-![](../../../../docs/images/image18.png "错误列表")
+![](../../../../docs/images/image18.png "error message")
 
 
 ## Exercise
