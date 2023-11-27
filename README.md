@@ -1,6 +1,6 @@
 ### The LabVIEW Jurney
 
-The book's web pages: <https://lv.qizhen.xyz/en/> or <https://labview.qizhen.xyz/en/>
+Online Reading: Access the book at <https://lv.qizhen.xyz/en/> or <https://labview.qizhen.xyz/en/>
 
 ---------------------
 
