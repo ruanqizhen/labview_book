@@ -118,9 +118,9 @@ Data originates from a source node on the block diagram and follows the connecti
 
 ![](../../../../docs/images/image15.png "simple mathematical operation")
 
-The figure above illustrates a simple mathematical operation program. In a basic VI, data typically originates and terminates at the control terminals. Data moves from the "Initial Value" terminal, travels along the wire to the "Add 1" function, exits from the right side of the "Add 1" function, proceeds through the wire to the "Square Root" function, and finally enters the "Result" terminal.
+The figure above illustrates a simple mathematical operation program. In a basic VI, data typically originates and terminates at the control terminals. Data moves from the "input" terminal, travels along the wire to the "Increment" function, exits from the right side of the "Increment" function, proceeds through the wire to the "Square Root" function, and finally enters the "result" terminal.
 
-The reason data flows out of "Initial Value" and into "Result", although both are terminals, is due to the dual nature of controls in LabVIEW. They can be configured either as a control or an indicator, which dictates the direction of data flow. When configured as a control, data flows out from its terminal; as an indicator, data flows into its terminal.
+The reason data flows out of "input" and into "result", although both are terminals, is due to the dual nature of controls in LabVIEW. They can be configured either as a control or an indicator, which dictates the direction of data flow. When configured as a control, data flows out from its terminal; as an indicator, data flows into its terminal.
 
 By default, the function of a control as either a control or an indicator is determined by the properties of the physical entity it represents. For instance, a switch control typically serves as a control, while a lightbulb control usually acts as an indicator. Changing a control’s data flow direction can be done by right-clicking on it and selecting the "Change to Control/Indicator" option from the context menu.
 
