@@ -7,6 +7,8 @@ export default function DocPaginatorWrapper(props) {
   let location = useLocation();
   let giscus_term = location.pathname.split('/').pop();
   if (giscus_term == '') giscus_term = 'index';
+  let theme = document.documentElement.getAttribute('data-theme');
+  if (theme == '') theme = 'light';
   return (
     <>
       <DocPaginator {...props} />
@@ -21,7 +23,7 @@ export default function DocPaginatorWrapper(props) {
         reactionsEnabled='1'
         emitMetadata='1'
         inputPosition='top'
-        theme='light'
+        theme={theme}
         lang='en'
         loading="lazy"
       />
