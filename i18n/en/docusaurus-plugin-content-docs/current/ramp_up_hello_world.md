@@ -141,4 +141,4 @@ In such cases, clicking the "List Errors" button (which also functions as the "R
 
 ## Exercise
 
-* Create a new VI, place a switch control and a lightbulb control, and then use the switch to control the turning on and off of the lightbulb.
+- Create a new VI, place a switch control and a lightbulb control, and then use the switch to control the turning on and off of the lightbulb.
