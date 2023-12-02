@@ -10,10 +10,11 @@
 		<Property Name="server.vi.callsEnabled" Type="Bool">true</Property>
 		<Property Name="server.vi.propertiesEnabled" Type="Bool">true</Property>
 		<Property Name="specify.custom.address" Type="Bool">false</Property>
-		<Item Name="ICurrentMeasurable.lvclass" Type="LVClass" URL="../ICurrentMeasurable/ICurrentMeasurable.lvclass"/>
-		<Item Name="IVoltageMeasurable.lvclass" Type="LVClass" URL="../IVoltageMeasurable/IVoltageMeasurable.lvclass"/>
-		<Item Name="Multimeter.lvclass" Type="LVClass" URL="../Multimeter/Multimeter.lvclass"/>
-		<Item Name="PortableMultimeter.lvclass" Type="LVClass" URL="../PortableMultimeter/PortableMultimeter.lvclass"/>
+		<Item Name="IReport.lvclass" Type="LVClass" URL="../IReport/IReport.lvclass"/>
+		<Item Name="PDFStudentReport.lvclass" Type="LVClass" URL="../PDFStudentReport/PDFStudentReport.lvclass"/>
+		<Item Name="Printer.lvclass" Type="LVClass" URL="../Printer/Printer.lvclass"/>
+		<Item Name="ReportService.lvclass" Type="LVClass" URL="../ReportService/ReportService.lvclass"/>
+		<Item Name="WebStudentReport.lvclass" Type="LVClass" URL="../WebStudentReport/WebStudentReport.lvclass"/>
 		<Item Name="Dependencies" Type="Dependencies"/>
 		<Item Name="Build Specifications" Type="Build"/>
 	</Item>
