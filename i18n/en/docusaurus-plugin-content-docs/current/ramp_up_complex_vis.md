@@ -1,4 +1,4 @@
-# Approach to Complex Programs
+# Complex Programs
 
 In the section titled "[Hello，World!](ramp_up_hello_world)", we embarked on our journey with LabVIEW by creating a basic VI. Now, let's delve deeper. We're about to enhance our initial creation and explore more of LabVIEW's essential capabilities. It marks your true initiation into the world of LabVIEW.
 
@@ -52,7 +52,7 @@ Should the available symbols not meet your needs, the icon editor also allows fo
 
 On this page, layer management becomes key. Different elements such as the template background, text, and graphic elements are organized in separate layers. This organization allows for modifications to a specific layer without impacting others, enabling actions like moving graphics on one layer or setting them to semi-transparent:
 
-![](../../../../docs/images/image33.png "The Layers Page")
+![](../../../../docs/images/image33.gif "The Layers Page")
 
 A new VI typically begins with a default layer containing a default icon. My personal approach is to delete this default layer and start a fresh design with a new layer.
 
@@ -111,9 +111,9 @@ The corresponding front panel is displayed here:
 
 ![](../../../../docs/images/image39.png "addition program front panel")
 
-This program's purpose is to show the sum of the "Knob" and "Dial" inputs on the "Meter" control. By default, it executes a single run and immediately displays the result. However, our goal is to modify it for continuous operation, allowing real-time updates on the "Meter" as the "Knob" and "Dial" values are adjusted.
+This program's purpose is to show the sum of the "Knob" and "Dial" inputs on the "Gauge" control. By default, it executes a single run and immediately displays the result. However, our goal is to modify it for continuous operation, allowing real-time updates on the "Gauge" as the "Knob" and "Dial" values are adjusted.
 
-A quick way to achieve this is by using the "Continuous Run" button ![](../../../../docs/images/image41.png) on the toolbar. Once activated, the program doesn’t stop after a single calculation but keeps rerunning until the "Stop Running" button ![](../../../../docs/images/image42.png) is clicked. With this mode, any adjustments to the "Knob" and "Dial" will be immediately reflected in the "Meter".
+A quick way to achieve this is by using the "Continuous Run" button ![](../../../../docs/images/image41.png) on the toolbar. Once activated, the program doesn’t stop after a single calculation but keeps rerunning until the "Stop Running" button ![](../../../../docs/images/image42.png) is clicked. With this mode, any adjustments to the "Knob" and "Dial" will be immediately reflected in the "Gauge".
 
 Nonetheless, this approach has limitations. The "Continuous Run" method is typically used for temporary debugging and is not a viable solution for end users. In a standard application scenario, users interact with an executable file derived from the VI, which doesn't include a "Continuous Run" button. Furthermore, this method results in the entire code block running repetitively, making it challenging to separate the code that needs to run just once from the code that should run continuously.
 
@@ -166,13 +166,11 @@ Creating a sub VI begins in the same manner as any standard VI: you design the f
 
 In a sub VI, the control elements on the front panel function as input parameters, and the indicator elements act as output parameters. Crucially, these elements are designated as input or output parameters only when they are connected to the VI's connector pane, which serves as the interface for linking the sub VI with other VIs.
 
-Consider the example of constructing a simple sub VI that converts temperatures from Fahrenheit to Celsius. This VI will feature one numeric control for input and one numeric indicator for output. The initial step involves creating the front panel and block diagram for this VI:
+Consider the example of constructing a simple sub VI that converts temperatures from Fahrenheit to Celsius. This VI will feature one numeric control for input and one numeric indicator for output. The initial step involves creating the front panel and block diagram for this VI. The calculation logic of the problem is:
 
 ![](../../../../docs/images/image48.png "Fahrenheit to Celsius")
 
-The next phase is to configure the input and output parameters. In this case, "Fahrenheit Temperature" is assigned as the input parameter, and "Celsius Temperature" as the output parameter. In recent versions of LabVIEW, the connector pane, which is pivotal for this setup, is readily visible directly on the VI's front panel, simplifying the process of linking these parameters:
-
-![](../../../../docs/images_2/z203.png "connector pane")
+The next phase is to configure the input and output parameters. In this case, "Fahrenheit Temperature" is assigned as the input parameter, and "Celsius Temperature" as the output parameter. In recent versions of LabVIEW, the connector pane, which is pivotal for this setup, is readily visible directly on the VI's front panel, simplifying the process of linking these parameters.
 
 In earlier versions of LabVIEW, the connector pane isn't immediately visible and can be accessed by right-clicking on the VI's icon and choosing "Show Connector Pane" from the contextual menu. This action reveals the icon area as a grid of small rectangles, known as "terminals": ![](../../../../docs/images/image49.png). The default layout of the connector pane is organized into four columns, containing 4, 2, 2, and 4 terminals respectively. This layout is typically referred to by the number of terminals in each column, with the default being 4224. While other patterns are available in the right-click menu under "Patterns", a good rule of thumb for clean and efficient code design is to stick with the 4224 pattern wherever possible.
 
@@ -180,7 +178,7 @@ Each terminal on the connector pane can be associated with a control. In LabVIEW
 
 To connect a control to a terminal, click on a terminal on the connector pane and then on the corresponding control. The terminal will change color upon successful linkage, helping to prevent incorrect connections. The terminal color is matched with the wire color of the connected control for easy identification. A connector pane that has been correctly set up will look something like this:
 
-![](../../../../docs/images/image50.png "connector pane")
+![](../../../../docs/images/image50.gif "connector pane")
 
 Incorporating a sub VI into a main VI is akin to invoking a function and can be achieved in several ways. The most straightforward method is to drag and drop the sub VI's icon onto the block diagram of the main VI. Alternatively, if the sub VI has been saved and closed, you can navigate to the Functions Palette in the main VI's block diagram, select "Select a VI..." and then position the desired sub VI on the block diagram. Here’s an example of a main VI's block diagram that includes a sub VI:
 
