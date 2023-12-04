@@ -127,6 +127,7 @@ const sidebars = {
         'oop_class_pro_con', 
         'oop_interface',
         'oop_use_cases',
+        'oop_solid',
         'oop_generic',
         'oop_xnode',
       ],
