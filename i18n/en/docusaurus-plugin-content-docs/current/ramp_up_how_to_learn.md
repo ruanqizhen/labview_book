@@ -24,15 +24,15 @@ While systematic and goal-driven learning styles are effective for passing exams
 
 Compared to self-learning text-based programming languages, self-learning LabVIEW can be more straightforward, making LabVIEW particularly amenable to exploratory learning. This is largely due to LabVIEW's graphical programming nature.
 
-Firstly, graphics can convey meanings more richly than words. A newcomer to programming, when encountering a LabVIEW function icon, can often intuitively guess its general purpose. For instance, upon seeing this LabVIEW function: ![](images/image19.png), it's immediately apparent that it's used for calculating square roots. Additionally, LabVIEW allows for displaying labels on functions, offering localized text descriptions of their purpose. Conversely, encountering a textual function like sqrt() in a text-based language might not be as immediately understandable, especially for non-native English speakers.
+Firstly, graphics can convey meanings more richly than words. A newcomer to programming, when encountering a LabVIEW function icon, can often intuitively guess its general purpose. For instance, upon seeing this LabVIEW function: ![](../../../../docs/images/image19.png), it's immediately apparent that it's used for calculating square roots. Additionally, LabVIEW allows for displaying labels on functions, offering localized text descriptions of their purpose. Conversely, encountering a textual function like sqrt() in a text-based language might not be as immediately understandable, especially for non-native English speakers.
 
 Here's an example of a labeled function:
 
-![](images/image20.png "labeled function")
+![](../../../../docs/images/image20.png "labeled function")
 
 Secondly, LabVIEW organizes various functions, structures, VIs, etc., into functionally categorized and hierarchical groups, displayed in the function palette:
 
-![](images/image21.png "function palette")
+![](../../../../docs/images/image21.png "function palette")
 
 In contrast, most text-based programming languages do not provide a similarly accessible, functionally categorized list of all their features for on-the-fly reference. For example, in VC++, functions are typically typed out. The environment typically suggests functions based on already-typed characters. For instance, typing "sq" might prompt a suggestion for "sqrt." However, if you need a function to convert a floating-point number to a hexadecimal string and don't know the function's name, you can't rely on such prompts. This may necessitate searching through reference materials or, if unsuccessful, writing and debugging a function yourself.
 
@@ -50,9 +50,9 @@ For many basic functions or menu options in LabVIEW, users can often intuitively
 
 The help documentation in LabVIEW is an essential tool for mastering the software, but it's often underutilized. While earlier versions were only available in English, challenging those not fluent in the language, LabVIEW has since expanded its documentation to include various localized versions. This development significantly reduces language barriers, making LabVIEW more accessible to a global audience.
 
-One of the most accessible forms of help is LabVIEW's Context Help. This feature provides a floating window that displays help information related to the object under the mouse cursor. To activate Context Help, click the yellow question mark button ![](images/image22.png) on the toolbar of the front panel or block diagram, select "Help -> Show Context Help" from the menu, or use the shortcut key Ctrl+H. This action opens the Context Help window:
+One of the most accessible forms of help is LabVIEW's Context Help. This feature provides a floating window that displays help information related to the object under the mouse cursor. To activate Context Help, click the yellow question mark button ![](../../../../docs/images/image22.png) on the toolbar of the front panel or block diagram, select "Help -> Show Context Help" from the menu, or use the shortcut key Ctrl+H. This action opens the Context Help window:
 
-![](images/image23.png "Context Help")
+![](../../../../docs/images/image23.png "Context Help")
 
 In the example above, the "Format Date/Time String" function is used on a VI's block diagram. While one can guess the general purpose and usage of this function from its label, the specific way to format the "time format string" parameter might not be immediately clear. In such cases, you can open the Context Help window and hover the mouse over the "Format Date/Time String" function. The Context Help window will then display detailed information about this function, including guidelines for commonly used time format codes.
 
@@ -60,7 +60,7 @@ In LabVIEW's Context Help window, located on the lower left, you'll find three s
 
 While the Context Help window offers quick tips, it might not be sufficiently detailed for first-time users. To access more comprehensive information, click "Detailed Help Information" at the bottom of the Context Help window, or the blue question mark button in the lower left corner. This action opens the extensive LabVIEW online help documentation:
 
-![](images/image24.png "LabVIEW online help")
+![](../../../../docs/images/image24.png "LabVIEW online help")
 
 This documentation meticulously details the functionalities of each LabVIEW function and the application of parameters. It's arguably more thorough and authoritative than any book on LabVIEW structures, functions, and VIs. Therefore, when exploring LabVIEW functions, the help documentation should be your first point of reference.
 
@@ -75,11 +75,11 @@ While LabVIEW's documentation is informative, its abstract nature can sometimes 
 
 In the LabVIEW help documentation, you will often find links to examples at the bottom of help pages. These examples are specifically related to the topic discussed on the page. Users can click "Open Example" directly within the help page to see how the explained concepts are implemented in actual programs:
 
-![](images/image25.png "exmaple links in help doc")
+![](../../../../docs/images/image25.png "exmaple links in help doc")
 
 If you haven't opened the relevant help document, the "NI Example Finder" provides another way to search for examples. On the LabVIEW startup interface, select "Find Examples," or choose "Help -> Find Examples" from the menu to launch the NI Example Finder:
 
-![](images/image26.png "NI Example Finder")
+![](../../../../docs/images/image26.png "NI Example Finder")
 
 The NI Example Finder offers two primary search methods. On the "Browse" tab, you can find examples by category. For instance, to explore file reading and writing, select "Basics -> File Input and Output" from the category list to access various examples in this category. Alternatively, the "Search" tab allows keyword-based searches for example VIs. For example, typing "loop" in the search bar will display all examples related to loop structures.
 
@@ -87,7 +87,7 @@ By default, the NI Example Finder only shows examples included with LabVIEW. How
 
 Many examples on the NI website are user-contributed. You can contribute your VIs for community reference. User-submitted VIs are collated on the "NI Developer Community" page (URL: <https://forums.ni.com/>).Directly browsing this page in a web browser reveals the latest and most popular examples, along with community feedback:
 
-![](images/image27.png "NI Developer Community")
+![](../../../../docs/images/image27.png "NI Developer Community")
 
 The VIs on the LabVIEW function palette and many in the vi.lib folder have publicly accessible block diagrams. Users can open these diagrams for in-depth study, making them excellent learning resources. Additionally, the VIs used to illustrate concepts in this book serve as helpful examples. They are available at <https://github.com/ruanqizhen/labview_book/tree/main/code>.
 
@@ -118,15 +118,15 @@ While sharing source code in text-based languages is straightforward, typically 
 
 To create a VI Snippet, select all the code you want to include, then go to "Edit -> Create VI Snippet from Selection" and save the image file:
 
-![](images_2/z205.gif "Create VI Snippet")
+![](../../../../docs/images_2/z205.gif "Create VI Snippet")
 
 A VI Snippet is a pictorial representation of your block diagram, complete with a border and an icon indicating it can be dragged into LabVIEW to add code. Below is a VI Snippet of a recently created program block diagram:
 
-![](images_2/z206.png "VI Snippet")
+![](../../../../docs/images_2/z206.png "VI Snippet")
 
 In this book, we will use VI Snippet for code screenshots wherever possible. Readers interested in testing the programs shown in VI Snippet illustrations can directly drag them onto a blank VI's block diagram, as demonstrated here:
 
-![](images_2/z209.gif "Using VI Snippet")
+![](../../../../docs/images_2/z209.gif "Using VI Snippet")
 
 
 ## Practice
