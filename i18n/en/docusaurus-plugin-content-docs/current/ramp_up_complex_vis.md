@@ -222,6 +222,6 @@ By right-clicking on "My Computer" and selecting "add", you can incorporate all 
 
 Through the use of the Project Explorer, LabVIEW significantly simplifies the process of organizing and managing complex projects, allowing developers to maintain a clear overview of their program’s structure and its various components.
 
-## Exercise
+## Practice
 
 - Create a new VI and then design a beautiful icon for the VI.
