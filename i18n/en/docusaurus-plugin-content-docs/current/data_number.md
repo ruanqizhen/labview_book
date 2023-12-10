@@ -141,7 +141,7 @@ Many mathematical operation function icons are smaller, and their input terminal
 
 :::
 
-## Expression Node
+### Expression Node
 
 For straightforward arithmetic operations like addition, subtraction, multiplication, and division, basic function nodes are typically adequate. However, when dealing with more intricate numerical calculations, you might end up using numerous function nodes. This can lead to a cluttered arrangement with crisscrossing or cornered connections, which hampers readability and maintenance of the program. In such scenarios, other programming approaches, like expression node, become preferable.
 
@@ -157,7 +157,7 @@ Expression nodes allow only one string to represent the input parameter, meaning
 
 LabVIEW's online help documents the supported operators, functions, and expression rules for expression nodes. Both the expression nodes and the formula nodes (which will be discussed later) in LabVIEW borrow the syntax for mathematical expressions from C language. Thus, if you are familiar with C language, you can easily adapt to using these nodes without much additional help. For instance, `+`, `-`, `*`, `/` are used for basic arithmetic, `**` for exponential operations, and sqrt() for square root calculations, among others.
 
-## Formula Express VI
+### Formula Express VI
 
 For operations that require multiple inputs, the Formula Express VI is an ideal tool:
 
@@ -169,7 +169,7 @@ The intricacies and applications of [Express VI](measurement_express_vi) will be
 
 The Formula Express VI supports up to eight input data points but is limited to only one output data point. A notable drawback of this VI is its lack of transparency in expression visibility; the specific formula used is not directly visible on the block diagram. To view or edit the calculation formula, users must double-click the VI to open the configuration panel. This additional step may be a slight inconvenience for those who prefer immediate visibility of the formula on the block diagram.
 
-## Formula Node
+### Formula Node
 
 For Multiple-Input-Multiple-Output (MIMO) or more intricate calculations, the formula node is a suitable tool. You can find it under "Programming -> Structure" in the Functions palette:
 
