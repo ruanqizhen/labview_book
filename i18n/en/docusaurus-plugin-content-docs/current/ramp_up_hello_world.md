@@ -68,7 +68,7 @@ The block diagram is where the logical functionality of a LabVIEW program is rea
 
 ![](../../../../docs/images/image8.png "Block Diagram with a Control Terminal")
 
-Data directed to this terminal in the block diagram will be displayed by the corresponding control on the front panel during the program's execution. For instance, if we send the string "Hello World!" to the terminal labeled "String," the "String" control on the interface will show these words when the program is run.
+Data directed to this terminal in the block diagram will be displayed by the corresponding control on the front panel during the program's execution. For instance, if we send the string "Hello World!" to the terminal labeled "String", the "String" control on the interface will show these words when the program is run.
 
 With the VI block diagram window active, a floating window resembling the Controls Palette may appear (or can be summoned by right-clicking on a blank area of the block diagram). This window is the Functions Palette. The Functions Palette operates similarly to the Controls Palette but differs in that it features icons representing functions, structures, constants, and built-in VIs within LabVIEW that are essential for controlling the execution of the program. Our task now is to locate a string constant to store the "Hello World!" text.
 
@@ -86,9 +86,9 @@ With this wiring, our entire program is now ready. To execute the VI, click on t
 
 ![](../../../../docs/images/image11.gif "程序运行结果")
 
-Should there be any errors in the program, the run button's arrow on the toolbar will turn into a broken shape, indicating that the program cannot be run. The button's label will also change from "Run" to "List Errors." Clicking this button will display a dialog box listing the errors. These errors need to be addressed as per the prompts in the list, and the program code should be accordingly modified. The program can only be executed once the run button reverts to its regular arrow form.
+Should there be any errors in the program, the run button's arrow on the toolbar will turn into a broken shape, indicating that the program cannot be run. The button's label will also change from "Run" to "List Errors". Clicking this button will display a dialog box listing the errors. These errors need to be addressed as per the prompts in the list, and the program code should be accordingly modified. The program can only be executed once the run button reverts to its regular arrow form.
 
-As this is our initial foray into LabVIEW programming, it's good practice to save the program. To do so, select "File -> Save" from the menu or use the shortcut "Ctrl+S," then choose an appropriate path and filename to save the VI.
+As this is our initial foray into LabVIEW programming, it's good practice to save the program. To do so, select "File -> Save" from the menu or use the shortcut "Ctrl+S", then choose an appropriate path and filename to save the VI.
 
 This simplicity is what makes LabVIEW programming so accessible and easy to learn!
 

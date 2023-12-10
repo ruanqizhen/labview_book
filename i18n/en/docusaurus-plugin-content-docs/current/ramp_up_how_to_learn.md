@@ -2,7 +2,7 @@
 
 ## Approaches to Learning LabVIEW
 
-The proverb, "Give a man a fish and you feed him for a day; teach a man to fish and you feed him for a lifetime," aptly applies to learning LabVIEW. As we progress through this book, detailed step-by-step program writing instructions may become less frequent, but the aim is to empower learners to find their most effective approach to mastering LabVIEW. Here we explore three primary methods of learning LabVIEW: systematic, exploratory, and goal-driven learning. These methods are not mutually exclusive, and each individual can select the approach that aligns best with their personality, environment, and familiarity with LabVIEW.
+The proverb, "Give a man a fish and you feed him for a day; teach a man to fish and you feed him for a lifetime", aptly applies to learning LabVIEW. As we progress through this book, detailed step-by-step program writing instructions may become less frequent, but the aim is to empower learners to find their most effective approach to mastering LabVIEW. Here we explore three primary methods of learning LabVIEW: systematic, exploratory, and goal-driven learning. These methods are not mutually exclusive, and each individual can select the approach that aligns best with their personality, environment, and familiarity with LabVIEW.
 
 ### Systematic Learning
 
@@ -34,7 +34,7 @@ Secondly, LabVIEW organizes various functions, structures, VIs, etc., into funct
 
 ![](../../../../docs/images/image21.png "function palette")
 
-In contrast, most text-based programming languages do not provide a similarly accessible, functionally categorized list of all their features for on-the-fly reference. For example, in VC++, functions are typically typed out. The environment typically suggests functions based on already-typed characters. For instance, typing "sq" might prompt a suggestion for "sqrt." However, if you need a function to convert a floating-point number to a hexadecimal string and don't know the function's name, you can't rely on such prompts. This may necessitate searching through reference materials or, if unsuccessful, writing and debugging a function yourself.
+In contrast, most text-based programming languages do not provide a similarly accessible, functionally categorized list of all their features for on-the-fly reference. For example, in VC++, functions are typically typed out. The environment typically suggests functions based on already-typed characters. For instance, typing "sq" might prompt a suggestion for "sqrt". However, if you need a function to convert a floating-point number to a hexadecimal string and don't know the function's name, you can't rely on such prompts. This may necessitate searching through reference materials or, if unsuccessful, writing and debugging a function yourself.
 
 Addressing programming challenges in LabVIEW is often straightforward, even for beginners. Learners can intuitively navigate LabVIEW's structured organization of functions to find solutions. For instance, if LabVIEW were to provide a function for the above task, it would likely be located under the "Numeric" or "String" function palettes, or under a dedicated data conversion category in the Functions palette. This systematic arrangement simplifies the search process.
 
@@ -77,7 +77,7 @@ In the LabVIEW help documentation, you will often find links to examples at the 
 
 ![](../../../../docs/images/image25.png "exmaple links in help doc")
 
-If you haven't opened the relevant help document, the "NI Example Finder" provides another way to search for examples. On the LabVIEW startup interface, select "Find Examples," or choose "Help -> Find Examples" from the menu to launch the NI Example Finder:
+If you haven't opened the relevant help document, the "NI Example Finder" provides another way to search for examples. On the LabVIEW startup interface, select "Find Examples", or choose "Help -> Find Examples" from the menu to launch the NI Example Finder:
 
 ![](../../../../docs/images/image26.png "NI Example Finder")
 
