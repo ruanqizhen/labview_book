@@ -129,7 +129,7 @@ In this book, we will use VI Snippet for code screenshots wherever possible. Rea
 ![](../../../../docs/images_2/z209.gif "Using VI Snippet")
 
 
-## Practice
+## Practice Questions
 
 - Search a LabVIEW forum and sign up for an account.
 - If you know of any popular LabVIEW forums or discussion groups, please share them in the message area.
