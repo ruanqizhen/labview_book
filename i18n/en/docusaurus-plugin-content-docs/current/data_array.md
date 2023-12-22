@@ -24,11 +24,11 @@ This approach to managing clusters enhances the clarity and functionality of you
 
 ### Cluster Data
 
-In LabVIEW programming, handling cluster data often involves extracting and processing each element individually. The process of separating elements from a cluster is known as "unbundling," while grouping element data back into a cluster is termed "bundling." There are two main methods for both bundling and unbundling: the standard "Bundle"/"Unbundle" and the more flexible "Bundle by Name"/"Unbundle by Name."
+In LabVIEW programming, handling cluster data often involves extracting and processing each element individually. The process of separating elements from a cluster is known as "unbundling", while grouping element data back into a cluster is termed "bundling". There are two main methods for both bundling and unbundling: the standard "Bundle"/"Unbundle" and the more flexible "Bundle by Name"/"Unbundle by Name".
 
 Both methods can compile several simple data into a cluster or disassemble a cluster into its constituent elements. "Bundle by Name" and "Unbundle by Name" offer adjustable length, allowing users to select specific elements for bundling or unbundling, as well as to customize their order. The standard "Bundle" and "Unbundle" are more rigid; they bundle or unbundle all elements in a cluster every time, and the data order is fixed, following the logical sequence of the elements.
 
-In your programs, it's generally preferable to use "Bundle by Name" and "Unbundle by Name" over the standard "Bundle" and "Unbundle." The former methods enhance readability by displaying element names and reduce the risk of errors that might arise from the inconsistent ordering of elements in different clusters:
+In your programs, it's generally preferable to use "Bundle by Name" and "Unbundle by Name" over the standard "Bundle" and "Unbundle". The former methods enhance readability by displaying element names and reduce the risk of errors that might arise from the inconsistent ordering of elements in different clusters:
 
 ![](../../../../docs/images/image107.png "bundle")
 
@@ -81,7 +81,7 @@ When working with arrays in programming, careful attention must be paid to the a
 
 ### Comparing
 
-In LabVIEW, standard comparison functions such as "Equals?" and "Greater than?" can be applied to arrays. When using these functions for array (or cluster) comparisons, you have the option to choose between "Compare Elements" and "Compare Sets," accessible through the right-click menu.
+In LabVIEW, standard comparison functions such as "Equals?" and "Greater than?" can be applied to arrays. When using these functions for array (or cluster) comparisons, you have the option to choose between "Compare Elements" and "Compare Sets", accessible through the right-click menu.
 
 "Compare Elements" performs a separate comparison for each corresponding element in two arrays. The outcome of this comparison is a Boolean array of the same length, with each element indicating the result of the individual comparison. On the other hand, "Compare Sets" considers the entire array as a single entity. In this mode, two arrays are deemed equal (resulting in "true") only if they have the same length and all corresponding elements are identical. Otherwise, the result is "false". The image below demonstrates an array comparison:
 
@@ -161,7 +161,7 @@ The code within the loop is executed repeatedly, once for each iteration. This c
 
 In LabVIEW, when you connect terminals inside and outside a loop structure, and the data wire crosses the loop's frame, a small rectangle (solid or hollow) appears on the frame, matching the color of the data line. This rectangle is known as a tunnel and serves the crucial function of transferring data into and out of the structure. Similar tunnels are also present in other structures, performing analogous roles. Tunnels are categorized based on the direction of data flow: input tunnels and output tunnels. Input tunnels have their input end outside the structure and their output end inside, while output tunnels have the reverse arrangement.
 
-When a single data item enters a loop, the tunnel manifests as a small solid rectangle, and this same data is accessed in each iteration of the loop. However, when the input data is an array, the loop can handle it uniquely by making the tunnel indexable. An indexable tunnel, indicated by a hollow rectangle, sequentially extracts an element from the array outside the structure with each iteration. This effectively combines the functions of tunneling and array indexing. You can toggle the indexing function on or off by right-clicking the tunnel and selecting "Disable Indexing" or "Enable Indexing."
+When a single data item enters a loop, the tunnel manifests as a small solid rectangle, and this same data is accessed in each iteration of the loop. However, when the input data is an array, the loop can handle it uniquely by making the tunnel indexable. An indexable tunnel, indicated by a hollow rectangle, sequentially extracts an element from the array outside the structure with each iteration. This effectively combines the functions of tunneling and array indexing. You can toggle the indexing function on or off by right-clicking the tunnel and selecting "Disable Indexing" or "Enable Indexing".
 
 In a for loop using an indexed tunnel, there's no need to specify the total number of iterations (the 'N' value). Instead, the number of iterations automatically corresponds to the length of the input array, ensuring that the loop processes each element of the array.
 
@@ -185,7 +185,7 @@ Output tunnels in LabVIEW loop structures play a crucial role in data handling. 
 - **Indexing Mode:** Indicated by a hollow square icon, this mode compiles the data from each iteration into an array, with each iteration's data forming an array element. If the input data is already an array, the output will be an array with an added dimension.
 - **Concatenating Mode:** Shown as a square with horizontal stripes, this mode is applicable when the input data is an array. It differs from Indexing in that the output array retains the same dimensions as the input array but increases in length. Data from each iteration is appended to the output array.
 
-In addition to these modes, an output tunnel can also include a conditional input. This adds an extra terminal with a question mark icon, where a Boolean value can be entered. If the value is "true," the input data is included in the output; if "false," the input data is disregarded.
+In addition to these modes, an output tunnel can also include a conditional input. This adds an extra terminal with a question mark icon, where a Boolean value can be entered. If the value is "true", the input data is included in the output; if "false", the input data is disregarded.
 
 Consider the following example program:
 
@@ -223,7 +223,7 @@ Consider the following program and guess the value of "Output Integer":
 
 ![](../../../../docs/images/image195.png "直接相连的输入输出隧道")
 
-"Output Integer" might be either 33 or 0. This scenario illustrates a common pitfall in using the for loop structure. Although "Input Integer" and "Output Integer" appear directly connected in the block diagram, implying that "Output Integer" should mirror "Input Integer," it's crucial to consider that if the input "array" is empty, the loop won't iterate at all. Consequently, the output tunnel connected to "Output Integer" will not receive any data and will default to a value of 0.
+"Output Integer" might be either 33 or 0. This scenario illustrates a common pitfall in using the for loop structure. Although "Input Integer" and "Output Integer" appear directly connected in the block diagram, implying that "Output Integer" should mirror "Input Integer", it's crucial to consider that if the input "array" is empty, the loop won't iterate at all. Consequently, the output tunnel connected to "Output Integer" will not receive any data and will default to a value of 0.
 
 ### Shift Register
 
@@ -335,7 +335,7 @@ In a multi-level nested loop, the feedback node is engaged by each loop level it
 
 It’s crucial to remember that a feedback node can exist in a different VI from its encompassing loop structure. The output value may vary depending on whether the VI is run as a subVI or in conjunction with upper-level loop structures.
 
-Feedback nodes also come with an enable input, which can be made visible by right-clicking the node and selecting "Show Enable Terminal." This input determines the node's functionality in each iteration: when true, the feedback node operates normally; when false, it maintains the data from the previous iteration without updating. This feature allows for precise control over the data flow through the feedback node. Using the context provided, readers can deduce the outcome of the program shown here:
+Feedback nodes also come with an enable input, which can be made visible by right-clicking the node and selecting "Show Enable Terminal". This input determines the node's functionality in each iteration: when true, the feedback node operates normally; when false, it maintains the data from the previous iteration without updating. This feature allows for precise control over the data flow through the feedback node. Using the context provided, readers can deduce the outcome of the program shown here:
 
 ![](../../../../docs/images/image207.png "with an enable input")
 
