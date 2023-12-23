@@ -10,6 +10,7 @@
 		<Property Name="server.vi.callsEnabled" Type="Bool">true</Property>
 		<Property Name="server.vi.propertiesEnabled" Type="Bool">true</Property>
 		<Property Name="specify.custom.address" Type="Bool">false</Property>
+		<Item Name="character_condition.vi" Type="VI" URL="../../../Programming_Fundamentals/条件结构/character_condition.vi"/>
 		<Item Name="eval_simple_formula.vi" Type="VI" URL="../eval_simple_formula.vi"/>
 		<Item Name="state_def.ctl" Type="VI" URL="../state_def.ctl"/>
 		<Item Name="Dependencies" Type="Dependencies"/>
