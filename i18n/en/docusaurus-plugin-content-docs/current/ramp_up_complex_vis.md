@@ -64,7 +64,7 @@ While the updated icon editor boasts enhanced features, the older version had it
 
 Renaming the new icon editor file at `[labview]\resource\plugins\lv_icon.vi` will prompt LabVIEW to default to the older version if the new one is not found.
 
-Opting for a simplistic design with just a few words might be easier, but it doesn't fully leverage the graphical potential of LabVIEW. Even though the earlier example used only the number "1," for formal programs, designing simple yet evocative icons for each VI is recommended.
+Opting for a simplistic design with just a few words might be easier, but it doesn't fully leverage the graphical potential of LabVIEW. Even though the earlier example used only the number "1", for formal programs, designing simple yet evocative icons for each VI is recommended.
 
 
 ### Enhancing Text Visibility
@@ -222,6 +222,6 @@ By right-clicking on "My Computer" and selecting "add", you can incorporate all 
 
 Through the use of the Project Explorer, LabVIEW significantly simplifies the process of organizing and managing complex projects, allowing developers to maintain a clear overview of their program’s structure and its various components.
 
-## Exercise
+## Practice Questions
 
 - Create a new VI and then design a beautiful icon for the VI.

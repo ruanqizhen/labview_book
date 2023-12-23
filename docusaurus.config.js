@@ -8,8 +8,8 @@ const katex = require('rehype-katex');
 
 /** @type {import('@docusaurus/types').Config} */
 const config = {
-  title: 'LabVIEW 编程经验',
-  tagline: 'LabVIEW, 编程, 经验, 教程, 开源, 免费, 电子书, 下载, PDF, 示例',
+  title: 'The LabVIEW Journey',
+  tagline: 'LabVIEW, 编程, 经验, 教程, 开源, 免费, 电子书, 下载, PDF, 示例, Tutorial',
   url: 'https://lv.qizhen.xyz',
   baseUrl: '/',
   onBrokenLinks: 'throw',
@@ -81,7 +81,7 @@ const config = {
       },
 	  zoomSelector: '.markdown img',
 	  metadata: [
-		{name: 'keywords', content: 'LabVIEW, 编程, 经验, 教程, 开源, 免费, 电子书, 下载, PDF, 示例'},
+		{name: 'keywords', content: 'LabVIEW, 编程, 经验, 教程, 开源, 免费, 电子书, 下载, PDF, 示例, Tutorial'},
 		{name: 'description', content: '《我和LabVIEW:一个NI工程师的十年编程经验》，是一本广受好评的的畅销书。介绍了各种控件，节点，结构的使用方法和编程模式，调试优化等高级功能。'},
 		{name: 'author', content: 'Qizhen Ruan 阮奇桢'},
 	  ],
