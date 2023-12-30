@@ -50,8 +50,8 @@ const sidebars = {
       },
       items: [ 
         'pattern_error_handling', 
-        'pattern_reentrant_vi', 
         'pattern_state_machine', 
+        'pattern_reentrant_vi', 
         'pattern_ui',
         'pattern_global_data',
         'pattern_pass_by_ref',
