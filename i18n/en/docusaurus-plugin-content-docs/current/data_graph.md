@@ -1,4 +1,4 @@
-# Graphical Representation of Data
+# Graphical Representation
 
 LabVIEW is renowned for its effective graphical data display capabilities. It offers an extensive range of controls and functions, greatly simplifying the task of graphically representing data. The Graph control palette in LabVIEW showcases a variety of controls, each designed for specific data types. However, it's interesting to note that many controls on the palette are essentially variations of the same control, differentiated primarily by the additional code they contribute to the VI's block diagram when placed on the front panel.
 
