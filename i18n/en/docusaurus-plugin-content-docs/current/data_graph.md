@@ -1,12 +1,12 @@
 # Graphical Representation
 
-LabVIEW is renowned for its effective graphical data display capabilities. It offers an extensive range of controls and functions, greatly simplifying the task of graphically representing data. The Graph control palette in LabVIEW showcases a variety of controls, each designed for specific data types. However, it's interesting to note that many controls on the palette are essentially variations of the same control, differentiated primarily by the additional code they contribute to the VI's block diagram when placed on the front panel.
+LabVIEW is renowned for its effective graphical data display capabilities. It offers an extensive range of controls and functions, greatly simplifying the task of graphically representing data. The Graph control palette in LabVIEW showcases a variety of controls, each designed for specific data types. However, it's interesting to note that many controls on the palette are essentially variations of the same control, differentiated primarily by the additional code they add to the VI's block diagram when placed on the front panel.
 
 For example, an image control can adeptly display data in both Cartesian and Polar coordinate systems. Yet, a control designed for Cartesian coordinates might come with different accompanying code compared to one for Polar coordinates. This distinct code, bundled with the controls, plays a crucial role in processing diverse data types. It ensures that the data is converted into a format that is compatible with the graphic controls, facilitating accurate and visually appealing data representation.
 
-![images_2/image74.png](../../../../docs/images_2/image74.png "graphical control palette")
+![images_2/image74.png](../../../../docs/images_2/image74.png "graph control palette")
 
-The majority of these controls are designed for two-dimensional graphical data representation, with some capable of handling three-dimensional data as well.
+The majority of these controls are designed for 2D data representation, with some capable of handling 3D data as well.
 
 ## Waveform Chart and Waveform Graph
 
@@ -14,13 +14,13 @@ Two of the most frequently used controls for displaying data curves in LabVIEW a
 
 ### Difference between Chart and Graph
 
-In LabVIEW's Graph control palette, you will find both Chart and Graph for Waveform and Intensity data. While their functions are quite similar, the primary distinction lies in how they handle and display data.
+In Graph control palette, you will find both Chart and Graph for Waveform and Intensity data. While their functions are quite similar, the primary distinction lies in how they handle and display data.
 
 Chart controls come equipped with a built-in cache that stores historical data. When new data arrives, the chart doesn't discard the existing display. Instead, it integrates the new data with the pre-existing display. Charts are ideal for visualizing data that changes at a slower pace. For instance, if you have a program that monitors and displays boiler temperature data once every second, a waveform chart control would be appropriate. It not only shows current data but also provides a historical view, allowing users to observe temperature trends over time.
 
-In contrast, graph controls do not have a data cache. They refresh the display with each new data set, clearing previous graphics. Graphs are more suitable for illustrating high-speed, instantaneous data. For example, if a program collects 1000 vibration signal data points from an object within 0.01 seconds, displaying each point individually is unnecessary and impractical for human observation. The waveform graph control can effectively display all the data at once after the complete data set is collected.
+In contrast, waveform graph controls do not have a data cache. They refresh the display with each new data set, clearing previous graphics. Graphs are more suitable for illustrating high-speed, instantaneous data. For example, if a program collects 1000 vibration signal data points from an object within 0.01 seconds, displaying each point individually is unnecessary and impractical for human observation. The waveform graph control can effectively display all the data at once after the complete data set is collected.
 
-When a new waveform chart control is added to a VI's front panel, its corresponding data type in the block diagram is typically a double-precision floating-point (DBL) number. Conversely, adding a new waveform graph control results in a real number array data type in the block diagram.
+When a new waveform chart control is added to a VI's front panel, its corresponding data type in the block diagram is  a double-precision floating-point (DBL) number. Conversely, adding a new waveform graph control results in a real number array data type in the block diagram.
 
 The terminal of a waveform chart control on the block diagram is usually incorporated within a loop, with each iteration providing a new data point to the chart. A waveform graph terminal, on the other hand, receives an entire set of data at once for display. The following program illustrates this difference. It generates a sine wave signal with noise and feeds the signal to both a waveform chart and a waveform graph control, albeit in different ways:
 
@@ -36,7 +36,7 @@ On subsequent runs of the VI, the waveform chart retains the previously plotted 
 
 Additionally, this property node can be used during runtime to either clear the historical data of the waveform chart control or to set up initial historical data.
 
-Unlike other controls that typically correspond to a specific data type (e.g., switch controls for Boolean data, text box controls for strings), waveform chart and graph controls are more versatile. Besides their default numerical and numerical array types, they can also accommodate various other data types, adapting their display methods accordingly.
+Unlike other controls we intrduced in previous chapters that typically correspond to a specific data type (e.g., switch controls for Boolean data, text box for string), waveform chart and graph controls are more versatile. Besides their default DBL and DBL array types, they can also accommodate various other data types, adapting their display methods accordingly.
 
 For instance, waveform chart controls can also process numerical array data, adding all input data to the waveform display area simultaneously. Modifying our earlier example to pass the generated array data to both waveform chart and waveform graph controls outside the loop demonstrates that both controls exhibit identical behavior under these conditions:
 
