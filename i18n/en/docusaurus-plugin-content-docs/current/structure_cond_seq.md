@@ -282,7 +282,7 @@ It's important to note that when the original version of the program was written
 
 ![](../../../../docs/images_2/z212.png "LabVIEW built-in Delay VI")
 
-## Practice Questions
+## Practice Exercise
 
 1. **Arithmetic Expression Evaluator VI**
 

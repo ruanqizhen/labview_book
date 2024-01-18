@@ -168,6 +168,6 @@ A common misconception about strict Type Definitions is that they influence only
 
 When a strict Type Definition is updated, all corresponding instance controls in the program are automatically updated as well. However, it's important to note that certain aspects of the program's code may require manual adjustments. For instance, if a new item is introduced to a dropdown list control, additional programming may be necessary to implement corresponding branches or functionality to accommodate this new element.
 
-## Practice Questions
+## Practice Exercise
 
 - Consider a scenario where you need to represent the coordinates of a point on a plane, specifically the x and y coordinates, within a cluster. Your task is to create a strict type definition for this coordinate cluster. Then, develop a VI where the data input control type is the newly created custom control. Within this VI, display the input coordinates on an XY graph control. Subsequently, enhance the type definition in the cluster by adding a z element, enabling it to represent a point's position in a three-dimensional coordinate system. Observe and analyze whether the input control in the VI adjusts synchronously with these changes.

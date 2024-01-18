@@ -390,7 +390,7 @@ The output of this arrangement is:
 Distinct shift registers for each sub VI instance are created only when the sub VI is configured as [reentrant](pattern_reentrant_vi), which allows each instance to operate independently.
 
 
-## Practice Questions
+## Practice Exercise
 
 - **Sum Calculation VI:** Develop a VI using a loop structure to calculate the sum of all integers from 33 to 62. This exercise will help you practice implementing loops and basic arithmetic operations in LabVIEW, enhancing your understanding of iterative processes and data accumulation within a loop.
 

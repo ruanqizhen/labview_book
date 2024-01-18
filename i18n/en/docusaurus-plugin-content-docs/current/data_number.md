@@ -347,7 +347,7 @@ The results of this program demonstrate that the outcomes from forced data type 
 The exploration of data type coercion in this section is mainly intended to enhance understanding of how data is stored in memory in LabVIEW. However, in practical applications, it is advisable to use the conversion functions provided by LabVIEW rather than resorting to forced type conversion. Incorrect casting, particularly when the data structure is not fully understood, can easily lead to erroneous results. Therefore, standard conversion functions should be preferred for their reliability and ease of use.
 
 
-## Practice Questions
+## Practice Exercise
 
 - **Living Room Area Calculation:** You have a living room shaped as a rectangle, with dimensions of 22.5 feet in length and 12.5 feet in width. Write a VI that calculates the area of your living room in square meters.
 - **Target Sum VI:** Develop a VI that takes four numerical inputs: x1, x2, x3, and a target value. Also, include a Boolean output named "result". The goal of this VI is to determine if any two numbers among x1, x2, and x3 can be added together to equal the target value. For instance, if x1=3, x2=5, x3=7, and the target is 8, then "result" should be True because 3+5 equals 8. Conversely, if the target is changed to 2 while keeping x1, x2, and x3 the same, the "result" should be False, as no two numbers among x1, x2, and x3 add up to 2.

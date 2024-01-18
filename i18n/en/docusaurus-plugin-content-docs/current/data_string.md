@@ -327,6 +327,6 @@ The program's result shows data represented in JSON format:
 Given its higher efficiency compared to XML, JSON is often the preferred choice for data flattening. However, it's worth noting that LabVIEW's support for JSON may not be as comprehensive, and certain data types may not directly flatten into JSON. In such scenarios, XML remains a viable alternative.
 
 
-## Practice Questions
+## Practice Exercise
 
 - Consider two one-dimensional string array constants, each containing a list of student names. Write a VI to merge these names into a single array and sort them alphabetically.

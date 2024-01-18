@@ -282,7 +282,7 @@ With these modifications, the final result more closely resembles a real flower:
 
 ![images_2/z015.png](../../../../docs/images_2/z015.png "3D Surface Flower")
 
-## Practice Questions
+## Practice Exercise
 
 - Write a VI (to generate square wave data and display these square waves on a user interface. Consider the parameters that influence a square wave, such as frequency and amplitude, and how these can be dynamically adjusted within the VI for a range of wave patterns.
 
