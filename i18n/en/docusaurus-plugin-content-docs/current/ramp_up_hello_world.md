@@ -2,15 +2,15 @@
 
 Many books on computer programming languages start by guiding readers to write a "Hello, World!" program. This entails writing a piece of code that, upon execution, displays the phrase "Hello, World!" on the screen. Embracing this tradition, we'll also begin our LabVIEW journey with a "Hello, World!" program as our first project.
 
-## LabVIEW Startup Interface
+## Getting Started Window
 
-Upon launching LabVIEW, you're greeted with its startup interface. The startup screens of LabVIEW vary in style across different versions, as illustrated in the images below, representing the startup screens of LabVIEW 8.6 and LabVIEW 2021:
+Upon launching LabVIEW, you're greeted with its Getting Started Window. This window vary in style across different versions, as illustrated in the images below, representing the Getting Started Window of LabVIEW 8.6 and LabVIEW 2021:
 
-![images/image2.png](../../../../docs/images/image2.png "LabVIEW 8.6 Startup Interface")
+![images/image2.png](../../../../docs/images/image2.png "LabVIEW 8.6 Getting Started Window")
 
-![images_2/w_20211203094255.png](../../../../docs/images_2/w_20211203094255.png "LabVIEW 2021 Startup Interface")
+![images_2/w_20211203094255.png](../../../../docs/images_2/w_20211203094255.png "LabVIEW 2021 Getting Started Window")
 
-Despite these stylistic variations, the LabVIEW startup interface consistently includes several key elements:
+Despite these stylistic variations, the Getting Started Window consistently includes several key elements:
 
 - The "New" section is designated for creating new LabVIEW program files. LabVIEW programs incorporate a variety of file types, including VI, XControl, libraries, classes, global variables, run menus, and custom controls, among others. These will be detailed in the following chapters.
 
@@ -21,7 +21,7 @@ Despite these stylistic variations, the LabVIEW startup interface consistently i
 
 LabVIEW programs are stored in files known as "VIs" (Virtual Instruments). LabVIEW was invented in 1986, with its initial purpose being to simulate test and measurement instruments. By integrating a computer with relevant data acquisition cards and LabVIEW software, it was possible to create a virtual instrument capable of performing specific measurement functions. Thus, LabVIEW's source code files were aptly named "Virtual Instruments", bearing the file extension ".vi", an acronym for Virtual Instrument. Fast forward several decades, LabVIEW's application scope has vastly expanded, encompassing areas like testing, measurement, control, and simulation, yet the term VI remains. Today, a VI can be perceived as a LabVIEW code module that performs specific functions, akin to a function in other programming languages.
 
-To initiate a new VI, select "New -> VI" from the LabVIEW startup interface or opt for "File -> New VI" from the menu. This action will open two new windows on your screen: one featuring a gray background:
+To initiate a new VI, select "Blank VI" from the LabVIEW Getting Started Window or opt for "File -> New VI" from the menu. This action will open two new windows on your screen: one featuring a gray background:
 
 ![images/image3.png](../../../../docs/images/image3.png "front panel")
 
@@ -29,16 +29,12 @@ And the other with a white background:
 
 ![images/image4.png](../../../../docs/images/image4.png "block diagram")
 
-These windows represent a freshly created blank VI, devoid of any code. You can resize these windows by moving your mouse to their edges until the cursor turns into a double-headed arrow, then click and drag to adjust.
-
-A VI is comprised of two main components: the "Front Panel" with a gray background and the "Block Diagram" against a white backdrop. The Front Panel serves as the user interface for interaction with the program, where users can input necessary parameters and view execution results. The Block Diagram is the space for writing the program code, which dictates the program's logic and execution flow.
+These windows represent the two main components of a freshly created blank VI: the "Front Panel" with a gray background and the "Block Diagram" against a white backdrop. The Front Panel serves as the user interface for interaction with the program, where users can input necessary parameters and view execution results. The Block Diagram is the space for writing the program code, which dictates the program's logic and execution flow. You can resize these windows by moving your mouse to their edges until the cursor turns into a double-headed arrow, then click and drag to adjust.
 
 
 ## Editing the Front Panel
 
-We're now set to begin crafting our first LabVIEW program, starting with designing its interface, which involves editing the VI's front panel.
-
-When the front panel is the active window in LabVIEW, another floating window, known as the LabVIEW Controls Palette, may appear:
+We're now set to begin crafting our first LabVIEW program, starting with designing its interface, which involves editing the VI's front panel. When the front panel is the active window in LabVIEW, another floating window, known as the Controls Palette, may appear:
 
 ![images/image5.png](../../../../docs/images/image5.png "Controls Palette")
 
@@ -50,17 +46,15 @@ If you find it useful, you can pin the Controls Palette to ensure it's always vi
 
 Although the appearance of the Controls Palette may vary slightly across different LabVIEW versions, its functionality and usage remain consistent. It organizes a range of controls along with their icons into categories. Some of these categories might be collapsed; expanding them will reveal the specific controls or further subcategories they contain. The types and purposes of most controls can be readily identified from their icons. For interface design, the necessary controls are selected directly from the Controls Palette.
 
-Our program is designed to display text, which means we need to select a text or string display control for the front panel. On the Controls Palette, the first row typically contains subclasses for numeric, Boolean, and string controls. By clicking on the third column of icons in the first row, which pertains to text display categories, we can access its sub-palette:
+Our program is designed to display text, which means we need to select a text or string display control for the front panel. On the Controls Palette, the first row typically contains subclasses for Numeric, Boolean, and String controls. By clicking on the third column of icons in the first row, which pertains to text display categories, we can access the String subpalette:
 
 ![images/image6.png](../../../../docs/images/image6.png "String Control Palette")
 
 Proceed by selecting the "String Indicator" control. Clicking on the VI's front panel will place the control there. Alternatively, you can drag and drop the selected control to a specific location on the front panel.
 
-Hovering the cursor over the edge of the newly placed control will display eight small dark squares along its border.
+Hovering the cursor over the edge of the newly placed control will display eight small dark squares along its border. When the cursor is at the edge of the control, it changes to the standard arrow shape, allowing you to drag the control to a new position by pressing the left mouse button. If the cursor is positioned over one of the small dark squares, it turns into a two-way arrow for resizing the control. Once the control is adjusted to the desired size and location, the interface for our first VI is all set.
 
 ![images/image7.gif](../../../../docs/images/image7.gif "VI Interface")
-
-When the cursor is at the edge of the control, it changes to the standard arrow shape, allowing you to drag the control to a new position by pressing the left mouse button. If the cursor is positioned over one of the small dark squares, it turns into a two-way arrow for resizing the control. Once the control is adjusted to the desired size and location, the interface for our first VI is all set.
 
 ## Editing the Block Diagram
 
