@@ -72,15 +72,15 @@ In a manner akin to using the Controls Palette, click on the icons in the Functi
 
 Drag the string constant onto the VI block diagram. You can immediately start typing on the keyboard to enter text into the string constant.
 
-LabVIEW uses wires for data transfer. Position the cursor to the right-middle side of the string constant, and the cursor will transform into a spool-like icon. Clicking in this state will initiate a wire from the string constant. Then, clicking at the middle left side of the terminal on the String display control will establish a wired connection between the two elements.
+LabVIEW uses wires for data transfer. Position the cursor to the right-middle side of the string constant, and the cursor will transform into a spool-like icon. Clicking in this state will initiate a wire from the string constant. Then, clicking at the middle left side of the String Indicator terminal will establish a wired connection between the two elements.
 
 ![](../../../../docs/images/image10.gif "Initiating a Wire")
 
 With this wiring, our entire program is now ready. To execute the VI, click on the first arrow-shaped button located on the left side of the toolbar on the front panel. The execution results of the program will be visible on the VI front panel:
 
-![](../../../../docs/images/image11.gif "程序运行结果")
+![](../../../../docs/images/image11.gif "Execution Result")
 
-Should there be any errors in the program, the run button's arrow on the toolbar will turn into a broken shape, indicating that the program cannot be run. The button's label will also change from "Run" to "List Errors". Clicking this button will display a dialog box listing the errors. These errors need to be addressed as per the prompts in the list, and the program code should be accordingly modified. The program can only be executed once the run button reverts to its regular arrow form.
+Should there be any errors in the program, the run button's arrow on the toolbar will turn into a broken shape, indicating that the program cannot be run. The button's label will also change from "Run" to "List Errors". Clicking this button will display a dialog box listing the errors. These errors need to be addressed as per the prompts in the list, and the program code on block diagram should be accordingly modified. The VI can only be executed once the run button reverts to its regular arrow form.
 
 As this is our initial foray into LabVIEW programming, it's good practice to save the program. To do so, select "File -> Save" from the menu or use the shortcut "Ctrl+S", then choose an appropriate path and filename to save the VI.
 
@@ -88,7 +88,7 @@ This simplicity is what makes LabVIEW programming so accessible and easy to lear
 
 ## The Execution Logic of LabVIEW Programs
 
-In the realm of programming, most prevalent languages are text-based. For instance, languages like VC and C# feature what-you-see-is-what-you-get (WYSIWYG) editing for interfaces, yet the logic behind them is scripted in text. Some graphical programming languages, such as Scratch (as detailed in the "[Other Programming Languages](appendix_languages)" section), employ graphical representations to depict code logic but still follow a procedural approach akin to traditional procedural text-based programming languages like C.
+In the realm of programming, most prevalent languages are text-based. For instance, languages like VC++ and C# feature what-you-see-is-what-you-get (WYSIWYG) editing for interfaces, yet the logic behind them is scripted in text. Some graphical programming languages, such as Scratch (as detailed in the "[Other Programming Languages](appendix_languages)" section), employ graphical representations to depict code logic but still follow a procedural approach akin to traditional procedural text-based programming languages like C.
 
 Contrastingly, LabVIEW stands out significantly from these text-based languages. It not only allows for graphical interface editing but also adopts a unique "drawing" method for implementing programming logic. The primary focus in LabVIEW programming is on how data flows among code segments, rather than the procedural problem-solving process typical in other languages. To aid in comprehending the distinctions between LabVIEW and conventional text-based languages, this book will frequently draw comparisons between LabVIEW and languages such as C and Java.
 
@@ -116,7 +116,7 @@ The figure above illustrates a simple mathematical operation program. In a basic
 
 The reason data flows out of "input" and into "result", although both are terminals, is due to the dual nature of controls in LabVIEW. They can be configured either as a control or an indicator, which dictates the direction of data flow. When configured as a control, data flows out from its terminal; as an indicator, data flows into its terminal.
 
-By default, the function of a control as either a control or an indicator is determined by the properties of the physical entity it represents. For instance, a switch control typically serves as a control, while a lightbulb control usually acts as an indicator. Changing a control’s data flow direction can be done by right-clicking on it and selecting the "Change to Control/Indicator" option from the context menu.
+By default, the function of a control as either a control or an indicator is determined by the properties of the physical entity it represents. For instance, a switch object typically serves as a control, while a lightbulb object usually acts as an indicator. Changing a control’s data flow direction can be done by right-clicking on it and selecting the "Change to Control/Indicator" option from the context menu.
 
 Functions and sub VIs generally possess multiple terminals, each with a fixed direction. Data invariably flows into functions via their input terminals and exits through their output terminals.
 
