@@ -4,7 +4,7 @@
 
 Reentrancy is a specific attribute for sub-VIs. By default, this attribute is not activated in VIs; however, it can be enabled in the VI's property dialog by selecting the “Reentrant execution” option. A VI with reentrancy enabled is known as a reentrant VI.
 
-![Setting Reentrancy in VI Properties](images/image252.png "Setting Reentrancy in VI Properties")
+![Setting Reentrancy in VI Properties](../../../../docs/images/image252.png "Setting Reentrancy in VI Properties")
 
 When a sub-VI is configured as reentrant, each call to this sub-VI from various parts of the program creates a new VI instance in memory. Although the sub-VI's content remains identical across different calls, these instances are independent in memory. In contrast, a non-reentrant sub-VI has only one instance in memory, and all calls access this single instance.
 
@@ -14,7 +14,7 @@ After setting a VI as reentrant, you have two options: “Preallocate clones for
 
 The diagram below demonstrates a VI with two sections in its block diagram, each invoking the same sub-VI, "Simple Calculation.vi". Notably, there are no data wires linking these two sections. Given LabVIEW's inherent support for automatic multi-threading, a pertinent question arises: Can these two instances of the same sub-VI execute concurrently?
 
-![Parallel Execution of Two Identical Sub-VIs](images/image253.png "Parallel Execution of Two Identical Sub-VIs")
+![Parallel Execution of Two Identical Sub-VIs](../../../../docs/images/image253.png "Parallel Execution of Two Identical Sub-VIs")
 
 In cases where a program employs two distinct sub-VIs, LabVIEW typically runs them in parallel, each on a separate thread. However, the scenario changes when the same sub-VI is called from multiple locations. The concurrent execution depends on the sub-VI’s configuration. If "Simple Calculation.vi" is not set to be reentrant, they will not run simultaneously. LabVIEW is designed to fully execute one instance before initiating the other.
 
@@ -30,30 +30,30 @@ To circumvent this limitation, setting the sub-VI as reentrant enables concurren
 
 Consider the following block diagram, showcasing a delay sub-VI:
 
-![Delay Sub-VI](images/image171.png "Delay Sub-VI")
+![Delay Sub-VI](../../../../docs/images/image171.png "Delay Sub-VI")
 
 This sub-VI, upon activation and in the absence of errors, introduces a pause of 1 second before resuming the program flow.
 
 Now, observe this application diagram where the delay sub-VI is called twice, in parallel:
 
-![Calculating Total Program Runtime](images/image254.png "Calculating Total Program Runtime")
+![Calculating Total Program Runtime](../../../../docs/images/image254.png "Calculating Total Program Runtime")
 
 The total runtime of this application hinges on the reentrancy of the delay sub-VI. If it's non-reentrant, the total execution time extends to 2 seconds due to the sequential processing of each call. Conversely, if the sub-VI is reentrant, both calls can execute concurrently, effectively reducing the total runtime to 1 second.
 
 
 ### Copies of a Reentrant VI
 
-When multiple instances of a reentrant VI share the same copy, they utilize a shared data space. This scenario can lead to complications: different instances may write varying data to this shared space during execution, potentially causing data confusion. To avoid such issues when different instances of a reentrant VI need to operate simultaneously using distinct data sets, it's essential to configure the sub-VI to "Preallocate copies for each instance."
+When multiple instances of a reentrant VI share the same copy, they utilize a shared data space. This scenario can lead to complications: different instances may write varying data to this shared space during execution, potentially causing data confusion. To avoid such issues when different instances of a reentrant VI need to operate simultaneously using distinct data sets, it's essential to configure the sub-VI to "Preallocate copies for each instance".
 
 The image below presents a straightforward sub-VI. This VI has a simple functionality: it increases its output data by one each time it's executed:
 
-![](images/image255.png "Sub-VI Counting the Number of Calls")
+![](../../../../docs/images/image255.png "Sub-VI Counting the Number of Calls")
 
 This VI employs a feedback node, which plays a critical role in its operation. Each time the VI is executed, the feedback node initially provides the data it received from the last run of the VI. The VI then increments this data by one and sends it back to the feedback node, preparing it for the next invocation. The '0' beneath the feedback node indicates its starting value. Upon the first invocation of this sub-VI following the launch of the main program, the feedback node outputs this initial value.
 
 Consider the following diagram, depicting an application that utilizes the "Run Count" sub-VI:
 
-![](images/image256.png "Testing Run Count")
+![](../../../../docs/images/image256.png "Testing Run Count")
 
 In this setup, the behavior of the "Run Count" sub-VI significantly influences the output. The main program comprises two loops: one executes 10 times, and the other 20 times. Since there's no data connection between these loops, they can run in parallel. Nonetheless, the order of completion for these loops remains indeterminate.
 
@@ -75,17 +75,17 @@ Recursion occurs when a Virtual Instrument (VI) calls itself, either directly or
 
 Consider the straightforward example of calculating factorials. The factorial of a positive integer involves multiplying that number by all smaller positive integers. For instance, the factorial of 3 is expressed as `3! = 3*2*1`, and similarly, `6! = 6*5*4*3*2*1`. A loop structure can be used to calculate the factorial of a number `n` by multiplying all positive integers less than or equal to `n`:
 
-![images/image412.png](images/image412.png "Loop-Based Factorial Calculation")
+![images/image412.png](../../../../docs/images/image412.png "Loop-Based Factorial Calculation")
 
 However, there's an alternative approach to factorial calculation: using induction. Instead of direct computation from the original number, we simplify the problem gradually. For example, to calculate 6!, we first compute 5! and then multiply the result by 6. This is represented by the formula `0! = 1, n! = n * (n-1)! | (n≥1)`, or as a function: `F(0) = 1, F(n) = n * F(n-1) | (n≥1)`. It's crucial in mathematical induction to have a base case; for factorials, the base case is 0, defined as 0! = 1. It's interesting to note that while the direct calculation method only applies to positive integers, the inductive method extends factorials to all non-negative integers.
 
 Let's translate this inductive formula into a program. We start by creating a new VI and setting its reentrant property to “Share copies among instances” (Shared clone reentrant execution). The program first addresses the base case: when the input is 0, the output is 1:
 
-![images_2/w_20211205152006.png](images_2/w_20211205152006.png "Recursive Factorial Calculation - Base Case")
+![images_2/w_20211205152006.png](../../../../docs/images_2/w_20211205152006.png "Recursive Factorial Calculation - Base Case")
 
 For inputs greater than or equal to 1, the VI recursively calls itself with the input value decreased by 1. The output of the sub-VI is then multiplied by the input value to produce the final result:
 
-![images_2/w_20211205152014.png](images_2/w_20211205152014.png "Recursive Factorial Calculation")
+![images_2/w_20211205152014.png](../../../../docs/images_2/w_20211205152014.png "Recursive Factorial Calculation")
 
 
 ### Calculating the Fibonacci Sequence
@@ -103,11 +103,11 @@ The total number of rabbit pairs each month can be succinctly described using ma
 
 This formula for the Fibonacci sequence is not only straightforward but also ideal for recursive algorithmic solutions. The first step involves writing the base cases, which also serve as the recursion's termination conditions. When the input is either 0 or 1, the output will be 0 and 1, respectively:
 
-![images_2/w_20211205160922.png](images_2/w_20211205160922.png "Recursive Calculation of Fibonacci Numbers - Termination Conditions")
+![images_2/w_20211205160922.png](../../../../docs/images_2/w_20211205160922.png "Recursive Calculation of Fibonacci Numbers - Termination Conditions")
 
 For input values of \( n \) greater than or equal to 2, the VI recursively calls itself twice: once with \( n-1 \) and then with \( n-2 \). The final output is the sum of the results from these two sub-VI calls:
 
-![images_2/w_20211205160932.png](images_2/w_20211205160932.png "Recursive Calculation of Fibonacci Numbers")
+![images_2/w_20211205160932.png](../../../../docs/images_2/w_20211205160932.png "Recursive Calculation of Fibonacci Numbers")
 
 
 ### An Efficiency Issue in Recursive
@@ -118,7 +118,7 @@ Readers are encouraged to test the program with input values not exceeding 20 to
 
 This pattern of calls can be visualized as a binary tree:
 
-![images_2/z111.png](images_2/z111.png "Tree of Recursive Calls")
+![images_2/z111.png](../../../../docs/images_2/z111.png "Tree of Recursive Calls")
 
 In this algorithm, the amount of computation required roughly doubles with each increment of the input value. This leads to an exponential relationship between the computational load and the size of the input data, giving it a time complexity of $O(2^n)$. This scenario is a typical efficiency issue in recursive programming: the same computation is redundantly executed multiple times in different parts of the program.
 
@@ -134,7 +134,7 @@ The cache can be built using various data structures. For calculating the Fibona
 
 Below is an illustration of a Fibonacci number computation program enhanced with caching:
 
-![images_2/z107.png](images_2/z107.png "Recursive Calculation of Fibonacci Numbers with Caching")
+![images_2/z107.png](../../../../docs/images_2/z107.png "Recursive Calculation of Fibonacci Numbers with Caching")
 
 This version operates much like the basic recursive algorithm without caching. The primary difference lies in the initial step: before starting the actual computation, the program uses the “Look In Map” function to check if the required data is already cached. If it is, the cached result is used immediately. If the result is not in the cache, the program performs the recursive calculation and then employs the “Insert Into Map” function to store the new result in the cache.
 
@@ -146,11 +146,11 @@ Another method to boost efficiency in recursive algorithms is to ensure that eac
 
 In this approach, the program has two inputs, `a` and `b`, representing the outcomes of the two preceding computations. When the input `n` is 0, marking the recursion's endpoint, the value of `b` is returned:
 
-![images_2/z108.png](images_2/z108.png "Recursive Calculation of Fibonacci Numbers - Termination Condition")
+![images_2/z108.png](../../../../docs/images_2/z108.png "Recursive Calculation of Fibonacci Numbers - Termination Condition")
 
 For inputs `n` greater than or equal to 1, the program makes a recursive call to itself. It passes `n-1` as the new `n` value, `a+b` as the new `a` value, and `a` as the new `b` value for the sub-VI:
 
-![images_2/z109.png](images_2/z109.png "Recursive Calculation of Fibonacci Numbers")
+![images_2/z109.png](../../../../docs/images_2/z109.png "Recursive Calculation of Fibonacci Numbers")
 
 This method enhances computational efficiency by streamlining the recursive process. The trade-off, however, is that the algorithm doesn't align as directly with the mathematical induction principle of the Fibonacci sequence, which may make it less intuitive. Programmers often face the challenge of balancing between a program's efficiency and its readability.
 
@@ -162,7 +162,7 @@ This section used Fibonacci numbers as an example to illustrate recursive algori
 
 $F(n) = \frac{{\varphi^n - (1 - \varphi)^n}}{{\sqrt{5}}}$, where $\varphi$ represents the golden ratio, with a value of $\frac{{1 + \sqrt{5}}}{{2}}$.
 
-![images_2/z110.png](images_2/z110.png "Using the Formula to Calculate Fibonacci Numbers")
+![images_2/z110.png](../../../../docs/images_2/z110.png "Using the Formula to Calculate Fibonacci Numbers")
 :::
 
 :::info
@@ -192,7 +192,7 @@ There are several considerations to keep in mind when deciding whether to use a 
 - Any situation that calls for a recursive algorithm can also be addressed with a loop structure. Generally, recursive algorithms are less efficient in terms of execution than loop algorithms.
 - VIs involved in recursive calls must be set as reentrant, specifically with the “Share clones between instances” (Shared clone reentrant execution) option. This setting can be found on the “Execution” page of the VI properties dialog:
 
-![images_2/w_20211205161710.png](images_2/w_20211205161710.png "Setting for Sharing Clones Between Instances")
+![images_2/w_20211205161710.png](../../../../docs/images_2/w_20211205161710.png "Setting for Sharing Clones Between Instances")
 
 
 ### Indirect Recursive Calls
@@ -213,25 +213,25 @@ Given the intricate nature of the task, we developed several subordinate VIs. Re
 
 The initial VI we created, named process_add_sub.vi, is tasked with performing addition and subtraction. Here's the block diagram of this VI:
 
-![images_2/z352.png](images_2/z352.png "process_add_sub")
+![images_2/z352.png](../../../../docs/images_2/z352.png "process_add_sub")
 
 At the core of this VI is a loop that identifies all instances of the `+` and `-` operators within the current expression at a specific level, subsequently dividing the expression into several sub-expressions. It then invokes process_mul_div.vi to determine the value of each sub-expression. Following this, the program either adds or subtracts these sub-expression values, depending on the operative operator, to produce the final outcome.
 
 The process_mul_div.vi is responsible for addressing multiplication and division. Its structure mirrors that of process_add_sub.vi quite closely. Utilizing `*` and `/` operators, it segments the expression into sub-expressions, then calls upon process_number.vi to calculate the value for each of these sub-expressions, eventually multiplying or dividing the resultant figures.
 
-![images_2/z353.png](images_2/z353.png "process_mul_div")
+![images_2/z353.png](../../../../docs/images_2/z353.png "process_mul_div")
 
 The process_number.vi focuses on handling numerical values and parentheses. While these are distinct tasks and could have been separated into different sub-VIs, for the sake of this example, we combined them into a single VI. Below is the block diagram of process_number.vi, illustrating how it processes numerical data. It sequentially reads each character in the expression; when encountering a numeral, it integrates it into the ongoing calculation:
 
-![images_2/z354.png](images_2/z354.png "Handling Numbers")
+![images_2/z354.png](../../../../docs/images_2/z354.png "Handling Numbers")
 
 The subsequent diagram illustrates the approach to managing parentheses. It treats the content within a pair of parentheses as an individual sub-expression, summoning the previously mentioned process_add_sub.vi to compute its value, thereby establishing an indirect recursive call:
 
-![images_2/z355.png](images_2/z355.png "Handling Parentheses")
+![images_2/z355.png](../../../../docs/images_2/z355.png "Handling Parentheses")
 
 The process_add_sub.vi can act as the primary entry point for the program. Alternatively, a separate demo.vi could also be crafted for demonstration purposes:
 
-![images_2/z356.png](images_2/z356.png "Demonstration Program")
+![images_2/z356.png](../../../../docs/images_2/z356.png "Demonstration Program")
 
 
 ## Data Space Considerations
@@ -248,7 +248,7 @@ In recursive algorithms, a sub-VI is often called again before the completion of
 
 With the release of LabVIEW 8.6, two distinct options for data space allocation became available when setting a VI as reentrant: “Share clones between instances” (Shared clone reentrant execution) and “Preallocate clones for each instance” (Preallocated clone reentrant execution).
 
-Before LabVIEW 8.6, the only available option for reentrant VIs was "Preallocate clones for each instance." This method involves allocating individual data spaces for each instance of a reentrant VI prior to the program's execution, during the compilation phase. For example, if a sub-VI is invoked in three separate locations by a main VI, it would have three separate data spaces allocated. However, this approach comes with a couple of significant drawbacks.
+Before LabVIEW 8.6, the only available option for reentrant VIs was "Preallocate clones for each instance". This method involves allocating individual data spaces for each instance of a reentrant VI prior to the program's execution, during the compilation phase. For example, if a sub-VI is invoked in three separate locations by a main VI, it would have three separate data spaces allocated. However, this approach comes with a couple of significant drawbacks.
 
 First, it's challenging to predict the number of times a reentrant sub-VI will be called before the program runs, especially in cases involving recursive algorithms. In recursion, each iteration requires creating a new instance of the recursive VI. The depth of the recursion, tied to the input data, is only determinable at runtime, making it impractical to ascertain the necessary number of data space copies in advance.
 
