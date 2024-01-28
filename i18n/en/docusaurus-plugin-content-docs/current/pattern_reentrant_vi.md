@@ -274,7 +274,7 @@ Which VIs should be set as reentrant, and when do I recommend it? If a VI’s ou
 - The VI employs uninitialized or only initially initialized feedback nodes, like the aforementioned “Run Count” sub-VI.
 - The VI involves operations like [file read/write](pattern_file), or interacts with external devices, such as data acquisition hardware.
 
-## Exercise
+## Practice Exercise
 
 - Develop a VI that calculates all permutations of an input array using a recursive algorithm. For instance, given the input array [1, 2, 3], the output should be a two-dimensional array, with each row representing a different permutation of these three input values:
 
