@@ -116,9 +116,9 @@ This reveals that having several event handling structures in a single VI can le
 
 ## Using Event Structures
 
-In most cases, programs are designed to handle more than just a single event. They typically need to respond to a variety of events occurring throughout their operation. As a result, event structures are often placed within a while loop. This setup, which encloses an event structure within a while loop, is known as a “looping event structure.” An example of this can be seen in the program shown in the previous image, which utilizes a looping event structure.
+In most cases, programs are designed to handle more than just a single event. They typically need to respond to a variety of events occurring throughout their operation. As a result, event structures are often placed within a while loop. This setup, which encloses an event structure within a while loop, is known as a "looping event structure". An example of this can be seen in the program shown in the previous image, which utilizes a looping event structure.
 
-Event structures are used independently only in very specific, rare scenarios. For example, a simple dialog box might only need to wait for the user to click an “OK” button before closing, without responding to any other events. In such instances, a single event structure can adequately fulfill the program's needs.
+Event structures are used independently only in very specific, rare scenarios. For example, a simple dialog box might only need to wait for the user to click an "OK" button before closing, without responding to any other events. In such instances, a single event structure can adequately fulfill the program's needs.
 
 Let's reconsider a program we discussed earlier in the "[Keeping a VI Running](ramp_up_complex_vis#keeping-a-vi-running)" section:
 
@@ -130,11 +130,11 @@ A more efficient approach is to have the program remain idle until the value of 
 
 ![](../../../../docs/images/image225.png "Using an Event Structure to Monitor Control Value Changes")
 
-The primary event branch in this setup is the “Knob, Dial: Value Change” event. The program operates as follows: It begins with the while loop, which enters its first iteration, running the code within, namely the event structure. Since no event requiring attention has occurred yet in the structure, the program stays in a waiting state. This waiting state doesn't consume system resources. When the value of the “Knob” or “Dial” changes, the program promptly runs the “Knob, Dial: Value Change” event handling branch, performing the addition and updating the display control efficiently.
+The primary event branch in this setup is the "Knob, Dial: Value Change" event. The program operates as follows: It begins with the while loop, which enters its first iteration, running the code within, namely the event structure. Since no event requiring attention has occurred yet in the structure, the program stays in a waiting state. This waiting state doesn't consume system resources. When the value of the "Knob" or "Dial" changes, the program promptly runs the "Knob, Dial: Value Change" event handling branch, performing the addition and updating the display control efficiently.
 
-After processing this event branch, the program exits the event structure. The default “False” value is then passed to the conditional terminal of the while loop, prompting it to continue with the next iteration and re-enter the waiting state.
+After processing this event branch, the program exits the event structure. The default "False" value is then passed to the conditional terminal of the while loop, prompting it to continue with the next iteration and re-enter the waiting state.
 
-The event structure also needs a branch to handle the “Stop” button's “Value Change” event. When the “Stop” button's value changes, its “True” value is sent to the while loop's conditional terminal, leading to the termination of the loop and the end of the program:
+The event structure also needs a branch to handle the "Stop" button's "Value Change" event. When the "Stop" button's value changes, its "True" value is sent to the while loop's conditional terminal, leading to the termination of the loop and the end of the program:
 
 ![](../../../../docs/images/image226.png "Handling the Stop Button Event")
 
@@ -146,7 +146,7 @@ Normally, a button is expected to automatically revert to its original state aft
 
 ![images_2/z147.png](../../../../docs/images_2/z147.png "Button Positioned Outside of Event")
 
-In this scenario, the “OK Button” is initially set up as a button, but its placement outside the loop means that its state can't automatically reset, causing it to act more like a switch:
+In this scenario, the "OK Button" is initially set up as a button, but its placement outside the loop means that its state can't automatically reset, causing it to act more like a switch:
 
 ![images_2/z148.gif](../../../../docs/images_2/z148.gif "Button Behaving Like a Switch")
 
@@ -168,25 +168,25 @@ Initially, when you open the Edit Events dialog box, you'll find that the sectio
 
 ![images_2/z043.png](../../../../docs/images_2/z043.png "Events Function Palette")
 
-The “Register For Events” node is used to register events. This node can handle two types of events: those generated internally by LabVIEW, including all application events, VI events, pane, split bar, and control events we've discussed before, as well as user-defined events.
+The "Register For Events" node is used to register events. This node can handle two types of events: those generated internally by LabVIEW, including all application events, VI events, pane, split bar, and control events we've discussed before, as well as user-defined events.
 
 First, let's look at the LabVIEW-generated events. These events are available for direct selection in the Edit Events dialog box. With the exception of the "Dynamic" category, events that can be selected directly in this dialog are classified as static events. Static events are limited to those emitted by objects within the same VI. For example, if a VI’s front panel includes a Boolean control, its block diagram’s event structure can directly add a branch to manage events associated with this control. However, in complex programs that make extensive use of subVIs or dynamically call other VIs (as detailed in the [Loading and Running SubVIs](vi_server_for_subvi) section), there might be cases where one VI's event structure needs to handle events from a control in another VI. For instance, a Boolean control might be on the interface VI, but the event handling code is in a subVI. Obviously, the subVI won’t contain this control, so it can't set up an event branch for it in its Edit Events dialog box. LabVIEW addresses these scenarios with dynamic events. To leverage dynamic events, the control must first be registered in the event structure of its respective subVI.
 
-To register an event, you first create a reference node for the control generating the event (more on this in the [Pass by Reference](pattern_pass_by_ref) section). Connect this reference node to the "Events" labeled event source under the "Register For Events" node, click on the event source, and select the desired event from the pop-up menu. Then, transmit the "Event Registration Refnum" generated by the Register Events node to the event structure's “Dynamic Event Terminal” to complete the registration.
+To register an event, you first create a reference node for the control generating the event (more on this in the [Pass by Reference](pattern_pass_by_ref) section). Connect this reference node to the "Events" labeled event source under the "Register For Events" node, click on the event source, and select the desired event from the pop-up menu. Then, transmit the "Event Registration Refnum" generated by the Register Events node to the event structure's "Dynamic Event Terminal" to complete the registration.
 
 Explaining this process in text can be complex, so let's clarify it with an example. Consider a VI where clicking the mouse on the VI panel displays the mouse's coordinates, and all events are processed in a subVI. The interface of the main VI appears as follows:
 
 ![](../../../../docs/images/image228.png "Main VI Interface")
 
-Our objective is that when the user clicks on the VI panel, the “Coordinates” control shows the mouse's position, and when the “Stop” button is clicked, the program terminates. As the main event handling code for this program is intended to be executed within a subVI, the block diagram of the main VI is relatively straightforward: it simply needs to pass the necessary data to the sub-program:
+Our objective is that when the user clicks on the VI panel, the "Coordinates" control shows the mouse's position, and when the "Stop" button is clicked, the program terminates. As the main event handling code for this program is intended to be executed within a subVI, the block diagram of the main VI is relatively straightforward: it simply needs to pass the necessary data to the sub-program:
 
 ![](../../../../docs/images/image229.png "Main VI Block Diagram and Control References")
 
-For the program to use a subVI to monitor and control the main VI's controls, there needs to be a way for the subVI to find and manipulate the main VI’s controls. In LabVIEW, this is achieved by generating a “reference” for the controls. Those who have experience with text-based programming languages might be familiar with the concept of “references”. A “reference” doesn’t hold the data itself but points to the memory address where this data is located. In LabVIEW, a “reference” is a 4-byte piece of data that provides access to the complex data object it references. Controls are complex objects made up of data and various properties. Directly passing all this content between VIs would be inefficient, but using a 4-byte reference to represent it and transferring just these 4 bytes is much more efficient.
+For the program to use a subVI to monitor and control the main VI's controls, there needs to be a way for the subVI to find and manipulate the main VI’s controls. In LabVIEW, this is achieved by generating a "reference" for the controls. Those who have experience with text-based programming languages might be familiar with the concept of "references". A "reference" doesn’t hold the data itself but points to the memory address where this data is located. In LabVIEW, a "reference" is a 4-byte piece of data that provides access to the complex data object it references. Controls are complex objects made up of data and various properties. Directly passing all this content between VIs would be inefficient, but using a 4-byte reference to represent it and transferring just these 4 bytes is much more efficient.
 
-To create a reference for a control, simply right-click on the control or its terminal and select “Create -> Reference”. By passing this reference to a subVI, the subVI gains knowledge of the memory address containing all the control's information, enabling it to manipulate the control. In this example, we also need to detect mouse clicks on the front panel, which requires a reference to the VI’s front panel pane. This reference is then passed to the subVI. You can create a reference for the pane by right-clicking on the front panel's scrollbar.
+To create a reference for a control, simply right-click on the control or its terminal and select "Create -> Reference". By passing this reference to a subVI, the subVI gains knowledge of the memory address containing all the control's information, enabling it to manipulate the control. In this example, we also need to detect mouse clicks on the front panel, which requires a reference to the VI’s front panel pane. This reference is then passed to the subVI. You can create a reference for the pane by right-clicking on the front panel's scrollbar.
 
-As a result, the subVI will have three parameters, each receiving a reference passed from the main VI. These parameters correspond to the reference types of the three front panel objects. While a "reference" is typically used to point to specific data, it is also a data type in its own right. The transmission of reference data in LabVIEW works similarly to other data types. A challenge arises when creating input controls for the subVI: LabVIEW's control palette doesn't offer reference controls for specific objects. This is because a control’s “reference” is specifically linked to that control, and the palette lacks the space to list an endless variety of control reference types. Therefore, the simplest way to use “reference” controls is to create controls of the corresponding data type directly from the “reference”. By right-clicking on each of the three “references” in the above program's block diagram and selecting “Create -> Control”, you can generate the appropriate “reference” controls. These controls can then be copied to the subVI’s front panel:
+As a result, the subVI will have three parameters, each receiving a reference passed from the main VI. These parameters correspond to the reference types of the three front panel objects. While a "reference" is typically used to point to specific data, it is also a data type in its own right. The transmission of reference data in LabVIEW works similarly to other data types. A challenge arises when creating input controls for the subVI: LabVIEW's control palette doesn't offer reference controls for specific objects. This is because a control’s "reference" is specifically linked to that control, and the palette lacks the space to list an endless variety of control reference types. Therefore, the simplest way to use "reference" controls is to create controls of the corresponding data type directly from the "reference". By right-clicking on each of the three "references" in the above program's block diagram and selecting "Create -> Control", you can generate the appropriate "reference" controls. These controls can then be copied to the subVI’s front panel:
 
 ![](../../../../docs/images/image230.png "Three Reference Controls on the SubVI Front Panel")
 
@@ -194,9 +194,9 @@ To manage events from the main VI’s controls within the subVI, you first need 
 
 ![](../../../../docs/images/image231.png "SubVI Block Diagram")
 
-The references for the “Pane” and “Stop” controls (which are references to two controls on the main VI) are passed to the event source input of the “Register for Events” node. Clicking on the event source input allows you to select the types of events you wish to register.
+The references for the "Pane" and "Stop" controls (which are references to two controls on the main VI) are passed to the event source input of the "Register for Events" node. Clicking on the event source input allows you to select the types of events you wish to register.
 
-The “Event Registration Refnum” generated by the Register for Events node must be passed to the “Dynamic Event Terminal” of the event structure. Right-clicking on the event structure and selecting “Show Dynamic Event Terminal” adds a small, satellite antenna-like rectangle to the frame. This is the dynamic event terminal. Introducing the “Event Registration Refnum” data here allows the event structure to utilize the registered events. When reopening the Edit Events dialog box, you'll notice the two events you registered are now listed under the “Dynamic” category.
+The "Event Registration Refnum" generated by the Register for Events node must be passed to the "Dynamic Event Terminal" of the event structure. Right-clicking on the event structure and selecting "Show Dynamic Event Terminal" adds a small, satellite antenna-like rectangle to the frame. This is the dynamic event terminal. Introducing the "Event Registration Refnum" data here allows the event structure to utilize the registered events. When reopening the Edit Events dialog box, you'll notice the two events you registered are now listed under the "Dynamic" category.
 
 :::note
 
@@ -204,9 +204,9 @@ It's crucial to recognize that dynamic events pertain to events from the content
 
 :::
 
-The code in the “<Pane>: Mouse Down” event branch processes the event's location (the mouse click coordinates) obtained from the event structure, transmitting it to the “Coordinates” control on the main VI for display. This is accomplished by passing the data to the control’s “value” property.
+The code in the "\<Pane\>: Mouse Down" event branch processes the event's location (the mouse click coordinates) obtained from the event structure, transmitting it to the "Coordinates" control on the main VI for display. This is accomplished by passing the data to the control’s "value" property.
 
-We previously explained how to create property nodes for controls in the [Control Property Nodes](data_and_controls#property-nodes) section. However, property nodes directly created from a control can only be used in the VI where the control resides. To access and modify properties of controls on other VIs, you must use control references. Passing a control’s reference to the “reference” input of a “Programming -> Application Control -> Property Node” allows you to select that object’s properties from the property data terminals beneath the node. Its functionality is identical to that of a property node directly created from a control, as illustrated below:
+We previously explained how to create property nodes for controls in the [Control Property Nodes](data_and_controls#property-nodes) section. However, property nodes directly created from a control can only be used in the VI where the control resides. To access and modify properties of controls on other VIs, you must use control references. Passing a control’s reference to the "reference" input of a "Programming -> Application Control -> Property Node" allows you to select that object’s properties from the property data terminals beneath the node. Its functionality is identical to that of a property node directly created from a control, as illustrated below:
 
 ![](../../../../docs/images_2/z131.png "Property Node")
 
@@ -215,23 +215,23 @@ We previously explained how to create property nodes for controls in the [Contro
 
 LabVIEW-generated events mainly involve user interactions with interface objects, like clicking a mouse on a specific area, changing a control's value, or events related to changes in the program's state (such as "Timeout"). If there's a requirement to generate an event under certain other conditions within a program, user-defined events come into play.
 
-User-defined events fall under the category of dynamic events and, once they are registered, can be found under the "Dynamic" section in the "Edit Events" dialog box. These events are created using the “Create User Event” function. To trigger a predefined user-defined event, the “Generate User Event” function is used, which can emit an event along with custom data.
+User-defined events fall under the category of dynamic events and, once they are registered, can be found under the "Dynamic" section in the "Edit Events" dialog box. These events are created using the "Create User Event" function. To trigger a predefined user-defined event, the "Generate User Event" function is used, which can emit an event along with custom data.
 
-An example can help illustrate this. Imagine a program with two input controls: a numeric control A, and a string control B. The program is designed to trigger a user-defined event called “Warning” when the value of A is greater than 10, or the length of B exceeds 10 characters.
+An example can help illustrate this. Imagine a program with two input controls: a numeric control A, and a string control B. The program is designed to trigger a user-defined event called "Warning" when the value of A is greater than 10, or the length of B exceeds 10 characters.
 
 There are multiple ways to achieve this, but using user-defined events is a convenient option:
 
 ![](../../../../docs/images/image232.png "Creating and Triggering User-Defined Events")
 
-Firstly, a user-defined event is created. To do this, a constant data type must be connected to the “User Event Data Type” parameter of the “Create User Event” function. The data type of this constant determines the type of data the event will carry when triggered, and its label names the created event.
+Firstly, a user-defined event is created. To do this, a constant data type must be connected to the "User Event Data Type" parameter of the "Create User Event" function. The data type of this constant determines the type of data the event will carry when triggered, and its label names the created event.
 
-For our purpose, we require a string-type event data to convey a warning message when the “Warning” event is triggered. Therefore, we have designated an empty string constant labeled “Warning” for the “User Event Data Type” parameter of the “Create User Event” function.
+For our purpose, we require a string-type event data to convey a warning message when the "Warning" event is triggered. Therefore, we have designated an empty string constant labeled "Warning" for the "User Event Data Type" parameter of the "Create User Event" function.
 
-In the handling branch for the “B: Value Change” event, the program checks if the length of string B exceeds 10 characters. If it does, the program triggers the “Warning” event and sends the string “B length exceeds range” as the event’s data.
+In the handling branch for the "B: Value Change" event, the program checks if the length of string B exceeds 10 characters. If it does, the program triggers the "Warning" event and sends the string "B length exceeds range" as the event’s data.
 
 In the user-defined event handling branch, you can access the event data from the data node on the left side of the event structure:
 
-![](../../../../docs/images/image233.png "<Warning> Event Handling Branch")
+![](../../../../docs/images/image233.png "\<Warning\> Event Handling Branch")
 
 User-defined events can act as a structured approach for scenarios such as VI initialization and termination, addressing necessary actions when a VI is invoked or starts running, as well as crucial tasks prior to the VI’s termination.
 
@@ -256,57 +256,57 @@ The improved version of the program is as follows:
 
 In this enhanced version, only a single VI is outside the looping event structure, making the main structure of the program immediately apparent. The original tasks for initialization and wrap-up, now transformed into new user events, are relocated within the structure.
 
-The sole VI outside the structure is dedicated to creating the program's required custom events, like “Initialization” and “End.” Its block diagram is shown below:
+The sole VI outside the structure is dedicated to creating the program's required custom events, like "Initialization" and "End". Its block diagram is shown below:
 
 ![](../../../../docs/images/image278.png "Block Diagram of the Initialization Event VI")
 
-In this Initialization Event VI, aside from registering two user-defined events, the program also triggers an “Initialization” event. Therefore, when the interface VI reaches the looping event structure, it first enters the "Initialization" branch to execute associated initialization code.
+In this Initialization Event VI, aside from registering two user-defined events, the program also triggers an "Initialization" event. Therefore, when the interface VI reaches the looping event structure, it first enters the "Initialization" branch to execute associated initialization code.
 
 The program assigns the newly created custom events to global variables, making them easily accessible throughout the program. Since custom events might need to be triggered from various locations within the program, using global variables to output these new custom events helps to avoid a cluttered block diagram with too many connections. Since the global variables storing the custom events are only written to in this part of the program and are read-only elsewhere, using global variables doesn’t reduce the program's readability. Of course, if the interface program is relatively simple with fewer data connections, user events can be directly wired into the event structure.
 
-The following is an example of triggering the “Stop” custom event. When the user clicks the “Stop” button on the interface, signaling a request to exit the program, there are still finalization tasks to be completed before stopping the while loop. These tasks are carried out in the "End" event branch. The program’s response to the “Stop” button press is merely to trigger an “End” event.
+The following is an example of triggering the "Stop" custom event. When the user clicks the "Stop" button on the interface, signaling a request to exit the program, there are still finalization tasks to be completed before stopping the while loop. These tasks are carried out in the "End" event branch. The program’s response to the "Stop" button press is merely to trigger an "End" event.
 
 ![](../../../../docs/images/image279.png "Triggering the 'End' Event")
 
-In real-world interface programs, it’s not just the pressing of the “Stop” button that should trigger the “End” event. When a user clicks the close window button in the top-right corner of the interface, the program also needs to exit through the normal procedure. In other words, after the “Front Panel Close” event occurs, the program should also trigger an “End” event.
+In real-world interface programs, it’s not just the pressing of the "Stop" button that should trigger the "End" event. When a user clicks the close window button in the top-right corner of the interface, the program also needs to exit through the normal procedure. In other words, after the "Front Panel Close" event occurs, the program should also trigger an "End" event.
 
-The "End" event branch contains all the code for the wrap-up tasks. This mainly involves releasing various resources the program has previously created or opened, such as destroying the created custom events and closing any opened files. Finally, a “True” value is passed to the stop condition terminal of the while loop, leading to the termination of the entire program:
+The "End" event branch contains all the code for the wrap-up tasks. This mainly involves releasing various resources the program has previously created or opened, such as destroying the created custom events and closing any opened files. Finally, a "True" value is passed to the stop condition terminal of the while loop, leading to the termination of the entire program:
 
 ![](../../../../docs/images/image280.png "Handling the 'End' Event Branch")
 
 
 ## Designing Generic User-Defined Events
 
-In large-scale programs, the need often arises for multiple user-defined events, and additional events may be required as the program develops. Using the earlier mentioned approach for adding new user-defined events can be inconvenient: each new event necessitates creating a corresponding global variable to store it. Moreover, each additional user-defined event alters the type of the “Event Registration Refnum” returned by the “Register for Events” node, requiring the replacement of the “Event Registration Refnum” control and updates to its connections.
+In large-scale programs, the need often arises for multiple user-defined events, and additional events may be required as the program develops. Using the earlier mentioned approach for adding new user-defined events can be inconvenient: each new event necessitates creating a corresponding global variable to store it. Moreover, each additional user-defined event alters the type of the "Event Registration Refnum" returned by the "Register for Events" node, requiring the replacement of the "Event Registration Refnum" control and updates to its connections.
 
-A more scalable solution involves using a single user-defined event in the program and distinguishing the events' different purposes through their event data parameters. The custom event data type would be a cluster containing two elements: “Event Name” and “Event Data.” The “Event Name” serves to identify the purpose of the event, such as “Initialization” or “End” when triggering the event. The “Event Data” carries specific data relevant to the event. As different events might require varied types of data, this “Event Data” can be a variant (or a LabVIEW object, which will be discussed in the [Object-Oriented Programming](oop__) chapter), accommodating various data types.
+A more scalable solution involves using a single user-defined event in the program and distinguishing the events' different purposes through their event data parameters. The custom event data type would be a cluster containing two elements: "Event Name" and "Event Data". The "Event Name" serves to identify the purpose of the event, such as "Initialization" or "End" when triggering the event. The "Event Data" carries specific data relevant to the event. As different events might require varied types of data, this "Event Data" can be a variant (or a LabVIEW object, which will be discussed in the [Object-Oriented Programming](oop__) chapter), accommodating various data types.
 
 Here is an example of a generic user-defined event, where the event's purpose is distinguished by its data:
 
 ![](../../../../docs/images/image281.png "Generic User-Defined Event Example")
 
-LabVIEW also offers built-in VIs with similar functionality, which can be directly utilized in programs. For instance, under the path “[LabVIEW]\\resource\\importtools\\Common\\Event\\Method”, you can find VIs analogous to the one shown above.
+LabVIEW also offers built-in VIs with similar functionality, which can be directly utilized in programs. For instance, under the path `[LabVIEW]\resource\importtools\Common\Event\Method`, you can find VIs analogous to the one shown above.
 
 The VI below exemplifies a program that employs LabVIEW's built-in event management VI for a singular user event.
 
 ![](../../../../docs/images/image282.png "Approach for Handling a Single User Event")
 
-In this diagram, the “Event in” connected to the input of “Create Event.vi” (Trigger Event VI) is a constant object of a “class.” To create this constant, simply click on the “Event in” input terminal of “Create Event.vi”. While more details about “classes” will be provided in the [Object-Oriented Programming](oop__) chapter, for now, it's sufficient to understand that it includes the registered user-defined events.
+In this diagram, the "Event in" connected to the input of "Create Event.vi" (Trigger Event VI) is a constant object of a "class". To create this constant, simply click on the "Event in" input terminal of "Create Event.vi". While more details about "classes" will be provided in the [Object-Oriented Programming](oop__) chapter, for now, it's sufficient to understand that it includes the registered user-defined events.
 
-When triggering a “User Event,” users need to specify an “Event Name” for it. Once the looping event structure captures this event, it proceeds to the “User Event” handling branch. The initial step in processing the event is to check the “Event Name,” followed by handling the event accordingly based on this name.
+When triggering a "User Event", users need to specify an "Event Name" for it. Once the looping event structure captures this event, it proceeds to the "User Event" handling branch. The initial step in processing the event is to check the "Event Name", followed by handling the event accordingly based on this name.
 
 
 ## Handling Time-Consuming Code
 
 When developing interface programs, it's crucial not to place code that takes a long time to execute within the looping event structure. The execution time for code in each event handling branch should ideally be kept under 200 milliseconds. If the program spends a long time executing code in a particular event handling branch, it won't be able to respond promptly to other events. This can lead to the user interface appearing unresponsive, potentially causing users to mistakenly think the program has crashed or is frozen. This situation could result in users randomly clicking around the interface, which might lead to more severe issues.
 
-By default, when an event is executed, the user interface is locked. Referring back to the Edit Events dialog box, there's an option at the bottom – “Lock front panel until this event case completes,” which is typically enabled. It's essential for the program not to generate new events in response to user interface interactions while processing an event. Otherwise, events triggered by users during the execution of time-consuming code won't be immediately executed, but they will be logged. Processing these haphazardly generated events later is not only pointless but could also introduce unexpected errors.
+By default, when an event is executed, the user interface is locked. Referring back to the Edit Events dialog box, there's an option at the bottom – "Lock front panel until this event case completes", which is typically enabled. It's essential for the program not to generate new events in response to user interface interactions while processing an event. Otherwise, events triggered by users during the execution of time-consuming code won't be immediately executed, but they will be logged. Processing these haphazardly generated events later is not only pointless but could also introduce unexpected errors.
 
 However, just locking the user interface is insufficient, as users may still be puzzled by the lack of response. Thankfully, there are more effective methods to address situations where certain branches take a significant amount of time.
 
 The simplest approach is to inform the user: the program isn't experiencing problems; it's just temporarily busy processing an event and can't handle user interface operations. A basic way to do this is to change the cursor to a busy (hourglass) icon. This is a common indication in operating systems; when the cursor turns into an hourglass, it signals that the current program is busy, and we should wait a bit before continuing.
 
-LabVIEW provides VIs for cursor management under “Programming -> Dialog & User Interface -> Cursor.” There are two specific VIs to set and clear the cursor's busy status. Before running a lengthy piece of code in an event structure branch, set the cursor to the busy state. This signals to users that the program is occupied and unable to react to their inputs. After completing the task, restore the cursor to its normal state:
+LabVIEW provides VIs for cursor management under "Programming -> Dialog & User Interface -> Cursor". There are two specific VIs to set and clear the cursor's busy status. Before running a lengthy piece of code in an event structure branch, set the cursor to the busy state. This signals to users that the program is occupied and unable to react to their inputs. After completing the task, restore the cursor to its normal state:
 
 ![](../../../../docs/images/image283.png "Setting the Cursor to Busy During Intensive Computations")
 
@@ -319,7 +319,7 @@ Providing sufficient information to users is a straightforward and effective str
 
 While event structures greatly enhance the flexibility of LabVIEW programming, their misuse can lead to significant issues in your program. Here are some tips for effectively using event structures:
 
-* For detecting button presses on the interface, use the “Value Change” event. While “Mouse Down” and “Mouse Up” events sometimes produce similar results, they may not accurately reflect the button's state in certain scenarios, such as if the mouse is moved after being pressed. Additionally, Boolean controls used as buttons should ideally have the “Release to Trigger” mechanical action.
+* For detecting button presses on the interface, use the "Value Change" event. While "Mouse Down" and "Mouse Up" events sometimes produce similar results, they may not accurately reflect the button's state in certain scenarios, such as if the mouse is moved after being pressed. Additionally, Boolean controls used as buttons should ideally have the "Release to Trigger" mechanical action.
 * Try to avoid handling multiple events within a single branch. This becomes particularly important in complex programs, where doing so can decrease both readability and maintainability.
 * Limit to one event structure per VI. While LabVIEW does not restrict the use of multiple event structures in a single VI, doing so can lead to logical errors and is generally unnecessary. You can handle all events in a VI within a single event structure.
 * LabVIEW typically generates value change events only when a user changes a control's value on the interface. Directly assigning values to a control's terminal or local variable won't trigger these events. If you want a programmatic change in control value to also emit a value change event, assign the value to the control's "Value (Signaling)" property. As demonstrated below, this numeric control will generate a value change event.
@@ -344,11 +344,11 @@ The code for the main program is relatively simple:
 
 ![](../../../../docs/images/image286.png "Block Diagram for Controlling Two Dials")
 
-Let's first examine the right half of the code: This is a typical looping event structure for controlling the left dial's rotation. Every 100 milliseconds, the program generates a “Timeout” event. Within the "Timeout" event's handling branch, the needle advances one step, increasing the value by 1. Importantly, the right dial's control is not implemented in this part of the structure.
+Let's first examine the right half of the code: This is a typical looping event structure for controlling the left dial's rotation. Every 100 milliseconds, the program generates a "Timeout" event. Within the "Timeout" event's handling branch, the needle advances one step, increasing the value by 1. Importantly, the right dial's control is not implemented in this part of the structure.
 
 Now, looking at the left half of the program: It registers a callback VI for the "Rotate Right Dial" button’s value change event.
 
-The “Event Callback Registration” node, found under “Interapplication Communication -> ActiveX” on the function palette, is used here. Although primarily designed for ActiveX and .NET control events, it can also register callback VIs for native LabVIEW controls.
+The "Event Callback Registration" node, found under "Interapplication Communication -> ActiveX" on the function palette, is used here. Although primarily designed for ActiveX and .NET control events, it can also register callback VIs for native LabVIEW controls.
 
 This node has three input parameters: event source, callback VI reference, and user-defined data.
 
