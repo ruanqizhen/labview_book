@@ -328,5 +328,5 @@ ActiveX 在广义上是指微软公司的整个 COM 架构。LabVIEW 可以通�
 
 ![](images/image387.png "调用其它应用程序")
 
-其它使用执行系统命令的示例可参考“\[LabVIEW\]\\examples\\comm”目录中的 Calling System Exec VI。
+其它使用执行系统命令的示例可参考 `[LabVIEW]\examples\comm` 目录中的 Calling System Exec VI。
 

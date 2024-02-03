@@ -1,3 +1,5 @@
 # Style and Optimization
 
-Translations will be coming soon ......
+![](../../../../docs/cover/optimization.png)
+
+This chapter is dedicated to writing LabVIEW code that is both efficient and easy to understand.
