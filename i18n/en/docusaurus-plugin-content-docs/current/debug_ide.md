@@ -8,7 +8,7 @@ The toolbar on the block diagram window of a VI contains several debugging tools
 
 LabVIEW is capable of identifying certain errors, such as missing necessary inputs or incorrect data type connections, in real-time as the VI is being edited. When such errors are detected, LabVIEW changes the "Run" button to a broken arrow icon, indicating the "List Errors" function:
 
-![](images/image478.png "A VI with Errors")
+![](../../../../docs/images/image478.png "A VI with Errors")
 
 Clicking on this button opens the "Error List" window, which displays the detected errors within the program:
 
