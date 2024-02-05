@@ -46,9 +46,7 @@ if (conditionA) {
 }
 ```
 
-
-如果在 LabVIEW 中按照与 C 语言完全一模一样的逻辑来实现此功能，LabVIEW 的程序框图将出现多层嵌套（图
-11.3）。在文本语言中，即便有多层条件嵌套，但所有代码都是平铺开的。程序员只需拖动鼠标，就可以查看全部程序代码。而在 LabVIEW 中，每次只能显示条件结构一个条件分支的代码。如果程序员，想要查看条件 "condition
+如果在 LabVIEW 中按照与 C 语言完全一模一样的逻辑来实现此功能，LabVIEW 的程序框图将出现多层嵌套。在文本语言中，即便有多层条件嵌套，但所有代码都是平铺开的。程序员只需拖动鼠标，就可以查看全部程序代码。而在 LabVIEW 中，每次只能显示条件结构一个条件分支的代码。如果程序员，想要查看条件 "condition
 g" 所对应的那段代码，在 C 语言中，只要拖动鼠标，就可以找到那段代码。而在 LabVIEW 的程序框图上，需要反复切换不同层次条件结构显示出来的条件分支。这要比 C 语言麻烦得多，程序可读性当然就很差了：
 
 ![](images/image672.png "嵌套的条件结构引起代码可读性下降")
@@ -189,7 +187,7 @@ LabVIEW 为了解决这个问题，于是给 VI 增加了一个可重入属性�
 
 ![image](images_2/image11.png)
 
-被分离出来的编译好的可执行代码由 LabVIEW 统一管理，在 Windows 7 系统中，文件夹 \[% USERPROFILE\$\]\\Documents\\LabVIEW Data\\VIObjCache\\\[LabVIEW version number\]\\ 下有一个 objFileDB.vidb
+被分离出来的编译好的可执行代码由 LabVIEW 统一管理，在 Windows 7 系统中，文件夹 `[USERPROFILE]\Documents\LabVIEW Data\VIObjCache\[LabVIEW version number]\` 下有一个 objFileDB.vidb
 文件，这就是用来存储 LabVIEW 程序所有可执行代码的数据库。
 
 当程序在不同平台下协同开发时，或者程序会被发布到不同平台下去，就可以考虑采用可执行代码与源代码分离的策略，避免不必要的 VI 变动。
