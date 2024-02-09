@@ -1,4 +1,4 @@
-# LabVIEW Operating Mechanism
+# Operating Mechanism
 
 ## Differences Between LabVIEW and Text-Based Languages
 
