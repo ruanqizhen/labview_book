@@ -85,7 +85,7 @@ It's advisable to use the text label's built-in arrow to anchor comments directl
 There's a limitation to using text labels for comments: their arrangement can be disrupted by the "Clean Up Diagram" tool. This can lead to misplaced comments within the program. In LabVIEW, text labels and diagram elements such as nodes and wires do not share a logical relationship. The "Clean Up Diagram" tool, unaware of their interconnected content, may alter node positions during diagram organization, consequently affecting the placement of comments. Text labels with anchored arrows are usually relocated to appropriate positions, but unanchored labels may end up in completely unrelated areas.
 
 
-## Using Custom Data Types
+## Using Type Definition
 
 "Cluster" data types are a common occurrence. In larger programs, the same type of cluster data might be utilized across multiple subVIs. For example, a program designed to store experimental data could use the "Experiment Info" data type in several VIs. "Experiment Info" is a cluster composed of elements like "Experiment Name" and "Experiment Date".
 
@@ -97,17 +97,17 @@ During development, it might become evident that the cluster data type needs mod
 
 Since this data type is prevalent across multiple subVIs, any alteration necessitates corresponding updates in all VIs that use this cluster. Such updates are not only cumbersome but also fraught with the risk of overlooking certain instances, potentially introducing latent errors into the program.
 
-Creating a custom data type for such datasets is the solution. Similar to [custom controls](data_custom_control#custom-control), custom data types are stored in .ctl files. Their creation mirrors that of custom controls, with the distinction lying in setting the control type to ["Type Definition"](data_custom_control#type-definition) or ["Strict Type Definition"](data_custom_control#strict-type-definition). Within the program, utilizing this .ctl file equates to employing an instance of this custom control or type.
+Creating a [type definition](data_custom_control#type-definition) for such datasets is the solution. Similar to [custom controls](data_custom_control#custom-control), type definitions are stored in .ctl files. Their creation mirrors that of custom controls, with the distinction lying in setting the control type to "Type Definition" or ["Strict Type Definition"](data_custom_control#strict-type-definition). Within the program, utilizing this .ctl file equates to employing an instance of this custom control or type.
 
 Custom controls and their instances lack any direct linkage. For example, if you create and save a stylish button as a custom control, adding an instance of this user-defined control to a VI's front panel is achieved by dragging or opening the .ctl file. Once instantiated, this instance becomes independent of the original custom control. Modifications to either the instance or the original control have no impact on one another.
 
-Instances of custom types and strictly custom types are generated in VIs similarly to custom controls. However, the key difference is the linkage between custom (and strictly custom) types and their instances. For instance, creating a custom type for a numeric data type means all its instances will be numeric. Changing the data type to string within the custom type file causes all its instances to automatically convert to string types.
+Instances of type definitions and strict type definitions are generated in VIs similarly to custom controls. However, the key difference is the linkage between type definition (and strict type definition) and their instances. For instance, creating a type definition for a numeric data type means all its instances will be numeric. Changing the data type to string within the type definition file causes all its instances to automatically convert to string types.
 
-For strictly custom types, the connection extends beyond data types to include the control's properties with their instances. These properties, like the control's color, size, and options in enumeration or dropdown list controls, remain synchronized.
+For strict type definitions, the connection extends beyond data types to include the control's properties with their instances. These properties, like the control's color, size, and options in enumeration or dropdown list controls, remain synchronized.
 
-For example, using a custom type where the control is a text dropdown list with a U16 numeric data type, containing options such as "Item One" and "Item Two". Adding "Item Three" in the custom type doesn't affect existing instances if the data type remains U16; they continue to display only the original two items. However, with strictly custom types, all instances automatically update to include the new option.
+For example, using a type definition where the control is a text dropdown list with a U16 numeric data type, containing options such as "Item One" and "Item Two". Adding "Item Three" in the type definition doesn't affect existing instances if the data type remains U16; they continue to display only the original two items. However, with strict type definitions, all instances automatically update to include the new option.
 
-LabVIEW often requires adjustments to certain data types and their properties during development, like clusters, enumerations, dropdown lists, combo boxes, arrays, and waveforms. To simplify these modifications, strictly custom type definitions should be created whenever such data types are encountered. Strictly custom types should also be used when a uniform appearance across all control instances is desired.
+LabVIEW often requires adjustments to certain data types and their properties during development, like clusters, enumerations, dropdown lists, combo boxes, arrays, and waveforms. To simplify these modifications, strict type definitions should be created whenever such data types are encountered. strict type definitions should also be used when a uniform appearance across all control instances is desired.
 
 
 ## Connector Pane
