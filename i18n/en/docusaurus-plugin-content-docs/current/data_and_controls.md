@@ -67,7 +67,7 @@ Local variables offer a streamlined way to access and manipulate data within a V
 
 ### Interacting with Controls
 
-In certain scenarios, a VI may need to perform operations like writing data to input controls or reading data from output controls. For instance, consider a VI designed to handle text input: if the text entered into a string control is four letters or fewer, it displays as entered; if it exceeds four letters, the string control is automatically cleared. Since the terminal of an input control typically serves as a data source and cannot directly accept data, a local variable is employed to update the control's content. This principle also applies when you need to read values from output controls.
+In certain scenarios, a VI may need to perform operations like writing data to input controls or reading data from output indicators. For instance, consider a VI designed to handle text input: if the text entered into a string control is four letters or fewer, it displays as entered; if it exceeds four letters, the string control is automatically cleared. Since the terminal of an input control typically serves as a data source and cannot directly accept data, a local variable is employed to update the control's content. This principle also applies when you need to read values from output indicators.
 
 The following program illustrates this functionality:
 
