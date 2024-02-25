@@ -105,27 +105,37 @@ To create a property node, right-click on a control or its terminal and select "
 
 ![Standard Numeric Control Properties](../../../../docs/images/image142.png "Standard Numeric Control Properties")
 
-For beginners, LabVIEW's context help is an invaluable resource for understanding the function of each property. The properties available in the selection menu are thoughtfully categorized. As seen in the image above, properties are organized starting from those common to all LabVIEW objects, followed by properties unique to front panel objects, and so on.
+For beginners, remembering all the properties might not come easily, but LabVIEW offers a handy solution with its Context Help feature. When you select a property node, you can open LabVIEW's Context Help window. Hovering your mouse over different properties will prompt the Context Help window to display an explanation for that property. The properties in the selection menu are organized by their respective categories. For instance, excluding the "Browse" option, the first row in the above example includes properties common to all LabVIEW objects, like the VI containing the object; the next row lists properties specific to all front panel objects of VIs, such as their position and size; followed by properties that all controls share, like title and visibility; then come properties unique to numeric controls, including various attributes of unit labels; and at the bottom are properties specific to the selected numeric control, such as settings for display format. Within each category, properties are sorted alphabetically.
 
-It's important to note that some properties are designated as either read-only or write-only, while others support both reading and writing operations. You can easily adjust the direction (read or write) of a property node through its right-click menu.
+Different types of controls will have additional specific properties visible in the list. For example, button controls might have a "Button Text" property, while string controls could have a "Single Line Display" property.
 
-![Lengthening Property Node to Add New Properties](../../../../docs/images/image144.png "Lengthening Property Node to Add New Properties")
+As noted, the property selection menu is organized by categories. So, how many control categories does LabVIEW have? A helpful method to explore the hierarchical type relationship of LabVIEW objects involves creating a "Programming -> Application Control -> Class Specifier Constant" on the block diagram. Clicking on this constant reveals the hierarchy in a menu, showing LabVIEW objects from the most general to the most specific:
 
-A significant property to mention is "Value", which functions similarly to the local variable discussed earlier. Additionally, the "Value (Signal)" property is crucial for triggering a "Value Change" event in response to user interactions.
+![Hierarchy from General to Specific Object Types](../../../../docs/images/image143.png "Hierarchy from General to Specific Object Types")
 
-By default, property nodes display abbreviated names. However, you can switch to full names, which can be particularly helpful if you prefer to work with Chinese names or require more descriptive labels:
+The section on “[The Hierarchy of Object Classes](vi_server_for_ui#object-class-hierarchy)” in this book will delve into control categories in more detail.
+
+Properties can be read-only, write-only, or both readable and writable. The right-click menu for a property allows you to select "Change All to Write" / "Change All to Read" or "Change to Write" / "Change to Read" to adjust the property's direction. Some properties, even though writable, can only be modified when the VI is in edit mode, such as the text label of a control. Therefore, it's crucial to verify whether the property node returns an error when setting control properties. The help documentation provides comprehensive details for property items.
+
+A property node can simultaneously read and write multiple properties. By hovering your mouse over the middle part of the property node's lower edge, you can expand or contract it. Clicking on the added entry allows you to swap it for the property you require. The menu also features "Add Element" / "Delete Element" options for performing these actions.
+
+![Expanding the Property Node to Add New Properties](../../../../docs/images/image144.png "Expanding the Property Node to Add New Properties")
+
+In property items, there's an option labeled "Value," akin to the local variables discussed in the previous section. However, during program execution, property nodes are significantly less efficient than local variables. Another property, "Value (Signaling)," is designed to emit a "Value Change" event signal for the control. This will be elaborated on in the [Event Structures](pattern_ui) section.
+
+Property nodes default to displaying each property's short name, essentially the English abbreviation. Through the property node's right-click menu, you can switch to the long name display, which allows for the use of names in Chinese:
 
 ![Property Node Name Format](../../../../docs/images/image145.png "Property Node Name Format")
 
-### Control Associations with Property Nodes
+### Associating Controls with Property Nodes
 
-In LabVIEW, if you require an additional property node for a control, using `Ctrl C` and `Ctrl V` to copy and paste will produce a new property node. However, this newly created node will not be linked to any control initially. To associate a control with a property node, or to disassociate it:
+If there's already a property node for a control on the block diagram and you need another identical one, your first instinct might be to copy and paste. Selecting the property node and pressing `Ctrl C` followed by `Ctrl V`, you'll find that the copied property node doesn't quite look the same as the original (as seen below). This discrepancy occurs because the copied property node has not been associated with any control yet. The use of such unassociated property nodes will be covered in greater detail in the section on [Dynamic Interface Adjustments](vi_server_for_ui). By choosing "Disconnect From Control" from a property node's right-click menu, it becomes an unassociated property node. Similarly, you can reassociate it with a control using its right-click menu:
 
-![Associating Control with Property Node](../../../../docs/images_2/z234.gif "Control Association with Property Node")
+![Associating Property Nodes with Controls](../../../../docs/images_2/z234.gif "Associating Property Nodes with Controls")
 
-Additionally, you can efficiently duplicate a property node by holding down the `Ctrl` key while dragging the node. This method creates a copy of the node, which can then be associated with the same or a different control:
+Property nodes can indeed be copied, but not via the `Ctrl C` shortcut. Instead, by holding the `Ctrl` key and dragging a property node with the mouse, you can create a duplicate. This copying technique isn't limited to property nodes; it applies to nearly all objects in LabVIEW, including controls and functions. The following image demonstrates copying while holding the `Ctrl` key:
 
-![Copying with Ctrl Key](../../../../docs/images_2/z235.gif "Copying with Ctrl Key")
+![Copying with the Ctrl Key](../../../../docs/images_2/z235.gif "Copying with the Ctrl Key")
 
 ### Invoke Nodes
 
