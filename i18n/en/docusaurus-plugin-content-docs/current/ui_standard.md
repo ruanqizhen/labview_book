@@ -175,7 +175,7 @@ After finalizing and saving the custom menu, running the interface VI again will
 
 ![Custom Menu](../../../../docs/images/image611.png "Custom Menu")
 
-Creating the menu is just the first step; you must also implement the code to respond to menu actions within the program. Clicking a custom menu item triggers a "Menu Activation?" event in LabVIEW; selecting an item from the custom menu generates a "Menu Selection (User)" event. These menu-related events are located under the <This VI> event source. By capturing this event in the program's event structure, you can then append the appropriate code. For instance, the program illustrated below toggles the checkmark next to the "Display Data" menu item.
+Creating the menu is just the first step; you must also implement the code to respond to menu actions within the program. Clicking a custom menu item triggers a "Menu Activation?" event in LabVIEW; selecting an item from the custom menu generates a "Menu Selection (User)" event. These menu-related events are located under the `<This VI>` event source. By capturing this event in the program's event structure, you can then append the appropriate code. For instance, the program illustrated below toggles the checkmark next to the "Display Data" menu item.
 
 ![Responding to Menu Selection Program](../../../../docs/images/image612.png "Program Responding to Menu Selection")
 
