@@ -1,3 +1,9 @@
 # Object Oriented Programming
 
-Translations will be coming soon ......
+![](cover/oop.png)
+
+If there's one sentence to encapsulate the essence of "Object-Oriented Programming" (OOP), it would be this: OOP effectively breaks large programs into smaller, manageable modules, enabling the creation of systems that are both flexible and stable. Flexibility is demonstrated by the ease of integrating new functionalities, while stability is ensured as these additions do not necessitate alterations to the existing modules.
+
+As the complexity and scale of problems addressed by programming grow, the intuitive, data-flow-oriented approach of LabVIEW shows its limitations in segmenting large projects into smaller components. It's not that modularization is entirely unachievable in this paradigm, but that following such a methodology often leads to numerous issues, making the system hard to extend and manage. While small-scale projects might manage well, the approach becomes impractical for larger endeavors. Consequently, programmers are compelled to embrace object-oriented programming to overcome these challenges.
+
+For programs that comprise only a few VIs, forgoing object-oriented methods poses no issue. However, adopting an object-oriented approach does demand additional effort and resources. For projects encompassing tens to dozens of VIs, the decision to use object-oriented design can be made based on specific circumstances. Yet, when a project scales to involve hundreds of VIs or necessitates collaboration across multiple developers or teams, the object-oriented programming philosophy becomes essential. With increasing project size, maintaining and expanding the software becomes more challenging, and object-oriented programming emerges as the most effective strategy to address these issues.
