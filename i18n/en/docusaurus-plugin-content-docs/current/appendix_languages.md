@@ -30,9 +30,9 @@ These questions crossed my mind when I was first learning C. During one debuggin
 I found answers to these queries when I encountered a programming language known as Lambda Calculus, developed by Alonzo Church. Lambda Calculus is an exemplar of programming language minimalism. While similar minimalist languages like SKI, Iota, and Jot exist, Lambda Calculus remains the most iconic and celebrated. Just how minimalist is Lambda Calculus? Its entire syntax can be described succinctly in a few lines:
 
 - The characters utilized in Lambda Calculus include lowercase English letters, an English period (.), parentheses, and the Greek letter lambda “λ”.
-- Name: Formed by a single lowercase English letter, structured as <name>. Examples include x, y, a, etc.
-- Function definition: Begins with the “λ” character, followed by a variable name, an English period, and then an expression, formatted as λ<name>.<expression>. For instance, `λx.x`, which translates to the mathematical function f(x) = x.
-- Function application: Constructed from a function definition plus an additional expression, styled as <function><expression>. For example, `(λx.x)a` denotes passing a as a parameter to the preceding function, yielding a as the result.
+- Name: Formed by a single lowercase English letter, structured as `<name>`. Examples include x, y, a, etc.
+- Function definition: Begins with the “λ” character, followed by a variable name, an English period, and then an expression, formatted as `λ<name>.<expression>`. For instance, `λx.x`, which translates to the mathematical function f(x) = x.
+- Function application: Constructed from a function definition plus an additional expression, styled as `<function><expression>`. For example, `(λx.x)a` denotes passing a as a parameter to the preceding function, yielding a as the result.
 - Name, function, and application are collectively categorized as expressions.
 - Parentheses serve to dictate the order of operations. Spaces may also be incorporated to enhance readability.
 
