@@ -1,6 +1,6 @@
 # The Challenges of LabVIEW
 
-![](../../../../cover/problem.png)
+![](../../../../docs/cover/problem.png)
 
 This section discusses some challenges encountered with LabVIEW, including its shortcomings.
 
