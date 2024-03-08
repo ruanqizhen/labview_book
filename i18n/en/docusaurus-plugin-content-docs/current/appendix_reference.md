@@ -1,6 +1,6 @@
 # Reference
 
-![](../../../../cover/reference.png)
+![](../../../../docs/cover/reference.png)
 
 1.  National Instruments Corporation,
     LabVIEW Basic I: Introduction Course Manual, 2008.

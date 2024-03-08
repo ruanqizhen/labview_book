@@ -128,7 +128,7 @@ Scratch, which only came into existence in 2003, quickly overshadowed LabVIEW to
 
 Scratch is accessible via a web interface, eliminating the need for software installation on computers. Users can simply navigate to its official webpage in a browser to begin programming:
 
-![Scratch Example Program](../../../../images_2/z112.png "Scratch Example Program")
+![Scratch Example Program](../../../../docs/images_2/z112.png "Scratch Example Program")
 
 The Scratch programming interface is divided into three main sections: left, center, and right. The left section displays the available programming blocks, similar to LabVIEW's function palette. The center is dedicated to coding, akin to LabVIEW's block diagram. The upper-right section is reserved for previewing the execution results of the program, mirroring LabVIEW's front panel.
 

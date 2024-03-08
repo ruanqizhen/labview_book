@@ -1,6 +1,6 @@
 # Epilogue
 
-![](../../../../cover/epilogue.png)
+![](../../../../docs/cover/epilogue.png)
 
 
 ## The Writing Process
