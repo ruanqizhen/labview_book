@@ -1,5 +1,5 @@
 # Appendix
 
-![](../../../../cover/appendix.png)
+![](../../../../docs/cover/appendix.png)
 
 Some related topics.
