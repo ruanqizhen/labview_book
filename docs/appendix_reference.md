@@ -19,7 +19,7 @@
 
 6.  Peter A. Blume, The LabVIEW Style book, 2007.
 
-7.  Jeffrey Travis, Jim Kring, LabVIEW for Everyone: Graphical
+7.  Jeffrey Travis, Jim Kring, LabVIEW for Everyone: Graphical
     Programming Made Easy And Fun, 2006.
 
 8.  Rick Bitter, Taqi Mohiuddin, Matt Nawrocki, LabVIEW Advanced

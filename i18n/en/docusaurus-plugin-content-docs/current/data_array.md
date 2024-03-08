@@ -120,7 +120,7 @@ However, you can modify this behavior to concatenate the two input arrays into a
 
 Merge Result：
 
-![](../../../../docs/images/image102.png "创建数组函数的结果")
+![](../../../../docs/images/image102.png "Results of building array")
 
 Like the array indexing function, the "Build Array" function can also be extended to accommodate multiple input data points. This extension enhances the function's flexibility, making it suitable for a range of array manipulation tasks, from simple element addition to complex array merging.
 
