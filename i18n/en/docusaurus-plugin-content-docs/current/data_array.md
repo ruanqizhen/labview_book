@@ -4,19 +4,19 @@
 
 ### Cluster Control
 
-A Cluster is a composite data type in LabVIEW, distinct from simpler data types like Numeric or Boolean. It allows for the organization of multiple different types of data into a single entity. Clusters are analogous to structs in the C language or tuples in Python.
+A Cluster is a composite data type in LabVIEW. Unlike simpler data types like Numeric or Boolean, it enables the organization of multiple, diverse data types into a single entity. This concept is similar to a "struct" in C or a "tuple" in Python, allowing for the grouping of various data types into a unified structure.
 
 ![](../../../../docs/images_2/z191.png "Cluster Control Palette")
 
-Cluster controls differ notably from simple data type controls. When added to the front panel, a cluster initially appears as an empty container and is not immediately functional. To make it useful, you need to add other data as its "elements" by dragging and dropping controls into the cluster control. The following image shows a cluster with various elements already placed inside:
+Cluster controls differ notably from simple data type controls. When added to the front panel, a cluster initially appears as an empty container and is not immediately functional. To make it useful, you need to add other data as its elements by dragging and dropping controls into the cluster control. The following image shows a cluster with various elements already placed inside:
 
 ![](../../../../docs/images_2/z192.png "cluster with elements")
 
 Clusters support nesting, meaning one cluster can be an element within another cluster. Creating cluster constants follows a process similar to that of creating controls.
 
-The physical arrangement of element controls within the cluster control on the front panel does not necessarily reflect the logical sequence of the element data in the cluster. In the block diagram, it's the order of the element data that matters, the placement of controls on the front panel becomes irrelevant. For clusters with many elements, random placement is not advisable. Instead, you can let the cluster automatically organize its internal elements. Right-click the cluster and select "Auto-size -> Vertical Fit" from the shortcut menu. This automatic arrangement ensures that the control positions in the cluster correspond to the order of the element data, reducing potential confusion and eliminating the need for manual adjustments when the number of elements changes.
+The physical arrangement of element controls within the cluster control on the front panel does not necessarily reflect the logical sequence of the element data in the cluster. In the block diagram, it's the order of the element data that matters, the placement of controls on the front panel becomes irrelevant. For clusters with many elements, random placement is not advisable. Instead, you can let the cluster automatically organize its internal elements. Right-click the cluster and select "AutoSizing -> Arrange Vertically" from the shortcut menu. This automatic arrangement ensures that the control positions in the cluster correspond to the order of the element data, reducing potential confusion and eliminating the need for manual adjustments when the number of elements changes.
 
-Moving controls within a cluster using the mouse won't alter the data order of the elements. To adjust the element order, select "Reorder Controls in Cluster" from the cluster's right-click menu. Then, click each control in the desired sequence to reset the element data order:
+Moving controls within a cluster using the mouse won't alter the data order of the elements. To adjust the element order, select "Reorder Controls in Cluster..." from the cluster's right-click menu. Then, click each control in the desired sequence to reset the element data order:
 
 ![](../../../../docs/images/image513.png "the order of elements")
 
@@ -36,7 +36,7 @@ A common example of clusters in LabVIEW is the "error in" and "error out" cluste
 
 ![](../../../../docs/images/image106.png "error in cluster")
 
-Error clusters are a staple in most VIs and form the core of LabVIEW's [error handling mechanism](pattern_error_handling). An error cluster typically comprises a Boolean data type (indicating an error when true), a numeric data type (representing the error code), and a string data type (for the error message). These clusters are instrumental in effectively managing and signaling errors throughout a LabVIEW program.
+Error clusters are a staple in most VIs and form the core of LabVIEW's [error handling mechanism](pattern_error_handling). An error cluster typically comprises a Boolean data type (indicating an error when true), a numeric data type (representing the error code), and a string data type (for the error message). These clusters play a crucial role in effectively managing and signaling errors throughout a LabVIEW program, enabling robust and reliable error handling.
 
 Clusters in LabVIEW are particularly useful when certain data elements are closely related and processed together. For instance, the trio of "status", "code", and "source" for error handlings can be effectively bundled into a cluster. This approach simplifies data transfer between different nodes, as it requires only a single data line, contributing to a cleaner and more organized program. However, using clusters also introduces additional steps of unbundling and bundling when processing data. Moreover, it's generally advisable not to use clusters in a program's user interface, as they don't facilitate the layout adjustment of controls.
 
