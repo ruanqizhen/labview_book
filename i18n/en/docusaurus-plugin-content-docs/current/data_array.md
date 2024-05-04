@@ -59,7 +59,7 @@ An array is a composite data type, similar to a cluster, but with a key differen
 
 While an array mandates uniformity in element data types, it can contain a large number of elements — in theory, up to $2^{31}－1$ elements per dimension. Each array control displays a number in its upper left corner, indicating the index of the currently visible element. Array indexing starts at 0, with subsequent elements indexed incrementally.
 
-In scenarios where viewing all or multiple array elements on the interface is necessary, array control can also display several elements simultaneously. This can be achieved by dragging the borders of the array control to expand its view horizontally or vertically, revealing multiple elements. For arrays with a high element count, navigating each element by changing the index can be cumbersome. A practical alternative is to enable a horizontal or vertical scrollbar (accessible via the right-click menu of the array), allowing for swift navigation to the desired element:
+In scenarios where viewing all or multiple array elements on the interface is necessary, array control can also display multiple elements simultaneously. This can be achieved by dragging the borders of the array control to expand its view horizontally or vertically, revealing multiple elements. For arrays with a high element count, navigating each element by changing the index can be cumbersome. A practical alternative is to enable a horizontal or vertical scrollbar (accessible via the right-click menu of the array), allowing for swift navigation to the desired element:
 
 ![](../../../../docs/images_2/z195.gif "display several elements")
 
@@ -71,7 +71,7 @@ In LabVIEW, nearly any data type can serve as an array element, except for array
 
 ### Calculating
 
-LabVIEW offers a variety of functions tailored for array operations. These include determining array length, indexing, sorting, and summing array values. Additionally, functions initially designed for numerical and Boolean data types can also be applied to arrays of those respective types. For instance, basic arithmetic operations like addition, subtraction, multiplication, and division, as well as Boolean operations like AND and NOT, can be performed on numerical and Boolean arrays, respectively.
+LabVIEW offers a variety of functions tailored for array operations. These include determining array length, indexing, sorting, and summing array values. Additionally, many functions that initially designed for numerical and Boolean data types can also be applied to arrays of those respective types. For instance, basic arithmetic operations like addition, subtraction, multiplication, and division, as well as Boolean operations like AND and NOT, can be performed on numerical and Boolean arrays, respectively.
 
 Consider the operation of addition. When a value is added to an array in LabVIEW, it is effectively added to each element within the array. Similarly, adding two arrays together results in a new array formed by adding corresponding elements from the input arrays. It's important to note that if the input arrays vary in length, the length of the resultant array will match that of the shorter input array:
 
