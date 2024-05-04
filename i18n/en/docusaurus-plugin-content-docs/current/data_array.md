@@ -81,9 +81,9 @@ When working with arrays in programming, careful attention must be paid to the a
 
 ### Comparing
 
-In LabVIEW, standard comparison functions such as "Equals?" and "Greater than?" can be applied to arrays. When using these functions for array (or cluster) comparisons, you have the option to choose between "Compare Elements" and "Compare Sets", accessible through the right-click menu.
+In LabVIEW, standard comparison functions such as "Equals?" and "Greater than?" can be applied to arrays. When using these functions for array (or cluster) comparisons, you have the option to choose between "Comparison Mode -> Compare Elements" and "Comparison Mode -> Compare Aggregates", accessible through the right-click menu.
 
-"Compare Elements" performs a separate comparison for each corresponding element in two arrays. The outcome of this comparison is a Boolean array of the same length, with each element indicating the result of the individual comparison. On the other hand, "Compare Sets" considers the entire array as a single entity. In this mode, two arrays are deemed equal (resulting in "true") only if they have the same length and all corresponding elements are identical. Otherwise, the result is "false". The image below demonstrates an array comparison:
+"Compare Elements" performs a separate comparison for each corresponding element in two arrays. The outcome of this comparison is a Boolean array of the same length, with each element indicating the result of the individual comparison. On the other hand, "Compare Aggregates" considers the entire array as a single entity. In this mode, two arrays are deemed equal (resulting in "true") only if they have the same length and all corresponding elements are identical. Otherwise, the result is "false". The image below demonstrates an array comparison:
 
 ![](../../../../docs/images/image95.png "Comparasion")
 
