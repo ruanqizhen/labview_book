@@ -126,7 +126,7 @@ Like the array indexing function, the "Build Array" function can also be extende
 
 ### Utilizing Advanced Controls for Array Data
 
-LabVIEW has several complex controls where the underlying data type is an array, such as chart and table controls. These allow for a more enriched representation of array data, often making it more intuitive than simply presenting abstract numerical values.
+LabVIEW has several complex controls where the underlying data type is an array, such as [chart](data_graph) and [table](data_and_controls#lists-tables-and-trees) controls. These allow for a more enriched representation of array data, often making it more intuitive than simply presenting abstract numerical values.
 
 Take, for instance, the program below which generates a two-dimensional array using a sine function:
 
