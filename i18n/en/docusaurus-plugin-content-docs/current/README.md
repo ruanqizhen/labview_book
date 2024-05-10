@@ -2,7 +2,7 @@
 
 ## About This Book
 
-"My Decade of LabVIEW Programming," ISBN: 9787512408487, first published in 2009 by Beihang University Press, encapsulates my journey of learning and programming with LabVIEW. The book demystifies LabVIEW's most essential features and addresses common challenges encountered by learners, presented in a reader-friendly format.
+"My Decade of LabVIEW Programming", ISBN: 9787512408487, first published in 2009 by Beihang University Press, encapsulates my journey of learning and programming with LabVIEW. The book demystifies LabVIEW's most essential features and addresses common challenges encountered by learners, presented in a reader-friendly format.
 
 ![images_2/cover.png](../../../../docs/images_2/cover.png "Cover of The Published Book")
 
