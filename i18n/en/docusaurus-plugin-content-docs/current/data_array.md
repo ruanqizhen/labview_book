@@ -173,13 +173,13 @@ In scenarios where multiple indexed input tunnels are used, and the arrays conne
 
 If an indexed input tunnel is connected to an empty array, the loop will iterate zero times. This situation might occasionally occur during program debugging. Despite a clear 'N' value, the loop might not iterate, or the iteration count could be incorrect. In such cases, it's necessary to check if there's an indexed input tunnel in the loop structure and the length of the array connected to it.
 
-When connecting a multi-dimensional array to an indexed input tunnel, the array's dimensionality reduces by one with each pass through the tunnel. For processing a two-dimensional array, a two-level nested loop structure can be utilized to access each element:
+When connecting a multi-dimensional array to an indexed input tunnel, the array's dimensionality decreases by one level at each pass. To process a two-dimensional array, you can use a nested loop structure with two levels to access each element:
 
 ![](../../../../docs/images/image191.png "nested loop")  The results: ![](../../../../docs/images/image192.png "nested loop results")
 
 ### Output Tunnel
 
-Output tunnels in LabVIEW loop structures play a crucial role in data handling. Each iteration within the loop sends data to the tunnel, but the output tunnel itself produces a single output value. This process essentially consolidates multiple pieces of input data into one output. The output tunnel offers several modes for merging data, accessible via its right-click menu:
+Within a loop structure, each iteration sends a copy of the data to the output tunnel. However, the output tunnel can only output a single value once the loop is completed. This process consolidates multiple input data pieces into a single output. The output tunnel provides various data merging modes, accessible through its right-click menu:
 
 - **Last Value Mode:** Represented by a solid square icon, this mode outputs only the data passed to the tunnel during the final iteration of the loop.
 - **Indexing Mode:** Indicated by a hollow square icon, this mode compiles the data from each iteration into an array, with each iteration's data forming an array element. If the input data is already an array, the output will be an array with an added dimension.
