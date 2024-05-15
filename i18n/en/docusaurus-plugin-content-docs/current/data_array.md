@@ -263,11 +263,11 @@ Beyond transferring data between iterations, shift registers serve other functio
 
 ### Stop Condition
 
-You can introduce a mechanism to prematurely stop a for loop by creating a conditional terminal. This is akin to the "break" statement in C or Python language, which is used to exit a loop. To add this feature, right-click on the for loop structure and select "Conditional Terminal":
+You can add a mechanism to prematurely stop a for loop by creating a conditional terminal. This feature is similar to the "break" statement in C or Python, which exits a loop. To add this feature, right-click on the for loop structure and select "Conditional Terminal":
 
 ![](../../../../docs/images/image216.png "Conditional Terminal")
 
-There are situations where the desired result is achieved before completing all iterations of the loop, rendering further iterations unnecessary. For instance, the program shown above is designed to check whether the input "array" contains an element that matches the given "string". If such an element is found, a "true" value is passed to the conditional terminal to halt the loop.
+In some cases, the desired outcome is achieved before the loop completes all its iterations, making further iterations redundant. A common example is searching an array for a specific element. If the element is found, the loop can be terminated early, as further iterations are unnecessary. In the program above, the loop is designed to search the input "array" for an element matching the given "string". If a match is found, a "true" value is sent to the conditional terminal, halting the loop and avoiding unnecessary iterations.
 
 The conditional terminal operates in two modes, depending on how it is configured. It can either halt the loop upon receiving a "true" value, indicated by a red circle ![](../../../../docs/images/image217.png), or stop when a "false" value is received, denoted by a green circular arrow ![](../../../../docs/images/image218.png). This functionality mirrors that of the while loop.
 
