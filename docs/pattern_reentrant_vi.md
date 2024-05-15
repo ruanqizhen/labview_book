@@ -185,7 +185,7 @@ $F(n) = \frac{{\varphi^n - (1 - \varphi)^n}}{{\sqrt{5}}}$ ，   其中，$\varph
 
 ### 间接递归调用
 
-间接递归调用涉及两个或多个 VI 相互调用。比如，两个 VI foo.vi 和 bar.vi。如果在 foo.vi 中 调用了 bar.vi；在 bar.vi 又调用了 foo.vi，那么它们就构成了间接递归调用。
+间接递归调用涉及两个或多个 VI 相互调用。比如，两个 VI： foo.vi 和 bar.vi。如果在 foo.vi 中 调用了 bar.vi；在 bar.vi 中又调用了 foo.vi，那么它们就构成了间接递归调用。
 
 我们在[状态机的使用](pattern_state_machine#状态机的使用)一节，介绍了一种实现解析四则运算表达式（比如计算 `1+2*3-4/5`）的方法，我们再来看一下，如何使用递归算法解决同一问题。为了避免示例程序过于复杂，我们需要把问题简化一下：
 
@@ -209,7 +209,7 @@ process_mul_div.vi 用于处理乘除法，它的结构与 process_add_sub.vi �
 
 ![images_2/z353.png](images_2/z353.png "process_mul_div")
 
-process_number.vi 用于处理数字和括号。其实这是两个不同的工作，我们可以把它们拆分成不同的子 VI，但在这个示例中，我们就把它们都放在同一个 VI 肿了。下图是 process_number.vi 中处理运算数据的程序框图。它逐个读取表达式中的字符，如果读取的字符是一个数字，就把它组合当当前的数据中去：
+process_number.vi 用于处理数字和括号。其实这是两个不同的工作，我们可以把它们拆分成不同的子 VI，但在这个示例中，我们就把它们都放在同一个 VI 中了。下图是 process_number.vi 中处理运算数据的程序框图。它逐个读取表达式中的字符，如果读取的字符是一个数字，就把它组合到当前的数据中去：
 
 ![images_2/z354.png](images_2/z354.png "处理数值")
 
