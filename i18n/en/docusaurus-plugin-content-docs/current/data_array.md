@@ -307,9 +307,9 @@ A feedback node can be interchanged with a shift register using the right-click 
 
 ![](../../../../docs/images_2/z197.gif "connections within a loop structure")
 
-Below the feedback node is a terminal marked with a "❇" symbol, which is used to set the node's initial value. Feedback nodes, like shift registers, require an initial value. The "Move Initializer One Loop Out" option in the right-click menu can be used to position the initialization terminal at the left border of the loop structure. However, for clarity, it's often better to keep the initialization value close to the feedback node.
+Below the feedback node is a terminal marked with a `❇` symbol, which is used to set the node's initial value. Feedback nodes, like shift registers, require an initial value. The "Move Initializer One Loop Out" option in the right-click menu can be used to position the initialization terminal at the left border of the loop structure. However, for clarity, it's often better to keep the initialization value close to the feedback node.
 
-There are two initialization options for feedback nodes found in the right-click menu: "Initialize On Compile Or Load" and "Initialize On First Call". Choosing "Initialize On Compile Or Load" changes the feedback node icon to a "❇" symbol, indicating that the node is initialized only once after being loaded into memory or recompiled and not reinitialized on subsequent runs. Selecting "Initialize On First Call" changes the icon to a "∧" symbol, meaning the node is initialized each time the VI is started.
+There are two initialization options for feedback nodes found in the right-click menu: "Initialize On Compile Or Load" and "Initialize On First Call". Choosing "Initialize On Compile Or Load" changes the feedback node icon to a `❇` symbol, indicating that the node is initialized only once after being loaded into memory or recompiled and not reinitialized on subsequent runs. Selecting "Initialize On First Call" changes the icon to a "∧" symbol, meaning the node is initialized each time the VI is started.
 
 For instance, consider the following program:
 
