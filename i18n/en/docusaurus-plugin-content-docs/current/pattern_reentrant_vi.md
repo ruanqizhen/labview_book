@@ -1,4 +1,4 @@
-### Reentrant VIs and Recursive Algorithms
+# Reentrant VIs and Recursive Algorithms
 
 ## Reentrant VIs
 
