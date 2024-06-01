@@ -1,6 +1,6 @@
-## Application Example
+# Application Example
 
-### Managing Multiple Objects of a Single Class
+## Managing Multiple Objects of a Single Class
 
 This scenario is a quintessential application of object-oriented programming, where programs frequently need to handle multiple objects of the same type. For instance, a test program might involve using several instruments of the same model. Therefore, the instrument model could be defined as a class, with each instrument being an instance of this class. Similarly, since each batch of collected data is of the same type, it could also be modeled as a class, making each data collection an instance; data must be stored in uniformly formatted files, so this file format can be conceptualized as a class, with each file representing an instance.
 
@@ -22,9 +22,6 @@ Conversely, the "Save" method performs the reverse operation of the "Open" metho
 
 ![Data File Class's Save Method](../../../../docs/images/image790.png "Data File Class's Save Method")
 
-
-### Creating a New Data File Object
-
 The "Create" method is designed to initiate a new, empty data file object. To facilitate demonstrations, a "Clear" method was also included in this data file class, enabling the erasure of all data within the class. The design of the class structure is illustrated in the following figure:
 
 ![Data File Class](../../../../docs/images/image791.png "Data File Class")
@@ -32,8 +29,6 @@ The "Create" method is designed to initiate a new, empty data file object. To fa
 The next figure presents a portion of a demonstration program that employs this class. If the application necessitates the use of multiple data files, the program can instantiate an object for each file right at the start. Afterwards, these objects can be manipulated using the class's methods in the same way you would use any standard VI—simply by dragging them onto the block diagram of the program.
 
 ![Using the Class in an Application](../../../../docs/images/image792.png "Using the Class in an Application")
-
-### Another Example: Data Acquisition Card
 
 In one of my demonstration projects, I utilized a data acquisition card produced by a specific company. For programming convenience, I created a set of class-based driver programs for it. The overall structure of this driver program is shown below:
 
@@ -48,7 +43,7 @@ The image below demonstrates an application utilizing this driver program. This 
 ![Using the Object-Oriented Driver Program](../../../../docs/images/image795.png "Using the Object-Oriented Driver Program")
 
 
-### Utilizing the Same Code for Multiple Data Types
+## Utilizing the Same Code for Multiple Data Types
 
 Though the most classic application of object-oriented programming involves managing multiple objects, the examples previously discussed don't absolutely require classes for implementation. Equivalent functionality could be achieved using clusters combined with LabVIEW libraries: clusters to hold the data originally contained within the class, with the class's methods converted into VIs within a library.
 
