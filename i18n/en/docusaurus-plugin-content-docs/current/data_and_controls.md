@@ -2,15 +2,13 @@
 
 ## The Role of Controls and Variables
 
-For those familiar with text-based programming languages, the concept of variables as containers for storing data is fundamental. However, when working with LabVIEW, it's crucial to adjust this understanding.
-
-In LabVIEW, the direct equivalent of a variable in text-based languages doesn't exist. Instead, other elements within LabVIEW serve the purpose of holding and transferring data, akin to the role of variables in text-based languages.
+For those familiar with text-based programming languages, the concept of variables as containers for storing data is fundamental. However, when working with LabVIEW, it's crucial to adjust this understanding. In LabVIEW, the direct equivalent of a variable in text-based languages does not exist. Instead, other elements within LabVIEW serve the purpose of holding and transferring data, akin to the role of variables in text-based languages.
 
 One experienced in text programming might initially perceive LabVIEW controls as variables. This comes from the reasoning that since both variables and controls store data, controls should serve as variables in LabVIEW. This approach, while understandable, doesn't fully embrace LabVIEW's unique dataflow paradigm. Treating controls as traditional variables can lead to inefficient and error-prone code.
 
 The primary role of controls in LabVIEW is to facilitate data input and output. They serve as interactive user interface elements and as means for data exchange in sub VIs, akin to input/output parameters or return values in functions or methods in text-based languages. In sub VIs, controls are similar to the parameters passed to and from functions.
 
-So, what in LabVIEW is most analogous to variables in text-based languages? The answer lies in data wires. Data in LabVIEW flows sequentially from one node to another along these wires. In this sense, a data wire in LabVIEW can be thought of as a transient variable, existing only as long as needed to transfer data between nodes. This concept underscores the fundamental difference in how LabVIEW handles data, emphasizing the flow and transformation of data over time, rather than the static storage commonly associated with variables in traditional programming languages.
+So, what is the LabVIEW equivalent of variables? The answer lies in data wires. Data in LabVIEW flows sequentially from one node to another along these wires. In this sense, a data wire in LabVIEW can be thought of as a transient variable, existing only as long as needed to transfer data between nodes. This concept underscores the fundamental difference in how LabVIEW handles data, emphasizing the flow and transformation of data over time, rather than the static storage commonly associated with variables in traditional programming languages.
 
 
 ## Labels and Captions
