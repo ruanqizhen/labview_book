@@ -24,8 +24,9 @@ const config = {
         docs: {
           sidebarPath: require.resolve('./sidebars.js'),
 		  sidebarCollapsed: false,
-          // Please change this to your repo.
-          editUrl: 'https://github.com/ruanqizhen/labview_book/edit/main/',
+      editUrl: ({ docPath }) => {
+        return `https://holocron.so/github/pr/ruanqizhen/labview_book/main/editor/docs/${docPath}`
+      },
 		  routeBasePath: '/',
 		  path: './docs',
 		  remarkPlugins: [math],
