@@ -56,7 +56,7 @@ If certain modules within the VI are not thread-safe, setting the VI to operate 
 
 ### Other Execution Systems
 
-"Same as Caller" is the default setting, indicating the VI adopts the execution system of the VI that invokes it. If the top-level VI also selects "Same as Caller", it effectively opts for the Standard Execution System. Thus, for top-level main VIs, the Standard Execution System is the default.
+The default setting for execution systems is "Same as Caller" is the default setting, which means a VI inherits the execution system of its invoking VI. When a top-level VI selects  "Same as Caller", it defaults to the Standard Execution System.
 
 The Instrument I/O Execution System is specifically for sending commands to external instruments or reading data from them, critical operations that necessitate prompt execution. Consequently, threads within the Instrument I/O Execution System are prioritized higher than those in other systems.
 
@@ -64,12 +64,14 @@ The Data Acquisition Execution System caters to fast data acquisition, featuring
 
 The Other 1 and Other 2 Execution Systems don't have specific distinctions. They can be used if certain VIs need to run on independent threads.
 
-For most applications, the User Interface Execution System and the Standard Execution System provide ample functionality.
+For most applications, the User Interface Execution System and the Standard Execution System provide sufficient functionality.
 
 
 ### VI Priority Levels
 
-VI priority settings encompass six levels: Background, Standard, Above Standard, High, Real-Time, and Subroutine. These levels are ordered from the lowest to highest priority. A higher priority level means the VI is more likely to preempt CPU resources. For instance, setting a computationally intensive VI to the highest "Real-Time" priority means the CPU will more frequently allocate time slices to this VI's thread at the expense of computational time for other threads. This can lead to interface refreshes becoming sluggish or unresponsive if another thread is responsible for UI updates.
+VI priority settings encompass six levels:  Background, Normal, Above Normal, High, Time Critical, and Subroutine. These levels are ordered from the lowest to highest priority. A higher priority level means the VI is more likely to preempt CPU resources. For instance, setting a computationally intensive VI to the highest "Time Critical" priority means the CPU will more frequently allocate time slices to this VI's thread at the expense of computational time for other threads. This can lead to interface refreshes becoming sluggish or unresponsive if another thread is responsible for UI updates.
+
+![](../../../../docs/images_2/z358.png "VI property's 'Execution' settings page")
 
 The "Subroutine" setting significantly differs from the other priority levels. It's more than just a priority adjustment:
 - VIs set to "Subroutine" lose their front panels, rendering them unsuitable for interface purposes or standalone execution.
