@@ -14,14 +14,14 @@ The following program features two parallel loop structures without data wires c
 
 ![](../../../../docs/images/image699.png "Dual-core CPU computer executing two computation-intensive tasks")
 
-This example showcases the ease of writing multithreaded programs in LabVIEW. Programmers should take full advantage of this feature, especially considering that contemporary computers may have dozens of CPU cores available. The general programming guideline is to arrange modules that can run in parallel side by side without forcing sequential execution through wiring or sequence structures. LabVIEW automatically assigns them to different threads for simultaneous execution, enhancing program speed and reducing runtime.
+This example demonstrates the principle of writing multithreaded programs in LabVIEW: Programmers should maximize multithreading capabilities, given modern computers' numerous CPU cores. A key programming guideline is to arrange parallelizable modules side by side, avoiding sequential execution through wiring or sequence structures. LabVIEW automatically assigns these modules to separate threads for concurrent execution, enhancing program speed and reducing runtime.
 
 However, there are exceptions where multithreading could potentially decrease execution speed. These exceptions will be explored in greater detail in later sections.
 
 
 ### LabVIEW's Execution System
 
-LabVIEW introduced support for multithreading with version 5.0. Prior to this release, all LabVIEW VIs operated on a single thread. Interestingly, for LabVIEW sub VIs or function nodes placed adjacently, they were "executed in parallel" even without being allocated to different threads by LabVIEW. LabVIEW would segment these operations and execute them sequentially, essentially creating its own multithreading scheduling system to perform multiple tasks in parallel within a single operating system thread.
+LabVIEW introduced support for multithreading with version 5.0. Prior to this release, all LabVIEW VIs operated on a single thread. Interestingly, for LabVIEW sub VIs or function nodes placed adjacently, they were "executed in parallel" even without being allocated to different threads by LabVIEW. LabVIEW achieved this by segmenting operations into smaller tasks and executing them alternately, essentially creating its own multithreading scheduling system to perform multiple tasks in parallel within a single operating system thread.
 
 This mechanism for scheduling and running VI code in LabVIEW is referred to as the execution system. In more recent versions, LabVIEW boasts six execution systems: User Interface, Standard, Instrument I/O, Data Acquisition, and two others labeled Other 1 and Other 2. An application's numerous sub VIs can be set to run in these different execution systems. Users can select a VI's execution system via the "Execution" page in the VI properties panel:
 
@@ -32,18 +32,18 @@ This mechanism for scheduling and running VI code in LabVIEW is referred to as t
 
 With the advent of multithreading in LabVIEW, code within different execution systems is designated to run on separate threads. The User Interface Execution System operates on a single thread, serving as the program's main thread. Unlike the User Interface system, other execution systems are not the main thread and can spawn multiple threads to execute code.
 
-Within the VI properties panel's "Execution" page, users can adjust both the VI's execution system and its priority. Priorities range from Background, Standard, Above Standard, High, to Real-Time, each ascending in priority. Additionally, there's a "Subroutine" priority, which is more of a unique setting rather than an actual priority level.
+Within the VI properties panel's "Execution" page, users can adjust both the VI's execution system and its priority. Priorities range from Background, Normal, Above Normal, High, to Time Critical, each ascending in priority. Additionally, there's a "Subroutine" priority, which is more of a unique setting rather than an actual priority level.
 
 On computers with a single-core CPU, LabVIEW can initiate up to four threads for each priority level within each execution system, totaling over a hundred threads. The addition of each CPU core allows LabVIEW to increase this number by another hundred threads or more. However, it's rare for a single program to utilize all available execution systems and priority settings, so the actual number of threads used is typically fewer.
 
-The creation, destruction, and switching of threads also incur certain system resource costs. Excessively many threads and frequent switching between them could inadvertently lower program efficiency. By default, without any modifications to a VI's "Execution" properties, all VIs in a program will use the Standard Execution System and Standard priority. For such programs, LabVIEW will create up to five threads: one for the User Interface and four under the Standard Execution System at Standard priority (doubling for a dual-core, and so on). Operating with five threads per CPU core generally does not significantly impact efficiency.
+The creation, destruction, and switching of threads also incur certain system resource costs. Excessively many threads and frequent switching between them could inadvertently lower program efficiency. By default, without any modifications to a VI's "Execution" properties, all VIs in a program will use the Standard execution system and Normal priority. For such programs, LabVIEW will create up to five threads: one for the User Interface and four under the Standard Execution System at Normal priority (doubling for a dual-core, and so on). 
 
 
 ### The User Interface Execution System
 
-In LabVIEW programs, all interface-related code executes under the User Interface Execution System. If a programmer sets a VI to a different execution system, but its front panel is opened, then operations like data updates on the panel still run under the User Interface Execution System. Additionally, tasks such as dynamically loading a VI into memory with the "Open VI Reference" function or using certain properties and method nodes in VI Scripting also operate under this system.
+In LabVIEW programs, all interface-related code executes under the User Interface Execution System. Even if a VI is set to a different execution system, front panel operations like data updates still run under the User Interface Execution System. Additionally, tasks such as dynamic VI loading via "Open VI Reference" and VI Scripting using properties and method nodes also operate under this system.
 
-It's been highlighted that the User Interface Execution System is unique, possessing only one thread: the User Interface thread. This thread is created the moment LabVIEW launches, whereas threads for other execution systems are only created by LabVIEW when they are needed.
+As previously mentioned, the User Interface Execution System is unique, possessing only one thread: the User Interface thread. This thread is created at the moment that LabVIEW launches, whereas threads for other execution systems are only created by LabVIEW as needed.
 
 Since there's only one thread in the User Interface Execution System, setting a VI to run under this system means it operates in a single-threaded manner. In the diagram below featuring two parallel loops, if it were run under any other execution system, it would fully engage both cores of a dual-core CPU. However, changing the VI's execution system to the User Interface Execution System causes both loops to run on the same thread, leading to 100% utilization of one core while the other remains mostly idle.
 
