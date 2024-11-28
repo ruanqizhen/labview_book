@@ -2,21 +2,21 @@
 
 Passing by value is the preferred method of parameter passing in LabVIEW, as it aligns with the dataflow-driven programming model. However, in certain scenarios, passing by reference is unavoidable, particularly when a program needs to operate on the same data across different threads.
 
-In C++, a reference is represented by a 4-byte (in 32-bit operating systems) or 8-byte (in 64-bit operating systems) piece of data that points to the address of a data block. The actual data is stored in a memory space accessible to multiple resources. In LabVIEW, the approach to passing by reference is more varied.
+In C++, a reference is represented by a 4-byte (in 32-bit operating systems) or 8-byte (in 64-bit operating systems) piece of data that points to the memory address of a data block. The actual data is stored in a memory space accessible to multiple resources. In LabVIEW, the approach to passing by reference is more varied.
 
 ## LabVIEW's Built-In Reference Data Types
 
 In common text programming languages like C and Java, data passed into a sub-function can be specified as pass-by-value or pass-by-reference. LabVIEW, however, operates differently. It does not allow for specifying whether data should be passed by value or reference. Instead, LabVIEW's data types are categorized into those meant for value passing and those designed for reference passing.
 
-Controls located in the "Reference Handle" section of the controls palette are data types meant for passing by reference:
+Controls located in the "Refnum" section of the controls palette are data types meant for passing by reference:
 
-![](../../../../docs/images/image317.png "Reference Handle Controls Palette")
+![](../../../../docs/images/image317.png "Refnum Controls Palette")
 
 In block diagrams, these reference data types are represented by dark green thin wires. For example, the semaphore reference we discussed in the [Global Variables](pattern_global_data#using-semaphores-to-avoid-race-conditions) section is a typical reference data type. In the program shown below, the green thin wires interconnecting the subVIs are transmitting the semaphore reference:
 
 ![](../../../../docs/images_2/z264.png "Using Semaphore")
 
-Apart from the "Reference Handle" controls on the palette, LabVIEW also has other data types that, despite having different wire colors, function as reference data types. These include hardware device handles (such as VISA resource names, IVI logical names), notifications, events, queues, among others.
+Apart from the "Refnum" controls on the palette, LabVIEW also has other data types that, despite having different wire colors, function as reference data types. These include hardware device handles (such as VISA resource names, IVI logical names), notifications, events, queues, among others.
 
 In LabVIEW, there are numerous reference data types that aren't listed on the control palette. For instance, as discussed in the [Event Structure](pattern_ui#dynamic-events-1) section, methods for creating references for objects like panes and Boolean controls don't have their reference controls readily accessible on the controls palette. Instead, obtaining these types of reference controls requires an indirect approach: first, create a reference for a specific object, then generate a control from the reference's terminal. Here's an example of such reference controls:
 
@@ -43,7 +43,7 @@ Therefore, data wires are often crucial. Even when passing by reference, it's pr
 
 We previously introduced queues as data structures in the [State Machine](pattern_state_machine#multi-state-transitions) section. A queue is a structure capable of storing multiple elements of the same type. Its behavior is similar to a line for buying tickets: data enters the queue as customers join a line, with those joining first being served and leaving first. In a queue, data adheres to the First In, First Out (FIFO) principle, meaning each time data is extracted, it's always the element that was added earliest.
 
-In LabVIEW, a Queue is a unique data structure. While most structures like Arrays, Maps, Sets, etc., use value passing, queues are passed by reference. This distinction arises from the early days of LabVIEW, when its applications were more limited, often for creating basic testing programs. LabVIEW primarily managed straightforward data types, such as hardware test results, without the need for complex structures for representation. However, due to LabVIEW's automatic multi-threading, users could unintentionally create multi-threaded programs, necessitating an efficient method for data transfer between threads. This led to the adoption of queues, designed as reference types to facilitate data sharing across threads.
+In LabVIEW, a Queue is a unique data structure. While most structures like Arrays, Maps and Sets are passed by value, queues are passed by reference. This distinction arises from the early days of LabVIEW, when its applications were more limited, often for creating basic testing programs. LabVIEW primarily managed straightforward data types, such as hardware test results, without the need for complex structures for representation. However, due to LabVIEW's automatic multi-threading, users could unintentionally create multi-threaded programs, necessitating an efficient method for data transfer between threads. This led to the adoption of queues, designed as reference types to facilitate data sharing across threads.
 
 To this day, functions related to queues are located under "Programming -> Synchronization" on the function palette, not grouped with other data structures under "Data Containers".
 
@@ -130,29 +130,29 @@ In the example shown next, both the "Set Name.vi" and "Set Number.vi" sub-VIs us
 When employing reference passing, it's essential to manage memory appropriately. For instance, in our example, the queue was created specifically for reference passing. This queue should be properly disposed of before the program's conclusion to prevent potential memory leaks.
 
 
-### Data Log File Reference Handle
+### Data Log File Refnum
 
 Using queues is a highly efficient way to pass data by reference and offers good readability. However, it is an unconventional solution. Queue controls and data lines are always seen as "queues", which may be confusing for programmers unfamiliar with this use case. Using LabVIEW's standard deep green thin lines for reference passing can improve the program's readability.
 
-The "Data Log File Reference Handle" from the Reference Handles control palette is often used to represent user-defined reference data types. When a new "Data Log File Reference Handle" control is placed on a VI's front panel, it appears as an empty rectangular box. Placing different types of controls inside this box transforms it into a special reference data type.
+The "Data Log File Refnum" from the Refnum control palette is often used to represent user-defined reference data types. When a new "Data Log File Refnum" control is placed on a VI's front panel, it appears as an empty rectangular box. Placing different types of controls inside this box transforms it into a special reference data type.
 
-For custom reference data types, an enumeration control is usually placed within the frame of the "Data Log File Reference Handle" control:
+For custom reference data types, an enumeration control is usually placed within the frame of the "Data Log File Refnum" control:
 
-![](../../../../docs/images/image322.png "Dragging an Enumeration Control into the Data Log File Reference Handle Control Frame")
+![](../../../../docs/images/image322.png "Dragging an Enumeration Control into the Data Log File Refnum Control Frame")
 
 This combination creates a new reference data type control:
 
 ![](../../../../docs/images/image323.png "Creating a New Reference Type Control")
 
-The enumeration typically contains a single item for displaying relevant hint text. Enumeration is chosen because it can display hint text, and LabVIEW treats enumerations with different item texts as distinct data types. Different enumerations inside the Data Log File Reference Handle control frame signify different reference data types. Defining each unique user-defined reference as a specific type enhances program safety. For example, reference data of different types cannot be assigned or compared to each other:
+The enumeration typically contains a single item for displaying relevant hint text. Enumeration is chosen because it can display hint text, and LabVIEW treats enumerations with different item texts as distinct data types. Different enumerations inside the Data Log File Refnum control frame signify different reference data types. Defining each unique user-defined reference as a specific type enhances program safety. For example, reference data of different types cannot be assigned or compared to each other:
 
 ![](../../../../docs/images/image324.png "Different Types of Reference Data Cannot Be Assigned or Compared")
 
 Imagine a scenario in an application where two string arrays are used to store the names of experimenters and instrument equipment numbers, respectively. The application requires accessing these data sets by reference. In this scenario, they represent two completely different sets of data, each managed by its own set of VIs. It's essential to prevent the cross-use of VIs and data. If the same reference data type is used for both sets, passing the names to a VI intended for equipment numbers wouldn't immediately flag an error, allowing the program to run, albeit with potential runtime issues. Using distinct reference data types for each set would instantly highlight an error if names were passed to the equipment number VI, as the data wire would break and prevent the program from running.
 
-When using a custom Data Log File Reference Handle to signify reference data types, as opposed to queues, there's an additional step: the queue created for the referenced data needs to be converted into the custom reference handle data type using a type casting function before being passed out of the sub-VI. In the application, sub-VIs then pass data using the deep green lines of the reference handle. When receiving this reference, the sub-VI must convert it back to a queue for use:
+When using a custom Data Log File Refnum to signify reference data types, as opposed to queues, there's an additional step: the queue created for the referenced data needs to be converted into the custom Refnum data type using a type casting function before being passed out of the sub-VI. In the application, sub-VIs then pass data using the deep green lines of the Refnum. When receiving this reference, the sub-VI must convert it back to a queue for use:
 
-![](../../../../docs/images/image325.png "Using Custom Data Log File Reference Handles to Represent Reference Data Types")
+![](../../../../docs/images/image325.png "Using Custom Data Log File Refnums to Represent Reference Data Types")
 
 
 ## How Semaphores are Implemented in LabVIEW
@@ -163,7 +163,7 @@ First, let's look at the VI for creating a semaphore, "Obtain Semaphore Referenc
 
 ![](../../../../docs/images_2/z270.png "Obtain Semaphore Reference.vi")
 
-This program's main structure should be somewhat familiar. Its core part involves creating a queue, adding an element to it, and then converting the queue's reference into a custom Data Log File Reference Handle to serve as the semaphore reference handle. This is a classic use of queues for passing data by reference, as discussed earlier. In this program, the length of the queue is not fixed to 1 but is specified by the user. This is because some resources protected by semaphores allow multiple concurrent accesses. For instance, an instrument with two independent data acquisition channels might allow simultaneous access from two threads. In such scenarios, the semaphore count (or the queue length) should be set to 2.
+This program's main structure should be somewhat familiar. Its core part involves creating a queue, adding an element to it, and then converting the queue's reference into a custom Data Log File Refnum to serve as the semaphore Refnum. This is a classic use of queues for passing data by reference, as discussed earlier. In this program, the length of the queue is not fixed to 1 but is specified by the user. This is because some resources protected by semaphores allow multiple concurrent accesses. For instance, an instrument with two independent data acquisition channels might allow simultaneous access from two threads. In such scenarios, the semaphore count (or the queue length) should be set to 2.
 
 Next, let's look at the VI for locking a semaphore, "Acquire Semaphore.vi":
 
@@ -213,7 +213,7 @@ int stdcall GetBufferData (   // Retrieve data content from its memory address
 
 In LabVIEW, when you need to create a reference for a particular set of data, you can use the function above to store the data in a memory space allocated by C. LabVIEW code then only transmits the memory address. When the data is needed later in the program, it can be accessed using this address value.
 
-Whether using a U32 numeric value or a queue to represent a reference, both can pose security issues for the data. Therefore, in the program, you could convert the memory address into a custom reference handle, using this to represent the data reference:
+Whether using a U32 numeric value or a queue to represent a reference, both can pose security issues for the data. Therefore, in the program, you could convert the memory address into a custom Refnum, using this to represent the data reference:
 
 ![](../../../../docs/images/image326.png "Using Data Reference Created Using C Language")
 
@@ -226,7 +226,7 @@ LabVIEW introduced nodes for passing data by reference in its 2009 version. The 
 
 ![](../../../../docs/images/image327.png "Memory Control Function Palette")
 
-The "New Data Value Reference" node is designed to create a reference for a specific piece of data. Conversely, the "Delete Data Value Reference" node is used to retrieve the original data from its reference. These functions serve as alternatives to the data reference methods that use queues and custom data record file reference handles, which were discussed earlier. 
+The "New Data Value Reference" node is designed to create a reference for a specific piece of data. Conversely, the "Delete Data Value Reference" node is used to retrieve the original data from its reference. These functions serve as alternatives to the data reference methods that use queues and custom data record file Refnums, which were discussed earlier. 
 
 Consider the following example: a program inputs an array, then needs to modify the data within this array in two parallel sub-VIs. Each sub-VI might change different elements of the array. The output array is expected to reflect changes made by both sub-VIs. To achieve this, the program initially generates a reference for the array data, which is then distributed to the two sub-VIs. Once both sub-VIs complete their processes, the program retrieves the modified data from the reference.
 
