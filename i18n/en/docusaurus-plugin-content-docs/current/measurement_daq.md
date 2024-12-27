@@ -136,7 +136,7 @@ The programs discussed previously have the delay function and other code operati
 
 Serial configuration significantly impacts the accuracy of the "Wait" function. For instance, the left-hand program now requires a total of 2n+100 per loop iteration. The variable n, influenced by the computer's performance and CPU load, introduces substantial timing variability.
 
-Conversely, the "Wait Until Next ms Multiple" function's operational effectiveness remains unchanged in both parallel and serial configurations (when 2n<100), as it focuses solely on maintaining consistent wake-up intervals.
+Conversely, the "Wait Until Next ms Multiple" function's operational effectiveness remains unchanged in both parallel and serial configurations (when `2n<100`), as it focuses solely on maintaining consistent wake-up intervals.
 
 ### Utilizing Event Structures
 

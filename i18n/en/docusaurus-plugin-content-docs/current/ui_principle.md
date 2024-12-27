@@ -73,7 +73,7 @@ Below is an example from LabVIEW's built-in examples. Despite its design utilizi
 
 A key to maintaining interface consistency is the observance of specific design standards during development. These standards detail the program interface's aspects, such as uniform color for all dialog boxes, consistent button sizes, and standard font size for all text.
 
-Standards can be defined internally by an organization or adhere to established industry norms. For programs designed in the style of the Windows operating system, Microsoft's interface standards offer a guideline. Microsoft hosts a comprehensive introduction to Windows program interface standards on its <http://www.msdn.com> website. For LabVIEW programs, the LabVIEW Program Development Standards provide a framework. The "LabVIEW Development Guidelines: LabVIEW Style Guide (Chapter 6)" document, available on <http://zone.ni.com/devzone/cda/tut/p/id/4434>, outlines specifics like panel colors, font sizes, and control arrangement guidelines for LabVIEW applications.
+Standards can be defined internally by an organization or adhere to established industry norms. For programs designed in the style of the Windows operating system, Microsoft's interface standards offer a guideline. Microsoft hosts a comprehensive introduction to Windows program interface standards on its http://www.msdn.com website. For LabVIEW programs, the LabVIEW Program Development Standards provide a framework. The "LabVIEW Development Guidelines: LabVIEW Style Guide (Chapter 6)" document, available on http://zone.ni.com/devzone/cda/tut/p/id/4434, outlines specifics like panel colors, font sizes, and control arrangement guidelines for LabVIEW applications.
 
 
 ## Association of Interface Elements

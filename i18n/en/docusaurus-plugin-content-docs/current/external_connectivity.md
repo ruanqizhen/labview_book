@@ -4,7 +4,7 @@ LabVIEW can also connect to or integrate a wide variety of external programs and
 
 ## Python
 
-For those interested in learning the Python programming language, this webpage comes highly recommended: <https://py.qizhen.xyz>.
+For those interested in learning the Python programming language, this webpage comes highly recommended: https://py.qizhen.xyz.
 
 ### Installing Python
 

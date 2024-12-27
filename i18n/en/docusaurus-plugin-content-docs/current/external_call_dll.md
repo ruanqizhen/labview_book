@@ -189,11 +189,11 @@ The following table outlines the correspondence between some common structured d
 
 | C | LabVIEW |
 | ----------- | ----- |
-| <pre>#pragma pack (1) <br />typedef struct {char a; int b} MyStct; <br />MyStct* testStruct;</pre> | ![](../../../../docs/images/image355.jpeg) | 
-| <pre>#pragma pack (2) <br />typedef struct {char a; int b} MyStct; <br />MyStct* testStruct;</pre> | ![](../../../../docs/images/image356.jpeg) | 
-| <pre>#pragma pack (4) <br />typedef struct {char a; int b} MyStct; <br />MyStct* testStruct;</pre> | ![](../../../../docs/images/image357.jpeg) | 
-| <pre>#pragma pack (1) <br />typedef struct {char a; char\* str; int b} MyStct <br />MyStct* testStruct;</pre> | ![](../../../../docs/images/image358.jpeg) | 
-| <pre>#pragma pack (1) <br />typedef struct {char a; char str [5]; int b} MyStct; <br />MyStct* testStruct;</pre> | ![](../../../../docs/images/image359.jpeg) | 
+| `<pre>#pragma pack (1) <br />typedef struct {char a; int b} MyStct; <br />MyStct* testStruct;</pre>` | ![](../../../../docs/images/image355.jpeg) | 
+| `<pre>#pragma pack (2) <br />typedef struct {char a; int b} MyStct; <br />MyStct* testStruct;</pre>` | ![](../../../../docs/images/image356.jpeg) | 
+| `<pre>#pragma pack (4) <br />typedef struct {char a; int b} MyStct; <br />MyStct* testStruct;</pre>` | ![](../../../../docs/images/image357.jpeg) | 
+| `<pre>#pragma pack (1) <br />typedef struct {char a; char\* str; int b} MyStct <br />MyStct* testStruct;</pre>` | ![](../../../../docs/images/image358.jpeg) | 
+| `<pre>#pragma pack (1) <br />typedef struct {char a; char str [5]; int b} MyStct; <br />MyStct* testStruct;</pre>` | ![](../../../../docs/images/image359.jpeg) | 
 
 In the table's fourth example, the structure includes a pointer. When corresponding with such structures, a cluster in LabVIEW can only represent the pointer's address with a U32 numeric value (on 32-bit systems; U64 on 64-bit systems), and it cannot incorporate the content pointed to by the pointer. Subsequent discussions will delve into extracting data from this address.
 

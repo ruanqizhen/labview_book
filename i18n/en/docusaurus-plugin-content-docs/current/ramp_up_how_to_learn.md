@@ -85,11 +85,11 @@ The NI Example Finder offers two primary search methods. On the "Browse" tab, yo
 
 By default, the NI Example Finder only shows examples included with LabVIEW. However, if your computer is connected to the Internet, check the "Include ni.com examples" option at the bottom left of the dialog box. This enables the finder to also search for examples available on the NI website.
 
-Many examples on the NI website are user-contributed. You can contribute your VIs for community reference. User-submitted VIs are collated on the "NI Developer Community" page (URL: <https://forums.ni.com/>).Directly browsing this page in a web browser reveals the latest and most popular examples, along with community feedback:
+Many examples on the NI website are user-contributed. You can contribute your VIs for community reference. User-submitted VIs are collated on the "NI Developer Community" page (URL: https://forums.ni.com/).Directly browsing this page in a web browser reveals the latest and most popular examples, along with community feedback:
 
 ![](../../../../docs/images/image27.png "NI Developer Community")
 
-The VIs on the LabVIEW function palette and many in the vi.lib folder have publicly accessible block diagrams. Users can open these diagrams for in-depth study, making them excellent learning resources. Additionally, the VIs used to illustrate concepts in this book serve as helpful examples. They are available at <https://github.com/ruanqizhen/labview_book/tree/main/code>.
+The VIs on the LabVIEW function palette and many in the vi.lib folder have publicly accessible block diagrams. Users can open these diagrams for in-depth study, making them excellent learning resources. Additionally, the VIs used to illustrate concepts in this book serve as helpful examples. They are available at https://github.com/ruanqizhen/labview_book/tree/main/code.
 
 ## Seeking Help
 
@@ -99,7 +99,7 @@ Several online platforms can be helpful:
 
 - **Search Engines:**Use search engines like Google to look for answers to your questions. Typing in specific keywords related to your query can yield useful results.
 - **[NI Offical Forum](https://forums.ni.com/):** This active forum is regularly visited by NI technical support and development engineers, who often respond to various queries. It features dedicated areas for discussions in localized languages. However, if you're proficient in English, consider posting in the English discussion area. This section tends to be more active, potentially leading to faster and more diverse responses.
-- **[LAVA](http://forums.lavag.org>):** This is the largest independent LabVIEW community and an excellent resource for support and discussion. LAVA offers a platform for free discussion, but it is primarily English-speaking.
+- **[LAVA](https://lavag.org/):** This is the largest independent LabVIEW community and an excellent resource for support and discussion. LAVA offers a platform for free discussion, but it is primarily English-speaking.
 - **Social Media Groups:** Various Facebook groups and Google Groups dedicated to LabVIEW discussions exist. If you use these platforms, searching for relevant group names or keywords can lead you to these communities.
 - **Large Language Models:** We are in an era of technological evolution where large language models could potentially replace traditional search engines as a primary resource for learning materials. These models can already answer many simple questions. However, as of 2023, their effectiveness in addressing LabVIEW-specific queries is limited. This limitation may stem from LabVIEW's niche status, leading to a scarcity of learning materials for these models compared to more widespread languages like Python and Java. Furthermore, large language models currently struggle to effectively generate LabVIEW block diagrams, an advantage held by text-based programming languages.
 

@@ -2,15 +2,17 @@ import React from 'react';
 import DocPaginator from '@theme-original/DocPaginator';
 import Giscus from '@giscus/react';
 import { useLocation } from 'react-router-dom';
-import {useColorMode} from '@docusaurus/theme-common';
+import ExecutionEnvironment from '@docusaurus/ExecutionEnvironment';
 
 export default function DocPaginatorWrapper(props) {
-  const {colorMode} = useColorMode();
-  const location = useLocation();
-  const giscus_term = location.pathname.split('/').pop();
+  let location = useLocation();
+  let giscus_term = location.pathname.split('/').pop();
   if (giscus_term == '') giscus_term = 'index';
-  const theme = colorMode === 'dark' ? 'dark' : 'light';
-
+  let theme = 'light';
+  if (ExecutionEnvironment.canUseDOM) {
+    theme = document.documentElement.getAttribute('data-theme');
+    if (theme !== "dark") theme = 'light';
+  }
   return (
     <>
       <DocPaginator {...props} />

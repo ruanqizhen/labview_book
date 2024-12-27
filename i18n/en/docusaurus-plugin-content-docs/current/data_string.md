@@ -165,7 +165,7 @@ The table below lists the commonly used characters and usage in regular expressi
 | `?` | Matches the previous subexpression zero or one time. E.g., `fo?` can match "f" or "fo". Equivalent to `{0,1}`. |
 | `{n}` | n is a non-negative integer. Matches exactly n times. Only in "Match Regular Expression" function. E.g., `fo{2}` matches "foo" but not "f" or "fo". |
 | `{n,}` | n is a non-negative integer. Matches at least n times. Only in "Match Regular Expression" function. E.g., `fo{2,}` matches "foo" or "fooooooo". `o{1,}` is equivalent to `o+`; `o{0,}` is equivalent to `o*`. |
-| `{n,m}` | m and n are non-negative integers, n<=m. Matches at least n and at most m times. Only in "Match Regular Expression" function. E.g., `fo{1,3}` can match "fo" or "foo" or "fooo". `o{0,1}` is equivalent to `o?".` |
+| `{n,m}` | m and n are non-negative integers, `n<=m`. Matches at least n and at most m times. Only in "Match Regular Expression" function. E.g., `fo{1,3}` can match "fo" or "foo" or "fooo". `o{0,1}` is equivalent to `o?".` |
 | `?` (following limiters) | When `?` follows limiters (`*`, `+`, `{}`), the match is non-greedy. E.g., for "oooo", `o+?` matches one "o", while `o+` matches all "o". |
 | `.` | Matches any single character except newline. To include newline, use <kbd>(.&#124;\n)</kbd>. |
 | <kbd>x&#124;y</kbd> | Matches either x or y. Only in "Match Regular Expression" function. E.g., <kbd>a&#124;view</kbd> matches "a" or "view"; <kbd>(a&#124;v)iew</kbd> matches "aiew" or "view", equivalent to `[av]iew`. |
