@@ -9,6 +9,7 @@ export default function DocPaginatorWrapper(props) {
   const location = useLocation();
   const giscus_term = location.pathname.split('/').pop();
   if (giscus_term == '') giscus_term = 'index';
+  const theme = colorMode === 'dark' ? 'dark' : 'light';
 
   return (
     <>
@@ -24,7 +25,7 @@ export default function DocPaginatorWrapper(props) {
         reactionsEnabled='1'
         emitMetadata='1'
         inputPosition='top'
-        theme={colorMode}
+        theme={theme}
         lang='en'
         loading="lazy"
       />
