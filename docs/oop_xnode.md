@@ -43,7 +43,7 @@ XNodeDebugWindow=True
 SuperSecretPrivateSpecialStuff=True
 ```
 
-在 Linux 系统下，LabVIEW 的配置文件的路径是：“/home/<username\>/natinst/.config/LabVIEW-x/labview.conf”。
+在 Linux 系统下，LabVIEW 的配置文件的路径是： `/home/<username>/natinst/.config/LabVIEW-x/labview.conf`。
 
 其中的 XNodeDevelopment_LabVIEWInternalTag=True 设置可以让 LabVIEW 的新建功能增加 XNode 选项。
 

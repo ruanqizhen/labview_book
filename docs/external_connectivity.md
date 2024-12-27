@@ -4,7 +4,7 @@ LabVIEW 还可以连接或调用多种其它的外部程序与组件，而且相
 
 ## Python
 
-如果需要学习 Python 编程语言，推荐这个网页：<https://py.qizhen.xyz>。
+如果需要学习 Python 编程语言，推荐这个网页：https://py.qizhen.xyz。
 
 ### 安装 Python
 

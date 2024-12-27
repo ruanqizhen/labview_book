@@ -70,7 +70,7 @@ LabVIEW 默认的颜色配置和控件风格，与系统的风格还是有区别
 
 使界面保持一致性的前提是：在设计开发时必须遵循一定的规范。规范定义了程序界面的细节。比如：所有对话框都是相同的颜色、所有的按钮都是固定大小、所有文字都是一致的字体字号，等等。
 
-这个规范可以由公司内部定义，也可以遵循现有的行业规范。凡是开发 Windows 系统风格的程序，可以遵循微软定义的界面规范。微软在 <http://www.msdn.com> 网站上登载有关于 Windows 程序界面规范的介绍。对于一般的 LabVIEW 程序，可以遵循 LabVIEW 程序开发规范。网页 <http://zone.ni.com/devzone/cda/tut/p/id/4434> 上刊登有一篇文档："LabVIEW Development Guidelines: LabVIEW Style Guide (Chapter 6)"。这篇文档规定了 LabVIEW 程序的面板颜色、文字的字体大小、如何排列控件等等细节。
+这个规范可以由公司内部定义，也可以遵循现有的行业规范。凡是开发 Windows 系统风格的程序，可以遵循微软定义的界面规范。微软在 http://www.msdn.com 网站上登载有关于 Windows 程序界面规范的介绍。对于一般的 LabVIEW 程序，可以遵循 LabVIEW 程序开发规范。网页 http://zone.ni.com/devzone/cda/tut/p/id/4434 上刊登有一篇文档："LabVIEW Development Guidelines: LabVIEW Style Guide (Chapter 6)"。这篇文档规定了 LabVIEW 程序的面板颜色、文字的字体大小、如何排列控件等等细节。
 
 ## 界面元素的关联
 

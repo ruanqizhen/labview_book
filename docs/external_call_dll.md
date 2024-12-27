@@ -191,11 +191,11 @@ C 语言的结构中如果还嵌套了数组，是不能直接对应于 LabVIEW 
 
 | C | LabVIEW |
 | ----------- | ----- |
-| <pre>#pragma pack (1) <br />typedef struct {char a; int b} MyStct; <br />MyStct* testStruct;</pre> | ![](images/image355.jpeg) | 
-| <pre>#pragma pack (2) <br />typedef struct {char a; int b} MyStct; <br />MyStct* testStruct;</pre> | ![](images/image356.jpeg) | 
-| <pre>#pragma pack (4) <br />typedef struct {char a; int b} MyStct; <br />MyStct* testStruct;</pre> | ![](images/image357.jpeg) | 
-| <pre>#pragma pack (1) <br />typedef struct {char a; char\* str; int b} MyStct <br />MyStct* testStruct;</pre> | ![](images/image358.jpeg) | 
-| <pre>#pragma pack (1) <br />typedef struct {char a; char str [5]; int b} MyStct; <br />MyStct* testStruct;</pre> | ![](images/image359.jpeg) | 
+| `<pre>#pragma pack (1) <br />typedef struct {char a; int b} MyStct; <br />MyStct* testStruct;</pre>` | ![](images/image355.jpeg) | 
+| `<pre>#pragma pack (2) <br />typedef struct {char a; int b} MyStct; <br />MyStct* testStruct;</pre>` | ![](images/image356.jpeg) | 
+| `<pre>#pragma pack (4) <br />typedef struct {char a; int b} MyStct; <br />MyStct* testStruct;</pre>` | ![](images/image357.jpeg) | 
+| `<pre>#pragma pack (1) <br />typedef struct {char a; char\* str; int b} MyStct <br />MyStct* testStruct;</pre>` | ![](images/image358.jpeg) | 
+| `<pre>#pragma pack (1) <br />typedef struct {char a; char str [5]; int b} MyStct; <br />MyStct* testStruct;</pre>` | ![](images/image359.jpeg) | 
 
 
 上表中的第四个例子，结构中含有一个指针。与这种结构相对应时，LabVIEW 中的簇中只能用一个 U32 数值（32 位系统上；64 位系统上则使用 U64）来表示指针的地址，不能把指针指向的内容放到簇中去。下文将会继续讨论如何从这个地址中把数据取出来。
@@ -207,7 +207,7 @@ C 语言的结构中如果还嵌套了数组，是不能直接对应于 LabVIEW 
 |  |  |  |
 | ---- | ----------- | ----------- |
 | 输入 / 输出 | 输入 | 输出或兼作输入输出 |
-| C 语言声明 | <pre>typedef struct {int left; int top;} Position;<br />long TestStructure (Position inPos);</pre> | <pre>typedef struct {int left; int top;} Position;<br />long TestStructure (Position *pos);</pre> |
+| C 语言声明 | `<pre>typedef struct {int left; int top;} Position;<br />long TestStructure (Position inPos);</pre>` | `<pre>typedef struct {int left; int top;} Position;<br />long TestStructure (Position *pos);</pre>` |
 | LabVIEW 中的配置 | ![](images/image360.png) | ![](images/image361.png) |
 | LabVIEW 的使用 | ![](images/image362.png) | ![](images/image363.png) |
 
