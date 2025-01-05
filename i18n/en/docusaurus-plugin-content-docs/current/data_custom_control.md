@@ -32,7 +32,7 @@ For instance, consider a program designed to simulate an oscilloscope with three
 
 ### Radio Button Control
 
-LabVIEW's radio button control (Radio Buttons) is another control type that utilizes the Enum data type, yet it differs in appearance from the dropdown-style Enum control. Radio buttons are essentially a collection of boolean controls, where the appearance and the number of options can be adjusted as required. Within such a set, only one control can have a true value at any given time. The value of the entire radio button set corresponds to the position of the boolean control that is set to true. Here are some examples of radio button controls with varying appearances:
+LabVIEW's radio button control (Radio Buttons) is another control type that utilizes the Enum data type, yet it differs in appearance from the dropdown-style Enum control. Radio button controls behave similarly to a set of boolean controls, but they are a unique control type within LabVIEW, allowing only one button in the set to be selected at any given time. The value of the entire radio button set corresponds to the position of the boolean control that is set to true. The appearance and the number of options of a radio button can be adjusted as required. Here are some examples of radio button controls with varying appearances:
 
 ![Radio Button Controls](../../../../docs/images/image88.png "Radio Button Control") ![Radio Button Controls](../../../../docs/images/image89.png "Radio Button Control")![Radio Button Controls](../../../../docs/images/image90.png "Radio Button Control")![Radio Button Controls](../../../../docs/images/image91.png "Radio Button Control")
 
@@ -64,22 +64,22 @@ With this, our basic demonstration program is complete. However, let's consider 
 
 It's important to note that after altering the Enum control in the main VI, an issue arises - the main VI becomes inoperable due to an error. This complication arises because the corresponding Enum control in the sub VI remains unaltered. Consequently, the two Enum controls in the main and sub VIs now represent different data types, preventing effective data communication between them. To resolve this, one can modify the Enum control in the sub VI to match the changes made in the main VI. In our example, with only two VIs, this adjustment is fairly manageable. However, in a larger-scale project, where the same Enum control is utilized across numerous sub VIs, individually updating each control could become a laborious task.
 
-Is there a more efficient solution for synchronizing the same data type controls across multiple VIs? Indeed, there is: by employing LabVIEW's user-defined controls. 
+Is there a more efficient solution for synchronizing the same data type controls across multiple VIs? Indeed, there is: by employing LabVIEW's custom controls. 
 
 
 ## Custom Control
 
-In various projects, you might come across files with a .ctl suffix. These are known as user-defined controls in LabVIEW. When you open a user-defined control, you're presented with three distinct definition forms: Control, Type Definition (Type Def.), and Strict Type Definition (Strict Type Def.):
+In various projects, you might come across files with a .ctl suffix. These are known as custom controls in LabVIEW. When you open a custom control, you're presented with three distinct definition forms: Control, Type Definition (Type Def.), and Strict Type Definition (Strict Type Def.):
 
-![Selecting User-Defined Control Form](../../../../docs/images/image620.png "Choosing the Definition Form for a Custom Control")
+![Selecting custom Control Form](../../../../docs/images/image620.png "Choosing the Definition Form for a Custom Control")
 
 The "Control" form is typically used for customizing the appearance of a control. In contrast, "Type Definition" and "Strict Type Definition" primarily focus on defining the control's data type. Let's delve into their individual uses:
 
 ### Creating a Custom Control
 
-LabVIEW offers an extensive array of standard controls, but there are times when these might not meet the specific needs of certain applications. This is where the need for developing user-defined controls with unique appearances arises. The challenge in crafting such controls often lies more in the realm of creativity and artistic design than in programming. To embark on this process, start by gathering the essential elements, such as visually appealing images. These images are then used to replace the default imagery of LabVIEW controls, allowing for a customized, aesthetically enhanced user interface.
+LabVIEW offers an extensive array of standard controls, but there are times when these might not meet the specific needs of certain applications. This is where the need for developing custom controls with unique appearances arises. The challenge in crafting such controls often lies more in the realm of creativity and artistic design than in programming. To embark on this process, start by gathering the essential elements, such as visually appealing images. These images are then used to replace the default imagery of LabVIEW controls, allowing for a customized, aesthetically enhanced user interface.
 
-User-defined controls in LabVIEW are primarily designed to modify the appearance of an existing control without changing its underlying behavior. Essentially, these controls are adaptations of existing LabVIEW controls, tailored to meet specific aesthetic requirements. However, if your objective is to create an entirely new control with functionalities distinct from those available in LabVIEW, you should consider employing the [XControl](ui_xcontrol) technology. The intricacies of XControl will be explored in greater detail in subsequent chapters of this book.
+custom controls in LabVIEW are primarily designed to modify the appearance of an existing control without changing its underlying behavior. Essentially, these controls are adaptations of existing LabVIEW controls, tailored to meet specific aesthetic requirements. However, if your objective is to create an entirely new control with functionalities distinct from those available in LabVIEW, you should consider employing the [XControl](ui_xcontrol) technology. The intricacies of XControl will be explored in greater detail in subsequent chapters of this book.
 
 Take, for example, the creation of a "Back Button" – a button symbolized by a left arrow ( ![Left Arrow Button](../../../../docs/images/image623.png)). This can be achieved by using an existing LabVIEW button as the base and customizing it to fit the desired appearance.
 
@@ -148,11 +148,11 @@ It's important to note that GIFs are typically suited for simpler animation task
 
 ### Type Definition
 
-To elucidate the various forms of user-defined controls in LabVIEW, it's essential to understand a key concept: Controls defined in .ctl files are referred to as “user-defined controls,” whereas controls created by dragging or opening a .ctl file onto the front panel of a VI are known as “instance controls.” User-defined controls come in three different forms: "Control", "Type Definition" (Type Def.), and "Strict Type Definition" (Strict Type Def.).
+To elucidate the various forms of custom controls in LabVIEW, it's essential to understand a key concept: Controls defined in .ctl files are referred to as “custom controls,” whereas controls created by dragging or opening a .ctl file onto the front panel of a VI are known as “instance controls.” custom controls come in three different forms: "Control", "Type Definition" (Type Def.), and "Strict Type Definition" (Strict Type Def.).
 
-Controls that merely alter appearance and are saved in the "Control" definition form are considered unassociated user-defined controls. In other words, there is no linkage between the user-defined control and its instances. For instance, creating a visually appealing button control and saving it in a .ctl file allows you to generate its instances on the front panel of a VI by simply dragging or opening the .ctl file. Once an instance is created, it becomes independent of the original user-defined control. Any modifications made to the instance on the VI's front panel or to the user-defined control within the .ctl file will have no impact on one another.
+Controls that merely alter appearance and are saved in the "Control" definition form are considered unassociated custom controls. In other words, there is no linkage between the custom control and its instances. For instance, creating a visually appealing button control and saving it in a .ctl file allows you to generate its instances on the front panel of a VI by simply dragging or opening the .ctl file. Once an instance is created, it becomes independent of the original custom control. Any modifications made to the instance on the VI's front panel or to the custom control within the .ctl file will have no impact on one another.
 
-In contrast, when a control is set as a Type Definition, the data type of its instances becomes inherently linked to the user-defined control. Should the data type within the Type Definition undergo a change, all corresponding instances across VIs will automatically update in sync. For example, if a control within a Type Definition is altered from an I32 numeric control to a boolean control, every instance of this Type Definition in various VIs will seamlessly transition to boolean controls:
+In contrast, when a control is set as a Type Definition, the data type of its instances becomes inherently linked to the custom control. Should the data type within the Type Definition undergo a change, all corresponding instances across VIs will automatically update in sync. For example, if a control within a Type Definition is altered from an I32 numeric control to a boolean control, every instance of this Type Definition in various VIs will seamlessly transition to boolean controls:
 
 ![Type Definition](../../../../docs/images_2/z220.gif "Type Definition")
 
@@ -160,7 +160,7 @@ It's crucial to note that instances will only auto-update when there's a change 
 
 ### Strict Type Definition
 
-Strict Type Definitions in LabVIEW function similarly to regular Type Definitions, but with a critical distinction: when employing strict Type Definitions, the data type, appearance, and most attributes of instance controls are bound to remain in sync with the user-defined control. This alignment extends to various aspects of the control, with the exception of certain specific properties like value, default value, label, and documentation, which can retain individual settings for each instance control.
+Strict Type Definitions in LabVIEW function similarly to regular Type Definitions, but with a critical distinction: when employing strict Type Definitions, the data type, appearance, and most attributes of instance controls are bound to remain in sync with the custom control. This alignment extends to various aspects of the control, with the exception of certain specific properties like value, default value, label, and documentation, which can retain individual settings for each instance control.
 
 For complex data types such as clusters, dropdown lists, enumerations, etc., it is highly recommended to utilize strict Type Definitions. This practice ensures uniformity and consistency across all instance controls within a program, maintaining coherence in the program's design and function.
 
