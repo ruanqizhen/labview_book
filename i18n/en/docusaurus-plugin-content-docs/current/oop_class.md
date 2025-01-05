@@ -36,7 +36,7 @@ Within the "New" menu, several options are available:
 * **VI Based on Static Dispatch Template**: Choose this for methods in a class that should not be overridden by subclasses. The sole difference from the dynamic dispatch VI is in how the class input/output terminals are allocated: dynamically for dynamic dispatch and statically for static dispatch.
 * **VIs for Data Member Access**: Because class data is private, public VIs are necessary for accessing these data. This shortcut creates VIs for reading and writing class data, essentially dynamic or static dispatch VIs, but with added data manipulation code in the block diagram.
 * **VIs for Overriding**: Specifically for subclasses, this option is for creating VIs that override methods from the parent class. It produces a VI based on the dynamic dispatch template, with pre-added code for invoking the parent class's method of the same name.
-* **Type Definition**: This allows for the creation of user-defined controls for custom data types that might be utilized within the module.
+* **Type Definition**: This allows for the creation of custom controls for custom data types that might be utilized within the module.
 
 Next, we'll delve into the distinct behaviors of "VI Based on Dynamic Dispatch Template" and "VI Based on Static Dispatch Template".
 
@@ -99,7 +99,7 @@ The sole distinction at the source code level between statically and dynamically
 
 ## Properties (Data)
 
-Every class includes a .ctl item that shares the class's name. While its panel and setup resemble user-defined controls, this .ctl file itself is not actually present on the disk. Its data are directly incorporated into the .lvclass file bearing the same name. Moreover, this .ctl item must be configured as a cluster, which contains the class's properties - essentially all the data utilized by the class, akin to a class's variables in other programming languages. Unique to LabVIEW, class data are exclusively private, a design choice made primarily for security reasons. Access to these data from outside the class is only possible through public methods.
+Every class includes a .ctl item that shares the class's name. While its panel and setup resemble custom controls, this .ctl file itself is not actually present on the disk. Its data are directly incorporated into the .lvclass file bearing the same name. Moreover, this .ctl item must be configured as a cluster, which contains the class's properties - essentially all the data utilized by the class, akin to a class's variables in other programming languages. Unique to LabVIEW, class data are exclusively private, a design choice made primarily for security reasons. Access to these data from outside the class is only possible through public methods.
 
 The private nature of data eliminates the concern of inheritance; that is, subclasses do not inherit the data from their parent class. Should a subclass require data from the parent class, it must access them indirectly via methods provided by the parent.
 

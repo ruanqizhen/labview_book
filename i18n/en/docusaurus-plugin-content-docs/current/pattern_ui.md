@@ -33,7 +33,7 @@ These events are specific to changes in the state of the current VI (Virtual Ins
 
 ### Dynamic Events
 
-Dynamic events are designed to manage events that are either user-defined or dynamically registered within the program. These will be explored in greater depth later in the text.
+Dynamic events are designed to manage events that are either user or dynamically registered within the program. These will be explored in greater depth later in the text.
 
 ### Pane Events
 
@@ -168,7 +168,7 @@ Initially, when you open the Edit Events dialog box, you'll find that the sectio
 
 ![images_2/z043.png](../../../../docs/images_2/z043.png "Events Function Palette")
 
-The "Register For Events" node is used to register events. This node can handle two types of events: those generated internally by LabVIEW, including all application events, VI events, pane, split bar, and control events we've discussed before, as well as user-defined events.
+The "Register For Events" node is used to register events. This node can handle two types of events: those generated internally by LabVIEW, including all application events, VI events, pane, split bar, and control events we've discussed before, as well as user events.
 
 First, let's look at the LabVIEW-generated events. These events are available for direct selection in the Edit Events dialog box. With the exception of the "Dynamic" category, events that can be selected directly in this dialog are classified as static events. Static events are limited to those emitted by objects within the same VI. For example, if a VI’s front panel includes a Boolean control, its block diagram’s event structure can directly add a branch to manage events associated with this control. However, in complex programs that make extensive use of subVIs or dynamically call other VIs (as detailed in the [Loading and Running SubVIs](vi_server_for_subvi) section), there might be cases where one VI's event structure needs to handle events from a control in another VI. For instance, a Boolean control might be on the interface VI, but the event handling code is in a subVI. Obviously, the subVI won’t contain this control, so it can't set up an event branch for it in its Edit Events dialog box. LabVIEW addresses these scenarios with dynamic events. To leverage dynamic events, the control must first be registered in the event structure of its respective subVI.
 
@@ -211,29 +211,29 @@ We previously explained how to create property nodes for controls in the [Contro
 ![](../../../../docs/images_2/z131.png "Property Node")
 
 
-## User Defined Events
+## User Events
 
-LabVIEW-generated events mainly involve user interactions with interface objects, like clicking a mouse on a specific area, changing a control's value, or events related to changes in the program's state (such as "Timeout"). If there's a requirement to generate an event under certain other conditions within a program, user-defined events come into play.
+LabVIEW-generated events mainly involve user interactions with interface objects, like clicking a mouse on a specific area, changing a control's value, or events related to changes in the program's state (such as "Timeout"). If there's a requirement to generate an event under certain other conditions within a program, user events come into play.
 
-User-defined events fall under the category of dynamic events and, once they are registered, can be found under the "Dynamic" section in the "Edit Events" dialog box. These events are created using the "Create User Event" function. To trigger a predefined user-defined event, the "Generate User Event" function is used, which can emit an event along with custom data.
+User events fall under the category of dynamic events and, once they are registered, can be found under the "Dynamic" section in the "Edit Events" dialog box. These events are created using the "Create User Event" function. To trigger a predefined user event, the "Generate User Event" function is used, which can emit an event along with custom data.
 
-An example can help illustrate this. Imagine a program with two input controls: a numeric control A, and a string control B. The program is designed to trigger a user-defined event called "Warning" when the value of A is greater than 10, or the length of B exceeds 10 characters.
+An example can help illustrate this. Imagine a program with two input controls: a numeric control A, and a string control B. The program is designed to trigger a user event called "Warning" when the value of A is greater than 10, or the length of B exceeds 10 characters.
 
-There are multiple ways to achieve this, but using user-defined events is a convenient option:
+There are multiple ways to achieve this, but using user events is a convenient option:
 
-![](../../../../docs/images/image232.png "Creating and Triggering User-Defined Events")
+![](../../../../docs/images/image232.png "Creating and Triggering user Events")
 
-Firstly, a user-defined event is created. To do this, a constant data type must be connected to the "User Event Data Type" parameter of the "Create User Event" function. The data type of this constant determines the type of data the event will carry when triggered, and its label names the created event.
+Firstly, a user event is created. To do this, a constant data type must be connected to the "User Event Data Type" parameter of the "Create User Event" function. The data type of this constant determines the type of data the event will carry when triggered, and its label names the created event.
 
 For our purpose, we require a string-type event data to convey a warning message when the "Warning" event is triggered. Therefore, we have designated an empty string constant labeled "Warning" for the "User Event Data Type" parameter of the "Create User Event" function.
 
 In the handling branch for the "B: Value Change" event, the program checks if the length of string B exceeds 10 characters. If it does, the program triggers the "Warning" event and sends the string "B length exceeds range" as the event’s data.
 
-In the user-defined event handling branch, you can access the event data from the data node on the left side of the event structure:
+In the user event handling branch, you can access the event data from the data node on the left side of the event structure:
 
 ![](../../../../docs/images/image233.png "\<Warning\> Event Handling Branch")
 
-User-defined events can act as a structured approach for scenarios such as VI initialization and termination, addressing necessary actions when a VI is invoked or starts running, as well as crucial tasks prior to the VI’s termination.
+User events can act as a structured approach for scenarios such as VI initialization and termination, addressing necessary actions when a VI is invoked or starts running, as well as crucial tasks prior to the VI’s termination.
 
 
 ## Block Diagram Design for Interface Programs
@@ -260,7 +260,7 @@ The sole VI outside the structure is dedicated to creating the program's require
 
 ![](../../../../docs/images/image278.png "Block Diagram of the Initialization Event VI")
 
-In this Initialization Event VI, aside from registering two user-defined events, the program also triggers an "Initialization" event. Therefore, when the interface VI reaches the looping event structure, it first enters the "Initialization" branch to execute associated initialization code.
+In this Initialization Event VI, aside from registering two user events, the program also triggers an "Initialization" event. Therefore, when the interface VI reaches the looping event structure, it first enters the "Initialization" branch to execute associated initialization code.
 
 The program assigns the newly created custom events to global variables, making them easily accessible throughout the program. Since custom events might need to be triggered from various locations within the program, using global variables to output these new custom events helps to avoid a cluttered block diagram with too many connections. Since the global variables storing the custom events are only written to in this part of the program and are read-only elsewhere, using global variables doesn’t reduce the program's readability. Of course, if the interface program is relatively simple with fewer data connections, user events can be directly wired into the event structure.
 
@@ -275,15 +275,15 @@ The "End" event branch contains all the code for the wrap-up tasks. This mainly 
 ![](../../../../docs/images/image280.png "Handling the 'End' Event Branch")
 
 
-## Designing Generic User-Defined Events
+## Designing Generic User Events
 
-In large-scale programs, the need often arises for multiple user-defined events, and additional events may be required as the program develops. Using the earlier mentioned approach for adding new user-defined events can be inconvenient: each new event necessitates creating a corresponding global variable to store it. Moreover, each additional user-defined event alters the type of the "Event Registration Refnum" returned by the "Register for Events" node, requiring the replacement of the "Event Registration Refnum" control and updates to its connections.
+In large-scale programs, the need often arises for multiple user events, and additional events may be required as the program develops. Using the earlier mentioned approach for adding new user events can be inconvenient: each new event necessitates creating a corresponding global variable to store it. Moreover, each additional user event alters the type of the "Event Registration Refnum" returned by the "Register for Events" node, requiring the replacement of the "Event Registration Refnum" control and updates to its connections.
 
-A more scalable solution involves using a single user-defined event in the program and distinguishing the events' different purposes through their event data parameters. The custom event data type would be a cluster containing two elements: "Event Name" and "Event Data". The "Event Name" serves to identify the purpose of the event, such as "Initialization" or "End" when triggering the event. The "Event Data" carries specific data relevant to the event. As different events might require varied types of data, this "Event Data" can be a variant (or a LabVIEW object, which will be discussed in the [Object-Oriented Programming](oop__) chapter), accommodating various data types.
+A more scalable solution involves using a single user event in the program and distinguishing the events' different purposes through their event data parameters. The custom event data type would be a cluster containing two elements: "Event Name" and "Event Data". The "Event Name" serves to identify the purpose of the event, such as "Initialization" or "End" when triggering the event. The "Event Data" carries specific data relevant to the event. As different events might require varied types of data, this "Event Data" can be a variant (or a LabVIEW object, which will be discussed in the [Object-Oriented Programming](oop__) chapter), accommodating various data types.
 
-Here is an example of a generic user-defined event, where the event's purpose is distinguished by its data:
+Here is an example of a generic user event, where the event's purpose is distinguished by its data:
 
-![](../../../../docs/images/image281.png "Generic User-Defined Event Example")
+![](../../../../docs/images/image281.png "Generic user Event Example")
 
 LabVIEW also offers built-in VIs with similar functionality, which can be directly utilized in programs. For instance, under the path `[LabVIEW]\resource\importtools\Common\Event\Method`, you can find VIs analogous to the one shown above.
 
@@ -291,7 +291,7 @@ The VI below exemplifies a program that employs LabVIEW's built-in event managem
 
 ![](../../../../docs/images/image282.png "Approach for Handling a Single User Event")
 
-In this diagram, the "Event in" connected to the input of "Create Event.vi" (Trigger Event VI) is a constant object of a "class". To create this constant, simply click on the "Event in" input terminal of "Create Event.vi". While more details about "classes" will be provided in the [Object-Oriented Programming](oop__) chapter, for now, it's sufficient to understand that it includes the registered user-defined events.
+In this diagram, the "Event in" connected to the input of "Create Event.vi" (Trigger Event VI) is a constant object of a "class". To create this constant, simply click on the "Event in" input terminal of "Create Event.vi". While more details about "classes" will be provided in the [Object-Oriented Programming](oop__) chapter, for now, it's sufficient to understand that it includes the registered user events.
 
 When triggering a "User Event", users need to specify an "Event Name" for it. Once the looping event structure captures this event, it proceeds to the "User Event" handling branch. The initial step in processing the event is to check the "Event Name", followed by handling the event accordingly based on this name.
 
@@ -348,13 +348,13 @@ Let's first examine the right half of the code: This is a typical looping event 
 
 Now, looking at the left half of the program: It registers a callback VI for the "Rotate Right Dial" button’s value change event.
 
-The "Event Callback Registration" node, found under "Interapplication Communication -> ActiveX" on the function palette, is used here. Although primarily designed for ActiveX and .NET control events, it can also register callback VIs for native LabVIEW controls.
+The "Register Event Callback" node, found under "Interapplication Communication -> ActiveX" on the function palette, is used here. Although primarily designed for ActiveX and .NET control events, it can also register callback VIs for native LabVIEW controls.
 
-This node has three input parameters: event source, callback VI reference, and user-defined data.
+This node has three input parameters: Event Source, Callback VI Reference, and User Parameter.
 
 In this example, to capture the value change event of the "Rotate Right Dial" button, the button's reference is passed as the first parameter. Selecting the event type is done by right-clicking the arrow next to this parameter, revealing all events for the button. Choose the "Value Change" event.
 
-The third parameter is user-defined data, which can be any type of data needed in the callback VI. As the example involves rotating the "Right Dial" control in the callback VI, its reference is passed as data.
+The third parameter is User Parameter data, which can be any type of data needed in the callback VI. As the example involves rotating the "Right Dial" control in the callback VI, its reference is passed as data.
 
 The second parameter is the reference to the callback VI. If you've already created the callback VI, pass its reference. If not, you can create a blank callback VI by right-clicking on the terminal of this parameter and selecting "Create Callback VI".
 
@@ -362,7 +362,7 @@ With a small piece of code written in the callback VI to rotate the right dial, 
 
 ![](../../../../docs/images/image287.png "Block Diagram of the Callback VI")
 
-When running this program, one issue you might notice is that if the "Stop" button is pressed while the right dial is still rotating, the VI stops, but the right dial continues its rotation until complete. This happens because the callback VI is system-called; it does not stop immediately when the main.vi stops but only after completing its own execution. If it is essential for the right dial to stop immediately when the "Stop" button is pressed, the reference to the stop button should be passed to the callback VI as user-defined data. In the callback VI, use an event structure to register and monitor the stop button's value change event. Once the event occurs, stop the execution of the callback VI.
+When running this program, one issue you might notice is that if the "Stop" button is pressed while the right dial is still rotating, the VI stops, but the right dial continues its rotation until complete. This happens because the callback VI is system-called; it does not stop immediately when the main.vi stops but only after completing its own execution. If it is essential for the right dial to stop immediately when the "Stop" button is pressed, the reference to the stop button should be passed to the callback VI as User Parameter. In the callback VI, use an event structure to register and monitor the stop button's value change event. Once the event occurs, stop the execution of the callback VI.
 
 
 ## Comparing Two Approaches to Implementing Interface Programs
@@ -378,7 +378,7 @@ In the main program, handling user interface operations is inevitable, thus nece
 | Code Readability, Maintainability, Scalability | More connections and subVIs increase program complexity, negatively impacting these metrics. Additionally, the primary task of interface programs is to respond to UI events, with other tasks being secondary. This architecture places the main object inside a branch of a secondary object, making it counterintuitive. | Fewer connections and subVIs lower program complexity, enhancing these metrics. |
 | Adjusting Unprocessed Tasks | As the messages controlling the program's flow are managed by the user, there's flexibility. Users can adjust unhandled messages anytime, like deleting or rearranging them. However, such applications are quite rare. | Event management is internal to LabVIEW, and users cannot adjust it. |
 | Control of Program Flow by Other VIs | Other VIs can insert new messages into the queue, controlling the main VI's operation. A key advantage of queues is accessing them by name without needing to connect their data lines, simplifying some programming aspects. | Other VIs can also trigger events to control the main VI's operation. Compared to queue messages, events have an additional advantage: once triggered, any VI can receive them. Thus, other VIs can control and monitor events emitted by the main VI. The drawback of events compared to queues is that they can't be accessed by name and must be connected via data lines (or use global variables). |
-| Using Event Structures for Timing | In this mode, the event structure's timeout setting serves a specific purpose: setting a 100–300ms timeout event is necessary. Without this timeout event, the program might get blocked in the event structure, losing responsiveness to other state transitions. Therefore, the timeout event cannot be used for timing. | Any user-defined event triggers the event structure, avoiding blocking issues. If the program has timing needs (like data collection every second), the timeout event can be used as a timer. |
+| Using Event Structures for Timing | In this mode, the event structure's timeout setting serves a specific purpose: setting a 100–300ms timeout event is necessary. Without this timeout event, the program might get blocked in the event structure, losing responsiveness to other state transitions. Therefore, the timeout event cannot be used for timing. | Any user event triggers the event structure, avoiding blocking issues. If the program has timing needs (like data collection every second), the timeout event can be used as a timer. |
 | Latency in State Transitions | Each time the program reaches the event structure, it must wait 100–300ms for the timeout event before proceeding. If new messages are added to the queue at this time, the program won't respond immediately. | There's no issue with response latency. |
 | Suitability | Suitable for various scenarios, especially when needing to flexibly change the order of messages. | Applicable in various scenarios. |
 
