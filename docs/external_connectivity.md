@@ -12,7 +12,7 @@ LabVIEW 调用 Python 的代码，只能使用 Python 自己的解释器，所�
 
 下载安装包时，需要注意它是 64-bit 还是 32-bit 的。这个设置必须与 LabVIEW 相同，也就是 64-bit LabVIEW 只能调用 64-bit Python。软件下载后，直接安装即可。
 
-在 Linux 上安装 Conda 后，Conda 在打开终端时就会自动启动。这时，用户会发现终端命名提示符的格式与之前不同了。如果不希望自动启动 Conda，可以使用如下命令将其关闭： 
+在 Linux 上安装 Conda 后，Conda 在打开终端时就会自动启动。这时，用户会发现终端提示符的格式与之前不同了。如果不希望自动启动 Conda，可以使用如下命令将其关闭： 
 
 ```sh
 conda config --set auto_activate_base false
@@ -20,7 +20,7 @@ conda config --set auto_activate_base false
 
 在 Windows 上，需要通过 Conda 安装包创建的开始菜单启动带有 Conda 的 PowerShell，或命令行窗口。比如，在开始菜单里找到“Anaconda Prompt”，然后点击它启动 Conda。
 
-我们需要为 LabVIEW 调用的 Python 程序创建一个新的环境，以避免它与其它 Python 程序有冲突。创建新环境使用 conda create 命名，同时为新的环境起名为 lv，并设置新环境中 Python 的版本为 3.9：
+我们需要为 LabVIEW 调用的 Python 程序创建一个新的环境，以避免它与其它 Python 程序有冲突。创建新环境使用 conda create 命令，同时为新的环境起名为 lv，并设置新环境中 Python 的版本为 3.9：
 
 ```sh
 (base) qizhen@deep:~$ conda create --name lv python=3.9
@@ -63,9 +63,9 @@ lv                       /home/qizhen/anaconda3/envs/lv
 
 ![images_2/z114.png](images_2/z114.png "直接运行 Python 代码")
 
-Python 代码的函数被写在一个字符串常量中。程序运行时，先把代码保存到一个临时生成的 .py 文件中，然后在调用使用 Python Node 调用刚刚保存的 .py 文件就可以把字符串常量中的 Python 函数运行起来了。如果字符串常量中的 Python 代码中只有一个函数，那么我们可以使用上图程序中的[“匹配正则表达式”节点（Match Regular Expression）](data_string#正则表达式)，把 Python 函数的函数名自动提取出来。
+Python 代码的函数被写在一个字符串常量中。程序运行时，先把代码保存到一个临时生成的 .py 文件中，然后调用 Python Node 运行刚刚保存的 .py 文件就可以把字符串常量中的 Python 函数运行起来了。如果字符串常量中的 Python 代码中只有一个函数，那么我们可以使用上图程序中的[“匹配正则表达式”节点（Match Regular Expression）](data_string#正则表达式)，把 Python 函数的函数名自动提取出来。
 
-对于上面的这段代码，如果把它做成一个子 VI，然后把 Python 代码作为输入，这样使用起来就更方便了。制作这样子 VI 的难点在于“Python Node”所需的输入输出是可变的，我们能制作一个参数数目和数据类型可变的子 VI 吗？就像“Python Node”这样？答案是肯定的，但是它比普通子 VI 制作起来要更复杂一些。有兴趣的读者可以参考 [XNode](oop_xnode) 一节。
+对于上面的这段代码，如果把它做成一个子 VI，然后把 Python 代码作为输入，这样使用起来就更方便了。制作这样子 VI 的难点在于“Python Node”所需的输入输出是可变的，我们能制作一个参数数量和数据类型可变的子 VI 吗？就像“Python Node”这样？答案是肯定的，但是它比普通子 VI 制作起来要更复杂一些。有兴趣的读者可以参考 [XNode](oop_xnode) 一节。
 
 制作 XNode 比较复杂，我们这里选用一个简单的折中方案：把除了 Python Node 和 Close Python Session 之外的所有节点都放入一个子 VI：
 
@@ -100,7 +100,7 @@ Python 的变量和输入输出参数可以是动态类型的，也就是说，�
 
 ![images_2/z119.png](images_2/z119.png "使用数组参数")
 
-甚至簇也行，但是行为和预期的也许不太一样。簇类型的数据被传递到 Python 中，会被表示成 Tuples （元祖）数据类型。元祖与数组比较类似，简单来说，元祖可以看做是一个不可变的数组。元祖的“+”运算也与数组的运算相似，都是把两个输入数据衔接在一起。因此，把拥有两个元素的簇 (2, 3) 和 (4, 5) 传递给同样一个 Python 函数，函数的返回值是一个拥有 4 个元素的簇： (2, 3, 4, 5)。
+甚至簇也行，但是行为和预期的也许不太一样。簇类型的数据被传递到 Python 中，会被表示成 tuple （元组）数据类型。元组与数组比较类似，简单来说，元组可以看做是一个不可变的数组。元组的“+”运算也与数组的运算相似，都是把两个输入数据衔接在一起。因此，把拥有两个元素的簇 (2, 3) 和 (4, 5) 传递给同样一个 Python 函数，函数的返回值是一个拥有 4 个元素的簇： (2, 3, 4, 5)。
 
 ![images_2/z120.png](images_2/z120.png "使用簇参数")
 
@@ -117,7 +117,7 @@ print(string_concat(2, 3))
 
 但是，建议数据类型毕竟只是“建议”，即便把整数作为参数传给这个函数，Python 解释器也并不会报错。（Python 中有专用的工具和开发环境，可以检查报告这种类型错误，所以在 Python 代码中加入建议数据类型是有意义的。） LabVIEW 在调用这个函数时，也同样可以输入其他类型数据而不出错。
 
-如果 Python 函数参数的类型是数值、字符串或簇（在 Python 中是 tuples），那么这些参数就是通过值传递的，Python 函数内部的任何操作都不会改变这些参数在函数外部的值。在 Python 函数内部，如果得到了某个数值、字符串或元祖类型的数据，是不能够通过输出参数的方式，把这些数据传递给 VI 的，只能通过返回值把它们从 Python 传递到 LabVIEW。如果，输入参数的类型是数组，那么在调用 Python 函数时，会采用传引用的方式（关于传值和传引用可以参考 [LabVIEW 的运行机制](optimization_mechanism) 一节）。也就是说，Python 函数可以改变输入数组中的数据，再通过同一个参数把修改后的值输出出来。比如下面这个 VI：
+如果 Python 函数参数的类型是数值、字符串或簇（在 Python 中是 tuple），那么这些参数就是通过值传递的，Python 函数内部的任何操作都不会改变这些参数在函数外部的值。在 Python 函数内部，如果得到了某个数值、字符串或元组类型的数据，是不能够通过输出参数的方式，把这些数据传递给 VI 的，只能通过返回值把它们从 Python 传递到 LabVIEW。如果，输入参数的类型是数组，那么在调用 Python 函数时，会采用传引用的方式（关于传值和传引用可以参考 [LabVIEW 的运行机制](optimization_mechanism) 一节）。也就是说，Python 函数可以改变输入数组中的数据，再通过同一个参数把修改后的值输出出来。比如下面这个 VI：
 
 ![images_2/z121.png](images_2/z121.png "使用数组输出")
 
@@ -134,7 +134,7 @@ def return_both(a, b) -> str:
 x, y = return_both(5, "pig")
 ```
 
-返回多个数据只是为了书写方便，但它本质上相当于 Python 函数只返回了一个类型为 tuples 的数据 (5, "pig")。在 LabVIEW 中，可以使用簇来接收 tuples 数据。运行下面的 VI，就会看到簇控件 "return value" 中的数据为 (5, "pig")：
+返回多个数据只是为了书写方便，但它本质上相当于 Python 函数只返回了一个类型为 tuple 的数据 (5, "pig")。在 LabVIEW 中，可以使用簇来接收 tuple 数据。运行下面的 VI，就会看到簇控件 "return value" 中的数据为 (5, "pig")：
 
 ![images_2/z122.png](images_2/z122.png "返回多个数据")
 
@@ -142,7 +142,7 @@ LabVIEW 调用 Python 函数只能传递以上介绍到的几种简单数据类�
 
 ### 应用实例
 
-大多数可以用 Python 实现的功能，仅用 LabVIEW 也能实现。但是，Python 仍然具有一些明显优势，最重要的一点是 Python 拥有强大的开源社区。开源社区为 Python 贡献了海量的开源免费资源包（或者库函数），其中一些资源还是其它任何语言上都无法找到的，比如在人工智能领域，目前超过 90% 的研究成果（发表的论文）都是基于 Pytorch 库的。（Pytorch 起源于 Lua 语言的 torch 库，但 torch 已经停止开发了。）
+大多数可以用 Python 实现的功能，仅用 LabVIEW 也能实现。但是，Python 仍然具有一些明显优势，最重要的一点是 Python 拥有强大的开源社区。开源社区为 Python 贡献了海量的开源免费资源包（或者库函数），其中一些资源还是其它任何语言上都无法找到的，比如在人工智能领域，目前超过 90% 的研究成果（发表的论文）都是基于 PyTorch 库的。（PyTorch 起源于 Lua 语言的 torch 库，但 torch 已经停止开发了。）
 
 我们挑选一个小功能演示一下 LabVIEW 调用 Python 代码：生成 QRCode。LabVIEW 本身不具备生成 QRCode 的功能，它只能通过包装某些开源库来实现这一功能。Python 拥有这样的开源库，比如 Python 的 qrcode 库。首先在 Python 环境中，使用 pip 命令安装这个库：
 
@@ -189,7 +189,7 @@ Python 中很多图像处理相关的函数都是用到了 pillow，一个图像
 ### ActiveX 控件
 
 提起 ActiveX，一般是指基于标准 COM 接口来实现对象连接与嵌入的 ActiveX 控件。ActiveX 控件最早是针对微软的 Internet
-Explorer 设计的。通过定义容器（调用 ActiveX 控件的程序）和组件（ActiveX 控件）之间的接口规范，用户可以很方便地在多种容器中使用 Active 控件，而不必修改控件的代码。ActiveX 控件使得网页通过脚本和控件交互，产生更加丰富的效果。
+Explorer 设计的。通过定义容器（调用 ActiveX 控件的程序）和组件（ActiveX 控件）之间的接口规范，用户可以很方便地在多种容器中使用 Active 控件，而不必修改控件的代码。ActiveX 控件支持网页通过脚本和控件交互，产生更加丰富的效果。
 
 后来，ActiveX 规范被更广泛地应用到了各种软件领域。越来越多的软件采用了这一规范，并制作出了大量功能丰富的 ActiveX 控件。使用 LabVIEW 来制作一个 ActiveX 控件也许理论上可行，但操作起来非常麻烦，至今还未看到有人这样做过。然而，在 LabVIEW 中使用 ActiveX 控件却是相当方便的。通过使用 ActiveX 控件，可以非常方便地为程序添加诸如网页浏览、Flash 动画播放等功能。
 
