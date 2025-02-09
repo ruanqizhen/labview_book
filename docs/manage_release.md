@@ -208,7 +208,7 @@ LabVIEW 的引擎是比较大的，它可能会使你的安装包增加几十兆
 
 这个问题一直到 LabVIEW 2010 发布后才有所改善。LabVIEW 2010 增加了一种新的文件格式：打包库（英文：Packed Project Libraries，文件名后缀：lvlibp)。这种文件格式兼有原来库文件（lvlib 文件）和 LLB 文件格式的一些优点，在模块化程序的时候，可以考虑使用 Packed Project Libraries 。
 
-打包库从名字上来看，就是被包装好了的库文件。 库是编程时候由程序员创建出来的。比如稀土所示的这个工程，创建了一个叫做“My Algorithm Library.lvlib”的库。它包含两个 VI，其中一个是私有的。
+打包库从名字上来看，就是被包装好了的库文件。 库是编程时候由程序员创建出来的。比如下图所示的这个工程，创建了一个叫做“My Algorithm Library.lvlib”的库。它包含两个 VI，其中一个是私有的。
 
 ![](images/image568.png "用于生成打包库的项目")
 
