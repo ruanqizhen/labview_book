@@ -4,7 +4,7 @@ Many books on computer programming languages start by guiding readers to write a
 
 ## Getting Started Window
 
-Upon launching LabVIEW, you're greeted with its Getting Started Window. This window vary in style across different versions, as illustrated in the images below, representing the Getting Started Window of LabVIEW 8.6 and LabVIEW 2021:
+Upon launching LabVIEW, you're greeted with its Getting Started Window. This window varies in style across different versions, as illustrated in the images below, representing the Getting Started Window of LabVIEW 8.6 and LabVIEW 2021:
 
 ![images/image2.png](../../../../docs/images/image2.png "LabVIEW 8.6 Getting Started Window")
 
@@ -12,14 +12,14 @@ Upon launching LabVIEW, you're greeted with its Getting Started Window. This win
 
 Despite these stylistic variations, the Getting Started Window consistently includes several key elements:
 
-- The "New" section is designated for creating new LabVIEW program files. LabVIEW programs incorporate a variety of file types, including VI, XControl, libraries, classes, global variables, run menus, and custom controls, among others. These will be detailed in the following chapters.
+- The "New" section is designated for creating new LabVIEW program files. LabVIEW programs incorporate a variety of file types, including VI, XControl, libraries, classes, global variables, runtime menus, and custom controls, among others. These will be detailed in the following chapters.
 
-- The "Open" section displays a list of recently opened projects and files. For those who have just installed LabVIEW, this area will initially be empty.
+- The "Open" section is designated for displaying a list of recently opened projects and files. For those who have just installed LabVIEW, this area will initially be empty.
 
 
 ## Creating a New VI
 
-LabVIEW programs are stored in files known as "VIs" (Virtual Instruments). LabVIEW was invented in 1986, with its initial purpose being to simulate test and measurement instruments. By integrating a computer with relevant data acquisition cards and LabVIEW software, it was possible to create a virtual instrument capable of performing specific measurement functions. Thus, LabVIEW's source code files were aptly named "Virtual Instruments", bearing the file extension ".vi", an acronym for Virtual Instrument. Fast forward several decades, LabVIEW's application scope has vastly expanded, encompassing areas like testing, measurement, control, and simulation, yet the term VI remains. Today, a VI can be perceived as a LabVIEW code module that performs specific functions, akin to a function in other programming languages.
+LabVIEW programs are stored in files known as "VIs" (Virtual Instruments). LabVIEW was invented in 1986, with its initial purpose being to simulate test and measurement instruments. By integrating a computer with relevant data acquisition cards and LabVIEW software, it was possible to create a virtual instrument capable of performing specific measurement functions. Thus, LabVIEW's source code files were aptly named "Virtual Instruments", bearing the file extension ".vi", an acronym for Virtual Instrument. Fast-forward several decades, LabVIEW's application scope has vastly expanded, encompassing areas like testing, measurement, control, and simulation, yet the term VI remains. Today, a VI can be perceived as a LabVIEW code module that performs specific functions, akin to a function in other programming languages.
 
 To initiate a new VI, select "Blank VI" from the LabVIEW Getting Started Window or opt for "File -> New VI" from the menu. This action will open two new windows on your screen: one featuring a gray background:
 
@@ -62,7 +62,7 @@ The block diagram is where the logical functionality of a LabVIEW program is rea
 
 ![](../../../../docs/images/image8.png "Block Diagram with a Control Terminal")
 
-Data directed to this terminal in the block diagram will be displayed by the corresponding control on the front panel during the program's execution. For instance, if we send the string "Hello World!" to the terminal labeled "String", the "String" control on the interface will show these words when the program is run.
+Data sent to this terminal in the block diagram will be displayed by the corresponding control on the front panel during the program's execution. For instance, if we send the string "Hello World!" to the terminal labeled "String", the "String" control on the interface will show these words when the program is run.
 
 With the VI block diagram window active, a floating window resembling the Controls Palette may appear (or can be summoned by right-clicking on a blank area of the block diagram). This window is the Functions Palette. The Functions Palette operates similarly to the Controls Palette but differs in that it features icons representing functions, structures, constants, and built-in VIs within LabVIEW that are essential for controlling the execution of the program. Our task now is to locate a string constant to store the "Hello World!" text.
 
@@ -88,9 +88,9 @@ This simplicity is what makes LabVIEW programming so accessible and easy to lear
 
 ## The Execution Logic of LabVIEW Programs
 
-In the realm of programming, most prevalent languages are text-based. For instance, languages like VC++ and C# feature what-you-see-is-what-you-get (WYSIWYG) editing for interfaces, yet the logic behind them is scripted in text. Some graphical programming languages, such as Scratch (as detailed in the "[Other Programming Languages](appendix_languages)" section), employ graphical representations to depict code logic but still follow a procedural approach akin to traditional procedural text-based programming languages like C.
+In the realm of programming, most prevalent languages are text-based. For instance, languages like VC++ and C# feature WYSIWYG (what-you-see-is-what-you-get) editing for interfaces, yet the logic behind them is scripted in text. Some graphical programming languages, such as Scratch (as detailed in the "[Other Programming Languages](appendix_languages)" section), employ graphical representations to depict code logic but still follow a procedural approach akin to traditional procedural text-based programming languages like C.
 
-Contrastingly, LabVIEW stands out significantly from these text-based languages. It not only allows for graphical interface editing but also adopts a unique "drawing" method for implementing programming logic. The primary focus in LabVIEW programming is on how data flows among code segments, rather than the procedural problem-solving process typical in other languages. To aid in comprehending the distinctions between LabVIEW and conventional text-based languages, this book will frequently draw comparisons between LabVIEW and languages such as C and Java.
+In contrast, LabVIEW stands out significantly from these text-based languages. It not only allows for graphical interface editing but also adopts a unique "drawing" method for implementing programming logic. The primary focus in LabVIEW programming is on how data flows among code segments, rather than the procedural problem-solving process typical in other languages. To aid in comprehending the distinctions between LabVIEW and conventional text-based languages, this book will frequently draw comparisons between LabVIEW and languages such as C and Java.
 
 Owing to its graphical programming nature, LabVIEW is sometimes mistakenly likened to graphical design and control applications like CAD or specific software used for designing circuit boards and chemical machinery. However, the versatility and powerful features of LabVIEW surpass those of standard industry applications, affirming its status as a true programming language.
 
@@ -116,7 +116,7 @@ The figure above illustrates a simple mathematical operation program. In a basic
 
 The reason data flows out of "input" and into "result", although both are terminals, is due to the dual nature of controls in LabVIEW. They can be configured either as a control or an indicator, which dictates the direction of data flow. When configured as a control, data flows out from its terminal; as an indicator, data flows into its terminal.
 
-By default, the function of a control as either a control or an indicator is determined by the properties of the physical entity it represents. For instance, a switch object typically serves as a control, while a lightbulb object usually acts as an indicator. Changing a control’s data flow direction can be done by right-clicking on it and selecting the "Change to Control/Indicator" option from the context menu.
+By default, the function of a control as either a control or an indicator is determined by the properties of the physical entity it represents. For instance, a switch object typically serves as a control, while a lightbulb object usually acts as an indicator. You can change a control’s data flow direction by right-clicking on it and selecting the "Change to Control/Indicator" option from the context menu.
 
 Functions and sub VIs generally possess multiple terminals, each with a fixed direction. Data invariably flows into functions via their input terminals and exits through their output terminals.
 
