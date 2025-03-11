@@ -1,12 +1,12 @@
 # Complex Programs
 
-In the section titled "[Hello，World!](ramp_up_hello_world)", we embarked on our journey with LabVIEW by creating a basic VI. Now, let's delve deeper. We're about to enhance our initial creation and explore more of LabVIEW's essential capabilities. It marks your true initiation into the world of LabVIEW.
+In the section titled "[Hello, World!](ramp_up_hello_world)", we embarked on our journey with LabVIEW by creating a basic VI. Now, let's delve deeper. We're about to enhance our initial creation and explore more of LabVIEW's essential capabilities. It begins your journey into LabVIEW programming.
 
 ## Elevating the Aesthetics of Your VI
 
-### Polishing  Icons
+### Polishing Icons
 
-First off, adopting a neat and meaningful icon for every VI you craft is not just good practice; it's a step towards professional refinement.
+First off, adopting a neat and meaningful icon for every VI you craft is not just good practice — it’s a step toward professional refinement.
 
 An icon is a 32x32 pixel, 256-color visual emblem located at the top right corner of the VI's front panel or block diagram window. Look at the image below – the arrow highlights the VI's icon:
 
@@ -34,7 +34,7 @@ For new VIs, simply clearing the default icon and selecting an existing template
 
 #### The Icon Text Page
 
-This section is particularly handy for those who favor simplicity, allowing direct text entry onto the icon. The editor provides space for four lines of text, each line accommodating different colors, fonts, and sizes. Should the text appear blurry, likely due to a small font size, adjusting the font size can enhance clarity. However, keep in mind LabVIEW's essence as a graphical programming language; it's generally more effective to use images over text for VI icons.
+This section is particularly handy for those who favor simplicity, allowing direct text entry onto the icon. The editor provides space for four lines of text, each line accommodating different colors, fonts, and sizes. Should the text appear blurry, often due to the small 32x32 pixel size, adjusting the font size can enhance clarity. However, keep in mind LabVIEW's essence as a graphical programming language; it's generally more effective to use images over text for VI icons.
 
 As we are showcasing the first VI in this book, let's symbolize it with the number "1" on its icon:
 
@@ -46,7 +46,7 @@ This page is arguably the most crucial for many developers. The challenge of cre
 
 ![](../../../../docs/images/image32.png "The Glyphs Page")
 
-Should the available symbols not meet your needs, the icon editor also allows for direct drawing in the editing area, similar to the functionality in Windows’ Paint application, with tools like brushes and erasers. For more personalized designs, importing a pre-drawn image is possible by selecting "Edit -> Import Image from File". It's crucial to be mindful of the image size, as VI icons are restricted to a 32x32 pixel dimension.
+If the available symbols don’t meet your needs, the icon editor also allows for direct drawing in the editing area, similar to the functionality in Windows’ Paint application, with tools like brushes and erasers. For more personalized designs, importing a pre-drawn image is possible by selecting "Edit -> Import Image from File". It's crucial to be mindful of the image size, as VI icons are restricted to a 32x32 pixel dimension.
 
 #### The Layers Page
 
@@ -54,7 +54,7 @@ On this page, layer management becomes key. Different elements such as the templ
 
 ![](../../../../docs/images/image33.gif "The Layers Page")
 
-A new VI typically begins with a default layer containing a default icon. My personal approach is to delete this default layer and start a fresh design with a new layer.
+A new VI typically begins with a default layer containing a default icon (a simple gray square with a border). My personal approach is to delete this default layer and start a fresh design with a new layer.
 
 It's worth noting that the icon editor itself is a product of LabVIEW code and is an excellent resource for learning LabVIEW programming. Its main VI can be found at `[labview]\resource\plugins\lv_icon.vi`.
 
@@ -123,13 +123,13 @@ Inside the loop's rectangle, you'll find a small red square at the bottom right 
 
 Once you start the program using the "Run" button on the toolbar, it will operate continuously, similar to the effect achieved with the "Run Continuously" button. To stop the program, simply click the "Stop" control on the VI front panel.
 
-However, this program can still be refined. When running, it can rapidly reach a high number of iterations - over ten million per second depending on the computer's hardware configuration - thus consuming substantial CPU resources. In practical scenarios, such a high update frequency is unnecessary. The human eye can't discern changes that occur more rapidly than three or four times per second. To address this, we can moderate the loop's iteration frequency by introducing a delay. Add a "Programming -> Timing -> Wait" function from the Functions Palette into the loop body, setting the wait duration to 200 milliseconds. This adjustment means that after completing the addition calculation within the loop, the program pauses for about 200 milliseconds before proceeding to the next iteration. This modification significantly reduces CPU usage, ensuring more efficient resource utilization. Here's the enhanced block diagram for the program:
+When running, it can execute a high number of iterations — potentially millions per second depending on the computer’s hardware and the loop’s complexity — consuming substantial CPU resources. In practical scenarios, such a high update frequency is unnecessary. The human eye can't discern changes that occur more rapidly than three or four times per second. To address this, we can moderate the loop's iteration frequency by introducing a delay. Add a "Programming -> Timing -> Wait" function from the Functions Palette into the loop body, setting the wait duration to 200 milliseconds. This adjustment means that after completing the addition calculation within the loop, the program pauses for about 200 milliseconds before proceeding to the next iteration. This modification significantly reduces CPU usage, ensuring more efficient resource utilization. Here's the enhanced block diagram for the program:
 
 ![images/image43.png](../../../../docs/images/image43.png "continuously adding")
 
 In real-world applications, user interaction with the "Knob" input may vary. Sometimes it's adjusted frequently, while at other times it may remain unchanged for extended periods. Therefore, this fixed 200-millisecond refresh rate is not entirely optimal. A more sophisticated approach to interface and program design, utilizing event structures, will be introduced in the [Event Structures and User Interface](pattern_ui) section of the book.
 
-## Organizing up Block Diagram
+## Organizing the Block Diagram
 
 In programming, the neatness of your code is crucial, and this holds especially true for LabVIEW. Unlike text-based programming languages, which can still be deciphered in a sequential top-to-bottom manner despite being somewhat messy, LabVIEW's unique two-dimensional structure demands organization for readability. Clear, well-thought-out layout and wiring are essential in LabVIEW programs. Ideally, each node and wire should be carefully positioned to create a logical flow that is also visually appealing. This meticulous arrangement, while time-consuming, is integral for maintaining code clarity.
 
@@ -155,7 +155,7 @@ For contrast, consider this deliberately complex VI:
 
 The block diagram here is so extensive and convoluted that comprehending its functionality becomes a formidable task. The portion displayed is just a fraction of the entire diagram. For navigating such large diagrams, the "View -> Navigation Window" option offers a thumbnail view of the complete code diagram, as illustrated by the grey floating window in the bottom right of the above image.
 
-Those familiar with text-based programming might typically create subfunctions primarily for code reuse. However, LabVIEW's approach differs. In LabVIEW, the primary purpose of most sub VIs is not code reuse but rather to enhance the clarity and maintainability of the code. An ideal VI hierarchy in a project resembles a pyramid structure: accessible through "View -> VI Hierarchy" in the main VI's menu, it reveals a clear, layered organization. The main VI calls upon several sub VIs, each of which, in turn, may call additional sub VIs at a secondary layer, and so on. This kind of structured, level-based organization, devoid of cross-calling, is the most readable and understandable, as demonstrated in the VI hierarchy of a complex program shown below:
+Those familiar with text-based programming might typically create subfunctions primarily for code reuse. However, LabVIEW's approach differs. In LabVIEW, sub VIs are often used not just for code reuse but also to enhance the clarity and maintainability of the code. An ideal VI hierarchy in a project resembles a pyramid structure: accessible through "View -> VI Hierarchy" in the main VI's menu, it reveals a clear, layered organization. The main VI calls upon several sub VIs, each of which, in turn, may call additional sub VIs at a secondary layer, and so on. This kind of structured, level-based organization, devoid of cross-calling, is the most readable and understandable, as demonstrated in the VI hierarchy of a complex program shown below:
 
 ![](../../../../docs/images/image47.png "VI Hierarchy")
 
@@ -174,7 +174,7 @@ The next phase is to configure the input and output parameters. In this case, "F
 
 In earlier versions of LabVIEW, the connector pane isn't immediately visible and can be accessed by right-clicking on the VI's icon and choosing "Show Connector Pane" from the contextual menu. This action reveals the icon area as a grid of small rectangles, known as "terminals": ![](../../../../docs/images/image49.png). The default layout of the connector pane is organized into four columns, containing 4, 2, 2, and 4 terminals respectively. This layout is typically referred to by the number of terminals in each column, with the default being 4224. While other patterns are available in the right-click menu under "Patterns", a good rule of thumb for clean and efficient code design is to stick with the 4224 pattern wherever possible.
 
-Each terminal on the connector pane can be associated with a control. In LabVIEW, where data flow is predominantly left to right, inputs are usually placed on the left and outputs on the right. Therefore, when configuring the connector pane, aim to link the terminals on the left to control elements and those on the right to indicator elements.
+Each terminal on the connector pane can be associated with a control. Since data flow is predominantly left to right, inputs are usually placed on the left and outputs on the right. Therefore, when configuring the connector pane, aim to link the terminals on the left to control elements and those on the right to indicator elements.
 
 To connect a control to a terminal, click on a terminal on the connector pane and then on the corresponding control. The terminal will change color upon successful linkage, helping to prevent incorrect connections. The terminal color is matched with the wire color of the connected control for easy identification. A connector pane that has been correctly set up will look something like this:
 
@@ -206,7 +206,7 @@ When transforming a section of the block diagram into a sub VI, there are two cr
 
 For complex projects that transcend the capabilities of a single VI, a more robust management approach is needed. Practical applications often comprise multiple VIs, and larger projects can include thousands. To effectively organize and handle such an extensive number of VIs, LabVIEW introduced the "Project Explorer" starting with version 8.0. This feature offers a workspace analogous to the project/workspace frameworks in programming languages like VC and VB, enabling users to easily navigate and structure their program systems.
 
-With the introduction of the Project Explorer, managing projects in LabVIEW has become more streamlined. Hence, when embarking on new programs, it is advisable to initiate the process by creating a new project. In the LabVIEW startup interface, you can create a new project by selecting "New -> Project":
+With the introduction of the Project Explorer, managing projects in LabVIEW has become more streamlined. Hence, when embarking on new programs, it is advisable to initiate the process by creating a new project. In the LabVIEW Getting Started window, you can create a new project by selecting "New -> Project":
 
 ![](../../../../docs/images/image44.png "Project Explorer")
 
