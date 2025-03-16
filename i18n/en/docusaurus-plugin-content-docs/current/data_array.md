@@ -8,7 +8,7 @@ A Cluster is a composite data type in LabVIEW. Unlike simpler data types like Nu
 
 ![](../../../../docs/images_2/z191.png "Cluster Control Palette")
 
-Cluster controls differ notably from simple data type controls. When added to the front panel, a cluster initially appears as an empty container and is not immediately functional. To make it useful, you need to add other data as its elements by dragging and dropping controls into the cluster control. The following image shows a cluster with various elements already placed inside:
+Cluster controls differ notably from simple data type controls. When added to the front panel, a cluster initially appears as an empty container and is not immediately functional. To make it functional, you need to populate it with elements by dragging and dropping controls into the cluster control. The following image shows a cluster with various elements already placed inside:
 
 ![](../../../../docs/images_2/z192.png "cluster with elements")
 
@@ -16,7 +16,7 @@ Clusters support nesting, meaning one cluster can be an element within another c
 
 The physical arrangement of element controls within the cluster control on the front panel does not necessarily reflect the logical sequence of the element data in the cluster. In the block diagram, it's the order of the element data that matters, the placement of controls on the front panel becomes irrelevant. For clusters with many elements, random placement is not advisable. Instead, you can let the cluster automatically organize its internal elements. Right-click the cluster and select "AutoSizing -> Arrange Vertically" from the shortcut menu. This automatic arrangement ensures that the control positions in the cluster correspond to the order of the element data, reducing potential confusion and eliminating the need for manual adjustments when the number of elements changes.
 
-Moving controls within a cluster using the mouse won't alter the data order of the elements. To adjust the element order, select "Reorder Controls in Cluster..." from the cluster's right-click menu. Then, click each control in the desired sequence to reset the element data order:
+Moving controls within a cluster using the mouse won’t change the element order. To adjust the element order, select "Reorder Controls in Cluster..." from the cluster's right-click menu. Then, click each control in the desired sequence to reset the element data order:
 
 ![](../../../../docs/images/image513.png "the order of elements")
 
@@ -38,7 +38,7 @@ A common example of clusters in LabVIEW is the "error in" and "error out" cluste
 
 Error clusters are a staple in most VIs and form the core of LabVIEW's [error handling mechanism](pattern_error_handling). An error cluster typically comprises a Boolean data type (indicating an error when true), a numeric data type (representing the error code), and a string data type (for the error message). These clusters play a crucial role in effectively managing and signaling errors throughout a LabVIEW program, enabling robust and reliable error handling.
 
-Clusters in LabVIEW are particularly useful when certain data elements are closely related and processed together. For instance, the trio of "status", "code", and "source" for error handlings can be effectively bundled into a cluster. This approach simplifies data transfer between different nodes, as it requires only a single data line, contributing to a cleaner and more organized program. However, using clusters also introduces additional steps of unbundling and bundling when processing data. Moreover, it's generally advisable not to use clusters in a program's user interface, as they don't facilitate the layout adjustment of controls.
+Clusters in LabVIEW are particularly useful when certain data elements are closely related and processed together. For instance, the trio of "status", "code", and "source" for error handling can be effectively bundled into a cluster. This approach simplifies data transfer between different nodes, as it requires only a single data line, contributing to a cleaner and more organized program. However, using clusters also introduces additional steps of unbundling and bundling when processing data. Moreover, it's generally advisable not to use clusters in a program's user interface, as they don't facilitate the layout adjustment of controls.
 
 While processing cluster data often necessitates unbundling and bundling, there are scenarios where LabVIEW's built-in functions allow for direct operations on clusters. This is particularly efficient when all elements within a cluster are of the same data type. Consider the following program:
 
@@ -53,11 +53,11 @@ However, in most real-world applications, clusters typically comprise elements o
 
 ### Array Data
 
-An array is a composite data type, similar to a cluster, but with a key difference: all elements in an array must be of the same data type. Creating an array control (or constant) is akin to creating a cluster control. You start by dragging an array control, which initially appears as an empty shell, onto the front panel. Then, another control is dragged into this array shell:
+An array is a composite data type, similar to a cluster, but with a key difference: all elements in an array must be of the same data type. Creating an array control (or constant) is akin to creating a cluster control. You start by dragging an array control, which initially appears as an empty shell, onto the front panel. Then, you drag another control into this array shell to define its element type:
 
 ![](../../../../docs/images_2/z194.png "create array control")
 
-While an array mandates uniformity in element data types, it can contain a large number of elements — in theory, up to $2^{31}－1$ elements per dimension. Each array control displays a number in its upper left corner, indicating the index of the currently visible element. Array indexing starts at 0, with subsequent elements indexed incrementally.
+While an array mandates uniformity in element data types, it can contain a large number of elements — in theory, up to $2^{31} - 1$ elements per dimension. Each array control displays a number in its upper left corner, indicating the index of the currently visible element. Array indexing starts at 0, with subsequent elements indexed incrementally.
 
 In scenarios where viewing all or multiple array elements on the interface is necessary, array control can also display multiple elements simultaneously. This can be achieved by dragging the borders of the array control to expand its view horizontally or vertically, revealing multiple elements. For arrays with a high element count, navigating each element by changing the index can be cumbersome. A practical alternative is to enable a horizontal or vertical scrollbar (accessible via the right-click menu of the array), allowing for swift navigation to the desired element:
 
@@ -71,7 +71,7 @@ In LabVIEW, nearly any data type can serve as an array element, except for array
 
 ### Calculating
 
-LabVIEW offers a variety of functions tailored for array operations. These include determining array length, indexing, sorting, and summing array values. Additionally, many functions that initially designed for numerical and Boolean data types can also be applied to arrays of those respective types. For instance, basic arithmetic operations like addition, subtraction, multiplication, and division, as well as Boolean operations like AND and NOT, can be performed on numerical and Boolean arrays, respectively.
+LabVIEW offers a variety of functions tailored for array operations. These include determining array length, indexing, sorting, and summing array values. Additionally, many functions that were initially designed for numerical and Boolean data types can also be applied to arrays of those respective types. For instance, basic arithmetic operations like addition, subtraction, multiplication, and division, as well as Boolean operations like AND and NOT, can be performed on numerical and Boolean arrays, respectively.
 
 Consider the operation of addition. When a value is added to an array in LabVIEW, it is effectively added to each element within the array. Similarly, adding two arrays together results in a new array formed by adding corresponding elements from the input arrays. It's important to note that if the input arrays vary in length, the length of the resultant array will match that of the shorter input array:
 
@@ -85,11 +85,11 @@ In LabVIEW, standard comparison functions such as "Equals?" and "Greater than?" 
 
 "Compare Elements" performs a separate comparison for each corresponding element in two arrays. The outcome of this comparison is a Boolean array of the same length, with each element indicating the result of the individual comparison. On the other hand, "Compare Aggregates" considers the entire array as a single entity. In this mode, two arrays are deemed equal (resulting in "true") only if they have the same length and all corresponding elements are identical. Otherwise, the result is "false". The image below demonstrates an array comparison:
 
-![](../../../../docs/images/image95.png "Comparasion")
+![](../../../../docs/images/image95.png "Comparison")
 
 The result of this operation is shown here:
 
-![](../../../../docs/images/image96.png "Comparasion Result")
+![](../../../../docs/images/image96.png "Comparison Result")
 
 This flexibility in comparison methods allows for precise and context-appropriate analysis of array data, whether you need to evaluate individual elements or assess the arrays as complete sets.
 
@@ -198,7 +198,7 @@ The program's output results are as follows:
 ![](../../../../docs/images_2/z201.png "output tunnel results")
 
 
-### Exmaples of for Loop Applications
+### Examples of for Loop Applications
 
 Let's examine two practical examples of for loop applications:
 
@@ -235,7 +235,7 @@ Those familiar with text-based programming languages might initially think to cr
 
 Data passed through a shift register retains its type and value. The unique aspect of shift registers is that they share the same memory between the terminals at either end of the loop structure. Hence, data generated in the last iteration and passed into the right side of the shift register can be accessed in the next iteration from the left side. Although a shift register pair consists of left and right components, the data within them is the same. This contrasts with tunnels, where input tunnels are distinct and independent from output tunnels.
 
-To illustrate the use of shift registers, let's modify "[Program 2](data_array#exmaples-of-for-loop-applications)" from the previous example. Instead of using separate input and output tunnels, we can implement a shift register. By right-clicking on the tunnel node and selecting "Replace with Shift Register", we can seamlessly integrate this data transfer mechanism:
+To illustrate the use of shift registers, let's modify "[Program 2](#examples-of-for-loop-applications)" from the previous example. Instead of using separate input and output tunnels, we can implement a shift register. By right-clicking on the tunnel node and selecting "Replace with Shift Register", we can seamlessly integrate this data transfer mechanism:
 
 ![](../../../../docs/images/image197.png "Replace with Shift Register")
 
@@ -283,7 +283,7 @@ If the code within the loop structure is complex, it's beneficial to include a d
 
 The while loop functions similarly to the for loop, repetitively executing code within its structure. Unlike the for loop, the while loop does not predetermine the number of iterations. Instead, it decides whether to proceed to the next iteration based on the data fed into the "conditional terminal" after each loop execution. This is analogous to the do...while... loop in textual programming languages. If a program's logic involves executing a loop first and then deciding whether to continue, a while loop should be considered.
 
-Since a while loop always performs at least one iteration, the issue encountered in "[Program 2](data_array#exmaples-of-for-loop-applications)" (from earlier examples) would not occur with a while loop. Even a single iteration would suffice to transfer data from the input to the output tunnel, ensuring that the value of "Output Integer" remains 33.
+Since a while loop always performs at least one iteration, the issue encountered in "[Program 2](#examples-of-for-loop-applications)" (from earlier examples) would not occur with a while loop. Even a single iteration would suffice to transfer data from the input to the output tunnel, ensuring that the value of "Output Integer" remains 33.
 
 The methods for transferring data in a loop structure, such as tunnels, shift registers, and feedback nodes, used in the for loop are also applicable to the while loop. However, special attention is needed when using indexed tunnels in a while loop. The iteration count in a while loop is determined solely by the "conditional terminal" and is not influenced by the length of the array connected to the indexed tunnel. Therefore, the number of iterations in a while loop can exceed the length of the input array, which may result in default values being used for elements beyond the array's scope. Additionally, connecting array data to a for loop automatically creates an indexed tunnel, whereas connecting it to a while loop by default creates a standard tunnel.
 
@@ -381,7 +381,7 @@ In this setup, the main VI includes two instances of "sub VI.vi" (it calls the s
 
 The output indicates that both instances share the same shift register. This shared register applies even when the subVIs are called in separate loops, as shown in the following program:
 
-![](../../../../docs/images/image214.png "call in diiferent loops")
+![](../../../../docs/images/image214.png "call in different loops")
 
 The output of this arrangement is:
 
