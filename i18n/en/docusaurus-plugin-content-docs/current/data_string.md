@@ -4,13 +4,13 @@
 
 In LabVIEW, the storage format for strings is somewhat similar to that in the C language, with both utilizing a numeric array represented as U8 (unsigned 8-bit integers). However, a key difference lies in how the end of a string is marked. In C, a string is terminated with the `\0` character, while in LabVIEW, strings include length information, eliminating the need for a special terminator.
 
-Given that strings are stored in memory similarly to U8 arrays, converting between these two data types is logical and meaningful. When a U8 array is converted into a string, each element represents the ASCII code of the corresponding character in the string. Viewing a string in hexadecimal format also reveals the ASCII codes of its characters. LabVIEW offers dedicated functions for this conversion: "String to Byte Array Conversion ![](../../../../docs/images/image116.png)" and "Byte Array to String Conversion". Therefore, there's no need to resort to forced type conversion. The two methods shown below achieve the same result:
+Given that strings are stored in memory similarly to U8 arrays, converting between these two data types is logical and meaningful. When a U8 array is converted into a string, each element represents the ASCII code of the corresponding character in the string. Viewing a string in hexadecimal format also reveals the ASCII codes of its characters. LabVIEW offers dedicated functions for this conversion: "String to Byte Array Conversion ![](../../../../docs/images/image116.png "String to Byte Array Conversion function (icon)")" and "Byte Array to String Conversion". Therefore, there's no need to resort to forced type conversion. The two methods shown below achieve the same result:
 
 ![](../../../../docs/images/image135.png "string and U8 array")
 
 :::caution
 
-As of the current version (2023), LabVIEW does not support Unicode under the Windows operating system. For more information on this limitation, please refer to the section [LabVIEW's unicode problem](appendix_problem). When using non-English characters (those outside the ASCII range) in LabVIEW, be aware that switching operating systems (e.g., from a Chinese to a French system, or from Windows to Linux) may cause these strings to display incorrectly, potentially resulting in garbled text.
+As of the current version (2023), LabVIEW does not support Unicode on Windows. For more information on this limitation, please refer to the section [LabVIEW's unicode problem](appendix_problem). When using non-English characters (those outside the ASCII range) in LabVIEW, be aware that switching operating systems (e.g., from a Chinese to a French system, or from Windows to Linux) may cause these strings to display incorrectly, potentially resulting in garbled text.
 
 :::
 
@@ -26,7 +26,7 @@ When LabVIEW interacts with devices or reads and writes certain files, string da
 
 The "Password Display" mode, as the name implies, masks all characters with an asterisk `*`, making it suitable for password entry fields.
 
-The combo box control also utilizes the string data type. It can be used to restrict user selections to predefined string options. The relationship between the combo box and string control is analogous to that between the [Dropdown List Control](data_custom_control) and a standard numeric control. These display options enhance the versatility of string controls in LabVIEW, catering to a range of applications and user interface requirements.
+The combo box control also utilizes the string data type. It can be used to restrict user selections to predefined string options. The relationship between the combo box and string control is analogous to the relationship between [Dropdown List Control](data_custom_control) and a standard numeric control. These display options enhance the versatility of string controls in LabVIEW, catering to a range of applications and user interface requirements.
 
 
 ## Converting between Numbers, Time and Strings
@@ -55,7 +55,7 @@ A key point in this program is selecting the appropriate data type conversion fu
 
 The "Programming -> String" function palette includes two powerful conversion functions: "Formatted Into String" and "Scan From String". These functions correspond to the `sprintf()` and `sscanf()` functions in the C language. While they can handle multiple data types simultaneously and offer richer formatting options compared to the basic conversion functions, using them effectively requires familiarity with format string syntax, which LabVIEW borrows from C.
 
-"Formatted Into String" allows input data to be converted into a string according to a user-specified format. This is achieved using a format string, which may include both non-format and format segments. Non-format segments are output as is, while format segments start with `%` and are followed by characters that define the type, form, length, decimal places, and other attributes of the output data. The general form of a format string is `%[minimum output width][.precision][length]type`. Commonly used format specifiers in LabVIEW include:
+The "Formatted Into String" function allows input data to be converted into a string according to a user-specified format. This is achieved using a format string, which may include both non-format and format segments. Non-format segments are output as is, while format segments start with `%` and are followed by characters that define the type, form, length, decimal places, and other attributes of the output data. The general form of a format string is `%[minimum output width][.precision][length]type`. Commonly used format specifiers in LabVIEW include:
 
 - `%d`: Converts a signed decimal integer to a string. For instance, `%4d` pads the output with spaces on the left if the number has fewer than 4 digits and displays the actual number of digits if greater.
 - `%u`: Converts an unsigned decimal integer to a string.
@@ -89,7 +89,7 @@ Let's look at another example program: **String Formula Evaluation**. This progr
 
 At first glance, this task seems to involve converting strings to numerical values, as well as using formula Express VIs and formula nodes mentioned in the [Numeric and Boolean](data_number) section. However, these methods alone are insufficient for this complex problem, which requires converting numbers in the string into numeric data and transforming the operators into corresponding calculations. Moreover, formula Express VIs and formula nodes can only set a fixed formula during program editing and don't allow changing the formula after the program runs.
 
-Before starting to write a program, it's wise to check if existing LabVIEW functions or VIs can fulfill or partially fulfill the task, avoiding redundant work. A good place to start searching is the "Math -> Script & Formula" function palette. By browsing through the instant help window, you may find that the "Math -> Script & Formula -> 1D 2D Analysis -> String Formula Evaluation" VI aligns well with the task requirements and can be used directly:
+Before writing a program, check if existing LabVIEW functions or VIs can handle the task to avoid redundant work. A good place to start searching is the "Math -> Script & Formula" function palette. By browsing through the instant help window, you may find that the "Math -> Script & Formula -> 1D 2D Analysis -> String Formula Evaluation" VI aligns well with the task requirements and can be used directly:
 
 ![](../../../../docs/images/image147.png "String Formula Evaluation")
 
@@ -213,7 +213,7 @@ Readers can explore further with some commonly used regular expressions:
 
 Path data is a unique type in LabVIEW, tailored to address the cross-platform challenges of path representation. In text programming languages, paths are typically represented using strings, but this approach can be problematic for cross-platform compatibility due to varying path separators in different operating systems. For example, Windows uses a backslash "\\" as a path separator; Linux uses a forward slash "/"; Mac OS uses a colon ":". A string representation of a path that works for one operating system may not be universally applicable.
 
-As a cross-platform language, LabVIEW resolves this issue by employing a specialized data type for paths. Path data in LabVIEW encompasses two components: the path type (whether it's relative or absolute) and the path data itself, which is stored as a string array. This array contains the names of each directory in the path hierarchy, from root to branch. The appropriate path separator is added for display purposes based on the operating system, ensuring that the path data remains valid across different platforms.
+As a cross-platform language, LabVIEW resolves this issue by employing a specialized data type for paths. Path data in LabVIEW encompasses two components: the path type (whether it's relative or absolute) and the path data itself, which is stored as a string array. This array contains the names of each directory in the path hierarchy, from root to branch. The appropriate path separator is added for display purposes based on the operating system, ensuring the path data remains valid across different platforms.
 
 #### Relative Paths
 
@@ -223,12 +223,12 @@ For instance, if a program needs to access a specific file, you can place this f
 
 ![Using Relative Paths](../../../../docs/images/image112.png "Using Relative Paths")
 
-All functions and constants related to path data are found under the "Programming -> File I/O" sub-panel in LabVIEW, providing a comprehensive suite of tools for efficient path management.
+All functions and constants related to path data are found under the "Programming -> File I/O" subpalette in LabVIEW, providing a comprehensive suite of tools for efficient path management.
 
 
 ### Path Constants
 
-LabVIEW offers various path constants as references for using relative paths effectively. These constants are particularly useful for adapting paths dynamically based on the VI's location. For instance, in the previously discussed example, the program uses the "Current VI Path" constant to determine the location of the main VI. If the location of the main VI changes, the value of this constant changes accordingly, ensuring that the program can adapt to different file locations.
+LabVIEW offers various path constants as references for using relative paths effectively. These constants are particularly useful for adapting paths dynamically based on the VI's location. For instance, in the previously discussed example, the program uses the "Current VI Path" constant to determine the location of the main VI. If the location of the main VI changes, the value of this constant changes accordingly, ensuring the program can adapt to different file locations.
 
 ![Path Constants](../../../../docs/images/image113.png "Path Constants")
 
