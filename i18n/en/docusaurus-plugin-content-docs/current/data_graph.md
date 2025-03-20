@@ -26,7 +26,7 @@ The terminal of a waveform chart control on the block diagram is usually incorpo
 
 ![images_2/image77.png](../../../../docs/images_2/image77.png "Waveform Drawing")
 
-When you run the above VI, you'll notice that the final data curves displayed by both waveform chart and a waveform graph are identical. However, there is a distinct difference in their rendering processes during the VI execution: the Waveform Chart draws the curve progressively, plotting each point as the data comes in; while, the Waveform Graph waits until all the data is collected and then renders the entire curve in one go.
+When you run the above VI, you'll notice that the final data curves displayed by both waveform chart and a waveform graph are identical. However, there is a distinct difference in their rendering processes during the VI execution: the Waveform Chart draws the curve progressively, plotting each point as the data comes in; while the Waveform Graph waits until all the data is collected and then renders the entire curve in one go.
 
 ![images_2/image78.png](../../../../docs/images_2/image78.gif "Waveform Drawing Result")
 
@@ -36,7 +36,7 @@ On subsequent runs of the VI, the waveform chart retains the previously plotted 
 
 Additionally, this property node can be used during runtime to either clear the historical data of the waveform chart control or to set up initial historical data.
 
-Unlike other controls we intrduced in previous chapters that typically correspond to a specific data type (e.g., switch controls for Boolean data, text box for string), waveform chart and graph controls are more versatile. Besides their default DBL and DBL array types, they can also accommodate various other data types, adapting their display methods accordingly.
+Unlike other controls we introduced in previous chapters that typically correspond to a specific data type (e.g., switch controls for Boolean data, text box for string), waveform chart and graph controls are more versatile. Besides their default DBL and DBL array types, they can also accommodate various other data types, adapting their display methods accordingly.
 
 For instance, waveform chart controls can also process numerical array data, adding all input data to the waveform display area simultaneously. Modifying our earlier example to pass the generated array data to both waveform chart and waveform graph controls outside the loop demonstrates that both controls exhibit identical behavior under these conditions:
 
@@ -98,7 +98,7 @@ Given its comprehensive nature, the waveform data type is the preferred choice f
 
 Consider the following program that generates waveform data using the current system time as the starting point and a sampling interval of 0.1 seconds:
 
-![images/image460.png](../../../../docs/images/image460.png "Createing Waveform Data")
+![images/image460.png](../../../../docs/images/image460.png "Creating Waveform Data")
 
 With time being an integral part of the waveform data, displaying this information on the X-axis of the waveform graph enhances the intuitiveness of the data representation. To achieve this, simply adjust the display format of the graph's horizontal axis. By right-clicking on the axis and selecting "Format", you can configure its display. This method aligns with the format setting approach used for standard [numeric controls](data_number) in LabVIEW. Opting for the "Absolute Time" format displays the time on the X-axis, or alternatively, you can choose a custom display format through advanced settings:
 
@@ -237,7 +237,7 @@ The coordinate system of the image differs slightly from the two-dimensional gra
 
 The limitation of the intensity graph control in handling multi-channel data stems from its inherent two-dimensional nature. When multiple channels of data are displayed simultaneously, the image from one channel would obscure the images from others, hence it's restricted to displaying one channel at a time. Additionally, the human eye's sensitivity to color and brightness nuances is significantly less than its sensitivity to spatial differences. To address this and offer a more nuanced view of three-dimensional data, LabVIEW provides specialized three-dimensional image display controls. These controls can handle multi-channel three-dimensional data effectively. Despite the display screen being two-dimensional, the controls allow for adjustments in the viewing angle of the three-dimensional image. This feature is particularly useful in three-dimensional space where certain data may obscure other data; by adjusting the viewing angle, previously obscured data can be viewed clearly.
 
-While LabVIEW's control selection board features a variety of three-dimensional controls, they essentially utilize the same underlying control mechanism for display purposes. The primary difference lies in the specific data processing functions employed. When these controls are dragged onto the front panel, a corresponding sub VI, typically named "xx helper", is automatically added to the program block diagram. These helper VIs are instrumental in constructing three-dimensional images. Each has a specific role: some are designed to plot discrete points, others to connect points into lines, and some to form surfaces by connecting points. This versatility enables users to choose the appropriate method for their specific three-dimensional data visualization needs.
+While LabVIEW's control selection board features a variety of three-dimensional controls, they essentially utilize the same underlying control mechanism for display purposes. The primary difference lies in the specific data processing functions employed. When these controls are dragged onto the front panel, a corresponding sub VI, typically named "xx helper", is automatically added to the program's block diagram. These helper VIs are instrumental in constructing three-dimensional images. Each has a specific role: some are designed to plot discrete points, others to connect points into lines, and some to form surfaces by connecting points. This versatility enables users to choose the appropriate method for their specific three-dimensional data visualization needs.
 
 ### 3D Point Graph
 
