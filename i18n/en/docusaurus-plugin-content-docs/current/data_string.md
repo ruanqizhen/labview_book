@@ -53,9 +53,9 @@ A key point in this program is selecting the appropriate data type conversion fu
 
 ### String Formatting
 
-The "Programming -> String" function palette includes two powerful conversion functions: "Formatted Into String" and "Scan From String". These functions correspond to the `sprintf()` and `sscanf()` functions in the C language. While they can handle multiple data types simultaneously and offer richer formatting options compared to the basic conversion functions, using them effectively requires familiarity with format string syntax, which LabVIEW borrows from C.
+The "Programming -> String" function palette includes two powerful conversion functions: "Format Into String" and "Scan From String". These functions correspond to the `sprintf()` and `sscanf()` functions in the C language. While they can handle multiple data types simultaneously and offer richer formatting options compared to the basic conversion functions, using them effectively requires familiarity with format string syntax, which LabVIEW borrows from C.
 
-The "Formatted Into String" function allows input data to be converted into a string according to a user-specified format. This is achieved using a format string, which may include both non-format and format segments. Non-format segments are output as is, while format segments start with `%` and are followed by characters that define the type, form, length, decimal places, and other attributes of the output data. The general form of a format string is `%[minimum output width][.precision][length]type`. Commonly used format specifiers in LabVIEW include:
+The "Format Into String" function allows input data to be converted into a string according to a user-specified format. This is achieved using a format string, which may include both non-format and format segments. Non-format segments are output as is, while format segments start with `%` and are followed by characters that define the type, form, length, decimal places, and other attributes of the output data. The general form of a format string is `%[minimum output width][.precision][length]type`. Commonly used format specifiers in LabVIEW include:
 
 - `%d`: Converts a signed decimal integer to a string. For instance, `%4d` pads the output with spaces on the left if the number has fewer than 4 digits and displays the actual number of digits if greater.
 - `%u`: Converts an unsigned decimal integer to a string.
@@ -66,7 +66,7 @@ The "Formatted Into String" function allows input data to be converted into a st
 - `%%`: Outputs a percent character `%`.
 
 
-If you're unsure about format symbols, there's a helpful tool at your disposal. LabVIEW provides an "Edit Format String" dialog box to assist users in configuring the appropriate format symbols. Right-click on the "Formatted Into String" or "Scan From String" function and select "Edit Format String" to access this feature. You can then choose the required data type from the "Select Operation" dropdown menu to configure it:
+If you're unsure about format symbols, there's a helpful tool at your disposal. LabVIEW provides an "Edit Format String" dialog box to assist users in configuring the appropriate format symbols. Right-click on the "Format Into String" or "Scan From String" function and select "Edit Format String" to access this feature. You can then choose the required data type from the "Select Operation" dropdown menu to configure it:
 
 ![](../../../../docs/images_2/z167.png "Edit Format String")
 
