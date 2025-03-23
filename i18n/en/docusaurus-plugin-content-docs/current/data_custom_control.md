@@ -104,7 +104,7 @@ In LabVIEW's custom control panel, there is an identifiable button adorned with 
 
 Within Custom Mode, each detachable segment of a control is framed by a white border, aiding in the identification and separation of different components. It's important to note that various controls are composed of distinct elements. For example, a basic button might consist of just a label, the button's main body, and boolean text. On the other hand, a slider control is significantly more intricate, incorporating elements such as a label, movement buttons on both left and right sides, distinct background colors for each side, the slider itself, a scale, a background border, a numeric display, a unit label, among others:
 
-![Components of a Control in Custome Mode](../../../../docs/images/image621.png "Components of a Custome Control") ![Components of a Control in Custome Mode](../../../../docs/images/image622.png "Components of a Custome Control")
+![Components of a Control in Custom Mode](../../../../docs/images/image621.png "Components of a Custom Control") ![Components of a Control in Custom Mode](../../../../docs/images/image622.png "Components of a Custom Control")
 
 
 ### Modifying Control Components
