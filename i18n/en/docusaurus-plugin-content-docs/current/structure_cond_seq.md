@@ -2,11 +2,11 @@
 
 ## Case Structure
 
-In LabVIEW, a Case Structure consists of several branches. Each branch contains its unique set of subdiagram. The structure operates by examining the input condition and executing the code in only one of its branches, depending on this condition. This is akin to the `if else` and `switch` statements in C language.
+In LabVIEW, a Case Structure consists of several branches. Each branch contains its own unique set of subdiagrams. The structure operates by examining the input condition and executing the code in only one of its branches, depending on this condition. This is akin to the `if else` and `switch` statements in C language.
 
 ![](../../../../docs/images/image173.png "Case Structure")
 
-The image above illustrates a Case Structure, which shares a resemblance to the [Loop Structure](data_array#for-loop) we previously discussed. It's enclosed within a rectangular frame, but distinctively, it houses multiple branch pages. Notably, only one page's content is visible at any given moment.
+The image above illustrates a Case Structure, which shares a resemblance to the [Loop Structure](data_array#for-loop) we previously discussed. It's enclosed within a rectangular frame, bbut, distinctively, it houses multiple branch pages. Notably, only one page's content is visible at any given moment.
 
 On the Case Structure's left, a small rectangle marked with a question mark serves as the case selector. The structure determines which branch to execute based on the data received by this selector. Above the structure, there's a rectangular label, known as the selector label. This label indicates the condition of the branch currently on display. You can modify the condition of the branch by clicking on this label.
 
@@ -24,7 +24,7 @@ In LabVIEW, Boolean case structures are frequently applied to manage error data.
 
 ![](../../../../docs/images/image176.png "Handling an Error")
 
-When the "Error In" data signifies an error, it implies that the preceding program encountered an issue, triggering the "Error" branch of the case structure. Since an error has already occurred, the subVI bypasses running additional functions, instead passing the error information onward. As such, the "Error" branch typically does not contain any operational code.
+When the "Error In" data signifies an error, it implies that the preceding program encountered an issue, triggering the "Error" branch of the case structure. Since an error has already occurred, the subVI bypasses running additional functions and instead passes the error information onward. As such, the "Error" branch typically does not contain any operational code.
 
 Conversely, if the "Error In" data does not indicate an error, it suggests that the previous program executed successfully. In this scenario, the case structure activates the "No Error" branch, containing all necessary code for the VI's (Virtual Instrument) operation.
 
@@ -32,9 +32,9 @@ This approach to error handling is a widely-used practice in LabVIEW. The intric
 
 ### Other Data Types
 
-Case structures in programming can handle different data types, such as strings, integers, and [Enum](data_custom_control). Unlike Boolean data, which is limited to "True" or "False" and typically requires only two branches, these data types often necessitate multiple branches due to their wider range of possible values.
+Case structures in programming can handle different data types, such as strings, integers, and [Enum](data_custom_control). Unlike Boolean data, which are limited to "True" or "False" and typically require only two branches, these data types often necessitate multiple branches due to their wider range of possible values.
 
-When expanding a case structure to include additional conditions, you can easily add new branches. Simply right-click on the case structure's border and select "Add Branch After" or "Add Branch Before" from the context menu. To reuse code from an existing branch in the new one, choose "Duplicate Branch". Afterward, you can set the specific conditions for each new branch.
+When expanding a case structure to include additional conditions, you can easily add new branches. Simply right-click the case structure's border and select "Add Branch After" or "Add Branch Before" from the context menu. To reuse code from an existing branch in the new one, choose "Duplicate Branch". Afterward, you can set the specific conditions for each new branch.
 
 It's worth noting that a single branch can respond to multiple conditions. These conditions are separated by commas. For instance, as shown in the image below, the third branch of the case structure is programmed to trigger under three distinct conditions - when the input is either 2, 4, or 6:
 
@@ -73,7 +73,7 @@ In such scenarios, you have a couple of options. You can designate one of the ex
 
 ![](../../../../docs/images_2/z223.png "Completing the Branches")
 
-So, which approach is preferable? For beginners, opting for a default branch can be more straightforward and simplify the programming process. It's important to note that with [Enum](data_custom_control), where the number of values is finite, it's feasible to create a branch for each possible condition. However, in more complex projects, the focus shifts towards enhancing the program's stability, scalability, and maintainability. In such cases, a program designed to identify and address potential issues early on may be more advantageous than one that runs without immediate errors but has underlying issues.
+Which approach is preferable, then? For beginners, opting for a default branch can be more straightforward and simplify the programming process. It's important to note that with [Enum](data_custom_control), where the number of values is finite, it's feasible to create a branch for each possible condition. However, in more complex projects, the focus shifts towards enhancing the program's stability, scalability, and maintainability. In such cases, a program designed to identify and address potential issues early on may be more advantageous than one that runs without immediate errors but has underlying issues.
 
 From the standpoint of severity, a program that returns an error prompts the programmer to locate and fix the issue. However, a program that seems to run smoothly yet produces unexpected results for the client poses a more serious problem.
 
@@ -85,7 +85,7 @@ From my personal experience, the approach varies based on the project scale. In 
 
 ### Optimizing Case Structures
 
-A significant challenge with case structures is their limitation to displaying only one subdaigram at a time. This constraint can hinder code readability, as it may require flipping through various branches to understand the program fully. To counteract this, it's crucial to minimize the use of nested case structures and limit the number of branches during the design phase. Leveraging a branch selector that can handle multiple data types and allowing each branch to manage multiple conditions can greatly simplify your code.
+A significant challenge with case structures is their limitation to displaying only one subdiagram at a time. This constraint can hinder code readability, as it may require flipping through various branches to understand the program fully. To counteract this, it's crucial to minimize the use of nested case structures and limit the number of branches during the design phase. Leveraging a branch selector that can handle multiple data types and allowing each branch to manage multiple conditions can greatly simplify your code.
 
 Consider, for example, a scenario where you need to compare two integers, `a` and `b`. The goal is to display `"a > b"` if `a > b`, `"a = b"` if `a = b`, and `"a < b"` if `a < b`. While straightforward, strictly adhering to the program's logic might lead you to create nested case structures:
 
@@ -106,7 +106,7 @@ Here's another scenario: suppose you have two Boolean parameters, `a` and `b`, a
 
 Similar to loop structures, data flow in and out of case structures through tunnels. However, case structures have only one type of tunnel. When data flows into the case structure, the tunnel's input terminal is located on the structure's exterior, allowing connection to the output ends of other nodes. Inside the case structure, the tunnel's output terminal is accessible to each branch, enabling them to utilize the data received from the input terminal. In contrast, for data exiting the case structure through a tunnel, the output terminal of the tunnel is positioned outside the structure, while its input end is inside.
 
-A key characteristic of case structures is that they execute the code from only one branch at any given time, with the specific branch to be executed during runtime remaining uncertain. This requires that data be provided to the input terminal of the output tunnel in every branch. Although this approach ensures that all branches are prepared to execute, it can become cumbersome, particularly because typically only one branch produces meaningful output for external code, while the others might only need to supply a default value. To streamline this process, a more efficient strategy is to configure the output tunnel with the "Use Default If Unwired" setting. When this option is activated, if any branch does not provide data to the input terminal of the output tunnel, the tunnel will automatically revert to the default value for that data type as its output. This approach simplifies the handling of branches that do not need to output specific data.
+A key characteristic of case structures is that they execute the code from only one branch at any given time, with the specific branch to be executed during runtime remaining uncertain. This requires that data be provided to the input terminal of the output tunnel in every branch. Although this approach ensures that all branches are prepared to execute, it can become cumbersome, especially since typically only one branch produces meaningful output for external code, while the others might only need to supply a default value. To streamline this process, a more efficient strategy is to configure the output tunnel with the "Use Default If Unwired" setting. When this option is activated, if any branch does not provide data to the input terminal of the output tunnel, the tunnel will automatically revert to the default value for that data type as its output. This approach simplifies the handling of branches that do not need to output specific data.
 
 Deciding whether to enable the "Use Default If Unwired" setting on a tunnel parallels the earlier discussion about setting a default branch in case structures.
 
@@ -176,7 +176,7 @@ When you need to enforce a specific execution order for various functions or sub
 
 Initially, when a sequence structure is placed on the block diagram, it appears as a dark gray box containing a single frame. You can add more frames by right-clicking on the structure and selecting the appropriate option from the context menu. Each frame within the sequence structure is capable of holding program code. During program execution, the sequence structure ensures that each frame is executed in a predefined order. Specifically, in flat sequence structures, the execution proceeds from left to right across the frames.
 
-There are two ways to place a sequence structure on your block diagram: you can either add the structure first and then insert the desired code into it, or you can enclose existing code within a structure. The latter can be done by selecting the sequence structure tool from the function palette, dragging the mouse to form a rectangle around the code you wish to include, and then releasing the mouse button. This action creates a structure that encompasses the selected code.
+You can place a sequence structure on your block diagram in two ways: either add the structure first and then insert the desired code into it, or enclose existing code within a structure. The latter can be done by selecting the sequence structure tool from the function palette, dragging the mouse to form a rectangle around the code you wish to include, and then releasing the mouse button. This action creates a structure that encompasses the selected code.
 
 ![Dragging Mouse to Create a Structure](../../../../docs/images/image162.png "Creating a Structure by Dragging the Mouse")
 
@@ -229,7 +229,7 @@ The origin of stacked sequence structures can be traced back to the limitations 
 
 ### Flat Sequence Structure
 
-In the provided example, you can transform the stacked sequence structure into a flat sequence structure while retaining the same functionality. To do this, right-click on a frame of the sequence structure and select "Replace -> Replace with Flat Sequence Structure" from the menu. The flat sequence structure significantly improves readability:
+In the example provided, you can transform the stacked sequence structure into a flat sequence structure while retaining the same functionality. To do this, right-click on a frame of the sequence structure and select "Replace -> Replace with Flat Sequence Structure" from the menu. The flat sequence structure significantly improves readability:
 
 ![](../../../../docs/images/image167.png "Flat Sequence Structure")
 
@@ -286,7 +286,7 @@ It's important to note that when the original version of the program was written
 
 1. **Arithmetic Expression Evaluator VI**
 
-   Develop a VI that processes a single string input control. This string should represent a basic arithmetic expression composed of three elements: 
+   Develop a VI that processes input from a single string control. TThis string should represent a basic arithmetic expression consisting of three elements: 
    
    - The first element is an integer.
    - The second element is an arithmetic operator, which could be addition (+), subtraction (-), multiplication (*), or division (/).
