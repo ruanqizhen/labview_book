@@ -16,7 +16,7 @@ In LabVIEW, when an error occurs within a function or VI without a connected err
 
 This dialog box offers two choices: "Continue" and "Stop". Selecting "Continue" prompts LabVIEW to overlook the error and proceed, while "Stop" terminates program execution.
 
-There are instances where LabVIEW's automatic error handling can be somewhat bothersome. Some errors, being minor or inconsequential, don't necessarily warrant intervention. But the pop-up dialog box demands user action, which can be disruptive, especially in user-facing applications where frequent error messages can be intrusive. The good news is, you can disable this automatic feature in the VI properties dialog:
+here are instances where LabVIEW's automatic error handling can be inconvenient. Some errors, being minor or inconsequential, don't necessarily warrant intervention. However, the pop-up dialog box requires user action, which can disrupt user-facing applications, especially when frequent error messages intrude. The good news is, you can disable this automatic feature in the VI properties dialog:
 
 ![Enabling/Disabling Automatic Error Handling in VI Properties](../../../../docs/images/image247.png "Enabling/Disabling Automatic Error Handling in VI Properties")
 
@@ -28,7 +28,7 @@ By customizing these settings, you can tailor LabVIEW's error handling to better
 
 ## Error Clusters
 
-LabVIEW incorporates a pair of error input and output parameters in many of its functions and VIs. An error cluster typically includes three elements: a Boolean data type (indicating the presence of an error when true), a numeric value (representing the error code), and a string (providing the error message):
+LabVIEW incorporates error input and output clusters in many of its functions and VIs, each typically containing a Boolean (indicating the presence of an error when true), a numeric (representing the error code), and a string (providing the error message):
 
 ![Error Cluster](../../../../docs/images/image106.png "Error Cluster")
 
@@ -45,7 +45,7 @@ Errors in LabVIEW can be of two types: those that are predictable and those that
 
 ## Handling Unpredictable Errors
 
-Unpredictable errors, also known as "exceptions", are those that a programmer hasn't foreseen, occurring under unusual circumstances in a function or VI. These errors, often unexpected, can cause a program to deviate from its intended path, rendering further operation meaningless or, worse, harmful. Such errors can lead to serious issues like data corruption, resource wastage, or misleading users about the program's accuracy.
+Unpredictable errors, also known as "exceptions", are those that a programmer hasn't foreseen, occurring under unusual circumstances in a function or VI. These errors, often unexpected, can cause a program to deviate from its intended path, rendering further operation meaningless or, worse, harmful. Such errors can lead to serious issues like data corruption, resource waste, or misleading users about the program's accuracy.
 
 A common strategy to manage these errors is to immediately cease further code execution upon detection of an error, effectively halting the program and alerting the user to the issue. This is typically done by integrating a conditional structure at critical points in the program. The error output from a function is connected to this structure's selector, and the remaining code is placed within the "no error" branch. Thus, if an error is detected, the subsequent sections of the program are bypassed. For instance, in the program below, file reading is skipped if an error occurs during file opening:
 
@@ -81,7 +81,7 @@ Expected errors are those that a programmer anticipates might be returned by a f
 
 In this scenario, when the program reaches the "Open/Create/Replace File" function, it prompts the user to select a file. However, the user might opt not to choose any file and instead press the "Cancel" button. This action would trigger the "Open/Create/Replace File" VI to return an error with code 43.
 
-From my perspective, the response of the file opening function to the "Cancel" action could be improved. Recognizing that hitting "Cancel" is a legitimate user action, programmers should anticipate the possibility of encountering error code 43. The goal should be to manage this error in a way that prevents it from leading to an abnormal exit of the program. This calls for special handling of such expected errors.
+The response of the file opening function to the "Cancel" action could be improved. Recognizing that hitting "Cancel" is a legitimate user action, programmers should anticipate the possibility of encountering error code 43. The goal should be to manage this error in a way that prevents it from leading to an abnormal exit of the program. This calls for special handling of such expected errors.
 
 In the example shown, the branching structure is designed to address the scenario when a user clicks "Cancel". In this case, the program bypasses file reading and closing operations. It also checks if the error code is 43 and, if so, disregards the error, avoiding disruption to subsequent processes (assuming this is part of a sub-VI). This handling strategy in the "no error" branch is similar to conventional error handling approaches:
 
@@ -102,7 +102,7 @@ To generate a custom error from your VI, you simply need to define an error outp
 
 ![Creating Custom Error Information](../../../../docs/images/image245.png "Creating Custom Error Information")
 
-You have the option to use an existing error code from LabVIEW, like error code 50 which denotes "value out of range", similar to input overflows. Alternatively, you can use a number between 5000 and 9999 or between -8999 and -8000, as LabVIEW reserves these ranges for user-defined error codes.
+You can use an existing LabVIEW error code, such as error code 50 ("Value out of range"), which may occur when an input exceeds acceptable limits. Alternatively, you can use a number between 5000 and 9999 or between -8999 and -8000, as LabVIEW reserves these ranges for user-defined error codes.
 
 To find out what a particular LabVIEW error code means, consult the LabVIEW help documentation or use "Help -> Explain Error". Entering an error code into the Explain Error dialog will reveal its associated error message.
 
@@ -119,7 +119,7 @@ Once you restart LabVIEW, it loads your custom error codes and messages into its
 
 ## Showcasing Error Messages
 
-There are times when you might want to avoid pop-up error dialogs, and other times when displaying these errors is crucial, regardless of the VI's property settings. Normally, it's best to avoid error dialogues during a program's runtime. However, if errors occur, particularly unexpected ones, as the program concludes, it's essential to inform the user.
+There are times when you might want to avoid pop-up error dialogs, and other times when displaying these errors is crucial, regardless of the VI's property settings. Normally, it's best to avoid error dialogs during a program's runtime. However, if errors occur, particularly unexpected ones, as the program concludes, it's essential to inform the user.
 
 LabVIEW offers two dedicated sub-VIs for handling such scenarios: the "Simple Error Handler.vi" and the "General Error Handler.vi". The Simple Error Handler provides a selection of basic error management options if the input error cluster indicates an issue. These options range from a simple single-button dialog to a dialog with a "stop program" button for user interaction. For most applications, the Simple Error Handler suffices. If you need more advanced features, like filtering specific errors or adding detailed information to user-defined errors, you can opt for the General Error Handler.
 
