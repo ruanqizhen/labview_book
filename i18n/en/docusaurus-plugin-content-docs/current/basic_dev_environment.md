@@ -12,7 +12,7 @@ This dialog box contains a multitude of configurable options. For detailed expla
 
 ### Personalizing Your Experience
 
-It’s important to note that these settings are subjective; there is no one-size-fits-all approach. LabVIEW programmers are encouraged to experiment with different configurations to find what best suits their personal style and workflow. For instance, I prefers to modify the display mode of the control terminals on the block diagram. There are two display modes available for control terminals on the block diagram: icon mode and non-icon mode. While icon mode is more visually appealing and intuitive, it occupies more space. On the other hand, non-icon mode conserves screen real estate by reducing the size of the terminals:
+It’s important to note that these settings are subjective; there is no one-size-fits-all approach. LabVIEW programmers are encouraged to experiment with different configurations to find what best suits their personal style and workflow. For instance, many users prefer to modify the display mode of the control terminals on the block diagram. There are two display modes available for control terminals on the block diagram: icon mode and non-icon mode. While icon mode is more visually appealing and intuitive, it occupies more space. On the other hand, non-icon mode conserves screen real estate by reducing the size of the terminals:
 
 ![](../../../../docs/images/image55.png "Control terminal Displayed as Icon")
 
@@ -81,11 +81,11 @@ To access the search, click the "Search" button (marked with a magnifying glass 
 
 ![Search Palettes](../../../../docs/images_2/z132.png "Search Palettes")
 
-In the search dailog, input your keywords, then drag and drop the desired result directly onto your VI's block diagram or front panel. Alternatively, double-clicking a search result navigates you to its location on the palette, helping you learn where specific nodes are typically found for future reference.
+In the search dialog, input your keywords, then drag and drop the desired result directly onto your VI's block diagram or front panel. Alternatively, double-clicking a search result navigates you to its location on the palette, helping you learn where specific nodes are typically found for future reference.
 
 ### Quick Drop
 
-LabVIEW also features a tool known as Quick Drop, activated by the shortcut "Ctrl+Space". Note that this shortcut may conflict with system shortcuts for switching input methods, particularly in systems with Chinese language support. If you encounter issues with this shortcut, alternatives like "Ctrl+Shift+Space" or "Alt+Space" can be tried. On some systems, including the mine, "Ctrl+Alt+Space" activates Quick Drop.
+LabVIEW also features a tool known as Quick Drop, activated by the shortcut "Ctrl+Space". Note that this shortcut may conflict with system shortcuts for switching input methods, particularly in systems with Chinese language support. If you encounter issues with this shortcut, alternatives like "Ctrl+Shift+Space" or "Alt+Space" can be tried. On some systems, "Ctrl+Alt+Space" can activate Quick Drop as an alternative.
 
 Quick Drop not only searches for functions and controls but also allows you to create custom shortcuts:
 
@@ -106,15 +106,15 @@ These search tools and customizable shortcuts significantly enhance the efficien
 
 ## Tool Palette
 
-In the graphical programming environment of LabVIEW, the mouse plays a multifaceted and more significant role compared to text-based programming languages. It is used for a variety of actions, such as selecting, dragging, resizing objects, wiring, inserting breakpoints, and probes. Essentially, the mouse serves multiple purposes, adapting to different tasks within the LabVIEW interface.
+In the graphical programming environment of LabVIEW, the mouse plays a multifaceted and more significant role compared to text-based programming languages. The mouse is used for various actions, including selecting, dragging, and resizing objects, as well as wiring, inserting breakpoints, and adding probes. Essentially, the mouse serves multiple purposes, adapting to different tasks within the LabVIEW interface.
 
 ### Automatic Tool Selection
 
-By default, LabVIEW is configured to automatically select the mouse function based on its position and context. Based on personal experience, the "Automatic Tool Selection" option is sufficient for handling most programming tasks in LabVIEW. It conveniently adjusts the mouse function based on the cursor's context within the VI. For instance, when the cursor is moved over a function, the mouse adapts to allow dragging of the function. Similarly, when positioned at a function’s terminal, it switches to wiring mode. While this automatic selection feature is generally convenient, it also has its downsides. It requires precise cursor placement to activate the desired functionality, which can be time-consuming and sometimes frustrating.
+By default, LabVIEW is configured to automatically select the mouse function based on its position and context. Based on personal experience, the "Automatic Tool Selection" option is sufficient for handling most programming tasks in LabVIEW. It conveniently adjusts the mouse function based on the cursor's context within the VI. For instance, when the cursor is moved over a function, the mouse adapts to allow dragging of the function. Similarly, when positioned at a function’s terminal, it switches to wiring mode. Although this automatic selection feature is convenient, it has some drawbacks. It requires precise cursor placement to activate the desired functionality, which can be time-consuming and sometimes frustrating.
 
 ### Manual Tool Selection
 
-For programmers who prefer more control over their tools, manually changing the mouse function can be more efficient. This eliminates the need for precise cursor placement, as the desired tool can be selected in advance.
+For programmers who prefer more control over their tools, manually changing the mouse function can be more efficient. Manual tool selection eliminates the need for precise cursor placement by allowing you to choose the desired tool beforehand.
 
 This manual selection is facilitated through the "Tool Palette". Accessing this board can be done in two ways:
 1. Navigate to "View -> Tool Palette" in the menu.
