@@ -63,7 +63,7 @@ In contrast, if the Run Count sub-VI is reentrant and configured to “Prealloca
 
 However, if the Run Count sub-VI is reentrant but set to “Share copies among instances,” the predictability of the main program's results diminishes again. In this case, the values for “Count 1” and “Count 2” can be any number up to 30. The simultaneous execution of the two sub-VI calls is possible due to their reentrant property. Yet, the shared copy between them introduces potential data confusion. For example, if the left VI is processing with an internal run count of 8, and the right VI concurrently starts and writes the value 3 to the same data area, the left VI will erroneously register a different count.
 
-While the option of “Sharing copies among instances” does create a risk of data confusion, it offers significant memory savings. Each additional copy generated for a sub-VI consumes more memory space. Thus, setting reentrant sub-VIs to “Share copies among instances” can be a memory-efficient strategy, provided there's no risk of data confusion. For beginners, it's advisable to avoid this setting unless the risk is well understood, except in cases like recursive algorithms where it's essential for the sub-VI to “Share copies among instances.”
+While the option of “Sharing copies among instances” does create a risk of race conditions, it offers significant memory savings. Each additional copy generated for a sub-VI consumes more memory space. Thus, setting reentrant sub-VIs to “Share copies among instances” can be a memory-efficient strategy, provided there's no risk of data confusion. For beginners, it's advisable to avoid this setting unless the risk is well understood, except in cases like recursive algorithms where it's essential for the sub-VI to “Share copies among instances.”
 
 
 ## Recursive Algorithms
@@ -79,7 +79,7 @@ Consider the straightforward example of calculating factorials. The factorial of
 
 However, there's an alternative approach to factorial calculation: using induction. Instead of direct computation from the original number, we simplify the problem gradually. For example, to calculate 6!, we first compute 5! and then multiply the result by 6. This is represented by the formula `0! = 1, n! = n * (n-1)! | (n≥1)`, or as a function: `F(0) = 1, F(n) = n * F(n-1) | (n≥1)`. It's crucial in mathematical induction to have a base case; for factorials, the base case is 0, defined as 0! = 1. It's interesting to note that while the direct calculation method only applies to positive integers, the inductive method extends factorials to all non-negative integers.
 
-Let's translate this inductive formula into a program. We start by creating a new VI and setting its reentrant property to “Share copies among instances” (Shared clone reentrant execution). The program first addresses the base case: when the input is 0, the output is 1:
+Let's implement this recursive formula into a program. We start by creating a new VI and setting its reentrant property to “Share copies among instances” (Shared clone reentrant execution). The program first addresses the base case: when the input is 0, the output is 1:
 
 ![images_2/w_20211205152006.png](../../../../docs/images_2/w_20211205152006.png "Recursive Factorial Calculation - Base Case")
 
@@ -120,7 +120,7 @@ This pattern of calls can be visualized as a binary tree:
 
 ![images_2/z111.png](../../../../docs/images_2/z111.png "Tree of Recursive Calls")
 
-In this algorithm, the amount of computation required roughly doubles with each increment of the input value. This leads to an exponential relationship between the computational load and the size of the input data, giving it a time complexity of $O(2^n)$. This scenario is a typical efficiency issue in recursive programming: the same computation is redundantly executed multiple times in different parts of the program.
+In this algorithm, the amount of computation required roughly doubles with each increment of the input value. This leads to an exponential relationship between the computational load and the size of the input data, giving it a time complexity of $O(2^n)$. This scenario is a typical efficiency issue in recursive programming: the same computation is redundantly executed multiple times in different recursive branches.
 
 In the following discussion, we'll explore various strategies to mitigate this efficiency problem.
 
@@ -225,7 +225,7 @@ The process_number.vi focuses on handling numerical values and parentheses. Whil
 
 ![images_2/z354.png](../../../../docs/images_2/z354.png "Handling Numbers")
 
-The subsequent diagram illustrates the approach to managing parentheses. It treats the content within a pair of parentheses as an individual sub-expression, summoning the previously mentioned process_add_sub.vi to compute its value, thereby establishing an indirect recursive call:
+The subsequent diagram illustrates the approach to managing parentheses. It treats the content within a pair of parentheses as an individual sub-expression, calling the previously mentioned process_add_sub.vi to compute its value, thereby establishing an indirect recursive call:
 
 ![images_2/z355.png](../../../../docs/images_2/z355.png "Handling Parentheses")
 
@@ -276,6 +276,6 @@ Which VIs should be set as reentrant, and when do I recommend it? If a VI’s ou
 
 ## Practice Exercise
 
-- Develop a VI that calculates all permutations of an input array using a recursive algorithm. For instance, given the input array [1, 2, 3], the output should be a two-dimensional array, with each row representing a different permutation of these three input values:
+- Develop a VI that calculates all permutations of an input array using a recursive algorithm. For instance, given the input array `[1, 2, 3]`, the output should be a two-dimensional array, with each row representing a different permutation of these three input values:
 
-[[1,2,3], [1,3,2], [2,1,3], [2,3,1], [3,1,2], [3,2,1]]
+`[[1,2,3], [1,3,2], [2,1,3], [2,3,1], [3,1,2], [3,2,1]]`
