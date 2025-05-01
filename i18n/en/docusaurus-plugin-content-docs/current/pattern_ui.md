@@ -2,11 +2,11 @@
 
 ## Event Structure
 
-Event structures are akin to [case structures](structure_cond_seq). Their key difference lies in their operation: event structures execute a specific branch of code based on the occurrence of an event.
+Event structures are similar to [case structures](structure_cond_seq). Their key difference lies in their operation: event structures execute a specific branch of code based on the occurrence of an event.
 
 ![images/image220.png](../../../../docs/images/image220.png "Event Structure")
 
-Upon the occurrence of an event, the event structure detects it automatically, eliminating the need for data lines to relay the event to the structure. The event label at the top of the structure indicates the event associated with the current branch. In addition to identifying the event, the structure also captures related information, such as the time of the event and the control on which it occurred. This information is accessible from the event data node located on the inner left side of the event structure.
+When an event occurs, the event structure detects it automatically, eliminating the need for data lines to relay the event. The event label at the top of the structure indicates the event associated with the current branch. In addition to identifying the event, the structure also captures related information, such as the time of the event and the control on which it occurred. This information is accessible from the event data node located on the inner left side of the event structure.
 
 ## Classifying Events by Source
 
@@ -59,7 +59,7 @@ This category includes all events related to user interface controls, for instan
 
 ## Event Editing Process
 
-Unlike conditional structures where condition labels are directly written, event labels in an event structure require editing through the Edit Events dialog box.
+Unlike case structures where condition labels are directly written, event labels in an event structure require editing through the Edit Events dialog box.
 
 To access this dialog box in the event structure, right-click and select options like "Add Event Case", "Copy Event Case", or "Edit Events Handled by This Case". This action brings up the Edit Events dialog box, as depicted below.
 
@@ -124,7 +124,7 @@ Let's reconsider a program we discussed earlier in the "[Keeping a VI Running](r
 
 ![images/image43.png](../../../../docs/images/image43.png "Addition Calculation with Continuous Running")
 
-This program has a slight issue. It's programmed to perform an addition every 200 milliseconds and update the "Meter" display control. However, most of the time, the values of the two input controls don't change. This means that the majority of the addition operations and the updates to the display control are essentially unnecessary. At the same time, increasing the interval between calculations is not ideal, as it would result in a noticeable lag in the display control's updates following changes in the input controls.
+This program is inefficient. It's programmed to perform an addition every 200 milliseconds and update the "Meter" display control. However, most of the time, the values of the two input controls don't change. This means that the majority of the addition operations and the updates to the display control are essentially unnecessary. At the same time, increasing the interval between calculations is not ideal, as it would result in a noticeable lag in the display control's updates following changes in the input controls.
 
 A more efficient approach is to have the program remain idle until the value of any input control is updated, and then promptly carry out the calculation and refresh the display control. A looping event structure is perfectly suited for this purpose. The revised program, using a looping event structure, is shown below:
 
