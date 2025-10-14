@@ -1,4 +1,4 @@
-# LabVIEW 的一些问题
+# LabVIEW 面临的挑战与未来
 
 ![](cover/problem.png)
 
