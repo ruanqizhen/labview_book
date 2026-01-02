@@ -134,7 +134,7 @@ row 和 column：两个整数，用于记录上次落子的位置。
 
 * Display State In / Display State Out：是 XControl 运行时用到的所有内部数据。在本书中有时简称它为状态。它的数据类型由 "状态" 功能控件定义。它也可以在程序运行中被改变，它的输入输出方式与 Data 类似。
 
-* Container State：输入参数。它是一个簇，用于表明 XControl 实例（把一个 XControl 拖拽到一个 VI 的前面板上，就产生了一个 XControl 的实例）在 VI 面板上的状态。它包含三个元素： "Indicator?"、"Run Mode?" 和 "refnum"。 "Indicator?" 表明 XControl 实例是否是一个显示控件。当其值为假时，表明 XControl 实例是一个控制控件。"Run Mode?" 表示 XControl 实例所在的 VI 是否处于运行状态。"refnum" 是指向 XControl 实例的引用。
+* Container State：输入参数。它是一个簇，用于表明 XControl 实例（把一个 XControl 拖拽到一个 VI 的前面板上，就产生了一个 XControl 的实例）在 VI 面板上的状态。它包含三个元素： "Indicator?"、"Run Mode?" 和 "refnum"。 "Indicator?" 表明 XControl 实例是否是一个显示控件。当其值为假时，表明 XControl 实例是一个输入控件。"Run Mode?" 表示 XControl 实例所在的 VI 是否处于运行状态。"refnum" 是指向 XControl 实例的引用。
 
 * Action：输出参数，用于通知 LabVIEW 程序在这次执行中对 XControl 所做的修改。它包含三个元素："Data Changed?"、"State Changed?"和"Action Name"。如果在程序中改变了 Data，那么就一定要把"Data Changed?"设置为真，通知 LabVIEW。这样，改变的数据才会生效。同样，如果改变了 State，则一定要把"State Changed?"设置为真。"Action Name"是一个字符串，可以给它输入一段表明这次程序运行的简短文字。这段文字会在 LabVIEW 的菜单项" 编辑 -\> 撤销 " 中出现。
 
@@ -165,7 +165,7 @@ State）。
 
 ### 方向更改事件和执行状态更改事件
 
-当 XControl 实例控件由控制控件变换为显示控件，或反向变换的时候，就会触发方向更改事件；当 XControl 实例控件所在的 VI 由运行态转变为编辑状态，或反向转变时，就会触发执行状态更改事件。对这两个事件的处理是类似的：在某些状态下，需要禁止用户在界面上的操作。在这个黑白棋控件中，对这两个事件的处理是相同的：当控件为显示控件，并在运行状态时，禁止用户对界面点击：
+当 XControl 实例控件由输入控件变换为显示控件，或反向变换的时候，就会触发方向更改事件；当 XControl 实例控件所在的 VI 由运行态转变为编辑状态，或反向转变时，就会触发执行状态更改事件。对这两个事件的处理是类似的：在某些状态下，需要禁止用户在界面上的操作。在这个黑白棋控件中，对这两个事件的处理是相同的：当控件为显示控件，并在运行状态时，禁止用户对界面点击：
 
 ![](images/image759.png "方向更改事件处理")
 

@@ -159,7 +159,7 @@ LabVIEW 是数据流驱动的编程语言，程序沿着数据在连线上的流
 
 ![](images/image160.png "顺序执行的程序")
 
-数据从控制控件 error in 接线端流出，流经子 VI “Sub VI A” 和 “Sub VI B”，最后流入显示控件 error out 的接线端。这个程序的执行顺序也就是数据流动的顺序：先运行 “Sub VI A”，再运行 “Sub VI B”。
+数据从输入控件 error in 接线端流出，流经子 VI “Sub VI A” 和 “Sub VI B”，最后流入显示控件 error out 的接线端。这个程序的执行顺序也就是数据流动的顺序：先运行 “Sub VI A”，再运行 “Sub VI B”。
 
 下图是两个子 VI 并行执行的例子：
 
