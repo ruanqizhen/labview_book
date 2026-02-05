@@ -17,7 +17,7 @@ For a more accessible reading experience, especially on mobile devices, you can 
 
 As a former software engineer at National Instruments Co. Ltd. (NI), I bring a wealth of personal experience to the writing of this book, which remains an independent project. Please note, some opinions expressed may not align with NI's official views and are provided for informational purposes only.
 
-This book has its roots in a series of LabVIEW programming articles I originally published on my blog (https://ruanqizhen.wordpress.com). These blog posts, initially intended for seasoned LabVIEW programmers, lacked detailed explanations for novices. In transforming these articles into a book, I have restructured and elaborated on the content, making it more accessible for beginners in LabVIEW programming. The insights and methods detailed here stem from my accumulated experience with LabVIEW, both in study and practice. It's important to note that, given the constraints of time and my personal capacity, this book doesn’t encompass every facet of LabVIEW.
+This book has its roots in a series of LabVIEW programming articles I originally published on my blog (https://blog.qizhen.xyz). These blog posts, initially intended for seasoned LabVIEW programmers, lacked detailed explanations for novices. In transforming these articles into a book, I have restructured and elaborated on the content, making it more accessible for beginners in LabVIEW programming. The insights and methods detailed here stem from my accumulated experience with LabVIEW, both in study and practice. It's important to note that, given the constraints of time and my personal capacity, this book doesn’t encompass every facet of LabVIEW.
 
 The book focuses on several key areas:
 
