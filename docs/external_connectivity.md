@@ -8,7 +8,9 @@ LabVIEW 还可以连接或调用多种其它的外部程序与组件，而且相
 
 ### 安装 Python
 
-LabVIEW 调用 Python 的代码，只能使用 Python 自己的解释器，所以必须要在电脑上安装 Python。 LabVIEW 的每一个版本只能支持几个特定版本的 Python （比如 LabVIEW 2021 只可以调用 Python 3.6~3.9），并且，LabVIEW 调用的 Python 代码可能会依赖一些特定版本的库。为了避免不同版本的 Python 和库等发生不兼容问题，最好使用专业的工具来管理所需的库和环境。Python 最常用的环境管理工具是 Conda。在开源社区中最流行的包含 Conda 和 Python 的安装包是 [Miniconda](https://docs.conda.io/en/latest/miniconda.html )，和 [Anaconda](https://www.anaconda.com/ )。Miniconda 比较精简，安装包只包含了最核心的库，其它库可等到需要时再安装。它适合入门级的 Python 用户。Anaconda 的安装包比 Miniconda 大了大约十倍，包含了几乎所有常用的库，适合有大硬盘空间的用户使用。
+LabVIEW 调用 Python 的代码，只能使用 Python 自己的解释器，所以必须要在电脑上安装 Python。需要注意的是，不同年份版本的 LabVIEW 支持的 Python 版本范围不同。 例如，LabVIEW 2021 支持 Python 3.6~3.9，而 LabVIEW 2023 Q3 及更高版本已经增加了对 Python 3.10 和 3.11 的支持。
+
+务必查阅 NI 官方文档或已安装的 LabVIEW 自述文件，确认当前 LabVIEW 版本所支持的 Python 版本范围。为了避免环境冲突，强烈建议使用专业的工具来管理所需的库和环境。Python 最常用的环境管理工具是 Conda。在开源社区中最流行的包含 Conda 和 Python 的安装包是 [Miniconda](https://docs.conda.io/en/latest/miniconda.html )，和 [Anaconda](https://www.anaconda.com/ )。Miniconda 比较精简，安装包只包含了最核心的库，其它库可等到需要时再安装。它适合入门级的 Python 用户。Anaconda 的安装包比 Miniconda 大了大约十倍，包含了几乎所有常用的库，适合有大硬盘空间的用户使用。
 
 下载安装包时，需要注意它是 64-bit 还是 32-bit 的。这个设置必须与 LabVIEW 相同，也就是 64-bit LabVIEW 只能调用 64-bit Python。软件下载后，直接安装即可。
 
@@ -75,6 +77,9 @@ Python 代码的函数被写在一个字符串常量中。程序运行时，先�
 
 ![images_2/z116.png](images_2/z116.png "调用 Python 代码演示 VI")
 
+#### 工程实践建议：
+
+上述“即时生成 .py 文件”的方法非常适合快速演示和测试简短代码。但在开发大型工程项目时，不建议在生产环境中使用这种方式。频繁的磁盘读写会降低性能，且动态生成的临时文件会让错误调试变得非常困难。建议将成熟的 Python 代码保存为独立的 .py 模块文件，并在 LabVIEW 中通过路径直接调用。
 
 
 ### 输入输出参数设置
@@ -100,7 +105,11 @@ Python 的变量和输入输出参数可以是动态类型的，也就是说，�
 
 ![images_2/z119.png](images_2/z119.png "使用数组参数")
 
-甚至簇也行，但是行为和预期的也许不太一样。簇类型的数据被传递到 Python 中，会被表示成 tuple （元组）数据类型。元组与数组比较类似，简单来说，元组可以看做是一个不可变的数组。元组的“+”运算也与数组的运算相似，都是把两个输入数据衔接在一起。因此，把拥有两个元素的簇 (2, 3) 和 (4, 5) 传递给同样一个 Python 函数，函数的返回值是一个拥有 4 个元素的簇： (2, 3, 4, 5)。
+甚至簇也行，但是行为和预期的也许不太一样。
+
+LabVIEW 的簇传递给 Python 时，通常会被转换为 元组（Tuple）。在较新的 LabVIEW 版本中，如果簇中的元素有名称，它通常会被转换为 命名元组（NamedTuple）。这意味着在 Python 代码中，你既可以通过下标（如 x[0]）访问元素，也可以通过簇元素的名称（如 x.element_name）来访问，这大大提高了代码的可读性。
+
+元组与数组比较类似，简单来说，元组可以看做是一个不可变的数组。元组的“+”运算也与数组的运算相似，都是把两个输入数据衔接在一起。因此，把拥有两个元素的簇 (2, 3) 和 (4, 5) 传递给同样一个 Python 函数，函数的返回值是一个拥有 4 个元素的簇： (2, 3, 4, 5)。
 
 ![images_2/z120.png](images_2/z120.png "使用簇参数")
 
@@ -139,6 +148,15 @@ x, y = return_both(5, "pig")
 ![images_2/z122.png](images_2/z122.png "返回多个数据")
 
 LabVIEW 调用 Python 函数只能传递以上介绍到的几种简单数据类型，复杂类型，比如类、map 等是无法直接传递给 Python 函数的。如果需要处理复杂类型的数据，可以把复杂数据类型拆解成简单数据类型再传递，或者把复杂类型数据平化成 [JSON 或 XML](data_string) 再传递。
+
+
+#### 关于数组和可变对象的数据传递
+
+如果输入参数的类型是数组（在 Python 中对应 List），虽然 Python 语言本身是“传对象引用”的，且 List 是可变对象（Mutable），但在 LabVIEW 调用 Python 节点时，必须符合 LabVIEW 的数据流规则。
+
+如果你在 Python 函数内部修改了传入的数组（例如使用了 append 方法），必须在 LabVIEW 的 Python Node 上配置对应的输出参数（Output） 或 返回值（Return value），并将该输出端子连接到后续程序中，才能在 LabVIEW 中获取到修改后的数据。
+
+并不是像 C 语言指针那样“原地修改”LabVIEW 输入控件的值；LabVIEW 依然遵循“左进右出”的数据流原则。如果只连接输入而不连接输出，LabVIEW 后续代码中的数组将保持原样，不会被 Python 代码改变。
 
 ### 应用实例
 
@@ -212,7 +230,7 @@ LabVIEW 自身并没有提供上网浏览网页的控件，但是它可以利用
 
 ![](images/image367.png "使用 ActiveX 的控件选板")
 
-这些控件是由其它公司提供的 ActiveX 和.NET 控件，并不是由 LabVIEW 提供的。需要浏览网页时，调用“WebBroser”控件的“Navigate”方法就可以了：
+这些控件是由其它公司提供的 ActiveX 和.NET 控件，并不是由 LabVIEW 提供的。需要浏览网页时，调用“WebBrowser”控件的“Navigate”方法就可以了：
 
 ![](images/image368.png "调用浏览器控件的“浏览”方法")
 
@@ -297,11 +315,11 @@ ActiveX 在广义上是指微软公司的整个 COM 架构。LabVIEW 可以通�
 ![](images/image382.png "创建 ActiveX 对象")
 
 
-假如我们需要使用微软提供的文本朗读服务，我们需要选择 ActiveX 对象对话框中，选择“Microsoft Speech Object Library”类型库，再选择“ISpeehVoice”对象：
+假如我们需要使用微软提供的文本朗读服务，我们需要选择 ActiveX 对象对话框中，选择“Microsoft Speech Object Library”类型库，再选择“ISpeechVoice”对象：
 
 ![](images/image383.png "选择 ActiveX 对象对话框")
 
-这样，我们就创建了一个 ActiveX 对象。在后续的程序中可以使用属性节点和调用节点来设置 ActiveX 对象的属性或调用方法。调用“ISpeehVoice”的“Speak”方法，可以让计算机把一段文本朗读出来。例如，运行下图中的程序，可以让计算机读出“I love LabVIEW!”这句话。
+这样，我们就创建了一个 ActiveX 对象。在后续的程序中可以使用属性节点和调用节点来设置 ActiveX 对象的属性或调用方法。调用“ISpeechVoice”的“Speak”方法，可以让计算机把一段文本朗读出来。例如，运行下图中的程序，可以让计算机读出“I love LabVIEW!”这句话。
 
 ![](images/image384.png "朗读文本")
 
