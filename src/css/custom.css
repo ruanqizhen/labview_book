@@ -20,6 +20,10 @@ html[data-theme='dark'] {
   --ifm-color-primary: rgb(150, 150, 250);
 }
 
+[data-theme='dark'] img {
+  filter: brightness(.75) contrast(1.2);
+}
+
 .docusaurus-highlight-code-line {
   background-color: rgba(0, 0, 0, 0.1);
   display: block;
