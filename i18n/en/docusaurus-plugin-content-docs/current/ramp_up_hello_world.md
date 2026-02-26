@@ -72,11 +72,15 @@ In a manner akin to using the Controls Palette, click on the icons in the Functi
 
 Drag the string constant onto the VI block diagram. You can immediately start typing on the keyboard to enter text into the string constant.
 
-LabVIEW uses wires for data transfer. Position the cursor to the right-middle side of the string constant, and the cursor will transform into a spool-like icon. Clicking in this state will initiate a wire from the string constant. Then, clicking at the middle left side of the String Indicator terminal will establish a wired connection between the two elements.
+LabVIEW uses wires for data transfer. Hover the cursor over the terminal on the right side of the string constant; the cursor will transform into a spool-like icon. Clicking in this state will initiate a wire. Then, click on the terminal of the String Indicator to establish the connection.
+
+Notice that the wire and the terminals are pink. In LabVIEW, the color of a wire instantly communicates its data type. Pink represents textual string data. As you progress, you will see orange or blue wires for numbers, and green wires for Boolean (True/False) data. This color coding is one of the most powerful features of graphical programming, allowing you to understand data flow at a glance.
 
 ![](../../../../docs/images/image10.gif "Initiating a Wire")
 
-With this wiring, our entire program is now ready. To execute the VI, click on the first arrow-shaped button located on the left side of the toolbar on the front panel. The execution results of the program will be visible on the VI front panel:
+With this wiring, our entire program is now ready. To execute the VI, click on the Run button (the single white arrow) located on the far left of the front panel's toolbar.  The execution results of the program will be visible on the VI front panel.
+
+Be careful not to click the "Run Continuously" button right next to it (the icon with two chasing arrows). This forces the VI into an endless loop and is generally considered a poor programming practice, as you lose programmatic control over when the software stops.
 
 ![](../../../../docs/images/image11.gif "Execution Result")
 
@@ -114,9 +118,9 @@ Data originates from a source node on the block diagram and follows the connecti
 
 The figure above illustrates a simple mathematical operation program. In a basic VI, data typically originates and terminates at the control terminals. Data moves from the "input" terminal, travels along the wire to the "Increment" function, exits from the right side of the "Increment" function, proceeds through the wire to the "Square Root" function, and finally enters the "result" terminal.
 
-The reason data flows out of "input" and into "result", although both are terminals, is due to the dual nature of controls in LabVIEW. They can be configured either as a control or an indicator, which dictates the direction of data flow. When configured as a control, data flows out from its terminal; as an indicator, data flows into its terminal.
+The reason data flows out of "input" and into "result" is due to their designated roles on the Front Panel. While the palette we select them from is generally called the "Controls Palette", LabVIEW strictly categorizes front panel objects into two types: Controls (which act as inputs) and Indicators (which act as outputs).
 
-By default, the function of a control as either a control or an indicator is determined by the properties of the physical entity it represents. For instance, a switch object typically serves as a control, while a lightbulb object usually acts as an indicator. You can change a control’s data flow direction by right-clicking on it and selecting the "Change to Control/Indicator" option from the context menu.
+A Control acts as a data source; data flows out of its terminal on the block diagram. An Indicator acts as a data sink; data flows into its terminal. By default, LabVIEW guesses the role based on the physical entity it represents—a switch defaults to a control (input), while an LED lightbulb defaults to an indicator (output). You can easily reverse an object's role by right-clicking it and selecting "Change to Control" or "Change to Indicator".
 
 Functions and sub VIs generally possess multiple terminals, each with a fixed direction. Data invariably flows into functions via their input terminals and exits through their output terminals.
 
@@ -124,11 +128,11 @@ Wires are capable of branching. Data flowing out of one terminal can simultaneou
 
 ![](../../../../docs/images/image16.png "data directed into 2 branches")
 
-Conversely, a receiving terminal cannot concurrently receive data from different sources. Attempting such a connection will result in the wire turning into a dashed line:
+Conversely, a receiving terminal cannot concurrently receive data from multiple conflicting sources. Attempting to connect two different data sources to the same input terminal will result in a broken wire, visually represented by a black dashed line with a red "X" in the middle.
 
 ![](../../../../docs/images/image17.png "connect 2 sources")
 
-In such cases, clicking the "List Errors" button (which also functions as the "Run" button) on the VI block diagram window’s toolbar will display an error message:
+In such cases, the "Run" button on the toolbar will also "break," turning into a gray, fractured arrow. Clicking this broken arrow will display an "Error List" dialog box detailing the exact location and cause of the conflict.
 
 ![](../../../../docs/images/image18.png "error message")
 
