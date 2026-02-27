@@ -58,7 +58,7 @@ In the example above, the "Format Date/Time String" function is used on a VI's b
 
 In LabVIEW's Context Help window, located on the lower left, you'll find three small buttons. Their functions are best discovered through exploration. Try clicking on them and observe the changes in the Context Help window. For a more comprehensive experience, place various structures and sub-VIs on the block diagram, hover the mouse over different nodes, and watch how the Context Help window responds.
 
-While the Context Help window offers quick tips, it might not be sufficiently detailed for first-time users. To access more comprehensive information, click "Detailed Help Information" at the bottom of the Context Help window, or the blue question mark button in the lower left corner. This action opens the extensive LabVIEW online help documentation:
+While the Context Help window offers quick tips and wiring diagrams, it might not be sufficiently detailed for first-time users. To access more comprehensive information, hover your mouse over the function in question and click the 'Detailed Help' link at the bottom of the Context Help window (or the blue question mark button).  This action directly opens the extensive LabVIEW online help documentation to the specific page for that exact function.
 
 ![](../../../../docs/images/image24.png "LabVIEW online help")
 
@@ -81,9 +81,11 @@ If you haven't opened the relevant help document, the "NI Example Finder" provid
 
 ![](../../../../docs/images/image26.png "NI Example Finder")
 
-The NI Example Finder offers two primary search methods. On the "Browse" tab, you can find examples by category. For instance, to explore file reading and writing, select "Basics -> File Input and Output" from the category list to access various examples in this category. Alternatively, the "Search" tab allows keyword-based searches for example VIs. For example, typing "loop" in the search bar will display all examples related to loop structures.
+The NI Example Finder offers two primary search methods.  On the "Browse" tab, you can find examples by category. For instance, to explore file reading and writing, select "Basics -> File Input and Output".
 
-By default, the NI Example Finder only shows examples included with LabVIEW. However, if your computer is connected to the Internet, check the "Include ni.com examples" option at the bottom left of the dialog box. This enables the finder to also search for examples available on the NI website.
+The examples available on your local machine depend entirely on what you installed via the NI Package Manager. If you are looking for hardware-specific examples (like reading a voltage from a sensor) but cannot find the "Hardware Input and Output" folder, it means you need to install the corresponding driver (such as NI-DAQmx) for those examples to appear.
+
+If your computer is connected to the Internet, check the "Include ni.com examples" option at the bottom left of the dialog box. This enables the finder to also search for examples available on the NI website.
 
 Many examples on the NI website are user-contributed. You can contribute your VIs for community reference. User-submitted VIs are collated on the "NI Developer Community" page (URL: https://forums.ni.com/).Directly browsing this page in a web browser reveals the latest and most popular examples, along with community feedback:
 
@@ -101,7 +103,7 @@ Several online platforms can be helpful:
 - **[NI Official Forum](https://forums.ni.com/):** This active forum is regularly visited by NI technical support and development engineers, who often respond to various queries. It features dedicated areas for discussions in localized languages. However, if you're proficient in English, consider posting in the English discussion area. This section tends to be more active, potentially leading to faster and more diverse responses.
 - **[LAVA](https://lavag.org/):** This is the largest independent LabVIEW community and an excellent resource for support and discussion. LAVA offers a platform for free discussion, but it is primarily English-speaking.
 - **Social Media Groups:** Various Facebook groups and Google Groups dedicated to LabVIEW discussions exist. If you use these platforms, searching for relevant group names or keywords can lead you to these communities.
-- **Large Language Models:** We are in an era of technological evolution where large language models could potentially replace traditional search engines as a primary resource for learning materials. These models can already answer many simple questions. However, as of 2023, their effectiveness in addressing LabVIEW-specific queries is limited. This limitation may stem from LabVIEW's niche status, leading to a scarcity of learning materials for these models compared to more widespread languages like Python and Java. Furthermore, large language models currently struggle to effectively generate LabVIEW block diagrams, an advantage held by text-based programming languages.
+- **Large Language Models:** We are in an era of rapid technological evolution where AI assistants are heavily utilized for programming. Because LabVIEW is a graphical language, LLMs still struggle to effectively generate visual block diagrams or connect wires for you (in 2025). However, they are now excellent resources for conceptual learning and architectural design. You can effectively use LLMs to explain standard LabVIEW design patterns (like the State Machine or Queued Message Handler), troubleshoot specific numerical error codes, or compare LabVIEW dataflow concepts with text-based equivalents (e.g., asking 'How does a LabVIEW Shift Register compare to a Python static variable?').
 
 
 ## Sharing LabVIEW Code
@@ -128,6 +130,7 @@ In this book, we will use VI Snippet for code screenshots wherever possible. Rea
 
 ![](../../../../docs/images_2/z209.gif "Using VI Snippet")
 
+LabVIEW stores the actual program logic within the PNG file's hidden metadata. If you upload this image to platforms that automatically compress images or strip metadata (such as Discord, Slack, Facebook, or image-hosting sites like Imgur), the hidden code will be destroyed. The downloaded file will just be a flat picture, and dragging it into LabVIEW will do nothing. To ensure the code remains intact, always upload Snippets directly to native forums that support them (like the NI Forums or LAVA), or compress the PNG into a .zip file before sharing it through email or chat applications.
 
 ## Practice Exercise
 
