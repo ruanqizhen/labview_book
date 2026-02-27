@@ -93,7 +93,9 @@ Converting between different numerical representations is typically straightforw
 
 ![](../../../../docs/images/image114.png "representation change")
 
-In most cases, these casting points don't hinder program functionality. However, they might occur inadvertently during coding and can pose hidden risks. For instance, if a programmer unintentionally uses a short data type for what was initially a long data type, it could lead to numerical overflow. To mitigate these risks, it's advisable to eliminate all coercion points (indicated by the red dot on the function). If a conversion is essential in your program, deliberately use the representation conversion function (found in the function palette under "Programming -> Numeric -> Conversion"). This approach helps prevent accidental numerical conversion errors:
+While a coercion dot on a simple scalar addition is usually harmless, coercion on large arrays requires LabVIEW to create a duplicate buffer in memory, severely impacting performance.
+
+A common piece of advice is to eliminate all coercion dots. However, simply inserting an explicit representation conversion function (found under "Programming -> Numeric -> Conversion") right before the operation does not save memory—the compiler performs the exact same allocation. Explicit conversion nodes should only be used when you need to deliberately force a specific data type midway through a calculation. To truly optimize your code and remove coercion dots, you should always aim to match the data representations at their source. For example, change the representation of your numeric constants or front panel controls so they match the expected input of the function perfectly.
 
 ![](../../../../docs/images/image115.png "explicitly conversion")
 
@@ -275,12 +277,12 @@ In many programs, buttons are used to trigger events for specific tasks. This co
 
 LabVIEW includes a "Type Cast" function, located in "Programming -> Numeric -> Data Operations" on the function palette. This function allows data to be coerced into another type without altering the binary data in memory. This is similar to the cast operation in the C language.
 
-Consider the following C language code, which coerces a double-precision floating-point number into an integer:
+Consider the following C language code, which coerces a double-precision floating-point number into an integer by reinterpreting the memory address:
 
 ```cpp
-double dblNumber;
-int64* intPointer= (int64*)(&dblNumber);
-int intValue= *intPointer;
+double dblNumber = 13.4;
+int64* intPointer = (int64*)(&dblNumber);
+int64 intValue = *intPointer;
 ```
 
 The equivalent function in LabVIEW would be as follows:
