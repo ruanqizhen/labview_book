@@ -58,12 +58,6 @@ A new VI typically begins with a default layer containing a default icon (a simp
 
 It's worth noting that the icon editor itself is a product of LabVIEW code and is an excellent resource for learning LabVIEW programming. Its main VI can be found at `[labview]\resource\plugins\lv_icon.vi`.
 
-While the updated icon editor boasts enhanced features, the older version had its merits, particularly in terms of stability and faster startup. In some rare instances, if the new icon editor encounters issues, LabVIEW may revert to the older version:
-
-![](../../../../docs/images/image34.png "old icon editor")
-
-Renaming the new icon editor file at `[labview]\resource\plugins\lv_icon.vi` will prompt LabVIEW to default to the older version if the new one is not found.
-
 Opting for a simplistic design with just a few words might be easier, but it doesn't fully leverage the graphical potential of LabVIEW. Even though the earlier example used only the number "1", for formal programs, designing simple yet evocative icons for each VI is recommended.
 
 
@@ -115,9 +109,9 @@ This program's purpose is to show the sum of the "Knob" and "Dial" on the "Gauge
 
 A quick way to achieve this is by using the "Run Continuously" button ![](../../../../docs/images/image41.png) on the toolbar. Once activated, the program doesn’t stop after a single calculation but keeps rerunning until the "Abort Execution" button ![](../../../../docs/images/image42.png) is clicked. With this mode, any adjustments to the "Knob" and "Dial" will be immediately reflected in the "Gauge".
 
-Nonetheless, this approach has limitations. The "Run Continuously" method is typically used for temporary debugging and is not a viable solution for end users. In a standard application scenario, users interact with an executable file derived from the VI, which doesn't include a "Run Continuously" button. Furthermore, this method results in the entire code block running repetitively, making it challenging to separate the code that needs to run just once from the code that should run continuously.
+Nonetheless, this approach is highly discouraged, even for debugging. The “Abort Execution” button abruptly kills the program's thread. If your program is interacting with hardware or writing to files, aborting execution can leave instruments in dangerous states (like outputting high voltages) or cause file corruption because the program never gets the chance to safely close its references.
 
-For effective continuous operation in your program, employing loop structures is a key strategy. Navigate to "Programming -> Structures -> While Loop" in the Functions Palette, and drag this loop structure onto your VI's block diagram, encompassing the entire addition operation within the loop. The while loop is visually represented as a bordered rectangle, with the enclosed area known as the loop body. The principle of the while loop is simple: it repeats the code inside the loop body continuously, as long as the loop's stop condition is not met (or the continuation condition is satisfied). A more comprehensive discussion on the while loop structure will be presented in the [Loop Structures](data_array#while-loop) section of this book.
+For effective and safe continuous operation, employing loop structures is the mandatory professional standard. Navigate to "Programming -> Structures -> While Loop" in the Functions Palette, and drag this loop structure onto your VI's block diagram, encompassing the entire addition operation within the loop. The while loop is visually represented as a bordered rectangle, with the enclosed area known as the loop body. The principle of the while loop is simple: it repeats the code inside the loop body continuously, as long as the loop's stop condition is not met (or the continuation condition is satisfied). A more comprehensive discussion on the while loop structure will be presented in the [Loop Structures](data_array#while-loop) section of this book.
 
 Inside the loop's rectangle, you'll find a small red square at the bottom right corner. This is where you input the loop condition. Right-click this square and choose "Create Control" from the context menu to create a control button, typically named "Stop". Clicking this button will terminate the loop.
 
@@ -133,9 +127,11 @@ In real-world applications, user interaction with the "Knob" input may vary. Som
 
 In programming, the neatness of your code is crucial, and this holds especially true for LabVIEW. Unlike text-based programming languages, which can still be deciphered in a sequential top-to-bottom manner despite being somewhat messy, LabVIEW's unique two-dimensional structure demands organization for readability. Clear, well-thought-out layout and wiring are essential in LabVIEW programs. Ideally, each node and wire should be carefully positioned to create a logical flow that is also visually appealing. This meticulous arrangement, while time-consuming, is integral for maintaining code clarity.
 
-For less critical or practice programs, dedicating extensive time to manually organize every element might seem excessive. However, a good practice is to regularly utilize the "Clean Up Diagram" feature available on the VI block diagram toolbar. This tool automatically arranges LabVIEW code in a tidy and orderly fashion. Consider the following example: initially, the program functions were scattered randomly, leading to a confusing and hard-to-follow diagram. By simply clicking the "Clean Up Diagram" button, the layout becomes significantly more structured. The reorganized code can now be easily interpreted by reading from left to right, enhancing both its functionality and accessibility:
+For less critical or practice programs, dedicating extensive time to manually organize every element might seem excessive. However, a quick way to assist with this is to utilize the "Clean Up Diagram" feature (the broom icon) on the toolbar. This tool automatically arranges LabVIEW code in a tidy and orderly fashion. Consider the following example: initially, the program functions were scattered randomly, leading to a confusing and hard-to-follow diagram. By simply clicking the "Clean Up Diagram" button, the layout becomes significantly more structured. The reorganized code can now be easily interpreted by reading from left to right, enhancing both its functionality and accessibility:
 
 ![images_2/z221.gif](../../../../docs/images_2/z221.gif "Organizing up Block Diagram")
+
+While clicking this button is helpful for simple, beginner programs, it algorithmically rearranges your entire block diagram. In complex, professional architectures, this can sometimes destroy your carefully planned, logical layouts. As a best practice, instead of cleaning the entire diagram at once, you can click and drag to select a specific messy section of nodes and wires, and then click "Clean Up Diagram". LabVIEW will beautifully route only the selected area, preserving the rest of your architecture.
 
 ## Utilizing Sub VIs
 
@@ -172,7 +168,7 @@ Consider the example of constructing a simple sub VI that converts temperatures 
 
 The next phase is to configure the input and output parameters. In this case, "Fahrenheit Temperature" is assigned as the input parameter, and "Celsius Temperature" as the output parameter. In recent versions of LabVIEW, the connector pane, which is pivotal for this setup, is readily visible directly on the VI's front panel, simplifying the process of linking these parameters.
 
-In earlier versions of LabVIEW, the connector pane isn't immediately visible and can be accessed by right-clicking on the VI's icon and choosing "Show Connector Pane" from the contextual menu. This action reveals the icon area as a grid of small rectangles, known as "terminals": ![](../../../../docs/images/image49.png). The default layout of the connector pane is organized into four columns, containing 4, 2, 2, and 4 terminals respectively. This layout is typically referred to by the number of terminals in each column, with the default being 4224. While other patterns are available in the right-click menu under "Patterns", a good rule of thumb for clean and efficient code design is to stick with the 4224 pattern wherever possible.
+In earlier versions of LabVIEW, the connector pane isn't immediately visible and can be accessed by right-clicking on the VI's icon and choosing "Show Connector Pane" from the contextual menu. This action reveals the icon area as a grid of small rectangles, known as "terminals": ![](../../../../docs/images/image49.png). The default layout of the connector pane is organized into four columns, containing 4, 2, 2, and 4 terminals respectively. This layout is typically referred to by the number of terminals in each column, with the default being 4224. While other patterns are available in the right-click menu under "Patterns", a good rule of thumb for clean and efficient code design is to universally stick with the 4224 pattern.
 
 Each terminal on the connector pane can be associated with a control. Since data flow is predominantly left to right, inputs are usually placed on the left and outputs on the right. Therefore, when configuring the connector pane, aim to link the terminals on the left to control elements and those on the right to indicator elements.
 
