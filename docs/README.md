@@ -10,7 +10,7 @@
 
 由于个人经验和视角的局限，本书可能存在疏漏或不足。本书发行之后，收到了不少热心读者的反馈，帮助指正了书中错误，使得笔者可以提升书籍质量。在此谨向读者们表示诚挚的感谢！如果您发现任何错误或有任何建议，欢迎在留言区留言或在[知乎](https://www.zhihu.com/question/335418423)、[豆瓣](https://book.douban.com/subject/4037097/)相关的条目下留言。笔者对您的帮助将深表感谢，并尽快进行改进。
 
-为提高阅读体验，可以使用本书阅读页面：https://lv.qizhen.xyz/ 或 https://labview.qizhen.xyz/ 。手机屏阅读的时候，查看全书目录需要点击页面左上角的“菜单”按钮（3 条横线）。本书所有的文字和图片都保存在 GitHub [docs 文件夹](https://github.com/ruanqizhen/labview_book/tree/main/docs) 下。相关的示例代码保存在 [code 文件夹](https://github.com/ruanqizhen/labview_book/tree/main/code) 下，书中提到的示例基本都可以在此文件夹下找到，唯有少数示例因为过于简单或版权问题没有提供出来。
+为提高阅读体验，可以使用本书阅读页面：https://lv.qizhen.xyz/ 或 https://labview.qizhen.xyz/ 。两个页面部署在不同的站点上，如果其中一个访问不稳定，可以换另一个试试。手机屏阅读的时候，查看全书目录需要点击页面左上角的“菜单”按钮（3 条横线）。本书所有的文字和图片都保存在 GitHub [docs 文件夹](https://github.com/ruanqizhen/labview_book/tree/main/docs) 下。相关的示例代码保存在 [code 文件夹](https://github.com/ruanqizhen/labview_book/tree/main/code) 下，书中提到的示例基本都可以在此文件夹下找到，唯有少数示例因为过于简单或版权问题没有提供出来。
 
 
 ## 内容选取
