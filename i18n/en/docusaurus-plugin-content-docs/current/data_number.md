@@ -52,7 +52,7 @@ Consulting the LabVIEW Help index under "numeric value" will provide detailed ex
 
 | Representation | Description                             | Bytes |
 |----------------|-----------------------------------------|-------|
-| EXT            | Extended Precision Real                 | 16    |
+| EXT            | Extended Precision Real                 | Platform Dependent (Often 10, 12, or 16) |
 | DBL            | Double Precision Real Number            | 8     |
 | SGL            | Single Precision Real Number            | 4     |
 | FXP            | Fixed Point Number                      | Max 8 |
@@ -69,6 +69,8 @@ Consulting the LabVIEW Help index under "numeric value" will provide detailed ex
 | CSG            | Single Precision Complex Number         | 2×4   |
 
 This table provides a quick reference to understand the varying lengths and types of numeric representations available in LabVIEW, assisting in choosing the appropriate type for a given application.
+
+The exact byte size of the Extended Precision (EXT) type depends on your operating system and CPU architecture. On macOS and Linux, it typically occupies 16 bytes, whereas on Windows it is often an 80-bit number padded to 10 or 12 bytes, or defaults to 8 bytes on 64-bit Windows.
 
 When selecting a data representation, it's crucial to ensure that it meets the program's requirements. For instance, the I16 data type supports integers ranging from -32768 to 32767. This range may be insufficient for even basic arithmetic operations like 300×300. Consider a simple exercise: create a new VI, place two I16 constants with a value of 300, multiply them, and display the result using an I16 numeric control. You will likely encounter an "overflow", because the result exceeds the maximum value that an I16 control can represent. Detecting such errors in large projects can be challenging.
 
@@ -155,7 +157,7 @@ Take, for instance, converting Fahrenheit temperatures to Celsius. This can be a
 
 Another benefit of using Expression Nodes is their space efficiency on the block diagram, compared to basic arithmetic funcitons.
 
-Expression nodes allow only one string to represent the input parameter, meaning they are suited for single-variable functions. In the example above, 'f' denotes the input parameter.
+Expression nodes are limited to a single variable, making them perfectly suited for single-input functions. You do not need to pre-declare this variable; LabVIEW automatically detects it based on the text you enter. In the example above, typing `(f - 32) / 1.8` tells LabVIEW that 'f' is the input parameter. You could just as easily use 'x', 'temp', or 'input', as long as only one unique variable name exists in the equation.
 
 LabVIEW's online help documents the supported operators, functions, and expression rules for expression nodes. Both the expression nodes and the formula nodes (which will be discussed later) in LabVIEW borrow the syntax for mathematical expressions from C language. Thus, if you are familiar with C language, you can easily adapt to using these nodes without much additional help. For instance, `+`, `-`, `*`, `/` are used for basic arithmetic, `**` for exponential operations, and sqrt() for square root calculations, among others.
 
@@ -262,13 +264,15 @@ Boolean controls in LabVIEW are visually represented in various styles, includin
 
 ![](../../../../docs/images_2/z145.png "Boolean control palette")
 
-These controls not only mimic the appearance of real-world switches and buttons but also their behavior. They can be set to exhibit different mechanical actions. By right-clicking a Boolean control and selecting "Mechanical Action", you can access six types of mechanical actions as illustrated below:
+These controls not only mimic the appearance of real-world switches and buttons but also their behavior. By right-clicking a Boolean control and selecting "Mechanical Action", you can access six specific types of mechanical actions, broadly categorized into Switch actions and Latch actions:
 
 ![](../../../../docs/images/image92.png "boolean mechanical actions")
 
-The first two mechanical actions simulate switches. These controls toggle their state with each click: from on to off, or vice versa. The last four actions simulate buttons, which automatically revert to their default state after being pressed and released. Pressing a switch or button is a dynamic process, but a Boolean value only has two states. These six mechanical actions determine the precise moment when the control's value changes during the pressing action. The most intuitive setting for users is to select the first mechanical action for switch-type controls (changing the data value immediately upon mouse press) and the second option in the second row for button-type controls (emitting a pulse signal upon mouse release). A pulse signal means the Boolean value of the button control, originally False, briefly changes to True when the mouse button is released, and then immediately returns to False.
+The top row contains the three Switch actions (Switch When Pressed, Switch When Released, Switch Until Released). These toggle and hold their state until clicked again. The bottom row contains the three Latch actions (Latch When Pressed, Latch When Released, Latch Until Released). These simulate momentary buttons, which automatically revert to their default state after being read by the LabVIEW program.
 
-In many programs, buttons are used to trigger events for specific tasks. This concept is elaborated upon in the [Event Structure](pattern_ui) section. Additionally, the usage of [local variables and property nodes](data_and_controls) of the controls will be discussed in forthcoming chapters. Most controls, including Boolean ones, can be manipulated through their terminals or via their local variables and the "Value" property nodes. However, Boolean controls with trigger-based mechanical actions (the three types of mechanical actions in the second row) cannot use local variables or the "Value" property node.
+These six mechanical actions determine the precise moment when the control's value changes during the pressing action. The most intuitive setting for users is to select the first mechanical action for switch-type controls (changing the data value immediately upon mouse press) and the second option in the second row for button-type controls (emitting a pulse signal upon mouse release). A pulse signal means the Boolean value of the button control, originally False, briefly changes to True when the mouse button is released, and then immediately returns to False.
+
+In many programs, buttons are used to trigger events for specific tasks. This concept is elaborated upon in the [Event Structure](pattern_ui) section. Additionally, the usage of [local variables and property nodes](data_and_controls) of the controls will be discussed in forthcoming chapters. Most controls, including Boolean ones, can be manipulated through their terminals or via their local variables and 'Value' property nodes. However, there is a strict LabVIEW rule: Boolean controls configured with any of the three Latch mechanical actions cannot be read using local variables or the 'Value' property node. Doing so will result in a broken run arrow, as the latching mechanism requires a single, guaranteed read operation by the block diagram wire to reset.
 
 
 ## Data Type Cast
@@ -299,6 +303,7 @@ During a forced type conversion, the I64 value corresponding to the DBL value 13
 
 This example underscores the essence of forced conversion in LabVIEW: the underlying binary data remains constant, but its meaning significantly shifts depending on the chosen data type. While the original value is not altered at the binary level, its interpretation and thus its expressed value can change dramatically through this conversion process.
 
+Advanced programmers coming from C/C++ should note a critical architectural detail: Endianness. Most modern CPUs (like x86) are Little-Endian, meaning a C++ program on Windows will interpret those exact same bits in reverse byte order compared to LabVIEW. LabVIEW universally stores its numeric data in Big-Endian format across all platforms, ensuring cross-platform consistency but leading to different integer outputs if you try to replicate this exact cast in a C++ compiler on a PC.
 
 ### Purpose of Forced Conversion
 
@@ -352,4 +357,7 @@ The exploration of data type coercion in this section is mainly intended to enha
 ## Practice Exercise
 
 - **Living Room Area Calculation:** You have a living room shaped as a rectangle, with dimensions of 22.5 feet in length and 12.5 feet in width. Write a VI that calculates the area of your living room in square meters.
-- **Target Sum VI:** Develop a VI that takes four numerical inputs: x1, x2, x3, and a target value. Also, include a Boolean output named "result". The goal of this VI is to determine if any two numbers among x1, x2, and x3 can be added together to equal the target value. For instance, if x1=3, x2=5, x3=7, and the target is 8, then "result" should be True because 3+5 equals 8. Conversely, if the target is changed to 2 while keeping x1, x2, and x3 the same, the "result" should be False, as no two numbers among x1, x2, and x3 add up to 2.
+
+- **Target Sum VI:** Develop a VI that takes four numerical inputs: x1, x2, x3, and a target value. Also, include a Boolean output named "result". The goal of this VI is to determine if any two numbers among x1, x2, and x3 can be added together to equal the target value.
+
+- **Kinematics with Formula Nodes:** Imagine an object in free fall. Create a VI that calculates the final velocity (v) and the distance traveled (d) after a given time (t), given an initial velocity (v0) and the acceleration due to gravity (a = 9.8). Use a single Formula Node to execute both classical mechanics equations: `v = v0 + a*t`; and `d = v0*t + 0.5*a*t**2`;
