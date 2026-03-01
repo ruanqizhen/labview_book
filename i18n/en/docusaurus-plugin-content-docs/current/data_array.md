@@ -93,6 +93,8 @@ The result of this operation is shown here:
 
 This flexibility in comparison methods allows for precise and context-appropriate analysis of array data, whether you need to evaluate individual elements or assess the arrays as complete sets.
 
+Before manipulating or indexing an array, it is often necessary to programmatically determine how many elements it contains. This is achieved using the Array Size function. When a 1D array is wired to this function, it outputs a single integer representing the total number of elements. If a multi-dimensional array is wired, it outputs a 1D array of integers, where each element represents the size of that specific dimension (e.g., the number of rows and columns).
+
 ### Indexing Elements
 
 Indexing, or accessing specific elements within an array, is a fundamental operation in array manipulation. The "Index Array" function in LabVIEW allows you to retrieve the value of an element at a specified position. The "index" parameter within this function specifies which element is to be accessed. If the "index" parameter is left empty, it defaults to 0, indicating the retrieval of the first element in the array.
@@ -161,7 +163,7 @@ The code within the loop is executed repeatedly, once for each iteration. This c
 
 In LabVIEW, when you connect terminals inside and outside a loop structure, and the data wire crosses the loop's frame, a small rectangle (solid or hollow) appears on the frame, matching the color of the data line. This rectangle is known as a tunnel and serves the crucial function of transferring data into and out of the structure. Similar tunnels are also present in other structures, performing analogous roles. Tunnels are categorized based on the direction of data flow: input tunnels and output tunnels. Input tunnels have their input end outside the structure and their output end inside, while output tunnels have the reverse arrangement.
 
-When a single data item enters a loop, the tunnel manifests as a small solid rectangle, and this same data is accessed in each iteration of the loop. However, when the input data is an array, the loop can handle it uniquely by making the tunnel indexable. An indexable tunnel, indicated by a hollow rectangle, sequentially extracts an element from the array outside the structure with each iteration. This effectively combines the functions of tunneling and array indexing. You can toggle the indexing function on or off by right-clicking the tunnel and selecting "Disable Indexing" or "Enable Indexing".
+When a single data item enters a loop, the tunnel manifests as a small solid rectangle, and this same data is accessed in each iteration of the loop. However, when the input data is an array, the loop can handle it uniquely by making the tunnel Auto-Indexed. An Auto-Indexed tunnel, indicated by a hollow rectangle, sequentially extracts one element from the array outside the structure with each iteration. This effectively combines the functions of data tunneling and array indexing. You can toggle this feature on or off by right-clicking the tunnel and selecting "Enable Indexing" or "Disable Indexing".
 
 In a for loop using an indexed tunnel, there's no need to specify the total number of iterations (the 'N' value). Instead, the number of iterations automatically corresponds to the length of the input array, ensuring that the loop processes each element of the array.
 
@@ -285,6 +287,8 @@ The while loop functions similarly to the for loop, repetitively executing code 
 
 Since a while loop always performs at least one iteration, the issue encountered in "[Program 2](#examples-of-for-loop-applications)" (from earlier examples) would not occur with a while loop. Even a single iteration would suffice to transfer data from the input to the output tunnel, ensuring that the value of "Output Integer" remains 33.
 
+Because LabVIEW is driven by dataflow, any control used to stop a While Loop (like a "Stop" button) must be placed inside the loop's boundaries on the block diagram. If you place the Stop button outside the loop and wire it through a tunnel to the conditional terminal, the loop will only read the button's state before the first iteration. If it is False, the loop will spin infinitely and lock up your program, as it can never read the button again.
+
 The methods for transferring data in a loop structure, such as tunnels, shift registers, and feedback nodes, used in the for loop are also applicable to the while loop. However, special attention is needed when using indexed tunnels in a while loop. The iteration count in a while loop is determined solely by the "conditional terminal" and is not influenced by the length of the array connected to the indexed tunnel. Therefore, the number of iterations in a while loop can exceed the length of the input array, which may result in default values being used for elements beyond the array's scope. Additionally, connecting array data to a for loop automatically creates an indexed tunnel, whereas connecting it to a while loop by default creates a standard tunnel.
 
 When it comes to efficiency in output indexed tunneling, while loops are slightly less efficient than for loops. Consider the program below, which constructs arrays in both loop structures using output indexed tunnels:
@@ -389,9 +393,11 @@ The output of this arrangement is:
 
 Distinct shift registers for each sub VI instance are created only when the sub VI is configured as [reentrant](pattern_reentrant_vi), which allows each instance to operate independently.
 
+While floating feedback nodes offer a clever way to create a counter or maintain a local state without a loop, this is generally considered a poor programming practice in professional architectures. Because the node hides its retained state from the visual dataflow, it can cause unpredictable bugs—especially if the VI is called multiple times or the initialization state is forgotten. If you need to maintain state across multiple calls of a SubVI, the industry standard is to use an uninitialized Shift Register within a single-iteration While Loop (a pattern known as a Functional Global Variable or VIG), which will be discussed later in the book.
 
 ## Practice Exercise
 
-- **Sum Calculation VI:** Develop a VI using a loop structure to calculate the sum of all integers from 33 to 62. This exercise will help you practice implementing loops and basic arithmetic operations in LabVIEW, enhancing your understanding of iterative processes and data accumulation within a loop.
+- **Sum Calculation VI:** Develop a VI using a For Loop and a Shift Register to calculate the sum of all integers from 33 to 62.
 
+- **Array Search with Early Exit:** Create a VI that generates an array of 100 random numbers (between 0 and 10). Use a For Loop with Auto-Indexing to check each element. If the loop encounters a number greater than 9.5, use the Conditional Terminal to stop the loop immediately. Output the index where the loop stopped and the total number of iterations performed.
 
