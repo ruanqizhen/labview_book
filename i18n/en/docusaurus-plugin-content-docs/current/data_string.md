@@ -219,7 +219,7 @@ As a cross-platform language, LabVIEW resolves this issue by employing a special
 
 When working with path data in LabVIEW, it's generally best to use relative paths. This practice ensures that the program remains functional even when its location changes, such as when converting it into an executable file (.exe) or transferring it to another computer.
 
-For instance, if a program needs to access a specific file, you can place this file in the same directory as the program's main VI. The program then records the file's relative path (![Relative Path Icon](../../../../docs/images/image111.png)). Each time the program is run, it should first retrieve the main VI's current path using the "Current VI Path" constant, and then combine it with the recorded relative path to construct the full path of the data file. For example, if the main VI is `main.vi` located in the C drive's root directory, its current path is `C:\main.vi`, and the file's path would be `C:\data.txt`.
+For instance, if a program needs to access a specific file, you can place this file in the same directory as the program's main VI. The program then records the file's relative path (![Relative Path Icon](../../../../docs/images/image111.png)). Each time the program is run, it should first retrieve the main VI's current path using the `Current VI Path` constant. Because this constant includes the VI's filename (e.g., `C:\Project\main.vi`), you must first pass it through the Strip Path function to remove the VI name, leaving just the directory (`C:\Project`). Then, use the Build Path function to combine this directory with your relative file name (`data.txt`) to construct the valid, full path (`C:\Project\data.txt`).
 
 ![Using Relative Paths](../../../../docs/images/image112.png "Using Relative Paths")
 
@@ -246,7 +246,7 @@ The conversion between strings and paths is operating system dependent due to di
 
 ![Extract Filename from Path](../../../../docs/images_2/z166.png)
 
-However, this approach may not yield correct results on a Linux system, as Linux uses "/" instead of "\\" as the path separator. If your application needs to support multiple operating systems, consider using regular expressions for a more robust and universal solution to match file names.
+However, this approach may not yield correct results on a Linux system, as Linux uses "/" instead of "\\" as the path separator. If your application needs to support multiple operating systems, consider always use LabVIEW's native Path functions.  To extract a filename like test.vi from a path, simply pass the path wire into the Strip Path function.  This function automatically identifies the correct OS separator and splits the path into the base directory and the isolated filename, completely eliminating the need for string manipulation.
 
 :::
 
