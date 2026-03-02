@@ -6,11 +6,11 @@ In LabVIEW, a Case Structure consists of several branches. Each branch contains 
 
 ![](../../../../docs/images/image173.png "Case Structure")
 
-The image above illustrates a Case Structure, which shares a resemblance to the [Loop Structure](data_array#for-loop) we previously discussed. It's enclosed within a rectangular frame, bbut, distinctively, it houses multiple branch pages. Notably, only one page's content is visible at any given moment.
+The image above illustrates a Case Structure, which shares a resemblance to the [Loop Structure](data_array#for-loop) we previously discussed. It's enclosed within a rectangular frame, but, distinctively, it houses multiple branch pages. Notably, only one page's content is visible at any given moment.
 
 On the Case Structure's left, a small rectangle marked with a question mark serves as the case selector. The structure determines which branch to execute based on the data received by this selector. Above the structure, there's a rectangular label, known as the selector label. This label indicates the condition of the branch currently on display. You can modify the condition of the branch by clicking on this label.
 
-Further, a downward triangle next to the selector label reveals a list of all the branch conditions. This feature allows for easy switching between different branches. Additionally, small triangles flanking the selector label enable sequential navigation through the branches. For a hands-on exploration, place your cursor within the structure, hold down the Ctrl key, and use the mouse wheel to scroll. This action lets you navigate through the branches sequentially, providing a comprehensive view of the Case Structure's functionality.
+Further, a downward triangle next to the selector label reveals a list of all the branch conditions. This feature allows for easy switching between different branches. Additionally, the small arrows flanking the selector label enable you to sequentially click through the branches. For a faster, hands-on exploration, you can place your cursor within the structure, hold down the `Ctrl` key, and use the mouse wheel to scroll. This action lets you navigate through the branches sequentially, providing a comprehensive view of the Case Structure's functionality.
 
 ### Boolean Case Structure
 
@@ -34,7 +34,7 @@ This approach to error handling is a widely-used practice in LabVIEW. The intric
 
 Case structures in programming can handle different data types, such as strings, integers, and [Enum](data_custom_control). Unlike Boolean data, which are limited to "True" or "False" and typically require only two branches, these data types often necessitate multiple branches due to their wider range of possible values.
 
-When expanding a case structure to include additional conditions, you can easily add new branches. Simply right-click the case structure's border and select "Add Branch After" or "Add Branch Before" from the context menu. To reuse code from an existing branch in the new one, choose "Duplicate Branch". Afterward, you can set the specific conditions for each new branch.
+When expanding a case structure to include additional conditions, you can easily add new branches. Simply right-click the case structure's border and select "Add Branch After" or "Add Branch Before" from the context menu. To reuse code from an existing branch in the new one, choose "Duplicate Branch". Afterward, you can set the specific conditions for each new branch. If you find that you have created branches you no longer need, you can right-click the structure and select "Delete This Case", or use "Remove Empty Cases" to quickly clean up any branches that do not contain code.
 
 It's worth noting that a single branch can respond to multiple conditions. These conditions are separated by commas. For instance, as shown in the image below, the third branch of the case structure is programmed to trigger under three distinct conditions - when the input is either 2, 4, or 6:
 
@@ -106,9 +106,9 @@ Here's another scenario: suppose you have two Boolean parameters, `a` and `b`, a
 
 Similar to loop structures, data flow in and out of case structures through tunnels. However, case structures have only one type of tunnel. When data flows into the case structure, the tunnel's input terminal is located on the structure's exterior, allowing connection to the output ends of other nodes. Inside the case structure, the tunnel's output terminal is accessible to each branch, enabling them to utilize the data received from the input terminal. In contrast, for data exiting the case structure through a tunnel, the output terminal of the tunnel is positioned outside the structure, while its input end is inside.
 
-A key characteristic of case structures is that they execute the code from only one branch at any given time, with the specific branch to be executed during runtime remaining uncertain. This requires that data be provided to the input terminal of the output tunnel in every branch. Although this approach ensures that all branches are prepared to execute, it can become cumbersome, especially since typically only one branch produces meaningful output for external code, while the others might only need to supply a default value. To streamline this process, a more efficient strategy is to configure the output tunnel with the "Use Default If Unwired" setting. When this option is activated, if any branch does not provide data to the input terminal of the output tunnel, the tunnel will automatically revert to the default value for that data type as its output. This approach simplifies the handling of branches that do not need to output specific data.
+A key characteristic of case structures is that they execute the code from only one branch at any given time, with the specific branch to be executed during runtime remaining uncertain. This requires that data be provided to the input terminal of the output tunnel in every branch. Although this approach ensures that all branches are prepared to execute, it can become cumbersome, especially since typically only one branch produces meaningful output for external code, while the others might only need to supply a default value. To streamline this process, you can configure the output tunnel by right-clicking it and selecting Use Default If Unwired. When this option is activated, the tunnel changes from a solid square to an outlined square. If any branch does not provide data to this tunnel, it will automatically output the default value for that data type (e.g., 0 for numerics, False for Booleans).
 
-Deciding whether to enable the "Use Default If Unwired" setting on a tunnel parallels the earlier discussion about setting a default branch in case structures.
+Deciding whether to enable the "Use Default If Unwired" setting on a tunnel parallels the earlier discussion about setting a default branch in case structures.  While "Use Default If Unwired" saves time, it is widely considered a poor programming practice in professional development. It masks logical errors by silently outputting default data in unhandled cases, which can cause catastrophic downstream bugs in complex applications. Instead of relying on defaults, it is highly recommended to explicitly wire your intended outputs. If a value simply needs to pass through the structure unchanged in certain cases, you should use the Linked Input Tunnels feature (discussed below) rather than defaulting the wire.
 
 In numerous scenarios, a case structure's output tunnel is directly linked to an input tunnel. Unless specified otherwise by the program, the data exiting the structure should correspond to the data entering it. To efficiently link all branches that relate to these paired input and output tunnels, right-click on the output tunnel, choose "Connect Input Tunnels -> Create and Connect Unwired Branches", and then select the input tunnel. This action will seamlessly interconnect the input and output tunnels across all branches:
 
@@ -189,9 +189,9 @@ There are two types of sequence structures in LabVIEW: flat sequence structures 
 
 ### Stacked Sequence Structure
 
-Initially, LabVIEW only featured stacked sequence structures, and in later versions, these have been less emphasized in the function palette. This shift reflects the coding style LabVIEW now advocates. But let's start with an exploration of stacked sequence structures.
+Initially, LabVIEW only featured stacked sequence structures. However, in modern LabVIEW development, Stacked Sequence Structures are heavily discouraged and are generally considered a legacy anti-pattern. They hide code, make it incredibly difficult to trace dataflow, and hinder LabVIEW's natural ability to multithread.
 
-Suppose you need to develop a VI to measure the execution time of a code segment. The approach involves capturing the system time before and after the code runs. The difference between these two timestamps will indicate the code's execution duration.
+We will explore how they work so you can understand legacy code you might encounter, but you should avoid using them in new programs. Suppose you need to develop a VI to measure the execution time of a code segment. The approach involves capturing the system time before and after the code runs. The difference between these two timestamps will indicate the code's execution duration.
 
 For this task, since the time recording code and the test code are not interconnected by data wires but need to execute sequentially, a sequence structure is appropriate. Begin with a stacked sequence structure, which is divided into three frames: Frame 0 captures the current system time (pre-test code execution); Frame 1 houses the test code itself; Frame 2 records the system time once more (post-test code execution).
 
@@ -295,8 +295,8 @@ It's important to note that when the original version of the program was written
    Examples of valid inputs include "23-6" or "445*78". Your VI should be capable of evaluating this input expression and outputting the result. For instance, if the input is "45+7", then the VI should output 52.
 
    **Key Points:**
-   - Ensure your VI includes a parsing mechanism to correctly identify the integers and the operator in the input string.
-   - Implement the logic to perform the arithmetic operation as per the identified operator.
+   - Ensure your VI includes a parsing mechanism to correctly identify the integers and the operator in the input string. (Hint: Consider using the Scan From String function or Match Regular Expression from the previous chapter to isolate the numbers and the operator.)
+   - Implement a Case Structure to perform the arithmetic operation corresponding to the identified operator (`+`, `-`, `*`, `/`).
    - Handle potential errors, such as division by zero or invalid inputs.
 
 2. **Runtime Measurement Program**
