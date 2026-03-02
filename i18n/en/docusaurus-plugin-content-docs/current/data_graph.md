@@ -30,7 +30,7 @@ When you run the above VI, you'll notice that the final data curves displayed by
 
 ![images_2/image78.png](../../../../docs/images_2/image78.gif "Waveform Drawing Result")
 
-On subsequent runs of the VI, the waveform chart retains the previously plotted data, continuously appending new data points. To start each run afresh, you can clear its historical data using the "history" [property node](data_and_controls#property-node) of the waveform chart. This approach ensures that each run begins with a clean slate:
+On subsequent runs of the VI, the waveform chart retains the previously plotted data, continuously appending new data points. To start each run afresh, you can clear its historical data programmatically using the "history Data" [property node](data_and_controls#property-node) of the waveform chart. To execute the clear operation, you must right-click the property node, change it to "Write" mode, and wire an empty array constant of the corresponding data type into it.  This approach ensures that each run begins with a clean slate:
 
 ![images_2/image79.png](../../../../docs/images_2/image79.png "Clearing Waveform Chart History")
 
@@ -55,6 +55,8 @@ The example program below illustrates this concept. The waveform chart and wavef
 ![images_2/image81.png](../../../../docs/images_2/image81.png "Waveform controls Accepting 2D Array Data")
 
 This distinction arises from the different use cases of these controls. The waveform graph control is designed to plot one curve at a time before proceeding to the next, while the waveform chart control plots data for all curves at a single time point before moving on to the next time point.
+
+Because of this inherent difference, it is very common to build a 2D array of data only to find it plots incorrectly on your chosen display. To quickly fix this without rewriting your data-generation logic, use the Transpose 2D Array function (found under Programming -> Array).  Placing this function right before your graph or chart will swap the rows and columns, instantly correcting the curve alignment.
 
 Another data type well-suited for waveform controls is the cluster array. The handling of cluster arrays follows similar rules to the two-dimensional arrays:
 
@@ -188,6 +190,8 @@ The data for men and women, while overlapping, shows a clear distinction in the 
 
 Unlike the XY graph, which is limited to indicating the presence or absence of data at each coordinate point, intensity graphs allow for a more nuanced display of complex information. These graphs transcend two-dimensional constraints by incorporating a third dimension. In addition to the traditional X and Y axes, intensity graphs introduce a Z-axis value, enabling the representation of three-dimensional data. LabVIEW commonly adopts two approaches for displaying such data. While one method involves a three-dimensional graph control, we will focus on the alternative: using an intensity graph. This graph remains two-dimensional in layout, akin to the XY graph, but distinguishes itself by utilizing pixel brightness or color variations to signify the Z-axis values.
 
+By default, the Intensity Graph maps its color spectrum (the Z-Scale Color Ramp) to values between 0 and 100.  If Z-axis data falls significantly outside this range (for example, tiny values between 0.0 and 1.0), the graph may appear as a single, solid color. To fix this, right-click the graph, navigate to Z Scale, and select Autoscale Z, or manually adjust the marker values on the color ramp next to the graph so they match the expected bounds of the data.
+
 ### Time-Frequency Joint Spectrum Analysis
 
 In measurement and control fields, waveform graphs typically convey two-dimensional data, with the horizontal axis representing time or frequency, and the vertical axis depicting amplitude or energy. However, more intricate analyses are often required. For instance, the energy of an actual signal may vary across frequencies over time. To visualize this variation, a graph capable of representing three-dimensional data is needed, segregating time, frequency, and power. The intensity graph meets this requirement by using color variations to signify the power dimension, alongside the conventional time and frequency axes. Some audio playback software features time-frequency joint analysis, displaying the distribution of sound energy across different times and frequencies. This functionality can also be achieved through LabVIEW programming. The figure below illustrates a program that performs this analysis. The methodology is relatively straightforward: the sound is segmented (e.g., into one-second intervals), followed by an analysis of the frequency-specific power distribution within each segment. The cumulative analysis of these segments yields a spectrum that evolves over time.
@@ -284,5 +288,6 @@ With these modifications, the final result more closely resembles a real flower:
 
 ## Practice Exercise
 
-- Write a VI (to generate square wave data and display these square waves on a user interface. Consider the parameters that influence a square wave, such as frequency and amplitude, and how these can be dynamically adjusted within the VI for a range of wave patterns.
+- **Square Wave Generator:** Write a VI to generate square wave data and display these square waves on a waveform graph. Consider the parameters that influence a square wave, such as frequency and amplitude, and configure your VI so these can be dynamically adjusted via front panel controls.
 
+- **Lissajous Explorer:** Using an XY Graph, create a VI that plots a Lissajous curve. Use two sine wave generators for the X and Y inputs. Add controls to the front panel that allow the user to independently adjust the Frequency and Phase of the Y-axis signal while the VI is running, so they can visually explore how the curve morphs in real-time.
