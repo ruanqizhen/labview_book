@@ -89,7 +89,6 @@ const config = {
   ),
   plugins: [
     baiduPlugin,
-    googleSiteName,
     [
       require.resolve("@easyops-cn/docusaurus-search-local"),
       {

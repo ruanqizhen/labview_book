@@ -21,23 +21,3 @@ export function baiduPlugin(context, options) {
         },
     };
 }
-
-export function googleSiteName(context, options) {
-    return {
-        name: 'googleSiteName-plugin',
-        injectHtmlTags({ content }) {
-            return {
-                headTags: [`
-          <script type="application/ld+json">
-          {
-            "@context" : "https://schema.org",
-            "@type" : "WebSite",
-            "name" : "LabVIEW Tutorial",
-            "url" : "https://lv.qizhen.xyz"
-          }
-          </script>
-        `],
-            };
-        },
-    };
-}
