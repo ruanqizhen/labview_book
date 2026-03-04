@@ -32,7 +32,9 @@ For instance, consider a program designed to simulate an oscilloscope with three
 
 ### Radio Button Control
 
-LabVIEW's radio button control (Radio Buttons) is another control type that utilizes the Enum data type, yet it differs in appearance from the dropdown-style Enum control. Radio button controls behave similarly to a set of boolean controls, but they are a unique control type within LabVIEW, allowing only one button in the set to be selected at any given time. The value of the entire radio button set corresponds to the position of the boolean control that is set to true. The appearance and the number of options of a radio button can be adjusted as required. Here are some examples of radio button controls with varying appearances:
+LabVIEW's radio button control is another control type that utilizes the Enum data type, yet it differs in appearance from the dropdown-style Enum control. Visually, radio button controls behave like a clustered set of boolean controls, allowing only one button in the set to be selected at any given time. However, on the block diagram, the terminal is strictly an Enum. The wire outputs the specific integer (and text label) corresponding to whichever boolean button is currently set to true.
+
+The appearance and the number of options of a radio button can be adjusted as required. Here are some examples of radio button controls with varying appearances:
 
 ![Radio Button Controls](../../../../docs/images/image88.png "Radio Button Control") ![Radio Button Controls](../../../../docs/images/image89.png "Radio Button Control")![Radio Button Controls](../../../../docs/images/image90.png "Radio Button Control")![Radio Button Controls](../../../../docs/images/image91.png "Radio Button Control")
 
@@ -156,7 +158,9 @@ In contrast, when a control is set as a Type Definition, the data type of its in
 
 ![Type Definition](../../../../docs/images_2/z220.gif "Type Definition")
 
-It's crucial to note that instances will only auto-update when there's a change in the data type of the Type Definition control. Alterations that do not affect the data type, such as changes in appearance or properties like color or numeric range, will not trigger an automatic update in the instances. This limitation can occasionally be a drawback. For instance, if a Type Definition is used for a dropdown list control and an item is added or removed, it would be ideal for the instances to update automatically to reflect these changes. However, this is not the case, necessitating the use of a strict Type Definition for scenarios requiring such dynamic updates.
+It's crucial to note that instances of a regular Type Definition will only auto-update when there's a change in the fundamental data type. Alterations to appearance or cosmetic properties will not trigger an update.
+
+This creates a massive distinction between Enum controls and Ring controls. In LabVIEW, the specific list of text strings inside an Enum is actually part of its fundamental data type. Therefore, if you add a new item to an Enum Type Def, all instances will automatically update. However, for a Ring control, the text labels are just cosmetic properties; the fundamental data type is simply a numeric (like U16). If you add a new item to a Ring Type Def, the instances will not update their lists. To force visual properties—like the item list of a Ring control—to synchronize across all instances, you must use a Strict Type Definition.
 
 ### Strict Type Definition
 
@@ -164,10 +168,14 @@ Strict Type Definitions in LabVIEW function similarly to regular Type Definition
 
 For complex data types such as clusters, dropdown lists, enumerations, etc., it is highly recommended to utilize strict Type Definitions. This practice ensures uniformity and consistency across all instance controls within a program, maintaining coherence in the program's design and function.
 
-A common misconception about strict Type Definitions is that they influence only instance controls and not the properties of instance constants. Instance constants are defined as constants linked to a .ctl file, created on a program’s block diagram via dragging or generating constants. For example, if you modify a dropdown list control within a strict Type Definition by adding a new item, this change will reflect in all related instance controls. However, instance constants will not automatically adapt to these modifications and will not display the new item. Despite expectations for constants to auto-update, they remain unaffected by these changes in reality.
+A common pitfall for beginners working with Type Definitions involves instance constants on the block diagram. Instance constants are constants linked directly to a .ctl file. If you update the .ctl file (for example, adding a new state to an Enum), properly linked constants will automatically update to reflect the new item.
+
+However, if you create a standard constant from a terminal before linking that terminal to your Type Def, or if you accidentally disconnect the constant, it will not update, which causes broken wires. You can visually verify that a constant is safely linked to your Type Def by looking for a small, black "dog-ear" triangle in the upper-left corner of the constant.  Always ensure your constants show this black triangle to guarantee they synchronize with your custom control.
 
 When a strict Type Definition is updated, all corresponding instance controls in the program are automatically updated as well. However, it's important to note that certain aspects of the program's code may require manual adjustments. For instance, if a new item is introduced to a dropdown list control, additional programming may be necessary to implement corresponding branches or functionality to accommodate this new element.
 
 ## Practice Exercise
 
-- Consider a scenario where you need to represent the coordinates of a point on a plane, specifically the x and y coordinates, within a cluster. Your task is to create a strict type definition for this coordinate cluster. Then, develop a VI where the data input control type is the newly created custom control. Within this VI, display the input coordinates on an XY graph control. Subsequently, enhance the type definition in the cluster by adding a z element, enabling it to represent a point's position in a three-dimensional coordinate system. Observe and analyze whether the input control in the VI adjusts synchronously with these changes.
+- **Coordinate Type Def:** Consider a scenario where you need to represent the coordinates of a point on a plane (x and y coordinates) within a cluster. Create a Strict Type Definition for this 2D coordinate cluster. Next, develop a VI where the data input control is this newly created custom control, and wire it to an XY Graph on the block diagram.
+
+- Once it is working, open your .ctl file and enhance the cluster by adding a 'z' numeric element, transforming it into a 3D coordinate. Save the .ctl file and return to your VI. Observe the front panel: did the control update automatically? Now look at the block diagram: notice how the wire connecting to the XY Graph is now broken. This broken wire is proof that your Strict Type Definition successfully updated the data type across your entire program!
