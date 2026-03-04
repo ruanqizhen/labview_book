@@ -115,7 +115,9 @@ The section on “[The Hierarchy of Object Classes](vi_server_for_ui#object-clas
 
 Properties can be read-only, write-only, or both readable and writable. The right-click menu for a property allows you to select "Change All to Write" / "Change All to Read" or "Change to Write" / "Change to Read" to adjust the property's direction. Some properties, even though writable, can only be modified when the VI is in edit mode, such as the text label of a control. Therefore, it's crucial to verify whether the property node returns an error when setting control properties. The help documentation provides comprehensive details for property items.
 
-A property node can simultaneously read and write multiple properties. By hovering your mouse over the middle part of the property node's lower edge, you can expand or contract it. Clicking on the added entry allows you to swap it for the property you require. The menu also features "Add Element" / "Delete Element" options for performing these actions.
+A property node can simultaneously read and write multiple properties. By hovering the mouse over the middle part of the property node's lower edge, we can expand or contract it. Clicking on the added entry allows us to swap it for the property we require.
+
+When we stack multiple properties in a single node, LabVIEW executes them strictly sequentially from top to bottom.  If an error occurs while setting a property near the top (for example, writing an out-of-bounds value), the node immediately halts execution, and the properties below it will not be updated.
 
 ![Expanding the Property Node to Add New Properties](../../../../docs/images/image144.png "Expanding the Property Node to Add New Properties")
 
@@ -158,7 +160,9 @@ Here's how the program operates:
 
 Readers are encouraged to experiment with the program and try clicking the stop button. If this task seems too simple, rest assured, later chapters of this book will introduce more challenging interactive buttons.
 
-In more complex interfaces, displaying different controls under varying conditions is often required. One way to manage this is by utilizing the "hide" property, effectively concealing controls when they are not in use. However, this approach can complicate the editing and debugging process since the hidden controls and their properties become inaccessible on the front panel. A more practical method involves adjusting the position of controls, relocating them outside the visible area of the window when they are not needed. By expanding the front panel window during the editing phase, all controls can be viewed and adjusted.
+In more complex interfaces, displaying different controls under varying conditions is often required. The standard and most professional way to manage this is by utilizing the Visible property node, effectively concealing controls when they are not in use.
+
+However, some developers find this approach complicates the editing process, as completely hidden controls can be easily forgotten or are difficult to click during development. An alternative (though somewhat older) method involves adjusting the Position properties, relocating the controls far outside the visible area of the window (e.g., setting Left to -2000) when they are not needed. While this keeps them visible during editing (if you scroll out), be aware that moving controls extremely far off-screen can sometimes cause the Front Panel scrollbars to behave erratically.
 
 The properties related to position and size are fundamental, not only for interactive controls but also for purely decorative elements on the front panel, such as those found in the "decoration" control panel. Subsequent chapters in this book will delve into techniques for managing a wider array of objects within a program, demonstrating the versatility of these properties in creating dynamic and responsive user interfaces.
 
@@ -326,9 +330,11 @@ Consider the following example program that uses a multicolumn Listbox control t
 
 ![](../../../../docs/images_2/z242.png "Displaying Report Card")
 
-In this program, the section preceding the loop structure initializes the multicolumn Listbox control by setting its "Column Header Strings", "Row Header Strings", and "Item Name" properties. These properties define the column headers, row headers, and the data within the table, respectively. Nested loop structures are used to iterate through each data cell in the table. If any cell's data falls below 60, the "Active Cell" and "Cell Background Color" properties are employed to change the cell's background color to red, thereby highlighting the abnormal data:
+In this program, the section preceding the loop structure initializes the multicolumn Listbox control by setting its "Column Header Strings", "Row Header Strings", and "Item Name" properties. These properties define the column headers, row headers, and the data within the table, respectively. Nested loop structures are used to iterate through each data cell in the table. If any cell's data falls below 60, the "Active Cell" and "Cell Background Color" properties are employed to change the cell's background color to red, thereby highlighting the abnormal data.
 
 ![](../../../../docs/images_2/z243.png "Displaying Report Card")
+
+Notice that both properties are stacked within a single Property Node. Because stacked nodes execute top-to-bottom, LabVIEW guarantees that it will select the correct "Active Cell" before applying the "Cell Background Color". If you were to use two separate Property Nodes wired in parallel without a strict error-wire dependency, a race condition could occur where LabVIEW changes the color before selecting the new cell, resulting in the wrong data being highlighted.
 
 LabVIEW also offers a "Table" control, which closely resembles the multicolumn Listbox control in appearance and functionality. For instance, the following program demonstrates how the Table control can be used to alternate the background color of rows, enhancing data readability:
 
