@@ -91,3 +91,49 @@ async def main():
 ```
 
 This snippet demonstrates how functions `foo` and `bar` can be executed concurrently with a single line of code, making the process no more challenging than implementing parallel execution in LabVIEW.
+
+## The Impact of the AI Programming Era
+
+Since the first programming languages appeared in the 1950s, researchers have repeatedly attempted to use artificial intelligence to improve the programming process. However, the real turning point did not arrive until after 2020. The rise of large language models (LLMs) transformed AI-assisted programming from a research concept into an industrial reality.
+
+With the release of GPT-3.5 in 2022, adoption accelerated dramatically. AI tools began to significantly increase the productivity of professional developers, while also enabling engineers and scientists with little formal programming background to build complex software systems. Today (as of 2025), nearly all major technology companies have integrated AI-assisted programming into their development workflows. In some projects, AI-generated code accounts for more than half of the total codebase.
+
+Yet when we turn our attention to LabVIEW, the outlook appears less optimistic. The rise of AI programming is not simply another opportunity for LabVIEW—it challenges some of the fundamental assumptions on which the platform was built. While most programming languages are benefiting from the AI revolution, LabVIEW increasingly seems to be moving against the current.
+
+### The Structural Contradiction Between Graphical Programming and LLMs
+
+Could vendors eventually develop AI systems capable of writing LabVIEW code automatically? Perhaps. But the challenge is far greater than building AI tools for traditional programming languages.
+
+LabVIEW uses a graphical programming paradigm—often called G code—based on dataflow. Engineers construct program logic by connecting nodes with data wires, creating diagrams that represent how data moves through the system. For human engineers, this approach is often intuitive and highly efficient. In the AI era, however, the same characteristic becomes a major obstacle.
+
+Modern large language models are fundamentally designed to process linear sequences of text. They learn patterns from enormous collections of source code written in languages such as Python, C++, and Java by analyzing syntax, structure, and contextual relationships in text. LabVIEW code, however, is graphical and two-dimensional. Its structure depends on spatial relationships and wiring connections rather than textual syntax. As a result, it is difficult to serialize and feed directly into current model architectures for large-scale learning.
+
+Understanding the behavior of a VI—and especially generating a correct and well-structured block diagram—is therefore far more difficult for an AI system than generating equivalent logic in Python.
+
+Another factor is training data. The effectiveness of AI models depends heavily on the size and quality of the datasets used to train them. Text-based programming languages benefit from enormous public repositories such as GitHub and Stack Overflow. In contrast, LabVIEW’s open-source ecosystem is relatively small. High-quality public projects are limited, leaving far less material for models to learn from. As a result, AI support for LabVIEW begins with a structural disadvantage.
+
+### AI Competing with LabVIEW’s Core Strengths
+
+More importantly, many of AI’s strengths overlap directly with areas that were once considered LabVIEW’s greatest advantages.
+
+LabVIEW has long been known for its visual user interface development. By simply dragging and dropping controls, users can quickly create interactive interfaces for measurement and control applications. Today, however, AI tools can often achieve similar results from a single natural language prompt.
+
+For example, a prompt such as:
+
+> “Generate a 3D chart with two input controls for X and Y values, and display Z = X × Y using different colors in the chart.”
+
+can produce a complete Python program within seconds. When executed, the program generates the requested visualization and user interface. Because interface layouts and interactions are easy to describe in natural language, AI can often produce them faster than a human engineer. Evidence of this trend can already be seen in web development, where AI has had a stronger impact on front-end engineering than on back-end work.
+
+In a similar way, LabVIEW’s historical advantage in rapid UI prototyping is increasingly being replaced by AI-driven approaches that are both more flexible and more widely applicable.
+
+LabVIEW’s other traditional stronghold—instrument control and data acquisition—is also becoming easier to replicate using AI-assisted tools. Today, an engineer can simply describe the required functionality in natural language and receive a complete Python script built on open-source libraries for hardware control and data analysis. For many tasks, this workflow can be faster and more flexible than developing a LabVIEW application.
+
+### Looking Ahead
+
+AI-assisted programming is rapidly reshaping the entire software development landscape. As AI improves the productivity of mainstream text-based languages, the practical reasons for choosing LabVIEW may gradually diminish.
+
+In the future, LabVIEW’s role may become more concentrated in areas where it remains uniquely strong, such as real-time control systems and industrial automation. In applications that demand extremely high determinism and reliability, LabVIEW combined with dedicated hardware platforms—such as CompactRIO and PXI—running real-time operating systems still provides capabilities that are difficult to replicate with general-purpose tools.
+
+At the same time, LabVIEW is not without potential opportunities. Emerging technologies such as generative graph models and multimodal large language models (MLLMs) may eventually enable AI systems to generate executable graphical code directly. If such technologies mature, LabVIEW could potentially redefine its role in the AI era.
+
+Regardless of the outcome, the coming years will bring significant challenges and transformation. The tide of AI will not slow down. Only by continuing to evolve can LabVIEW avoid being left behind by the currents of technological change.
