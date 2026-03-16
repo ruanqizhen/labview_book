@@ -12,7 +12,11 @@ This dialog box contains a multitude of configurable options. For detailed expla
 
 ### Personalizing Your Experience
 
-It’s important to note that these settings are subjective; there is no one-size-fits-all approach. LabVIEW programmers are encouraged to experiment with different configurations to find what best suits their personal style and workflow. For instance, many users prefer to modify the display mode of the control terminals on the block diagram. There are two display modes available for control terminals on the block diagram: icon mode and non-icon mode. While icon mode is more visually appealing and intuitive, it occupies more space. On the other hand, non-icon mode conserves screen real estate by reducing the size of the terminals:
+It’s important to note that these settings are subjective; there is no one-size-fits-all approach. LabVIEW programmers are encouraged to experiment with different configurations to find what best suits their personal style and workflow. For instance, many users prefer to modify the display mode of the control terminals on the block diagram. 
+
+here are two display modes available for control terminals on the block diagram: icon mode and non-icon mode.  While icon mode is more visually appealing, it occupies a massive amount of space and can quickly clutter your block diagram.
+
+As a professional best practice, it is highly recommended to use non-icon mode to conserve screen real estate and keep your code compact. You can make this the default behavior by navigating to `Tools -> Options -> Block Diagram` and unchecking the box for `Place front panel terminals as icons`.
 
 ![](../../../../docs/images/image55.png "Control terminal Displayed as Icon")
 
@@ -85,13 +89,21 @@ In the search dialog, input your keywords, then drag and drop the desired result
 
 ### Quick Drop
 
-LabVIEW also features a tool known as Quick Drop, activated by the shortcut "Ctrl+Space". Note that this shortcut may conflict with system shortcuts for switching input methods, particularly in systems with Chinese language support. If you encounter issues with this shortcut, alternatives like "Ctrl+Shift+Space" or "Alt+Space" can be tried. On some systems, "Ctrl+Alt+Space" can activate Quick Drop as an alternative.
+LabVIEW also features a tool known as Quick Drop. 
 
-Quick Drop not only searches for functions and controls but also allows you to create custom shortcuts:
+Quick Drop is activated by the default shortcut Ctrl+Space. Note that this shortcut frequently conflicts with operating system shortcuts for switching input methods, particularly on systems with Chinese language support.
+
+If you encounter this conflict, you must manually change the shortcut within LabVIEW. Navigate to Tools -> Options -> Environment, scroll down to the Quick Drop Keyboard Shortcut section, and assign an alternative combination.  Standard alternatives that avoid system conflicts include `Ctrl+Shift+Space` or `Ctrl+Alt+Space`.
 
 ![Quick Drop](../../../../docs/images_2/z133.png "Quick Drop")
 
-### Configuring Shortcuts in Quick Drop
+### Quick Drop Keyboard Shortcuts
+
+Beyond simply placing objects, Quick Drop includes several built-in keyboard shortcuts that execute powerful macros, saving you countless mouse clicks.  After opening Quick Drop (`Ctrl+Space`) and selecting an object (or clicking an existing object on block diagram), you can press the following shortcuts:
+- Ctrl + D: Automatically generates and wires all controls and indicators for the selected function or subVI.
+- Ctrl + R: Removes the selected node from the block diagram and automatically reconnects the broken wires behind it.
+- Ctrl + T: Moves the labels of all selected nodes to a clean, standardized position (e.g., top-left for controls, bottom for indicators). Mastering these shortcuts will exponentially increase coding speed.
+
 
 You can view and edit shortcut configurations in Quick Drop by clicking the Configure button. LabVIEW has a default set of shortcuts, but custom shortcuts can be added for more frequently used functions or controls:
 
@@ -110,7 +122,9 @@ In the graphical programming environment of LabVIEW, the mouse plays a multiface
 
 ### Automatic Tool Selection
 
-By default, LabVIEW is configured to automatically select the mouse function based on its position and context. Based on personal experience, the "Automatic Tool Selection" option is sufficient for handling most programming tasks in LabVIEW. It conveniently adjusts the mouse function based on the cursor's context within the VI. For instance, when the cursor is moved over a function, the mouse adapts to allow dragging of the function. Similarly, when positioned at a function’s terminal, it switches to wiring mode. Although this automatic selection feature is convenient, it has some drawbacks. It requires precise cursor placement to activate the desired functionality, which can be time-consuming and sometimes frustrating.
+"By default, LabVIEW is configured to automatically select the mouse function based on its position and context via the Automatic Tool Selection feature.  For instance, when the cursor hovers over the center of a function, it acts as a positioning tool; when moved to a terminal, it seamlessly switches to the wiring spool.
+
+While mastering the precise cursor placement takes a little practice, keeping Automatic Tool Selection enabled is the absolute industry standard for programming efficiency. Manually clicking the palette to switch tools drastically slows down development. For advanced programmers, the most efficient workflow is to leave Auto-Tool ON, and only use the `Shift + Right-Click` temporary tool palette or the Spacebar/Tab shortcuts for rare, specific overrides (such as selecting the Coloring tool to paint a block diagram structure).
 
 ### Manual Tool Selection
 
