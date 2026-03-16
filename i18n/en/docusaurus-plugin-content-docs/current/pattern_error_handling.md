@@ -10,7 +10,7 @@ Consider, for example, the implications of a suboptimal error handling approach:
 
 ## The Default Error Handling
 
-In LabVIEW, when an error occurs within a function or VI without a connected error wire, the program triggers its default error handling process. This typically results in the program pausing, LabVIEW highlighting the problematic function or sub-VI, and a dialog box appearing with error details. Consider the example shown below: the "Open File" function's error output isn't wired to any terminal. If it tries to open a nonexistent file, LabVIEW will promptly display an error message:
+In LabVIEW, if a node produces an error and its error output is not wired, LabVIEW's automatic error handling may display an error dialog box. This behavior occurs only when automatic error handling is enabled in the VI settings. This typically results in the program pausing, LabVIEW highlighting the problematic function or sub-VI, and a dialog box appearing with error details. Consider the example shown below: the "Open File" function's error output isn't wired to any terminal. If it tries to open a nonexistent file, LabVIEW will promptly display an error message:
 
 ![Automatic Error Message Popup in Program](../../../../docs/images_2/z322.png "Automatic Error Message Popup in Program")
 
@@ -91,7 +91,7 @@ LabVIEW provides various functions and sub-VIs for managing error data. For exam
 
 ![Clearing Errors](../../../../docs/images_2/z248.png "Clearing Errors")
 
-You can find LabVIEW's error handling functions and VIs in the "Programming -> Dialog & User Interface" section of the function palette, providing accessible solutions for managing common error scenarios.
+You can find LabVIEW's error handling functions and VIs in the `Programming → Dialog & User Interface → Error Handling` section of the function palette, providing accessible solutions for managing common error scenarios.
 
 
 ## Implementing Custom Errors in LabVIEW
@@ -110,7 +110,7 @@ Creating and managing custom error codes and messages within a program can be cu
 
 ![Editing Error Codes](../../../../docs/images_2/z324.png "Editing Error Codes")
 
-In this tool, input all your custom error codes and messages, then save them to the default directory, typically found at `[LabVIEW]\user.lib\errors\`:
+In this tool, input all your custom error codes and messages, then save them to the default directory, typically found at `<LabVIEW>\user.lib\errors\`:
 
 ![Saving Error Codes and Messages](../../../../docs/images_2/z325.png "Saving Error Codes and Messages")
 
