@@ -212,7 +212,7 @@ The Project Explorer organizes elements using a tree-like structure, encompassin
 
 - **Second Level:** This level shows the target machine where the project will run. With a standard desktop version of LabVIEW installed, this typically lists "My Computer" as the sole target. However, if additional LabVIEW environments like LabVIEW RT or FPGA are installed, these target devices will also appear here.
 
-- **Third Level and Below:** Here, you find all the files involved in the project. Users have the flexibility to create virtual folders for better organization. This level is not limited to VIs and [Custom Controls](data_custom_control); it also accommodates [Libraries](manage_project#library), [Classes](oop_class), [XControls](ui_xcontrol), and various other file types, especially if specific LabVIEW toolkits are installed. Right-clicking on any item in this structure unveils additional settings and options.
+- **Third Level and Below:** Here, you find all the files involved in the project. Users have the flexibility to create virtual folders for better organization. This level is not limited to VIs and [Custom Controls](data_custom_control); it also accommodates [Libraries](manage_project#libraries), [Classes](oop_class), [XControls](ui_xcontrol), and various other file types, especially if specific LabVIEW toolkits are installed. Right-clicking on any item in this structure unveils additional settings and options.
 
 By right-clicking on "My Computer" and selecting "add", you can incorporate all the VIs previously written into the project. The Project Explorer is a powerful tool, and its detailed functionalities are further explored in the [Project and Library](manage_project) section of this book.
 

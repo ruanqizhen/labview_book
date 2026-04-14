@@ -1,6 +1,6 @@
 # XControl
 
-This section will delve into the detailed process of creating an XControl. To facilitate explanation, we will use the chessboard example mentioned in the "[UI Design Examples](ui_cases.md)" as the primary example, showing how to develop an XControl. When explaining specific features of XControls, we will also introduce other examples.
+This section will delve into the detailed process of creating an XControl. To facilitate explanation, we will use the chessboard example mentioned in the "[UI Design Examples](ui_cases)" as the primary example, showing how to develop an XControl. When explaining specific features of XControls, we will also introduce other examples.
 
 ## Design
 
@@ -18,7 +18,7 @@ The chess control mentioned before, which has both a unique interface and behavi
 
 First, the specific interface and behavior that this XControl requires must be defined.
 
-Its interface can directly use the one designed in the "[UI Design Examples](ui_cases.md)" section. Among the design options previously mentioned, the solution using an array of picture ring controls is the simplest in terms of programming. Therefore, this interface solution will be adopted for the XControl design.
+Its interface can directly use the one designed in the "[UI Design Examples](ui_cases)" section. Among the design options previously mentioned, the solution using an array of picture ring controls is the simplest in terms of programming. Therefore, this interface solution will be adopted for the XControl design.
 
 The input and output data of the XControl on the program diagram should be the data that the application most frequently interacts with. In this case, the most common data is the layout information of the chessboard. Therefore, the input/output data for this XControl should be an 8x8 integer array representing the chess pieces' layout on the board.
 
@@ -96,7 +96,7 @@ The "Facade" Functional VI is at the heart of XControl, shaping both its appeara
 
 ### Interface Design
 
-The front panel of the "Facade" Functional VI serves as the canvas for XControl's interface. For practicality, you can directly employ the interface already crafted in the [UI Design Examples](ui_cases#improving-the-interface-implementation-method) section. Transferring the chessboard and piece design previously outlined to this panel will suffice. The dimensions of this "Facade" Functional VI window dictate the size at which the XControl widget will be displayed when it's dragged onto a VI's front panel. As such, this VI should be precisely sized to snugly fit around the chessboard:
+The front panel of the "Facade" Functional VI serves as the canvas for XControl's interface. For practicality, you can directly employ the interface already crafted in the [UI Design Examples](ui_cases#implementing-code-for-runtime-interface-changes) section. Transferring the chessboard and piece design previously outlined to this panel will suffice. The dimensions of this "Facade" Functional VI window dictate the size at which the XControl widget will be displayed when it's dragged onto a VI's front panel. As such, this VI should be precisely sized to snugly fit around the chessboard:
 
 ![](../../../../docs/images/image753.png "Front Panel of the Facade Functional VI")
 

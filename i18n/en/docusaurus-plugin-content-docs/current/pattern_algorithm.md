@@ -65,7 +65,7 @@ Using this program to sequentially test a range of integers quickly identifies s
 
 ### Efficiency of Basic Operations
 
-Previously, in the section on [Arrays and Loops](data_array#arrays), we introduced the fundamental operations of arrays in LabVIEW. This section will focus on the efficiency differences among various array operations, which largely depend on the method of array data storage in memory. Arrays store a sequence of data with the same type in contiguous memory spaces. Below is an illustration of how an integer array might be represented in memory:
+Previously, in the section on [Arrays and Loops](data_array#array), we introduced the fundamental operations of arrays in LabVIEW. This section will focus on the efficiency differences among various array operations, which largely depend on the method of array data storage in memory. Arrays store a sequence of data with the same type in contiguous memory spaces. Below is an illustration of how an integer array might be represented in memory:
 
 ![](../../../../docs/images_2/z275.png "Integer Array")
 
@@ -77,7 +77,7 @@ Given the integers are in reverse order, we can use the loop index as the data, 
 
 ![](../../../../docs/images_2/z276.png "Constructing an Array")
 
-With the efficiency of each operation in mind, readers may have deduced that inserting data at an array's beginning is extremely slow. Each insertion carries a time complexity of $O(n)$, leading to a total complexity of $O(n^2)$ when inserting $n$ pieces of data. Thus, we should avoid array insertion in LabVIEW programs. The most natural and efficient way to construct arrays in LabVIEW is by using [loop structures with all output tunnels](data_array#output-tunnels). In the diagram, the two sequence structures below demonstrate better methods for constructing arrays. On my computer, the output values for time, time 2, and time 3 were 450, 1, and 2, respectively, showcasing the vast differences in efficiency.
+With the efficiency of each operation in mind, readers may have deduced that inserting data at an array's beginning is extremely slow. Each insertion carries a time complexity of $O(n)$, leading to a total complexity of $O(n^2)$ when inserting $n$ pieces of data. Thus, we should avoid array insertion in LabVIEW programs. The most natural and efficient way to construct arrays in LabVIEW is by using [loop structures with all output tunnels](data_array#output-tunnel). In the diagram, the two sequence structures below demonstrate better methods for constructing arrays. On my computer, the output values for time, time 2, and time 3 were 450, 1, and 2, respectively, showcasing the vast differences in efficiency.
 
 :::info
 
@@ -94,7 +94,7 @@ Previously, we noted that LabVIEW does not support arrays of arrays due to the r
 
 In memory, a two-dimensional array stores data row by row, with each row's data immediately followed by the next. Since each row has an identical number of elements, the memory address of any given element can still be instantly determined through its index. For example, in a two-dimensional array with $n$ rows and $m$ columns, to access the element at the $i^{th}$ row and $j^{th}$ column, the formula `Element's memory address = Array's starting memory address + (m*i + j) * Memory occupied by a single element` is used.
 
-Nonetheless, LabVIEW permits arrays to contain elements whose lengths vary, such as in arrays of strings where each string's length differs. This is possible because when data types with variable lengths, like strings or clusters, are array elements, what is stored in the array are references to that data. The actual content of the string is stored in a different memory location. Regardless of the string's length, its reference is a 4-byte data, allowing the array to quickly find the element's memory address by its index. For more information on this topic, see the section on [Flattening Data to Strings](data_string#flattening-data-to-strings).
+Nonetheless, LabVIEW permits arrays to contain elements whose lengths vary, such as in arrays of strings where each string's length differs. This is possible because when data types with variable lengths, like strings or clusters, are array elements, what is stored in the array are references to that data. The actual content of the string is stored in a different memory location. Regardless of the string's length, its reference is a 4-byte data, allowing the array to quickly find the element's memory address by its index. For more information on this topic, see the section on [Flattening Data to Strings](data_string#flattening-to-string).
 
 
 ### Sorting
@@ -160,7 +160,7 @@ It's worth noting that for small data volumes, such as a program managing inform
 ## Tree Structures
 
 ### Tree Control in LabVIEW
-In the linked list data structure, each node points only to the next node. If we modify this setup so that each node can point to several subsequent nodes, we create what's known as a tree data structure. This resembles an actual tree with many branches. While LabVIEW doesn't inherently provide a straightforward way to implement a generic tree data structure, it does feature a tree control. This control is specifically designed to display data in a hierarchical, tree-like format, such as for showcasing folders and files across multiple levels. The operation of the tree control closely mirrors how one would interact with a tree data structure. Thus, we can leverage the methods and properties of this control to delve into how tree data structures are manipulated. The appearance of the tree control is similar to that of a [multi-column listbox](data_and_controls#lists-tables-and-tree-controls), with the key distinction being in the leftmost column. While data in a multi-column listbox is displayed at a uniform level without any hierarchical distinction, the tree control differentiates levels through indentation:
+In the linked list data structure, each node points only to the next node. If we modify this setup so that each node can point to several subsequent nodes, we create what's known as a tree data structure. This resembles an actual tree with many branches. While LabVIEW doesn't inherently provide a straightforward way to implement a generic tree data structure, it does feature a tree control. This control is specifically designed to display data in a hierarchical, tree-like format, such as for showcasing folders and files across multiple levels. The operation of the tree control closely mirrors how one would interact with a tree data structure. Thus, we can leverage the methods and properties of this control to delve into how tree data structures are manipulated. The appearance of the tree control is similar to that of a [multi-column listbox](data_and_controls#lists-tables-and-trees), with the key distinction being in the leftmost column. While data in a multi-column listbox is displayed at a uniform level without any hierarchical distinction, the tree control differentiates levels through indentation:
 
 ![Tree Control](../../../../docs/images_2/z282.gif "Tree Control")
 
@@ -194,7 +194,7 @@ With the aid of this sub VI, implementing the function to insert a node is quite
 
 ![insert_node.vi](../../../../docs/images_2/z287.png "insert_node.vi")
 
-This is a [recursive VI](pattern_reentrant_vi#recursive-algorithm). The program first compares the size of the new data to the current data. If the new data is smaller, indicating that the new data should be placed in the current node's left subtree, the program checks if the current node has a left child node. If so, it recursively enters the left child node to continue comparing the new data with the left child node's data. If the current node lacks a left child node, then a new left child node is created with the new data:
+This is a [recursive VI](pattern_reentrant_vi#recursive-algorithms). The program first compares the size of the new data to the current data. If the new data is smaller, indicating that the new data should be placed in the current node's left subtree, the program checks if the current node has a left child node. If so, it recursively enters the left child node to continue comparing the new data with the left child node's data. If the current node lacks a left child node, then a new left child node is created with the new data:
 
 ![insert_node.vi](../../../../docs/images_2/z288.png "insert_node.vi")
 
@@ -306,7 +306,7 @@ Sets use the data itself for comparison and search within the set. However, in m
 
 Beyond querying data, maps can also serve to optimize the efficiency of programs in certain scenarios. The most typical case is when a function that is time-consuming to execute might be called frequently within a short period using the same input parameters. In such instances, a map can be created for this function, with input parameters as the "key" and function outputs as the "value". This way, when the function is called, if the result for the given input parameters is already stored in the map, there's no need for recalculation; the cached result can be directly retrieved from the map. This book has utilized such an approach for optimization in the [Recursive Algorithms](pattern_reentrant_vi) section, more specifically in: [Recursion with Caching](pattern_reentrant_vi#recursive-computation-with-caching).
 
-Sets and maps were introduced as features in LabVIEW 2019. Prior to this, LabVIEW typically utilized [variant data types](oop_generic#using-variant-for-map-container-functionality) to fulfill the functionalities of maps. If programs are seen using variant data types for data querying, it's likely because they were developed on an older version of LabVIEW.
+Sets and maps were introduced as features in LabVIEW 2019. Prior to this, LabVIEW typically utilized [variant data types](oop_generic#utilizing-variants-as-sub-vi-parameter-types) to fulfill the functionalities of maps. If programs are seen using variant data types for data querying, it's likely because they were developed on an older version of LabVIEW.
 
 
 ## Queue and Stack

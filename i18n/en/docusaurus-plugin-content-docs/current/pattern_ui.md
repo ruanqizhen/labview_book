@@ -120,7 +120,7 @@ In most cases, programs are designed to handle more than just a single event. Th
 
 Event structures are used independently only in very specific, rare scenarios. For example, a simple dialog box might only need to wait for the user to click an "OK" button before closing, without responding to any other events. In such instances, a single event structure can adequately fulfill the program's needs.
 
-Let's reconsider a program we discussed earlier in the "[Keeping a VI Running](ramp_up_complex_vis#keeping-a-vi-running)" section:
+Let's reconsider a program we discussed earlier in the "[Keeping a VI Running](ramp_up_complex_vis#implementing-continuous-execution)" section:
 
 ![images/image43.png](../../../../docs/images/image43.png "Addition Calculation with Continuous Running")
 

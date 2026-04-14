@@ -198,11 +198,11 @@ When you drag one of these VIs onto the block diagram of a new VI, you'll find t
 
 ### How Malleable VIs Work
 
-Malleable VIs are a unique kind of VI that, on the surface, look almost identical to regular VIs. The most noticeable difference is their file extension: \*.vim. Simply changing the extension of a regular VI to .vim turns it into an Malleable VI. It's essential for Malleable VIs to be [reentrant](pattern_reentrant_vi) and [inlined](optimization_mechanism#compiler-optimization-and-inlined-sub-vi).
+Malleable VIs are a unique kind of VI that, on the surface, look almost identical to regular VIs. The most noticeable difference is their file extension: \*.vim. Simply changing the extension of a regular VI to .vim turns it into an Malleable VI. It's essential for Malleable VIs to be [reentrant](pattern_reentrant_vi) and [inlined](optimization_mechanism#compiler-optimization-and-inlining-sub-vis).
 
 ![images_2/z048.png](../../../../docs/images_2/z048.png "Malleable VI Settings")
 
-Much like [inlined subVIs](optimization_mechanism#compiler-optimization-and-inlined-sub-vi), when a Malleable VI is placed onto a block diagram, it integrates its code directly into the diagram of the calling VI. However, while inlined subVIs have fixed parameter types based on their front panel controls, Malleable VI controls act more like placeholders, dynamically adapting to the data types passed by the calling VI. Any data type the Malleable VI can handle is deemed valid, thanks to this flexible mechanism, somewhat similar to C++'s templates used in generic programming.
+Much like [inlined subVIs](optimization_mechanism#compiler-optimization-and-inlining-sub-vis), when a Malleable VI is placed onto a block diagram, it integrates its code directly into the diagram of the calling VI. However, while inlined subVIs have fixed parameter types based on their front panel controls, Malleable VI controls act more like placeholders, dynamically adapting to the data types passed by the calling VI. Any data type the Malleable VI can handle is deemed valid, thanks to this flexible mechanism, somewhat similar to C++'s templates used in generic programming.
 
 When contrasting Malleable VIs with polymorphic VIs, key distinctions emerge: polymorphic VIs are a collection of pre-made VIs, each potentially completely different from the others, even in terms of the number of parameters; an Malleable VI, however, is a single entity. Crafting polymorphic VIs demands more effort but yields stronger capabilities, making them ideal for complex, customer-facing toolkits. Conversely, Malleable VIs are less labor-intensive to produce and can easily switch between being a standard VI and an adaptive one, making them particularly well-suited for algorithms or functionalities that are applicable across a range of data types.
 
@@ -288,13 +288,13 @@ The use of Assert Structural Type Mismatch is strikingly similar. For example, i
 
 Malleable VIs can handle a vast majority of generic programming requirements. However, there are a few complex scenarios where Malleable VIs fall short.
 
-Firstly, Malleable VIs are a kind of [reentrant VI](optimization_mechanism#compiler-optimization-and-inline-sub-vi), and certain LabVIEW functionalities cannot be utilized within reentrant VIs, such as specific VI properties and methods. Additionally, unbundling private data of a class is not permissible within a reentrant VI, even if the Malleable VI is located in the same class.
+Firstly, Malleable VIs are a kind of [reentrant VI](optimization_mechanism#compiler-optimization-and-inlining-sub-vis), and certain LabVIEW functionalities cannot be utilized within reentrant VIs, such as specific VI properties and methods. Additionally, unbundling private data of a class is not permissible within a reentrant VI, even if the Malleable VI is located in the same class.
 
 Moreover, Malleable VIs are not suited for some more complex, type-related operations. For instance, if we need to write a sub VI that accepts any kind of cluster data, reverses the order of elements within the cluster, and outputs the new cluster data. Or, if we aim to develop a sub VI with a variable number of input parameters, akin to the cluster bundle function that allows adding more input parameters by extending the function. These requirements cannot currently be achieved using Malleable VIs. LabVIEW does offer alternative methods for these more intricate needs, which will be discussed in the next section on [Xnodes](oop_xnode).
 
 ## Application Example - Generic Doubly Linked List Container
 
-In our discussion on object-oriented application examples, we finalized a [doubly linked list container](oop_use_cases#doubly-linked-list-or-double-linked-list) which had a significant limitation: it could only accommodate a fixed type of data. For that demonstration, it was restricted to managing real number data. Suppose there's a new requirement for a doubly linked list container to store strings. In that case, we would need to redevelop a similar suite of classes and VIs for string data, despite the doubly linked list's algorithms being data type-agnostic.
+In our discussion on object-oriented application examples, we finalized a [doubly linked list container](oop_use_cases#doubly-linked-list) which had a significant limitation: it could only accommodate a fixed type of data. For that demonstration, it was restricted to managing real number data. Suppose there's a new requirement for a doubly linked list container to store strings. In that case, we would need to redevelop a similar suite of classes and VIs for string data, despite the doubly linked list's algorithms being data type-agnostic.
 
 This section aims to refine it into a generic container capable of supporting multiple data types, allowing users to employ the same suite of VIs to create and manage doubly linked lists storing real numbers, strings, or other data types.
 
@@ -307,7 +307,7 @@ Designing an entirely new generic doubly linked list from scratch could offer be
 
 ### Utilizing Variants for Data Storage
 
-The process of creating the doubly linked list class has been extensively detailed in the [Object-Oriented Application Examples](oop_use_cases#doubly-linked-list-or-double-linked-list) section, so it won't be elaborated upon here again. The modification that needs to be made involves changing the control type used for storing data in the list node class to a variant type:
+The process of creating the doubly linked list class has been extensively detailed in the [Object-Oriented Application Examples](oop_use_cases#doubly-linked-list) section, so it won't be elaborated upon here again. The modification that needs to be made involves changing the control type used for storing data in the list node class to a variant type:
 
 ![images_2/z060.png](../../../../docs/images_2/z060.png "Node Class Data")
 

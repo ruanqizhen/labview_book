@@ -134,7 +134,7 @@ In the example program shown earlier, the "Simple Error Handler" VI is used at t
 
 However, during the debugging phase, it can be beneficial for programmers to have some error messages appear immediately as the program runs. This immediate feedback helps in pinpointing and resolving errors within the program. Connecting a "Simple Error Handler" at key monitoring points achieves this goal. But, while this is helpful for debugging, it might result in frequent and potentially disruptive error pop-ups during actual user operation.
 
-This dilemma can be effectively resolved using conditional disable structures. These structures allow for different program behaviors in debugging and user operation modes. A detailed explanation of these structures will be provided in the [Disable Structures](debug_ide#禁用结构) section, but here's a quick overview:
+This dilemma can be effectively resolved using conditional disable structures. These structures allow for different program behaviors in debugging and user operation modes. A detailed explanation of these structures will be provided in the [Disable Structures](debug_ide#disabling-structures) section, but here's a quick overview:
 
 Set up a specific conditional disable symbol in your project, such as "DEBUG", to determine whether the program is in debugging or release mode. If "DEBUG" is set to "True" in the project settings, the program will allow error dialogues to pop up as needed.
 

@@ -16,7 +16,7 @@ Following this, let's create another class named "Child" using the same procedur
 
 ![images_2/image27.png](../../../../docs/images_2/image27.png "Selecting a Parent Class")
 
-In terms of structure, a class is akin to a special [LabVIEW Library](manage_project#library), meaning many of its attributes and settings resemble those of a library. For instance, the class name also serves as a namespace, and you can set access permissions for the VIs within the class. Beyond these similarities, classes come with their unique configurations, including attributes and methods.
+In terms of structure, a class is akin to a special [LabVIEW Library](manage_project#libraries), meaning many of its attributes and settings resemble those of a library. For instance, the class name also serves as a namespace, and you can set access permissions for the VIs within the class. Beyond these similarities, classes come with their unique configurations, including attributes and methods.
 
 Classes are stored in files with an .lvclass extension.
 

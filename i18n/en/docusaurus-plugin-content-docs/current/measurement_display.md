@@ -81,7 +81,7 @@ The effect of the program's execution is demonstrated below, where Plot0 has bee
 
 The "Advanced Signal Processing Toolkit" significantly eases the process of signal processing, offering a variety of functions and tools for time-series analysis, time-frequency joint analysis, and wavelet analysis.
 
-For example, the time-frequency analysis operation discussed in [Graphical Display of Data](data_graph#time-frequency-spectrogram) can be efficiently performed using the "STFT Spectrogram" Express VI from the toolkit. This toolkit also introduces other time-frequency analysis methods not available in LabVIEW, such as Gabor Spectrogram and Adapt Spectrogram. Additionally, it provides the capability to further process the generated time-frequency spectrogram, like isolating signals from a specific segment of the spectrogram.
+For example, the time-frequency analysis operation discussed in [Graphical Display of Data](data_graph#time-frequency-joint-spectrum-analysis) can be efficiently performed using the "STFT Spectrogram" Express VI from the toolkit. This toolkit also introduces other time-frequency analysis methods not available in LabVIEW, such as Gabor Spectrogram and Adapt Spectrogram. Additionally, it provides the capability to further process the generated time-frequency spectrogram, like isolating signals from a specific segment of the spectrogram.
 
 ![images/image474.png](../../../../docs/images/image474.png "Calculating the time-frequency spectrogram of a signal using STFT Spectrogram Express VI")
 

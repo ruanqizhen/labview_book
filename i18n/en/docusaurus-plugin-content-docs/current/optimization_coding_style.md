@@ -165,7 +165,7 @@ By right-clicking on the icon in the VI's front panel and selecting "Show Connec
 The next phase is the crucial task of editing the icon. Key considerations include:
 
 - Avoid adding a border to the icon.
-- If using the old [Icon Editor](ramp_up_complex_vis#polishing--icons), ensure the three colored icons in the editor are consistent.
+- If using the old [Icon Editor](ramp_up_complex_vis#polishing-icons), ensure the three colored icons in the editor are consistent.
 
 The image below showcases LabVIEW's old-style icon editor, with three small squares in the center representing the icon in black and white, 16 colors, and 256 colors. Clicking one of these squares opens the editing area for that color scheme on the left.
 

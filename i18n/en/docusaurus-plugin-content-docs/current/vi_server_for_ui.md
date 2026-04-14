@@ -10,7 +10,7 @@ LabVIEW's VI Server module facilitates all programmatic adjustments and control 
 
 There are three principal methods for accessing VI Server services:
 
-1. **Local LabVIEW Program as Client**: This is the most commonly employed method for using the VI Server. VIs directly leverage LabVIEW's property and invoke nodes for accessing VI Server services, a practice known as VI Scripting. Through [Property Nodes and Invoke Nodes](data_and_controls#property-and-invoke-nodes), these services are accessible within a LabVIEW program. VI Scripting is predominantly seen in programs requiring intricate interface alterations during runtime and programs needing dynamic execution of specific VIs.
+1. **Local LabVIEW Program as Client**: This is the most commonly employed method for using the VI Server. VIs directly leverage LabVIEW's property and invoke nodes for accessing VI Server services, a practice known as VI Scripting. Through [Property Nodes and Invoke Nodes](data_and_controls#property-nodes-and-invoke-nodes), these services are accessible within a LabVIEW program. VI Scripting is predominantly seen in programs requiring intricate interface alterations during runtime and programs needing dynamic execution of specific VIs.
 
 2. **ActiveX**: For incorporating VI Server in other programming languages, LabVIEW's ActiveX interface can be employed by any language supporting ActiveX, including VB, VC++, and others.
 

@@ -108,7 +108,7 @@ To further enhance the custom control with a professional appearance, one might 
 
 ![Control More Closely Resembling a Real Chess Piece](../../../../docs/images/image647.png "Control More Closely Resembling a Real Chess Piece")
 
-All controls can opt for a [Strict Type Definition](data_custom_control#strict-custom-types). Any future modifications made to the control within the strict type definition (.ctl file) will be reflected across all instances of that custom control used in the interface.
+All controls can opt for a [Strict Type Definition](data_custom_control#strict-type-definition). Any future modifications made to the control within the strict type definition (.ctl file) will be reflected across all instances of that custom control used in the interface.
 
 
 ### Refining the Interface Implementation

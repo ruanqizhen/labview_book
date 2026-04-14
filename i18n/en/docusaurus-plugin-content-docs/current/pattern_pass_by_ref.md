@@ -12,7 +12,7 @@ Controls located in the "Refnum" section of the controls palette are data types 
 
 ![](../../../../docs/images/image317.png "Refnum Controls Palette")
 
-In block diagrams, these reference data types are represented by dark green thin wires. For example, the semaphore reference we discussed in the [Global Variables](pattern_global_data#using-semaphores-to-avoid-race-conditions) section is a typical reference data type. In the program shown below, the green thin wires interconnecting the subVIs are transmitting the semaphore reference:
+In block diagrams, these reference data types are represented by dark green thin wires. For example, the semaphore reference we discussed in the [Global Variables](pattern_global_data#using-semaphores-to-avoid-data-race-conditions) section is a typical reference data type. In the program shown below, the green thin wires interconnecting the subVIs are transmitting the semaphore reference:
 
 ![](../../../../docs/images_2/z264.png "Using Semaphore")
 
