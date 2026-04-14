@@ -30,7 +30,7 @@ When you run the above VI, you'll notice that the final data curves displayed by
 
 ![images_2/image78.png](../../../../docs/images_2/image78.gif "Waveform Drawing Result")
 
-On subsequent runs of the VI, the waveform chart retains the previously plotted data, continuously appending new data points. To start each run afresh, you can clear its historical data programmatically using the "history Data" [property node](data_and_controls#property-node) of the waveform chart. To execute the clear operation, you must right-click the property node, change it to "Write" mode, and wire an empty array constant of the corresponding data type into it.  This approach ensures that each run begins with a clean slate:
+On subsequent runs of the VI, the waveform chart retains the previously plotted data, continuously appending new data points. To start each run afresh, you can clear its historical data programmatically using the "history Data" [property node](data_and_controls#property-nodes) of the waveform chart. To execute the clear operation, you must right-click the property node, change it to "Write" mode, and wire an empty array constant of the corresponding data type into it.  This approach ensures that each run begins with a clean slate:
 
 ![images_2/image79.png](../../../../docs/images_2/image79.png "Clearing Waveform Chart History")
 

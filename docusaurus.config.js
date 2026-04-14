@@ -13,7 +13,11 @@ const config = {
   url: 'https://lv.qizhen.xyz',
   baseUrl: '/',
   onBrokenLinks: 'throw',
-  onBrokenMarkdownLinks: 'warn',
+  markdown: {
+    hooks: {
+      onBrokenMarkdownLinks: 'warn',
+    },
+  },
   favicon: 'img/favicon.ico',
   projectName: 'labview_book', // Usually your repo name.
   presets: [

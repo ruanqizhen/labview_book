@@ -6,7 +6,7 @@ Producing code with few potential errors demands patience, meticulousness, and t
 
 ## Numeric Overflow
 
-Below is an example program previously introduced in the [Numeric Representation](data_number#representation) section:
+Below is an example program previously introduced in the [Numeric Representation](data_number#representations) section:
 
 ![](../../../../docs/images/image507.png "Numeric Overflow Error")
 

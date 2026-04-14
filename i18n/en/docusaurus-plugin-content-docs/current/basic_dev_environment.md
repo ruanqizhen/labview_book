@@ -20,7 +20,7 @@ As a professional best practice, it is highly recommended to use non-icon mode t
 
 ![](../../../../docs/images/image55.png "Control terminal Displayed as Icon")
 
-Preferences like these can be set in the options dialog box. Additionally, as discussed in the [Local Variables and Properties](data_and_controls#mplementing-blinking-controls-for-alerts) section, settings such as the blinking frequency of a control are also configurable here. Some advanced functions can be enabled through this dialog, which will be covered in later chapters.
+Preferences like these can be set in the options dialog box. Additionally, as discussed in the [Local Variables and Properties](data_and_controls#implementing-blinking-controls-for-alerts) section, settings such as the blinking frequency of a control are also configurable here. Some advanced functions can be enabled through this dialog, which will be covered in later chapters.
 
 ### Configuration File
 

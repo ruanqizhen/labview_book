@@ -78,7 +78,7 @@ Some controls don't offer a method like that of the tree control for changing al
 
 ## Loop Computations
 
-When designing loops, extra caution is essential. Even if a code snippet runs quickly on its own, if it's executed thousands, millions, or even more times, the time consumed can become significant. Thus, the efficiency of the code inside a loop has a greater impact on the overall performance the more frequently the loop is executed. An example discussed in the previous section on [reading and writing peripherals and files](debug_performance#reading-writing-peripherals-files) shows how moving code that can reduce call frequency outside of the loop can improve program efficiency.
+When designing loops, extra caution is essential. Even if a code snippet runs quickly on its own, if it's executed thousands, millions, or even more times, the time consumed can become significant. Thus, the efficiency of the code inside a loop has a greater impact on the overall performance the more frequently the loop is executed. An example discussed in the previous section on [reading and writing peripherals and files](#reading-and-writing-to-peripherals-and-files) shows how moving code that can reduce call frequency outside of the loop can improve program efficiency.
 
 Similarly, operations on hardware devices can encounter comparable issues. A test program may need to set or read data from instruments or data acquisition devices multiple times. However, operations to open and close hardware devices should not be repeated multiple times; instead, all hardware devices should be opened at the start of the test program and closed at the end.
 
