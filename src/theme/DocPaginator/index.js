@@ -6,8 +6,11 @@ import {useColorMode} from '@docusaurus/theme-common';
 
 export default function DocPaginatorWrapper(props) {
   let location = useLocation();
-  let giscus_term = location.pathname.split('/').pop();
-  if (giscus_term == '') giscus_term = 'index';
+  const segments = location.pathname.split('/').filter(Boolean);
+  let giscus_term = segments[segments.length - 1];
+  if (!giscus_term || giscus_term === 'en') {
+    giscus_term = 'index';
+  }
   const {colorMode} = useColorMode();
   
   return (
