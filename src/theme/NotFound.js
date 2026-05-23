@@ -1,16 +1,22 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import NotFound from '@theme-original/NotFound';
-import BrowserOnly from '@docusaurus/BrowserOnly';
+import { useHistory, useLocation } from '@docusaurus/router';
 
 export default function NotFoundWrapper(props) {
-  return (
-    <>
-      <NotFound {...props} />
-	  <BrowserOnly>
-          {() => { 
-            setTimeout(() => { window.location.href = '/'}, 1000)
-          }}
-      </BrowserOnly>
-    </>
-  );
+  const history = useHistory();
+  const location = useLocation();
+
+  useEffect(() => {
+    const isEnglish = location.pathname.startsWith('/en');
+    const targetPath = isEnglish ? '/en/' : '/';
+
+    const timer = setTimeout(() => {
+      history.push(targetPath);
+    }, 1000);
+
+    return () => clearTimeout(timer);
+  }, [history, location.pathname]);
+
+  return <NotFound {...props} />;
 }
+
