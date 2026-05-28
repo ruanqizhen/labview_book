@@ -185,11 +185,11 @@ In a formula node, input variables don’t require a declaration within the node
 
 When you first add a formula node, it appears as a blank gray rectangle. You need to write a text program, similar to C language code, within the node's frame. Then, by right-clicking the frame and selecting "Add Input" and "Add Output" from the context menu, you can incorporate input and output variables into your program. These inputs and outputs appear as small squares along the node's border—inputs on the left and outputs on the right. The variable names are written in these small boxes. This method allows for a structured approach to integrating complex mathematical operations within your LabVIEW program.
 
-In algorithm implementation, textual expressions are often more intuitive and familiar, reflecting the way formulas and calculation processes are presented in textbooks and other written materials. Textual methods offer a clear, sequential display of all branches in programs with numerous selection structures. In contrast, LabVIEW's graphical interface can show only one branch at a time within a selection structure, requiring users to click through each branch to read the content, which can hinder readability.
+In algorithm implementation, textual expressions are often more intuitive and familiar, reflecting the way formulas and calculation processes are presented in textbooks and other written materials. Textual methods offer a clear, sequential display of all branches in programs with numerous case structures. In contrast, LabVIEW's graphical interface can show only one branch at a time within a case structure, requiring users to click through each branch to read the content, which can hinder readability.
 
 Therefore, in programs involving complex mathematical operations, utilizing formula nodes can significantly enhance both readability and maintainability.
 
-The image below is from a sub VI in a chess game program, designed to calculate the position of a movable piece. It involves simple numerical operations on a two-dimensional integer array but becomes complex due to multiple nested loops and selection structures, challenging readability. The specific functioning of this program isn't crucial for this discussion; it merely serves to illustrate the potential complexity of LabVIEW coding.
+The image below is from a sub VI in a chess game program, designed to calculate the position of a movable piece. It involves simple numerical operations on a two-dimensional integer array but becomes complex due to multiple nested loops and case structures, challenging readability. The specific functioning of this program isn't crucial for this discussion; it merely serves to illustrate the potential complexity of LabVIEW coding.
 
 ![](../../../../docs/images/image73.png "calculate the position")
 
@@ -323,7 +323,7 @@ Conversion without using Type Cast:
 
 ![](../../../../docs/images/image117.png "converison between Boolean and Numeric")
 
-However, it's important to note that if the data representation in these programs is expanded from a single byte to multiple bytes, such as using an I16 value for testing, the outcomes of the two programs will differ significantly. For multi-byte values like I16, it's still feasible to use functions to check if the value equals zero or to use selection functions to convert "true" and "false" conditions into different numeric values. However, the utility of cast type conversion diminishes in these scenarios.
+However, it's important to note that if the data representation in these programs is expanded from a single byte to multiple bytes, such as using an I16 value for testing, the outcomes of the two programs will differ significantly. For multi-byte values like I16, it's still feasible to use functions to check if the value equals zero or to use Select functions to convert "true" and "false" conditions into different numeric values. However, the utility of cast type conversion diminishes in these scenarios.
 
 The Boolean type occupies only 1 byte, so when a multi-byte value is converted into a Boolean type, the resulting Boolean value is determined solely by the first byte (the highest byte) of the multi-byte value. Therefore, even if a multi-byte value is not zero, its first byte might be zero. As a result, this kind of forced conversion usually lacks practical significance, especially in contexts where the full range of a multi-byte value is relevant to the data's meaning or application.
 

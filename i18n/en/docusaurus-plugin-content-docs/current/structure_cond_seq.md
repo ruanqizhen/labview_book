@@ -138,19 +138,19 @@ When you need to insert code into a densely populated area of your VI, a useful 
 
 :::
 
-## Selector Function
+## Select Function
 
-While case structures are a fundamental aspect of programming, they can sometimes suffer from readability issues. In certain scenarios, the Selector function offers a more readable alternative. You can find this function under "Programming -> Comparison -> Selector" in the function palette. The Selector function is equipped with three inputs. The second input specifically requires a Boolean data type, while the first and third inputs must share the same data type. Functionally, when the second input is "True" ,the Selector outputs the value from the first input. Conversely, if it's "False", the value from the third input is outputted. This resembles the `x = c ? a : b;` statement in C language.
+While case structures are a fundamental aspect of programming, they can sometimes suffer from readability issues. In certain scenarios, the Select function offers a more readable alternative. You can find this function under "Programming -> Comparison -> Select" in the function palette. The Select function is equipped with three inputs. The second input specifically requires a Boolean data type, while the first and third inputs must share the same data type. Functionally, when the second input is "True", the Select function outputs the value from the first input. Conversely, if it's "False", the value from the third input is outputted. This resembles the `x = c ? a : b;` statement in C language.
 
-In situations where a case structure's branch selector is either Boolean or can be converted to a Boolean type, and each branch's purpose is simply to choose between values, the Selector function can effectively replace the case structure. Take, for example, this segment of code we previously discussed:
+In situations where a case structure's branch selector is either Boolean or can be converted to a Boolean type, and each branch's purpose is simply to choose between values, the Select function can effectively replace the case structure. Take, for example, this segment of code we previously discussed:
 
 ![Nested Case Structure](../../../../docs/images/image178.png "Example of Nested Case Structure")
 
-Instead of the complex case structure, the same logic can be efficiently replicated using the Selector function, as depicted below:
+Instead of the complex case structure, the same logic can be efficiently replicated using the Select function, as depicted below:
 
-![Improved Code Using Selector Function](../../../../docs/images/image182.png "Using Selector Function for Simplified Logic")
+![Improved Code Using Select Function](../../../../docs/images/image182.png "Using Select Function for Simplified Logic")
 
-The primary benefit of employing the Selector function lies in its ability to present all possible data choices directly on the block diagram. This greatly enhances the overall readability and clarity of the program.
+The primary benefit of employing the Select function lies in its ability to present all possible data choices directly on the block diagram. This greatly enhances the overall readability and clarity of the program.
 
 
 ## sequence structure
@@ -286,7 +286,7 @@ It's important to note that when the original version of the program was written
 
 1. **Arithmetic Expression Evaluator VI**
 
-   Develop a VI that processes input from a single string control. TThis string should represent a basic arithmetic expression consisting of three elements: 
+   Develop a VI that processes input from a single string control. This string should represent a basic arithmetic expression consisting of three elements: 
    
    - The first element is an integer.
    - The second element is an arithmetic operator, which could be addition (+), subtraction (-), multiplication (*), or division (/).

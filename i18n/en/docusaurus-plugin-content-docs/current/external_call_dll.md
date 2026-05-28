@@ -52,7 +52,7 @@ Selecting "Specify path on diagram" invalidates the DLL configured in the dialog
 
 ![](../../../../docs/images/image336.png "Specifying the DLL Path on the Block Diagram")
 
-At this juncture, LabVIEW dynamically loads the DLL, meaning the LabVIEW dynamically calls the DLL. The "path" cannot be determined until the VI reaches this CLN, preventing the corresponding DLL from being preloaded. Only when execution reaches this node does LabVIEW load the required DLL into memory. LabVIEW does not immediately unload the DLL from memory after the node executes. If future CLNs also utilize this DLL, reloading is unnecessary. LabVIEW only unloads the DLL once a null path is passed to the CLN.
+At this juncture, LabVIEW dynamically loads the DLL, meaning LabVIEW dynamically calls the DLL. The "path" cannot be determined until the VI reaches this CLN, preventing the corresponding DLL from being preloaded. Only when execution reaches this node does LabVIEW load the required DLL into memory. LabVIEW does not immediately unload the DLL from memory after the node executes. If future CLNs also utilize this DLL, reloading is unnecessary. LabVIEW only unloads the DLL once a null path is passed to the CLN.
 
 Loading DLL files is generally a process that requires significant time. With static loading, all DLLs needed by the program are loaded into memory upon the program's launch, resulting in longer startup times. Conversely, dynamic loading delays the loading of DLLs until they are actually required during the program's execution, thus reducing the initial startup time by shifting part of the load to when the program is running.
 

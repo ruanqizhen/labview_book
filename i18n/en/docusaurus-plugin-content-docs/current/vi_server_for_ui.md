@@ -42,7 +42,7 @@ While a portion of VI Scripting features is readily available within LabVIEW, ot
 
 ### References
 
-#### Invoking Properties Nodes via References
+#### Invoking Property Nodes via References
 
 In the section on [Control's Local Variables and Properties](data_and_controls), we briefly introduced property nodes for controls. To set the properties of controls on the same VI, you can directly create their property nodes from the control's right-click menu. Property nodes created this way are not connected to their respective controls with data wires, yet the shared label between them makes their relationship evident. This method of invoking property nodes is straightforward and intuitive, but it has its limitations. For instance, it does not allow you to directly manipulate the property nodes of controls in another VI.
 

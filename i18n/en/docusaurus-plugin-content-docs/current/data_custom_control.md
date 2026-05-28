@@ -24,7 +24,7 @@ Despite their similar appearances, Enum and Ring controls are distinct in their 
 
 From the comparison above, several insights emerge:
 
-In programming scenarios that involve representing a limited set of objects or states, Enum controls are generally more suitable than Ring controls. Enum controls, with their stricter data type enforcement, can help prevent certain types of errors within the program. Additionally, data represented by Enum controls often links to selection structures for varied processing based on distinct states or categories. Enum controls enhance a program's readability and maintainability by enabling case structures to select branches according to item labels.
+In programming scenarios that involve representing a limited set of objects or states, Enum controls are generally more suitable than Ring controls. Enum controls, with their stricter data type enforcement, can help prevent certain types of errors within the program. Additionally, data represented by Enum controls often links to case structures for varied processing based on distinct states or categories. Enum controls enhance a program's readability and maintainability by enabling case structures to select branches according to item labels.
 
 Conversely, when a program needs to represent a numeric value but limit user input to specific values, Ring controls are the preferable choice.
 

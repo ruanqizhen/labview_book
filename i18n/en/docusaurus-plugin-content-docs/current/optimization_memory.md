@@ -95,23 +95,23 @@ The In-Place Element Structure offers an advantage over shift registers by allow
 ![](../../../../docs/images/image687.png "Array element replacement using the In-Place Element Structure")
 
 
-### Using Library Function Nodes
+### Using Call Library Function Nodes
 
-To delve into cache reuse, let's consider library function nodes that pass integer parameters. These nodes allow for a choice between value passing and pointer passing in their parameter configuration panel.
+To delve into cache reuse, let's consider Call Library Function Nodes that pass integer parameters. These nodes allow for a choice between value passing and pointer passing in their parameter configuration panel.
 
-With value passing, the library function call node does not alter the parameter's content. If input data enters the node's parameter on the left terminal and output data exits from the right terminal, LabVIEW does not allocate a new buffer at this node because the node's output data is directly derived from its input data.
+With value passing, the Call Library Function Node does not alter the parameter's content. If input data enters the node's parameter on the left terminal and output data exits from the right terminal, LabVIEW does not allocate a new buffer at this node because the node's output data is directly derived from its input data.
 
-In pointer passing, however, LabVIEW assumes the input data might be modified. Since the input data could also be directed to other nodes, LabVIEW allocates a buffer at this juncture to hold a copy of the input data. This means that using pointer passing, each pair of terminals on the library function call node engages in cache reuse; essentially, the node's output values are stored directly in the input value’s buffer space.
+In pointer passing, however, LabVIEW assumes the input data might be modified. Since the input data could also be directed to other nodes, LabVIEW allocates a buffer at this juncture to hold a copy of the input data. This means that using pointer passing, each pair of terminals on the Call Library Function Node engages in cache reuse; essentially, the node's output values are stored directly in the input value’s buffer space.
 
-For parameters serving solely as outputs, an input constant is often established at the node's input terminal. This constant's address space, while not directly utilized, serves as an initial placeholder for buffer allocation by the node. Even without inputting a constant, LabVIEW allocates a buffer for this parameter, leading to variable parameter values with each execution. For instance, in the function below, which adds 1 to its input and outputs the result, the output in scenario a is always 1. In scenario b, because the library function call node reuses the same buffer for each pointer-passed parameter's input and output, each run's input is the previous run's output, resulting in a cumulative increase of 1 with each iteration.
+For parameters serving solely as outputs, an input constant is often established at the node's input terminal. This constant's address space, while not directly utilized, serves as an initial placeholder for buffer allocation by the node. Even without inputting a constant, LabVIEW allocates a buffer for this parameter, leading to variable parameter values with each execution. For instance, in the function below, which adds 1 to its input and outputs the result, the output in scenario a is always 1. In scenario b, because the Call Library Function Node reuses the same buffer for each pointer-passed parameter's input and output, each run's input is the previous run's output, resulting in a cumulative increase of 1 with each iteration.
 
-![](../../../../docs/images/image688.png "Library function call node")
+![](../../../../docs/images/image688.png "Call Library Function Node")
 
 Program c above serves as evidence that some nodes in LabVIEW reuse caches. Running the program c example, the output incrementally increases by 2 on each execution. This is due to both the library function parameter terminals and the "+1" node’s input/output terminals utilizing the same buffer.
 
-If a parameter in a library function call node is only connected to an input, with no corresponding output, LabVIEW assumes the called function will not modify this parameter. Consequently, it does not duplicate this data but reuses the existing cache. Under these circumstances, if the called function alters this data, the program might encounter a hidden risk: other parts of the program could be using this data, and although there may be no visible modifications, its runtime value might not align with expectations. This discrepancy occurs because the cache containing this data was repurposed by another library function call node, which covertly modified it.
+If a parameter in a Call Library Function Node is only connected to an input, with no corresponding output, LabVIEW assumes the called function will not modify this parameter. Consequently, it does not duplicate this data but reuses the existing cache. Under these circumstances, if the called function alters this data, the program might encounter a hidden risk: other parts of the program could be using this data, and although there may be no visible modifications, its runtime value might not align with expectations. This discrepancy occurs because the cache containing this data was repurposed by another Call Library Function Node, which covertly modified it.
 
-In the examples provided, if a library function call node’s output parameter is an array or string, an array or string matching the output data size must be connected to its input. Without this, LabVIEW cannot ascertain the output data size, and default buffer allocations could lead to array out-of-bounds errors.
+In the examples provided, if a Call Library Function Node’s output parameter is an array or string, an array or string matching the output data size must be connected to its input. Without this, LabVIEW cannot ascertain the output data size, and default buffer allocations could lead to array out-of-bounds errors.
 
 
 ### Cache Reuse in Sub VI Parameters

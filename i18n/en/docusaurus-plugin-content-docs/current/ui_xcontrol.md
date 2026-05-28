@@ -213,7 +213,7 @@ Utilizing an XControl widget's properties within an application mirrors the proc
 
 ## Methods
 
-Methods in XControl widgets function similarly to those in standard controls, being invoked in applications via call nodes. The distinction between methods and properties lies in their application: properties are for reading or writing a single value, while methods execute a specific function of the XControl and can manage multiple parameters at once.
+Methods in XControl widgets function similarly to those in standard controls, being invoked in applications via Invoke Nodes. The distinction between methods and properties lies in their application: properties are for reading or writing a single value, while methods execute a specific function of the XControl and can manage multiple parameters at once.
 
 Creating and implementing methods mirror the approach used for properties, with the associated VI primarily focused on manipulating the XControl's state. Although the number of parameters for an XControl method can vary, adjustments to the parameters' number or types must be made within the method's configuration dialog rather than by directly modifying the method VI. To access this dialog, right-click on the method VI within the Project Explorer and select "Configure Method":
 
