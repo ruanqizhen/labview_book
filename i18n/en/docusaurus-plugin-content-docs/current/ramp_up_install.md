@@ -1,24 +1,24 @@
 # Install
 
-Many readers likely have LabVIEW installed on their computers, but for those who don’t, NI offers a free Community Edition of LabVIEW, perfect for learning programming. This edition can be downloaded from NI’s [official website](https://www.ni.com/en-us/shop/labview.html). When downloading, choose the “Community” version, as other versions require a paid license. The Community Edition includes nearly all the features of the professional version, except it cannot be used commercially.
+Most readers probably have LabVIEW installed already, but if you don't, NI offers a free Community Edition that is perfect for learning. You can download it from NI's [official website](https://www.ni.com/en-us/shop/labview.html). Make sure to choose the 'Community' version, as others require a paid license. The Community Edition includes almost all the features of the Professional Edition, with the sole restriction that it cannot be used for commercial purposes.
 
-To download the Community Edition, you’ll need to register for an NI Community account. This can be done for free by selecting “Create an Account” in the top right corner of NI’s official website. This account is also required to activate the software after installation.
+To download it, you will need to create a free NI account by clicking 'Create an Account' in the top-right corner of the NI website. You will also use this account to activate the software after installation.
 
-On Windows systems, installation is handled by the NI Package Manager (NIPM). Once you download and launch the installer, NIPM will prompt you to select the packages you wish to install. For beginners, the default selection (LabVIEW Core) is sufficient. You can safely uncheck additional hardware drivers (like NI-DAQmx or NI-VISA) or specialized toolkits unless your specific project requires them, saving significant disk space. Once your selections are made, simply follow the prompts provided by the installation wizard to complete the setup and activate your Community Edition account.
+On Windows, installation is managed by the NI Package Manager (NIPM). When you run the installer, NIPM will ask you to select the components you want to install. For beginners, the default **LabVIEW Core** is sufficient. You can safely deselect additional hardware drivers (such as NI-DAQmx or NI-VISA) and specialized toolkits to save considerable disk space. After making your selections, follow the installation wizard to complete the setup, then log in with your NI account to activate the software.
 
-For macOS users, historically LabVIEW provided an installation wizard similar to Windows. However, please note that NI has recently begun phasing out support for macOS in the newest iterations of LabVIEW. If you are using an older version or a legacy Community Edition, you can install it via the standard .dmg package provided on the NI website.
+Historically, LabVIEW supported macOS with an installer similar to the Windows version. However, please note that NI has discontinued macOS support in newer releases of LabVIEW. If you are using an older or legacy version of the Community Edition on Mac, you can install it using the standard `.dmg` package from the NI website.
 
-For Linux users, note that LabVIEW officially supports specific distributions, including Red Hat, CentOS, openSUSE, and recently, Ubuntu. If you are using a supported distribution like Ubuntu, installation is streamlined: you can download the NI repository setup .deb file from the website, install it, and use the standard apt package manager to install LabVIEW natively.
+For Linux, LabVIEW officially supports select distributions, including Red Hat Enterprise Linux (RHEL), CentOS, openSUSE, and Ubuntu. If you are on a supported distribution like Ubuntu, installation is straightforward: download the NI repository `.deb` file, install it, and then use the standard `apt` package manager to install LabVIEW natively.
 
-For entirely unsupported distributions, manual installation using the Red Hat .rpm files is still possible. If your system is Debian-based (but not officially supported) and you only have the .rpm packages, you will need to convert them to .deb format.
+If you are running an unsupported Debian-based distribution and only have access to the `.rpm` packages, you can convert them to `.deb` format using the `alien` package conversion tool.
 
-The conversion requires installing the 'alien' package conversion tool:
+First, install `alien`:
 
 ```sh
 sudo apt-get install alien
 ```
 
-Next, unzip the downloaded LabVIEW installation package. Within the unzipped folder’s rpm subfolder, run the following command to convert all .rpm files to .deb format. Some RPM packages are for 32-bit systems and may not convert; simply delete any files with “i386” in their names.
+Next, extract the downloaded LabVIEW installation package. Navigate to the `rpm` subdirectory and convert the packages to `.deb` format. Since some RPMs are for legacy 32-bit systems, you can delete any files containing `i386` in their names before running:
 
 ```sh
 sudo alien *.rpm --scripts
@@ -30,15 +30,15 @@ Finally, run the following command to install all the .deb packages:
 sudo dpkg -i *.deb
 ```
 
-LabVIEW will be installed in the folder `/usr/local/natinst/LabVIEW-20xx-64` (replace xx with the corresponding version number). You can start LabVIEW by running the `./labviewcommunity` command in this folder.
+LabVIEW will be installed in `/usr/local/natinst/LabVIEW-20xx-64` (where `xx` represents the version year). You can launch it by running `./labviewcommunity` from that directory.
 
-The system program start menu item included with the LabVIEW installation package might not be compatible with some Debian systems:
+The start menu shortcut included in the installation package might not work out of the box on some Debian distributions:
 
 ![images_2/image18.png](../../../../docs/images_2/image18.png "Linux system program start menu")
 
-Start menu items on Linux are stored in the `/usr/share/applications/` folder, where you will find a file named `labview64-20xx.desktop`. If you encounter any issues, you can open this file with a text editor and modify the Exec key value to: `Exec=/usr/local/natinst/LabVIEW-2021-64/labviewcommunity %F`. This modification will allow you to launch LabVIEW using the system start menu.
+Linux desktop shortcuts are stored in `/usr/share/applications/`. Find the file named `labview64-20xx.desktop`, open it in a text editor, and update the `Exec` line to: `Exec=/usr/local/natinst/LabVIEW-2021-64/labviewcommunity %F`. This will enable launching LabVIEW directly from your system's application menu.
 
-For commercial project development, it's crucial to choose an officially supported operating system. However, for learning purposes, the more you tinker, the broader your knowledge base becomes.
+While using an officially supported OS is critical for commercial work, troubleshooting these configurations is a great way to deepen your technical knowledge during the learning phase.
 
 The LabVIEW 2021 startup screen looks like this, offering options to create a new file or open existing ones:
 

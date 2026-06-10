@@ -1,196 +1,250 @@
 # OOP Design Methods and Principles
 
-In the previous discussions on object-oriented programming (OOP), we mainly considered the implementation perspective: given the classes we know are needed, how do we go about coding them? Moving forward, we'll shift our perspective to design considerations: for a given problem, what classes should we design, and how should they relate to one another?
+In our previous discussions on object-oriented programming (OOP), we focused on the implementation details: how to define classes, write VIs, and implement properties and methods. In this section, we shift our focus to **software design**: how to identify which classes are needed for a given problem and how they should interact.
 
-Object-oriented programming is fundamentally intended for large-scale software development. For smaller programs, many of its methodologies might seem like overkill. This is because OOP takes into consideration the ease of future upgrades and extension of functionalities during the design phase—concerns that are often unnecessary for smaller, disposable programs. For small programs likely to be used once and discarded, worrying about maintenance and upgrades is irrelevant. Even if new needs arise, modifying or even rewriting small programs is not a big deal. Thus, spending excessive time on object-oriented design for a small project does not make sense.
+OOP is fundamentally built for large-scale software. For small, disposable utility programs, applying strict OOP design principles is often over-engineered. If a program is only run once to parse a specific log file and then discarded, spending hours designing class interfaces is a waste of time. If requirements change, rewriting a small script from scratch is trivial.
 
-However, the scenario changes dramatically with large-scale software. Such software systems entail significant development costs and are not easily discarded. When faced with new requirements, it's generally impractical to develop another large-scale software system from scratch. More logically, the existing system would be patched and extended. Hence, when designing large programs, one should already anticipate future expansions. For example, when designing a pet store system, it should be considered that new animal categories might need to be added, potentially with different properties and methods. When designing a student report system, the potential need to expand report content, formats, and delivery methods should be anticipated. Similarly, when designing a testing system, possible future expansions, such as new test items, types of products, or testing instruments, should also be considered.
+The math changes completely for enterprise-scale software. Large software systems represent a significant investment in time and budget. When new hardware models, test profiles, or formats are introduced, you cannot simply throw away the software and rewrite it. Instead, you must patch, refactor, and extend the existing codebase.
 
-Neglecting to prepare for future expansions during the design phase can make extending the system later on extremely difficult. Adopting OOP aims to build a system that is both flexible and stable: flexibility is shown by the ability to add new features anytime, while stability comes from not needing to change existing classes. So, how do we add new functionalities without modifying existing code?
+Therefore, when designing large applications, you must anticipate future changes:
+- **Pet Store System:** You might need to add new animal species with unique behaviors.
+- **Reporting Module:** You will likely need to support new report formats (PDF, HTML, XML) or delivery methods (email, print, cloud upload).
+- **Test Executive:** You will definitely need to support new test instruments, product models, or limits.
 
-We've already extensively discussed the three major characteristics of OOP in previous sections: encapsulation, inheritance, and polymorphism. These characteristics remain the most important considerations in program design, meaning when designing classes, we need to think about which properties and methods a class should have, and whether it can inherit properties and methods from other classes. Since these characteristics have been thoroughly explored in earlier chapters, we will focus here on other common design methods and techniques, such as class dependencies and composition.
+If you don't design for extensibility upfront, maintaining and expanding the software later becomes incredibly difficult. The goal of OOP design is to build a system that is both **flexible** and **stable**:
+- **Flexibility:** The ease of adding new features.
+- **Stability:** The ability to add those features without modifying or breaking existing, working code.
 
-Additionally, computer scientist Robert C. Martin introduced several principles for object-oriented program design in 2000. These principles have been refined and summarized into five guidelines known as the SOLID principles, essential for object-oriented program design:
+We previously covered the three pillars of OOP: **Encapsulation**, **Inheritance**, and **Polymorphism**. These are the tools we use to model classes. In this chapter, we will look at how classes relate to one another (dependencies, composition, aggregation) and explore the **SOLID Principles**—five foundational guidelines for object-oriented design proposed by Robert C. Martin (Uncle Bob):
 
-- S - Single Responsibility Principle (SRP)
-- O - Open/Closed Principle (OCP)
-- L - Liskov Substitution Principle (LSP)
-- I - Interface Segregation Principle (ISP)
-- D - Dependency Inversion Principle (DIP)
+- **S:** Single Responsibility Principle (SRP)
+- **O:** Open/Closed Principle (OCP)
+- **L:** Liskov Substitution Principle (LSP)
+- **I:** Interface Segregation Principle (ISP)
+- **D:** Dependency Inversion Principle (DIP)
 
-These principles are crucial, and we will also introduce them in the following text. It’s worth noting that the order of these principles forms the acronym SOLID, but we will start with the foundational principles first for clarity.
+While they form the acronym SOLID, we will explain them starting from the most fundamental concepts to make learning intuitive.
 
 
 ## Abstraction
 
-The concept of abstraction, which we've touched upon multiple times, involves extracting common features from a group of entities to form a more generalized concept or model. For example, identifying common characteristics across various dogs to abstract them into a "Dog" class is a classic case of data abstraction. In program design, we go a step further by extracting common traits from various classes to create a more general interface. This interface defines shared properties and behaviors without delving into the specifics of implementation. Abstraction simplifies the design of a system by concealing unnecessary details and highlighting key features. By outlining common properties and behaviors, it prevents the repetition of the same code in multiple areas. Building on an abstract foundation makes it easier to expand or modify the system, creating a variety of specific subclasses.
+**Abstraction** is the process of identifying common characteristics across a group of specific entities and modeling them as a generalized concept. Modeling different dogs as a generic `Dog` class is an example of data abstraction.
 
-Consider designing a pet store system that includes a variety of animals like cats and dogs. Despite their diverse traits, these animals share several similarities: each has a name, requires food, and can produce sounds. These shared characteristics can be abstracted into an "Animal" interface:
+In software design, we take this further: we extract shared behaviors from different classes to define a unified **Interface**. This interface declares *what* behaviors are supported without specifying *how* they are implemented. Abstraction hides internal complexity, highlights core capabilities, and prevents code duplication.
 
-![](../../../../docs/images_2/z345.png "Project")
+Suppose we are designing a pet store system containing cats and dogs. While they are different animals, they all have a name, eat food, and make sounds. We can abstract these shared traits into an `IAnimal` interface:
 
-In this IAnimal interface, we specify common methods such as set_name, eat, and speak. However, we do not provide detailed implementations for these methods. After this abstraction process, we can define concrete animal classes based on this abstract Animal interface. The final inheritance structure of the project looks like this:
+![images_2/z345.png](../../../../docs/images_2/z345.png "IAnimal Interface")
 
-![](../../../../docs/images_2/z344.png "Inheritance Relationship")
+The `IAnimal` interface defines three method signatures: `set_name.vi`, `eat.vi`, and `speak.vi` without implementing any code. We then build concrete classes (`Cat`, `Dog`) that implement this interface. The project hierarchy looks like this:
 
-Each specific animal class implements the IAnimal interface, providing a concrete implementation for the speak method. This design approach allows for the easy addition of more animal types to the system without starting from scratch to define common attributes and behaviors every time. This demonstrates the effectiveness of abstraction.
+![images_2/z344.png](../../../../docs/images_2/z344.png "Inheritance Relationship")
 
-Similarly, when designing a student report system, it's important to identify any commonalities (such as being printable or mailable) among different types of reports that can be extracted. Likewise, in a testing system design, considering the shared aspects that can be abstracted among different instruments, as well as among various testing items, is crucial.
+Each concrete class provides its own specific implementation of `speak.vi`. With this design, if we want to add a `Bird` class, we just implement `IAnimal` without modifying the core pet store management logic.
+
+Similarly, when designing a student report system, you should abstract the capability of being printed or emailed. In a test executive, you should abstract shared measurement capabilities across different instruments.
 
 
-## The Liskov Substitution Principle
+## Liskov Substitution Principle
 
-The Liskov Substitution Principle mandates that subtypes must be interchangeable with their base types without causing errors.
+The **Liskov Substitution Principle (LSP)** states that **subtypes must be substitutable for their base types without altering the correctness of the program.**
 
-This means if we have an instance of a parent class, we should be able to swap it with an instance of any of its subclasses without breaking the application. Ignoring the Liskov Substitution Principle undermines our confidence in substituting a subclass wherever a parent class is expected, diminishing code reusability. Utilizing such subclasses carelessly within a program, while ensuring error-free operation, incurs increased testing and maintenance costs.
+In other words, if a program expects an instance of a parent class, you should be able to pass any of its subclasses to it without breaking the application. If a subclass violates LSP, the caller can no longer rely on the parent class interface, destroying polymorphism and increasing testing and maintenance costs.
 
-Consider a scenario in a testing program involving two types of multimeters: a standard one, represented by a class named Multimeter, and a portable multimeter, distinguished as a special type but sharing significant functionality with the standard multimeter, hence defined as a subclass named PortableMultimeter.
+Consider a test sequence that uses a standard multimeter class (`Multimeter`). Suppose we have a portable multimeter that has similar measurement functions but lower accuracy, and we decide to inherit it as `PortableMultimeter`.
 
-In everyday logic, this classification seems straightforward. However, within the context of a programming project, defining PortableMultimeter as a subclass of Multimeter might inadvertently lead to its misuse as a substitute for Multimeter. The catch is that the portable multimeter might not completely fulfill the common multimeter's role—for example, it might offer lower measurement accuracy, potentially introducing errors into the program. Thus, making PortableMultimeter a subclass of Multimeter contravenes the Liskov Substitution Principle.
+In everyday logic, a portable multimeter is a multimeter, so inheritance seems correct. However, in software, if the main test sequence expects a highly accurate `Multimeter` and we wire a `PortableMultimeter` instance instead, the sequence may fail because of the low accuracy. This violates LSP because substituting the subclass changes the correctness of the program.
 
-To comply with the Liskov Substitution Principle, we might rethink these classes, ensuring PortableMultimeter is not a Multimeter subclass but rather, both are subclasses under more generalized interfaces. For instance, we could establish interfaces for voltage and current measurements, named IVoltageMeasurable and ICurrentMeasurable, respectively, with the inheritance structure shown below:
+To comply with LSP, we should decouple the two classes. Instead of making `PortableMultimeter` a subclass of `Multimeter`, we can define generic voltage and current measurement interfaces (`IVoltageMeasurable` and `ICurrentMeasurable`):
 
-![](../../../../docs/images_2/z346.png "Inheritance Relationship")
+![images_2/z346.png](../../../../docs/images_2/z346.png "Interface Hierarchy")
 
-Consequently, both PortableMultimeter and Multimeter implement the IVoltageMeasurable interface. This removes the direct parent-child linkage, rendering them as two parallel and independent classes. This approach eliminates concerns about misusing a PortableMultimeter as a Multimeter, thus adhering to the Liskov Substitution Principle. This example illustrates that class design in object-oriented programming is fundamentally aimed at facilitating software development. The focus when crafting classes and their interrelations should be on fostering logical coherence within the program rather than mirroring real-world entity relationships.
+Both multimeters implement these interfaces independently as sibling classes. The test sequence then programs against `IVoltageMeasurable`, ensuring that the accuracy requirements are explicitly handled, rather than assuming any multimeter is compatible.
+
+Let's look at another classic LSP violation in hardware control:
+Suppose we have a parent class `Instrument` with methods `Initialize.vi` and `Start_Measurement.vi`. We write a subclass `Laser_Controller` that inherits from `Instrument`. However, for safety reasons, the laser hardware requires an operator to physically press a safety button on the physical instrument panel before a measurement starts. If the button is not pressed, calling `Start_Measurement.vi` triggers a safety warning dialog and aborts the test.
+
+This design violates LSP. The main test program expects a generic `Instrument` that can initialize and immediately start a measurement programmatically. When we substitute the laser controller, this contract is broken, causing the automation sequence to fail.
+
+To respect LSP, a subclass overriding a parent method **cannot strengthen preconditions** (it cannot demand more restrictive environment conditions than the parent) and **cannot weaken postconditions** (it must fulfill all promises made by the parent interface and cannot throw unexpected errors).
 
 
 ## Dependency Relationships
 
-Dependency relationships are a form of loose connection that indicates one class utilizes objects from another class within its methods. Beyond inheritance, classes can relate to each other in various ways, with dependency being among the most common relationships in project development. If Class A's methods employ objects from Class B, Class A is said to be dependent on Class B. Unlike the forthcoming discussions on composition and aggregation, dependency does not imply a strong association with the lifecycle of the involved classes. For instance, consider a scenario involving a Printer class capable of printing various documents and an IReport interface representing these documents. Here, the Printer class is dependent on the IReport interface because it requires an instance of IReport to execute its printing tasks.
+A **Dependency** is a loose connection where one class utilizes instances of another class inside its methods. Unlike composition or aggregation, a dependency is transient and does not link the lifecycles of the two objects.
 
-Below is a simplified version of the print_document.vi found within the Printer class:
+For example, suppose a `Printer` class prints reports represented by an `IReport` interface. The `Printer` class depends on the `IReport` interface because it needs an `IReport` object to run its printing logic:
 
-![](../../../../docs/images_2/z347.png "print_document.vi")
+![images_2/z347.png](../../../../docs/images_2/z347.png "print_document.vi")
 
-In this illustration, print_document.vi accepts an object from the IReport interface as an input to print its content. This setup shows that the Printer class depends on IReport, yet this dependency does not suggest that Printer owns IReport or that the lifespan of IReport is tied to Printer. It merely indicates that the Printer class makes use of the IReport interface for some of its functionalities.
-
-Such a relationship is transient, existing only for the duration of the method call.
+Inside `print_document.vi`, the `IReport` object is passed in as a parameter. The printer reads the report content and sends it to the hardware. The `Printer` does not own the `IReport` object, and the report object lives independently of the printer. The relationship only exists during the execution of this VI.
 
 
 ## Dependency Inversion Principle
 
-The Dependency Inversion Principle dictates that classes should not depend on other classes but rather on interfaces.
+The **Dependency Inversion Principle (DIP)** states:
+1. **High-level modules should not depend on low-level modules. Both should depend on abstractions.**
+2. **Abstractions should not depend on details. Details should depend on abstractions.**
 
-Traditionally in procedural programming, it's typical for higher-level modules to depend on lower-level ones. It seems logical to think that since abstractions are derived from concrete entities, abstractions should depend on the concrete. However, this principle is called "inversion" because it champions the exact opposite: "Abstractions should not depend upon details; rather, details should depend upon abstractions". This means higher-level classes shouldn't rely on lower-level classes; both should depend on interfaces instead.
+In traditional procedural design, top-level VIs depend directly on concrete low-level drivers. DIP inverts this relationship. Rather than coding against concrete classes, you code against interfaces.
 
-While this principle is the last in the SOLID sequence, it actually underpins the other principles and design approaches. At its core, the Dependency Inversion Principle aims to decouple classes by insisting on abstraction rather than direct interaction. This lowers the coupling between classes, ensuring that changes in one class minimally impact others, hence simplifying maintenance and facilitating extensions.
+DIP is the foundation of decoupled architectures. It ensures that changes in low-level drivers or modules do not cascade up to break the high-level application logic.
 
-To elucidate this principle, let's look at a report generation example: Imagine we have a ReportService class that directly relies on a specific PDFStudentReport class for generating PDF reports. Here is the block diagram for the create_report.vi within the ReportService class:
+Let's look at a report generator:
+Suppose we have a `ReportService` class that directly calls a concrete `PDFStudentReport` class to generate reports. Here is the block diagram of `create_report.vi` in `ReportService`:
 
-![](../../../../docs/images_2/z348.png "create_report.vi")
+![images_2/z348.png](../../../../docs/images_2/z348.png "create_report.vi")
 
-In this scenario, create_report.vi directly retrieves an instance of the PDFStudentReport class from the data and invokes its generate.vi to produce a PDF report.
+The `create_report.vi` directly instantiates `PDFStudentReport` and calls its methods.
 
-The flaw in this setup is the ReportService's direct dependency on PDFStudentReport. Should the requirement evolve, necessitating web format reports, for instance, we'd be compelled to alter the ReportService class. By adhering to the Dependency Inversion Principle, we can accommodate new report formats without amending the ReportService. This can be achieved by introducing an abstract IReport interface, with PDFStudentReport and other report types (like WebStudentReport) implementing this interface. ReportService should then depend on this abstract IReport interface, not any specific class. The modified class relationships are illustrated below:
+If the customer now asks for HTML web reports, we have to open `ReportService.vi` and modify its diagram to swap `PDFStudentReport` with `WebStudentReport`.
 
-![](../../../../docs/images_2/z349.png "create_report.vi")
+To apply DIP, we define an abstract `IReport` interface. Both `PDFStudentReport` and `WebStudentReport` implement `IReport`. We then configure the private data of `ReportService` (its `.ctl` cluster) to store an `IReport` interface wire instead of a concrete class wire:
 
-Now, ReportService class is designed to accept an IReport interface instance through its constructor. This approach allows us to seamlessly switch report types by simply supplying a different IReport implementation, negating the need to tweak the ReportService class.
+![images_2/z349.png](../../../../docs/images_2/z349.png "Decoupled create_report.vi")
 
-
-## The Single Responsibility Principle
-
-The Single Responsibility Principle (SRP) succinctly states that a class should only have one reason to change. 
-
-What exactly constitutes "one reason"? Put more specifically, a class should be tasked with a single area of functionality, indicating that only when a specific aspect of the software's requirements changes should the class need to be updated. For instance, consider a program designed to manage student information, which involves fetching student data from a database and formatting it for print. There are various strategies for structuring the classes within such a program. One approach could involve a Student class with two primary responsibilities: retrieving information from the database to populate its attributes and processing these attributes to generate a report.
-
-The problem with this design lies in its response to change. Whether changes are needed in how student data is handled or in the requirements for the report format, adjustments would need to be made to the same class. A design that adheres to the Single Responsibility Principle would segregate these responsibilities into distinct classes. For example, a StudentReport class could exclusively focus on report generation, while a separate Student class would deal with data management. With this refined approach, changes to data management practices could be implemented independently of modifications to report generation, and vice versa.
-
-Why adhere to the Single Responsibility Principle?
-
-First, large projects often involve collaboration among multiple individuals or teams, each possibly responsible for different aspects of the project. Merging disparate functionalities within a single class can lead to conflicts when modifications are necessary. Furthermore, adhering to the SRP can simplify code versioning. Each functionality, represented by a specific class or file, becomes easier to track; any updates to a file immediately signal changes to its associated functionality. Similarly, when adjustments to a specific function are required, the relevant class or file can be identified and modified directly.
+At runtime, the main application injects the concrete report instance (PDF or Web) into `ReportService` (often called **Dependency Injection**). If we need to add an XML report format in the future, we can write the new class and implement `IReport` without modifying a single wire inside `ReportService`.
 
 
-## Interface Segregation Principle Simplified
+## Single Responsibility Principle
 
-The Interface Segregation Principle (ISP) insists that a class shouldn't be compelled to implement interfaces it doesn't use. Overly broad interfaces force classes to implement functionalities they don't need. This principle advocates for splitting large interfaces into smaller, more specific ones so that classes can implement only the functionalities relevant to them.
+The **Single Responsibility Principle (SRP)** states that **a class should have one, and only one, reason to change.**
 
-Take, for instance, our student report system. Initially, we had an IStudentReport interface defining functionalities for generating, emailing, and printing reports. The PDFStudentReport class, handling PDF reports, had to implement all these functions, even printing, which it needed.
+In other words, a class should be responsible for a single area of functionality. If a class has multiple responsibilities, it becomes tightly coupled and fragile.
 
-The problem arose with a new requirement for web format reports that needed emailing but not printing. Implementing the IStudentReport forced our WebStudentReport class to include a print function it never used. This clearly violates the ISP.
+Suppose we are managing student data. We need to load student records from a database and print them as formatted reports. One design approach is to build a single `Student` class that handles both:
+1. Connecting to the database to read/write records.
+2. Generating and printing the formatted student report.
 
-To align with ISP, we divided IStudentReport into distinct interfaces: IReportGeneratable for report generation, IReportEmailable for emailing, and IReportPrintable for printing. Consequently, PDFStudentReport implements all three, aligning with its capabilities, whereas WebStudentReport only needs to implement IReportGeneratable and IReportEmailable, excluding the unnecessary printing functionality.
+This design violates SRP. There are two distinct reasons to modify this class:
+1. The database schema changes (data management change).
+2. The print template changes (presentation change).
 
-This approach adheres to the ISP by ensuring classes are not burdened with unnecessary implementations. It encourages designing focused, single-purpose interfaces and classes rather than broad, all-encompassing ones. For example, rather than a catch-all multimeter interface, it's more efficient to have separate interfaces for measuring DC voltage, AC voltage, DC current, etc. This method simplifies class design, making systems more flexible and maintainable.
+If the DBA updates the database layout, we have to modify the `Student` class, which risks breaking the report rendering code. A design following SRP separates these concerns: a `Student` class to manage database queries and state, and a `StudentReport` class to handle formatting.
+
+Let's look at a test executive example:
+Suppose we write a `TestManager` class that controls a multimeter to read voltages, writes those readings to a SQL database, and plots the values on a UI graph.
+
+This class violates SRP because it has three reasons to change:
+1. The multimeter hardware is replaced with a different model (instrument driver change).
+2. The database schema is updated (database logger change).
+3. The customer requests a bar chart instead of a line graph (UI visualization change).
+
+To follow SRP, we split this class into three separate classes: `DMM_Driver` (hardware), `Database_Logger` (storage), and `UI_Controller` (visualization).
+
+Adhering to SRP yields key benefits:
+- **Clean Collaboration:** In team environments, different developers can work on hardware drivers and UI layouts simultaneously without merge conflicts in the same class file.
+- **Explicit Version Control:** Class file updates align directly with specific functional changes, making git history easy to audit.
+
+
+## Interface Segregation Principle
+
+The **Interface Segregation Principle (ISP)** states that **clients should not be forced to depend on methods they do not use.**
+
+When an interface is too bloated, implementing classes are forced to write empty or dummy overrides for methods they don't need. ISP encourages designing small, highly focused interfaces rather than a single massive interface.
+
+In our student report system, suppose we define an `IStudentReport` interface with three methods: `Generate_Report.vi`, `Email_Report.vi`, and `Print_Report.vi`. Our concrete `PDFStudentReport` class implements this interface and overrides all three.
+
+Now, we receive a requirement to support web reports. We create a `WebStudentReport` class. Web reports are displayed in a browser and can be emailed, but they cannot be printed directly to a physical printer. Because `WebStudentReport` implements `IStudentReport`, it is forced to implement a dummy `Print_Report.vi` that it doesn't need. This violates ISP.
+
+To satisfy ISP, we split `IStudentReport` into three focused interfaces: `IReportGeneratable`, `IReportEmailable`, and `IReportPrintable`.
+- `PDFStudentReport` implements all three interfaces.
+- `WebStudentReport` implements only `IReportGeneratable` and `IReportEmailable`.
+
+By splitting the interfaces, `WebStudentReport` is no longer burdened with implementing unused methods.
+
+When designing instrument drivers, instead of creating a massive `IMultimeter` interface, it is often better to split it into specialized interfaces like `IDcVoltageMeasurable`, `IAcVoltageMeasurable`, and `IDcCurrentMeasurable`. This keeps the API clean and flexible.
 
 
 ## Association
 
-Association outlines the links between objects in one class to objects in another. These connections can be unilateral or reciprocal and vary in durability, ranging from temporary to permanent. When conceptualizing an association, focus on two main aspects: the directionality, indicating whether the relationship between two classes is one-way or two-way, and the multiplicity, indicating whether an object is linked to one or several objects of another class.
+An **Association** defines a relationship between objects of two classes. Associations can be:
+- **Directional:** One-way (Class A knows about Class B, but B doesn't know about A) or two-way (both classes know about each other).
+- **Multiplicity:** One-to-one, one-to-many, or many-to-many.
 
-For instance, consider a school system with Teacher and Student classes. The relationship between these two classes' objects represents an "association" relationship: a teacher can teach multiple students, and a student can be taught by multiple teachers.
+For example, in a school management system:
+- A `Teacher` teaches multiple `Student` objects.
+- A `Student` is taught by multiple `Teacher` objects.
 
-................
+This is a bidirectional, many-to-many association.
 
-In the example provided, the relationship between Teacher and Student is bidirectional and clearly defined in terms of multiplicity; a teacher can have multiple students, and a student can have multiple teachers. In the Teacher class, the associated Student objects are stored within a list. Utilizing the add_student() method establishes this bidirectional connection. Such a design allows for the easy querying and manipulation of the associations between objects, such as identifying all of a teacher's students or all of a student's teachers.
+*(Note: Detailed G block diagrams demonstrating Association will be added in future revisions.)*
+
+In G, to establish this bidirectional association, the `Teacher` class stores an array of `Student` objects (or references) inside its private data cluster, and the `Student` class stores an array of `Teacher` references. Helper methods like `add_student.vi` manage the array insertions to keep the relationship in sync.
+
 
 ## Composition
 
-Composition denotes a "whole-part" relationship where an object comprises one or more instances of another object. Composition enables the creation of more complex, feature-rich objects based on existing ones without the need for inheritance. Offering greater flexibility than inheritance, composition allows for behavior changes in the whole by merely adjusting the components. It aids in system decoupling, with each part being independently developable and testable, simplifying the management and comprehension of complex systems.
+**Composition** represents a strong "whole-part" relationship. The parent object (the whole) owns the child objects (the parts), and the lifecycles of the parts are tightly bound to the whole: when the parent is created or destroyed, the parts are created or destroyed with it.
 
-Consider simulating a dog with a Dog class, where a dog consists of a head, body, four legs, and a tail, with legs featuring multiple joints like hips and knees. In this scenario, the relationship between "dog" and "head" should be one of composition, not inheritance; "dog" comprises "head", "body", "tail", etc.
+Composition is a powerful alternative to inheritance (often described as "favoring composition over inheritance"). It allows building complex systems by nesting simpler components.
 
-........................
+For example, a `Dog` is composed of a `Head`, a `Body`, and `Legs`. A dog does not inherit from a leg; rather, it *has* legs.
+- **Component Classes:** We define separate classes for `Head`, `Body`, `Leg`, and `Joint`.
 
-Initially, we define classes for body parts such as joints, legs, and tail.
+  *(Note: Detailed G code diagrams of body components will be added in future revisions.)*
 
-........................
+- **Dog Class:** The private data cluster (`Dog.ctl`) of the `Dog` class contains four `Leg` objects and one `Head` object:
 
-Subsequently, we create the Dog class, where each Dog object incorporates four instances of the Leg interface and one instance of the Tail interface.
+  *(Note: Dog data cluster configuration will be added in future revisions.)*
 
-........................
+- **Execution:** To make the dog walk, the `Dog:walk.vi` method loops through the leg instances and calls `Leg:move.vi`:
 
-Now, to make the dog walk, we simply invoke the walk method. When expressing happiness, the express_happiness method is called.
+  *(Note: Walk method block diagram will be added in future revisions.)*
 
-........................
-
-Through composition, we've endowed the Dog class with a variety of functionalities while keeping the code organized and maintainable. Should there be a need to modify the structure of the dog's legs or the actions of the joints in the future, changes will only be required in the respective classes.
+In LabVIEW, implementing **Composition** is straightforward: you open the private data cluster of the parent class (e.g., `Car.ctl`) and drop the component class constant (e.g., `Engine.lvclass`) directly into it. When a `Car` object flows along a wire or is cleared from memory, the nested `Engine` instance is created and destroyed in lockstep.
 
 
 ## Aggregation
 
-Aggregation represents the concept where one class forms a part of or is a component of another class. This relationship is characterized by an "ownership" dynamic, where one object can own or contain other objects. Aggregation is typically employed to articulate the relationship between a whole and its parts, where the whole isn't responsible for the lifecycle of its parts. In an aggregation relationship, only the aggregate class is aware of the component class, but not vice versa. Components can be transferred from one aggregate to another without issues.
+**Aggregation** represents a weaker "whole-part" relationship characterized by an "ownership" dynamic where the parts can exist independently of the whole. The parent object does not manage the lifecycle of the child objects.
 
-Aggregation resembles composition in that both can represent "parts" and "wholes", with "wholes" comprising one or several "parts". The key difference is whether the "whole" manages the lifecycle of the "parts" — i.e., their creation and destruction. For instance, a "tail" is part of a "dog"; when a dog object ceases to exist, there's no longer a need for the tail object. If the "dog" is responsible for creating and destroying the "tail", this is a composition. Conversely, consider "students" as part of a "classroom"; students may need to participate in activities beyond the classroom, indicating that the classroom shouldn't manage the lifecycle of "students". This relationship between students and classrooms is an example of aggregation, not composition.
+The key difference between composition and aggregation is **lifecycle ownership**:
+- **Composition (Strong):** If the dog dies, its tail is destroyed with it. The tail has no meaning outside the dog.
+- **Aggregation (Weak):** A `Classroom` contains multiple `Student` objects. If the classroom is closed, the students continue to exist. The students can be moved to a different classroom.
 
-........................
+In LabVIEW, implementing **Aggregation** requires care. Because G is a dataflow language that passes objects by value, dropping a `Student` object array directly into `Classroom.ctl` would copy the student data. If a student's grade is updated elsewhere, the copy inside the classroom would become stale. Furthermore, destroying the classroom wire would destroy the student data.
 
-In the examples given, the Classroom class aggregates the Student class. The classroom maintains its students, but students can exist independently of the classroom. Aggregation allows for a clear hierarchical structure and whole-part relationships, facilitating the organization and management of system objects at a higher logical level.
+To implement Aggregation in G:
+1. Do **not** place concrete child objects directly inside the parent's data cluster.
+2. Instead, store an array of **Data Value References (DVRs)** pointing to the child objects, or store an array of **Unique ID Strings** pointing to a global object manager that manages the lifecycles of the child instances.
+
+This allows the classroom to refer to the students without owning their memory space, permitting the student objects to live independently.
+
 
 ## Open/Closed Principle
 
-The open/closed principle dictates that classes should be open for extension but closed for modification.
+The **Open/Closed Principle (OCP)** states that **software entities (classes, modules, VIs) should be open for extension, but closed for modification.**
 
-This means adding new functionalities should be possible without changing existing code. Modifications can introduce new bugs and lead to instability. Hence, code that functions correctly should remain unchanged as much as possible.
+This means you should be able to add new features to a system without editing existing, working source code files. Modifying tested code introduces the risk of regression bugs, so we should keep existing classes sealed.
 
-This principle concludes this section because it encapsulates the goal of integrating object-oriented programming into software development: to forge a system that is both flexible and stable. Flexibility allows for the addition of new functionalities without altering existing code. This principle is paramount, with prior methods and principles laying the foundation to achieve this objective. It applies not just to "classes" but to all software entities, including modules and functions, which should all be open for extension and closed to modification.
+OCP is the ultimate goal of object-oriented design. The other SOLID principles (SRP, LSP, ISP, DIP) and techniques like composition and abstraction serve to support OCP.
 
-Using the StudentReport as an ongoing example:
+Let's look at report formatting again:
+Suppose we have a `StudentReport` class that formats and prints student grades.
 
-........................
+*(Note: Original source code representation will be added in future revisions.)*
 
+Now, we receive a requirement to print reports in a custom dictionary format. If we directly modify `StudentReport.vi` to add a Case Structure for the new format:
 
-Afterward, we encounter a new requirement: report printing necessitates structured data, returned in a dictionary format. One might initially think to modify the program in the following manner:
+*(Note: Direct modification code will be added in future revisions.)*
 
-........................
+This approach violates OCP. Every time a customer requests a new report format, we must modify the `StudentReport` class, risking bugs in existing formats.
 
+To satisfy OCP, we introduce an abstract `ReportGenerator` interface. Each format is implemented as a separate class that inherits from `ReportGenerator`:
 
-Such alterations breach the open/closed principle by continuously changing the StudentReport class to accommodate new report formats. So how can we introduce new functionalities without revising existing classes?
+- `PDFGenerator` class implements `ReportGenerator`.
+- `HTMLGenerator` class implements `ReportGenerator`.
+- `DictGenerator` class implements `ReportGenerator`.
 
-This necessitates abstract classes: introducing an abstract "Report Generator" class, with each report format represented as a specific class:
+*(Note: Abstract interface definition will be added in future revisions.)*
 
-........................
+Our report engine class now accepts a `ReportGenerator` interface wire:
 
+*(Note: Decoupled generator implementation will be added in future revisions.)*
 
-Now, introducing a new report format merely involves adding a new concrete report generator class, bypassing the need to tweak any existing classes. Modified example code utilizing ReportGenerator:
+When the user wants to switch formats, they simply wire a different generator subclass to the engine:
 
-........................
+*(Note: Client configuration code will be added in future revisions.)*
 
-
-Thus, to generate reports in various formats, simply switch the generator associated with the UserReport instance. For instance:
-
-........................
-
-
-This approach strictly adheres to the open/closed principle since it doesn't require modifications to existing code to incorporate new functionalities.
+Adding a new XML format is now simple: we create a new `XMLGenerator` class and implement the interface. The existing classes remain completely untouched, satisfying the Open/Closed Principle.

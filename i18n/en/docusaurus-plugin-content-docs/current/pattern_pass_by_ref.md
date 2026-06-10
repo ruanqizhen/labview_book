@@ -1,262 +1,262 @@
 # Passing by Reference
 
-Passing by value is the preferred method of parameter passing in LabVIEW, as it aligns with the dataflow-driven programming model. However, in certain scenarios, passing by reference is unavoidable, particularly when a program needs to operate on the same data across different threads.
+**Pass-by-value** is the standard way to pass parameters in LabVIEW, as it aligns perfectly with the dataflow-driven model. However, **pass-by-reference** is sometimes necessary, especially when multiple parallel threads must access or modify the same shared data block.
 
-In C++, a reference is represented by a 4-byte (in 32-bit operating systems) or 8-byte (in 64-bit operating systems) piece of data that points to the memory address of a data block. The actual data is stored in a memory space accessible to multiple resources. In LabVIEW, the approach to passing by reference is more varied.
+In C/C++, a reference or pointer is a memory address (typically 4 bytes on a 32-bit OS or 8 bytes on a 64-bit OS) that points to a memory block where the actual data resides. This memory space is shared among multiple variables or threads. LabVIEW offers a wider variety of pass-by-reference techniques.
+
 
 ## LabVIEW's Built-In Reference Data Types
 
-In common text programming languages like C and Java, data passed into a sub-function can be specified as pass-by-value or pass-by-reference. LabVIEW, however, operates differently. It does not allow for specifying whether data should be passed by value or reference. Instead, LabVIEW's data types are categorized into those meant for value passing and those designed for reference passing.
+In text-based languages like C++ or Java, you can declare whether a function parameter is passed by value or by reference. LabVIEW does not allow you to configure this on individual wires. Instead, LabVIEW categorizes its datatypes into two groups: **value-based** datatypes and **reference-based** datatypes.
 
-Controls located in the "Refnum" section of the controls palette are data types meant for passing by reference:
+Controls in the **Refnum** category of the Controls palette are reference-based datatypes:
 
-![](../../../../docs/images/image317.png "Refnum Controls Palette")
+![Refnum Controls Palette](../../../../docs/images/image317.png "Refnum Controls Palette")
 
-In block diagrams, these reference data types are represented by dark green thin wires. For example, the semaphore reference we discussed in the [Global Variables](pattern_global_data#using-semaphores-to-avoid-data-race-conditions) section is a typical reference data type. In the program shown below, the green thin wires interconnecting the subVIs are transmitting the semaphore reference:
+On the block diagram, reference-based datatypes are represented by thin, dark green wires. For example, the semaphore reference we used in [Global Variables](pattern_global_data#using-semaphores-to-avoid-data-race-conditions) is a typical refnum. In the diagram below, the thin green wires passing between the subVIs carry the semaphore reference:
 
-![](../../../../docs/images_2/z264.png "Using Semaphore")
+![Using Semaphore](../../../../docs/images_2/z264.png "Using Semaphore")
 
-Apart from the "Refnum" controls on the palette, LabVIEW also has other data types that, despite having different wire colors, function as reference data types. These include hardware device handles (such as VISA resource names, IVI logical names), notifications, events, queues, among others.
+In addition to the Refnum palette, LabVIEW includes other datatypes that act as reference types, even though their wire colors differ. These include hardware session handles (such as VISA resource names, IVI logical names), notifications, user events, and queues.
 
-In LabVIEW, there are numerous reference data types that aren't listed on the control palette. For instance, as discussed in the [Event Structure](pattern_ui#dynamic-events-1) section, methods for creating references for objects like panes and Boolean controls don't have their reference controls readily accessible on the controls palette. Instead, obtaining these types of reference controls requires an indirect approach: first, create a reference for a specific object, then generate a control from the reference's terminal. Here's an example of such reference controls:
+Many reference types do not have dedicated controls on the palette. For example, as shown in [Event Structure](pattern_ui#dynamic-events-1), references to front panel objects like panes, splitters, or Boolean controls must be created dynamically. To create a control for these references, you must first generate the reference from an object, then right-click its output terminal and select **Create -> Control**. Here is an example of these custom reference controls:
 
-![](../../../../docs/images/image230.png "Reference Controls on Sub VI Front Panel")
+![Reference Controls on Sub VI Front Panel](../../../../docs/images/image230.png "Reference Controls on Sub VI Front Panel")
 
-Reference data types themselves are represented by a 4-byte piece of data that points to another object. In practice, the object to which the reference points is what's actually used in the program. The various reference types differ in the nature of the objects they point to; some may point to a file, others to an instrument device, and some to a specific VI or control.
+A reference is simply a 4-byte pointer to a target object. The program interacts with the underlying object, not the 4-byte refnum. The type of a reference determines what kind of object it points to—such as files, instruments, VIs, or controls.
 
-On block diagrams using these pass-by-reference data types, the 4-byte reference data flows along the data wire, while the object it points to remains unchanged. If a reference points to a large data block, transferring the compact 4-byte reference is much more efficient than moving the entire data block. At branches in the data wires, LabVIEW only needs to replicate the 4-byte reference data, not the object it references. The duplicate reference still points to the original object, allowing different program branches to access the same object or data.
+On the block diagram, only the 4-byte reference value flows along the data wire, while the target object remains anchored in memory. If the reference points to a massive array or database, passing the 4-byte refnum is extremely fast and memory-efficient. When a reference wire splits on the block diagram, LabVIEW only copies the 4-byte pointer, not the target object itself. Both branches point to the same shared object, allowing parallel processes to read and write to it.
+
 
 ## Global Variables
 
-Beyond LabVIEW's built-in reference data types that can convey specific data references, other methods can be employed to pass any data block by reference.
+In addition to LabVIEW's built-in reference types, you can implement pass-by-reference using custom data containers.
 
-Global variables (and local variables) represent one of the simplest ways to pass data by reference. The data in a global variable is stored in a fixed memory location, accessible via global variables in various VIs or threads.
+Global (and local) variables are the simplest way to implement pass-by-reference. The variable's data is stored in a fixed memory location, which can be accessed from different VIs and threads.
 
-Using global variables involves simply placing the VI or node representing the global variable into the program, providing access to its data. While this method has its benefits, the drawbacks are more significant. Data wires are vital for understanding LabVIEW programs, as they indicate the sequence of program execution, data transfer, and processing. Losing this crucial insight makes it challenging to trace the origins and modifications of data, thus significantly reducing the program's readability and maintainability.
+While simple, this method is highly discouraged because it breaks the dataflow model. Data wires are critical for understanding LabVIEW code, as they define the sequence of execution, data transfer, and processing. Losing this visual structure makes it hard to see where data originates or where it is modified, reducing code readability and maintainability.
 
-Therefore, data wires are often crucial. Even when passing by reference, it's preferable to maintain a data wire for transmitting the reference.
+Therefore, you should always try to use data wires, even when passing data by reference.
 
 
 ## Queues
 
 ### Queues as Data Structures
 
-We previously introduced queues as data structures in the [State Machine](pattern_state_machine#multi-state-transitions) section. A queue is a structure capable of storing multiple elements of the same type. Its behavior is similar to a line for buying tickets: data enters the queue as customers join a line, with those joining first being served and leaving first. In a queue, data adheres to the First In, First Out (FIFO) principle, meaning each time data is extracted, it's always the element that was added earliest.
+We introduced queues as data structures in [State Machine](pattern_state_machine#multi-state-transitions). A queue is a linear data structure that stores elements of the same type. It functions like a ticket queue: elements enter at the back (enqueue) and exit from the front (dequeue), enforcing a **First-In, First-Out (FIFO)** order.
 
-In LabVIEW, a Queue is a unique data structure. While most structures like Arrays, Maps and Sets are passed by value, queues are passed by reference. This distinction arises from the early days of LabVIEW, when its applications were more limited, often for creating basic testing programs. LabVIEW primarily managed straightforward data types, such as hardware test results, without the need for complex structures for representation. However, due to LabVIEW's automatic multi-threading, users could unintentionally create multi-threaded programs, necessitating an efficient method for data transfer between threads. This led to the adoption of queues, designed as reference types to facilitate data sharing across threads.
+In LabVIEW, a Queue is a unique data container: while other containers like Arrays, Maps, and Sets are value-based, queues are **reference-based**. In the early days of LabVIEW, most programs were simple test sequences that did not require complex data structures. However, because LabVIEW executes code in parallel threads by default, developers needed a way to transfer data between threads safely. NI designed queues as reference-based types to act as thread-safe data pipelines.
 
-To this day, functions related to queues are located under "Programming -> Synchronization" on the function palette, not grouped with other data structures under "Data Containers".
+Because of this history, queue functions are located in the **Programming -> Synchronization** palette rather than the Data Containers palette:
 
-![](../../../../docs/images/image318.png "Queue Operations Function Palette")
+![Queue Operations Function Palette](../../../../docs/images/image318.png "Queue Operations Function Palette")
 
-Queues typically refer to unidirectional queues, which operate on a simple FIFO basis, where data elements can only enter at the rear and exit at the front. A data structure often compared with queues is the "Stack" (also briefly introduced in the [State Machine](pattern_state_machine#designing-the-data-structure) section). Stacks resemble a handgun magazine, where data inserted into the stack, akin to bullets loaded into a magazine, exits in the reverse order of entry. Data in a stack must adhere to the Last In, First Out (LIFO) principle.
+A standard queue is unidirectional (FIFO). A related data structure is the **Stack** (discussed in [State Machine](pattern_state_machine#designing-the-data-structure)), which behaves like a gun magazine: bullets loaded last are fired first, enforcing a **Last-In, First-Out (LIFO)** order.
 
-Another variation is the double-ended queue, which allows data elements to enter from the front and exit from the rear. Double-ended queues can function as either queues or stacks. LabVIEW offers semi-double-ended queues; while they don’t permit data to exit from the rear, they do allow data to enter from the front. Thus, LabVIEW’s queues can be used as stacks when necessary.
+A double-ended queue (deque) allows adding and removing elements from both ends. LabVIEW's queue is semi-double-ended: while elements can only be removed from the front, they can be inserted at either the front or the back. This flexibility allows you to use a LabVIEW queue as a stack when needed.
 
 
-### Queues for Data Transfer Between Different Threads
+### Queues for Data Transfer Between Threads
 
-In LabVIEW, queues have a crucial role beyond data storage and facilitating First In, First Out (FIFO) operations: they enable data exchange between different threads. A common pattern in LabVIEW testing programs involves multiple threads running simultaneously, where one thread is dedicated to data acquisition and another to processing and displaying the data. This requires an efficient method for storing data acquired by one thread and later retrieving it for processing by another.
+In addition to storing data, queues are the primary mechanism for exchanging data between concurrent threads. A common architecture in LabVIEW test programs uses two loops running in parallel: one loop for high-speed data acquisition and another loop for data analysis, logging, and display. This requires a thread-safe buffer to transfer samples between loops.
 
-To illustrate how queues are used in such scenarios, let's look at a simplified "mock" data acquisition and analysis program:
+Let's look at a sequential data acquisition and analysis program:
 
-![](../../../../docs/images_2/z265.png "Sequential Data Acquisition and Analysis Program")
+![Sequential Data Acquisition and Analysis Program](../../../../docs/images_2/z265.png "Sequential Data Acquisition and Analysis Program")
 
-This program's main structure, a typical setup for measuring execution time, might be familiar from the [Flat Sequence Structure](structure_cond_seq#flat-sequence-structure) section. The outer sequence structure has three frames: the first records the current system time before test code execution; the second frame runs the code whose execution time is being tested; and the third frame again captures the current time. The difference between the times in the third and first frames gives the execution duration of the test code.
+This program uses a Flat Sequence Structure to measure execution time. Frame 0 records the starting timestamp, frame 1 executes the loop, and frame 2 records the ending timestamp. The difference determines the execution time.
 
-In the second frame, there's a loop that iterates 50 times. Each iteration begins with a "virtual" data acquisition module, represented by the code inside the green sequence structure. This module simulates data acquisition by generating a random number on each iteration. To mimic the time-consuming nature of data acquisition, a random delay of 0-100 milliseconds is introduced. After acquisition, data is processed by the module inside the red sequence structure, which also simulates a processing delay of 0-100 milliseconds.
+Inside the loop (which runs 50 times), a virtual acquisition block (green) generates a random number and delays for 0-100 ms to simulate hardware capture. Then, a processing block (red) simulates analysis, delaying for 0-100 ms.
 
-Running this program yields variable total execution times due to its random elements, typically around 5 seconds. The loop runs 50 times, each iteration taking between 0-200 milliseconds, averaging around 100 milliseconds, summing up to approximately 5 seconds. However, the program's efficiency could be improved since data acquisition and analysis currently proceed sequentially, limiting it to one operation at a time. By running data acquisition and analysis in parallel threads, execution time can be nearly halved. The key is to process the previously acquired data while simultaneously acquiring new data. The improved program code for this parallel execution is as follows:
+Because acquisition and processing run sequentially, each iteration takes 0-200 ms (averaging 100 ms), resulting in a total run time of about 5 seconds. We can improve this by running them in parallel threads:
 
-![](../../../../docs/images_2/z266.png "Pipelined Data Acquisition and Analysis Program")
+![Pipelined Data Acquisition and Analysis Program](../../../../docs/images_2/z266.png "Pipelined Data Acquisition and Analysis Program")
 
-In the enhanced program, the data acquisition and processing modules remain the same but are now positioned vertically instead of horizontally. Importantly, these modules are no longer connected directly by data wires, enabling them to run in parallel. The processing module retrieves data from a shift register, which the acquisition module stored during the previous iteration. This approach allows the data module to acquire new data while the processing module works on the previously acquired data. To accommodate this, the loop now needs 51 iterations to process and acquire 50 data sets. A more rigorous program might skip the processing module on the first iteration and ignore the acquisition module on the last. However, these considerations are omitted in this demonstration.
+Here, we arrange the blocks vertically and remove the direct wire between them to allow parallel execution. The processing block reads data from a shift register stored in the previous iteration. This creates a pipeline: while the acquisition block captures dataset $i$, the processing block analyzes dataset $i-1$. 
 
-This programming model is akin to a pipeline model. It mirrors a production line where a product undergoes multiple sequential processes, with each worker handling one process. As a product undergoes the first process, the worker responsible for the second process is also active, working on the second process for the preceding product.
+This pipeline reduces the execution time to around 3.5 seconds (a 30% improvement). However, it is still sub-optimal. If the acquisition block finishes its step quickly but the processing block is still busy, the acquisition loop must wait. 
 
-Running this program again, its efficiency noticeably increases, with execution times averaging around 3.5 seconds. While not halving the time, it marks a significant improvement of about 30%. However, there's still potential for further optimization. In this pipeline model, only the acquisition and analysis tasks within the same iteration can run simultaneously. If the acquisition module completes its task quickly but the processing module is still busy, the acquisition module has to wait. An improvement would involve the acquisition module moving on to the next data set as soon as it completes its task. This leads to multiple data sets being acquired but not yet processed, necessitating a temporary storage solution for these sets until they can be processed. This is where queues are beneficial: each acquired data set is placed in a queue, and the processing module in another thread retrieves and processes data from the queue. The revised program is as follows:
+We can optimize this further by letting the acquisition loop run ahead and store samples in a buffer. The processing loop can then retrieve and process them at its own pace. A queue is the perfect buffer for this:
 
-![](../../../../docs/images_2/z267.png "Queue-Based Data Acquisition and Analysis Program")
+![Queue-Based Data Acquisition and Analysis Program](../../../../docs/images_2/z267.png "Queue-Based Data Acquisition and Analysis Program")
 
-The program begins by creating a queue with "Obtain Queue" and then distributes the queue's reference to both the data acquisition and processing modules. The acquisition module enqueues each data item it generates, while the processing module dequeues and processes data from the queue. If the queue is empty, "Dequeue Element" waits until new data is added by the acquisition module before continuing with the processing. Finally, the program calls "Release Queue" to dispose of the created queue. The runtime of this optimized program typically falls under 3 seconds.
+The program creates a queue using `Obtain Queue` and passes its reference to both loops. The acquisition loop enqueues elements as they are generated. The processing loop dequeues elements. If the queue is empty, `Dequeue Element` halts the loop and waits until the acquisition loop adds a new element. Finally, `Release Queue` destroys the queue. This optimized program runs in under 3 seconds.
 
-This approach is also known as the producer-consumer model: the program's two main threads consist of one producing data and the other consuming it.
+This architecture is called the **Producer-Consumer** design pattern: one loop produces data, and the other consumes it.
 
 
 ### Queue Naming
 
-When creating a new queue with the "Obtain Queue" function, you have the option to assign a unique name to the queue. In a given project, each queue's name must be distinct from all others. If a new queue is created in any sub-VI within the same project and a queue with the same name already exists, "Obtain Queue" won’t create a new queue. Instead, it accesses the existing queue with that name. For instance, in the program depicted below, the two threads aren’t connected by data wires, but they utilize the same queue:
+When creating a queue using `Obtain Queue`, you can assign it a string name. Queue names are globally unique. If a subVI calls `Obtain Queue` with a name that already exists in memory, LabVIEW does not create a new queue; instead, it returns a reference to the existing queue.
 
-![](../../../../docs/images_2/z268.png "Queue with the Same Name")
+This allows disconnected block diagrams to share the same queue, as shown below:
 
-In this program, the "Preview Queue Element" function retrieves the value of the first element in the queue without removing it. When the program is run, the values displayed in the "element" and "element 2" output controls are identical, both showing 23, because they are previewing the same queue. The program includes an empty sequence structure, which serves a synchronizing function. It ensures that the "Preview Queue Element" operation in the lower thread only occurs after the "Enqueue Element" operation in the upper thread.
+![Queue with the Same Name](../../../../docs/images_2/z268.png "Queue with the Same Name")
 
-Generally, for every call to "Obtain Queue", there should be a corresponding call to "Release Queue". The acquisition and release of queues are tracked and should be balanced. If a created queue is not released, it will persistently consume memory. If the "force destroy" parameter in the "Release Queue" function is set to "true", this function will immediately destroy the queue, rendering it inaccessible to other threads.
+`Preview Queue Element` inspects the front element of the queue without removing it. Because both threads open a queue named `"MyQueue"`, they share the same buffer. The empty sequence structure synchronizes the threads, ensuring the lower thread previews the element only after the upper thread enqueues `23`. Both outputs display `23`.
+
+Every call to `Obtain Queue` should be paired with a `Release Queue` call. LabVIEW tracks references to keep the queue in memory; if a queue is not released, it causes a memory leak. If you set the **force destroy** parameter of `Release Queue` to True, LabVIEW immediately destroys the queue, releasing its memory and invalidating all other references to it in other threads.
 
 
 ### Considerations for Implementing the Producer-Consumer Model
 
-When utilizing queues in the producer-consumer model, it's crucial to anticipate potential exceptions, such as one of the program's threads encountering an error or becoming non-responsive.
+When designing a Producer-Consumer system, you must handle potential exceptions, such as one of the loops crashing or lagging:
 
-If the consumer thread experiences an issue and is unable to process data effectively, or if it processes data too slowly, data produced by the producer thread will start accumulating in the queue. If too much data piles up, it could consume excessive memory, potentially straining the entire system. Therefore, when designing such programs, it may be necessary to impose a limit on the queue's length. If the number of elements in the queue exceeds a reasonable limit, it could indicate a problem. In such cases, stopping the program to investigate and resolve the issue is advisable. The "Get Queue Status" function can be used to monitor the queue's length.
+- **Lagging Consumer**: If the consumer loop slows down or stalls, the producer will continue enqueuing data, causing the queue to grow and consume memory. If left unchecked, this can crash the application due to out-of-memory errors. You can monitor queue length using `Get Queue Status.vi`.
+- **Limiting Queue Size**: You can set a **max queue size** in `Obtain Queue`. If the queue reaches this limit, the enqueue function will block, pausing the producer loop until the consumer removes an element. To prevent the producer from locking up indefinitely, set a **timeout** value (in milliseconds) on the enqueue node. The node will abort and return a True timeout value if the queue remains full:
 
-You can also set a maximum queue size limit in the "Obtain Queue" function. The default value of the "max queue size" parameter is -1, indicating no limit on the queue length. However, setting this parameter to a positive integer will limit the queue size, causing the enqueue operation to pause once the queue reaches its maximum capacity. This pause lasts until other threads dequeue some elements, making room for new entries. If the queue remains full and elements aren't dequeued, the program could end up waiting indefinitely, a scenario best avoided. Therefore, it’s a good practice to include a timeout parameter in the enqueue operation, defined by a positive integer representing milliseconds. In the following example, the maximum queue length is set to 2. When the program tries to insert a third data item, the element won't be added to the queue, and the enqueue operation's "timeout" parameter will output a "true" value:
+![Limiting Queue Length](../../../../docs/images_2/z269.png "Limiting Queue Length")
 
-![](../../../../docs/images_2/z269.png "Limiting Queue Length")
-
-Likewise, it's important to consider scenarios where the producer thread might encounter exceptions. In such situations, the consumer thread might indefinitely wait for data that never arrives. To prevent this endless waiting, a timeout parameter should also be set for the dequeue operation in the consumer thread, ensuring it doesn’t get stuck in a perpetual waiting state.
+- **Stalled Producer**: If the producer crashes, the consumer will wait indefinitely. You should also configure a timeout on the `Dequeue Element` node so the consumer loop can recover or exit if no data arrives.
 
 
 ### Utilizing Queues as Data References
 
-We can utilize queues to facilitate passing our custom data types by reference. This involves creating a new queue that accommodates only a single element and using it to store the data to be referenced. When passing parameters between VIs, the queue's reference is transmitted, allowing the extraction and use of the data from the queue as needed.
+You can use queues to pass custom datatypes (like clusters) by reference. To do this, create a single-element queue to act as the data container. VIs can then pass the queue refnum to share access to the underlying cluster.
 
-The program depicted below initializes a data structure for passing by reference:
+The following code initializes this custom reference structure:
 
-![image](../../../../docs/images/image319.jpeg "Creating a Data Structure for Reference Passing")
+![Creating a Data Structure for Reference Passing](../../../../docs/images/image319.jpeg "Creating a Data Structure for Reference Passing")
 
-The type of data being referenced here is a cluster composed of three elements. The final output, "data out", is technically a reference to the queue. However, since the queue stores our user-defined data, "data out" can also serve as a reference to the cluster data we've created.
+The referenced data is a 3-element cluster. The output `data out` is a refnum pointing to the queue, which acts as a reference to our cluster.
 
-Passing by reference is often crucial for accessing the same data across various threads. It's vital to prevent race conditions in such data accesses. This means that while one thread accesses the referenced data, other threads should ideally wait and not simultaneously access the same data. We've previously discussed using semaphores to avert race conditions with global variables in the [Global Variables](pattern_global_data#using-semaphores-to-avoid-data-race-conditions) section. For reference data constructed via queues, queue features can be leveraged for a straightforward solution to race conditions. Here's how it works:
+To prevent race conditions when multiple threads access this shared data, we use the queue's blocking behavior:
+1. When a VI needs to read or write the data, it calls `Dequeue Element` to extract the cluster, leaving the queue empty.
+2. If another thread tries to access the data, its dequeue node will block because the queue is empty.
+3. Once the first thread finishes modifying the cluster, it calls `Enqueue Element` to place it back into the queue.
+4. The waiting thread now unblocks and retrieves the updated data.
 
-When a VI, let's call it "A", needs to access the referenced data, it should first dequeue the only element in the queue. After processing the data, the new data is then enqueued. This approach ensures that the queue is immediately emptied upon executing VI A, preventing other threads (with VIs like "B" using a similar mechanism) from retrieving data from the now-empty queue. These threads must wait until VI A finishes its operations and repopulates the queue. This method effectively prevents race conditions where multiple threads access the same data simultaneously. The image below illustrates sample code for processing the data:
+This guarantees mutual exclusion (mutex) without requiring manual semaphores:
 
-![](../../../../docs/images/image320.png "Queue Emptying, Data Processing, Re-enqueuing")
+![Queue Emptying, Data Processing, Re-enqueuing](../../../../docs/images/image320.png "Queue Emptying, Data Processing, Re-enqueuing")
 
-In the example shown next, both the "Set Name.vi" and "Set Number.vi" sub-VIs use the code designed to prevent race conditions, as shown above. While they operate independently and can be run concurrently by LabVIEW, the race condition prevention mechanism ensures they do not access the referenced data at the same time. Instead, they sequentially adjust the Name and Number elements in the referenced data:
+In the program below, both `Set Name.vi` and `Set Number.vi` modify the shared reference. Because they use this dequeue-enqueue locking mechanism, they execute sequentially without data conflict:
 
-![](../../../../docs/images/image321.png "Using Data Passed by Reference")
+![Using Data Passed by Reference](../../../../docs/images/image321.png "Using Data Passed by Reference")
 
-When employing reference passing, it's essential to manage memory appropriately. For instance, in our example, the queue was created specifically for reference passing. This queue should be properly disposed of before the program's conclusion to prevent potential memory leaks.
+*Note: Since the queue was created dynamically, you must call `Release Queue` at the end of the program to prevent memory leaks.*
 
 
 ### Data Log File Refnum
 
-Using queues is a highly efficient way to pass data by reference and offers good readability. However, it is an unconventional solution. Queue controls and data lines are always seen as "queues", which may be confusing for programmers unfamiliar with this use case. Using LabVIEW's standard deep green thin lines for reference passing can improve the program's readability.
+While using queues as data references is highly efficient, it is an unconventional design pattern. A developer reading the code might be confused by why a "queue" is used to represent a single data record. To improve readability, we can wrap the queue reference in LabVIEW's standard dark green Refnum wire.
 
-The "Data Log File Refnum" from the Refnum control palette is often used to represent user-defined reference data types. When a new "Data Log File Refnum" control is placed on a VI's front panel, it appears as an empty rectangular box. Placing different types of controls inside this box transforms it into a special reference data type.
+We can use a **Data Log File Refnum** to represent custom reference types:
+1. Place a **Data Log File Refnum** control on the front panel.
+2. Drag an Enumeration control containing a descriptive type name (e.g., `"MyClassRef"`) into the Refnum container:
 
-For custom reference data types, an enumeration control is usually placed within the frame of the "Data Log File Refnum" control:
+![Dragging an Enumeration Control into the Data Log File Refnum Control Frame](../../../../docs/images/image322.png "Dragging an Enumeration Control into the Data Log File Refnum Control Frame")
+![Creating a New Reference Type Control](../../../../docs/images/image323.png "Creating a New Reference Type Control")
 
-![](../../../../docs/images/image322.png "Dragging an Enumeration Control into the Data Log File Refnum Control Frame")
+LabVIEW treats Refnums containing different enumerations as distinct datatypes. This enforces **strict type safety**: you cannot cross-wire different custom reference types:
 
-This combination creates a new reference data type control:
+![Different Types of Reference Data Cannot Be Assigned or Compared](../../../../docs/images/image324.png "Different Types of Reference Data Cannot Be Assigned or Compared")
 
-![](../../../../docs/images/image323.png "Creating a New Reference Type Control")
+For example, if you have references for `"UserNames"` and `"DeviceIDs"`, type safety prevents you from accidentally wiring a user reference to a VI that expects a device ID.
 
-The enumeration typically contains a single item for displaying relevant hint text. Enumeration is chosen because it can display hint text, and LabVIEW treats enumerations with different item texts as distinct data types. Different enumerations inside the Data Log File Refnum control frame signify different reference data types. Defining each unique user-defined reference as a specific type enhances program safety. For example, reference data of different types cannot be assigned or compared to each other:
+To implement this, we use the `Type Cast` function to convert the internal queue reference into our custom Refnum type before passing it out of the subVI. When a subVI receives the Refnum, it casts it back to a queue to perform the dequeue-modify-enqueue operations:
 
-![](../../../../docs/images/image324.png "Different Types of Reference Data Cannot Be Assigned or Compared")
-
-Imagine a scenario in an application where two string arrays are used to store the names of experimenters and instrument equipment numbers, respectively. The application requires accessing these data sets by reference. In this scenario, they represent two completely different sets of data, each managed by its own set of VIs. It's essential to prevent the cross-use of VIs and data. If the same reference data type is used for both sets, passing the names to a VI intended for equipment numbers wouldn't immediately flag an error, allowing the program to run, albeit with potential runtime issues. Using distinct reference data types for each set would instantly highlight an error if names were passed to the equipment number VI, as the data wire would break and prevent the program from running.
-
-When using a custom Data Log File Refnum to signify reference data types, as opposed to queues, there's an additional step: the queue created for the referenced data needs to be converted into the custom Refnum data type using a type casting function before being passed out of the sub-VI. In the application, sub-VIs then pass data using the deep green lines of the Refnum. When receiving this reference, the sub-VI must convert it back to a queue for use:
-
-![](../../../../docs/images/image325.png "Using Custom Data Log File Refnums to Represent Reference Data Types")
+![Using Custom Data Log File Refnums to Represent Reference Data Types](../../../../docs/images/image325.png "Using Custom Data Log File Refnums to Represent Reference Data Types")
 
 
 ## How Semaphores are Implemented in LabVIEW
 
-In LabVIEW, several VIs that operate on semaphores are open-source, allowing us to understand and learn from their implementation.
+Many of LabVIEW's synchronization VIs are open-source. Inspecting them reveals that semaphores are built using these exact queue-based reference techniques.
 
-First, let's look at the VI for creating a semaphore, "Obtain Semaphore Reference.vi":
+Let's look at `Obtain Semaphore Reference.vi`:
 
-![](../../../../docs/images_2/z270.png "Obtain Semaphore Reference.vi")
+![Obtain Semaphore Reference.vi](../../../../docs/images_2/z270.png "Obtain Semaphore Reference.vi")
 
-This program's main structure should be somewhat familiar. Its core part involves creating a queue, adding an element to it, and then converting the queue's reference into a custom Data Log File Refnum to serve as the semaphore Refnum. This is a classic use of queues for passing data by reference, as discussed earlier. In this program, the length of the queue is not fixed to 1 but is specified by the user. This is because some resources protected by semaphores allow multiple concurrent accesses. For instance, an instrument with two independent data acquisition channels might allow simultaneous access from two threads. In such scenarios, the semaphore count (or the queue length) should be set to 2.
+This VI creates a queue, pre-fills it with dummy elements, and casts the queue reference into a Data Log File Refnum (the semaphore handle). The size of the queue represents the semaphore's available resources (usually `1` for mutual exclusion, or more if a resource supports concurrent accesses).
 
-Next, let's look at the VI for locking a semaphore, "Acquire Semaphore.vi":
+Here is `Acquire Semaphore.vi`:
 
-![](../../../../docs/images_2/z271.png "Acquire Semaphore.vi")
+![Acquire Semaphore.vi](../../../../docs/images_2/z271.png "Acquire Semaphore.vi")
 
-This too is a classic use of queues for passing data by reference. The VI performs one action: it removes an element from the queue. If the queue is empty, it will wait at this point.
+This VI casts the semaphore handle back to a queue and calls `Dequeue Element`. If the queue is empty (all resources are locked), the node blocks and waits.
 
-The following image shows the VI for unlocking a semaphore, "Release Semaphore.vi":
+Here is `Release Semaphore.vi`:
 
-![](../../../../docs/images_2/z272.png "Release Semaphore.vi")
+![Release Semaphore.vi](../../../../docs/images_2/z272.png "Release Semaphore.vi")
 
-This VI simply adds an element to the queue, where the value of the element itself is not significant.
+This VI adds a dummy element back to the queue using `Enqueue Element`, unlocking the resource for waiting threads.
 
-Upon reviewing these codes, we can see that the implementation of semaphores in LabVIEW is relatively straightforward: at its core, a queue is used as the semaphore. If the queue is empty, it signifies that the semaphore is locked; if it's not empty, the semaphore is unlocked.
+Thus, semaphores in LabVIEW are simply wrapped queues: an empty queue indicates a locked semaphore, while a non-empty queue indicates an unlocked one.
 
 
 ## Utilizing C Language for References
 
-Implementing data references through C language is a bit more complex than using queues, and this method should ideally be avoided in programming. However, if an application already includes modules written in C, and the data is used in both the C and LabVIEW code, it might be reasonable to store this data in a C-implemented module.
+You can also pass references by allocating memory in a C/C++ DLL and passing the memory address (pointer) as a U32 integer or custom Refnum inside LabVIEW. This is useful when integrating legacy C code.
 
-The concept involves storing data in a memory space allocated by C, with C then providing LabVIEW with the memory address of the data. In LabVIEW, this memory address is typically passed between VIs as a parameter. When necessary, data is retrieved from the memory for use within LabVIEW.
-
-Below is an example C++ function for allocating memory for data and passing out its pointer:
+The C++ code allocates memory and returns a pointer:
 
 ```cpp
-int stdcall CreateBuffer ( // Allocate space for data and output its pointer
-  const char data[],       // Data content
-  int size,                // Size of data
-  char** bufPointer        // Pointer to return the newly allocated space
+int stdcall CreateBuffer ( // Allocate memory and return pointer
+  const char data[],       // Data to store
+  int size,                // Data size
+  char** bufPointer        // Pointer to return the memory address
 ) {
-  char* buffer = new char[size + 4]; // Allocate memory for data and its size information
-  *((int*) buffer) = size;            // Store data size in the first 4 bytes of the new space
-  memcpy(buffer + 4, data, size);     // Save the data in the remaining space
-  *bufPointer = buffer;               // Assign the new memory space to bufPointer parameter
-  return 0;                           // Return from the function
+  char* buffer = new char[size + 4]; // Allocate memory with 4-byte size header
+  *((int*) buffer) = size;            // Store size in header
+  memcpy(buffer + 4, data, size);     // Store data
+  *bufPointer = buffer;               // Output address
+  return 0;
 }
 
-int stdcall GetBufferData (   // Retrieve data content from its memory address
-  char* bufPointer,           // Memory address of the data
-  char* data                  // To return the data content
+int stdcall GetBufferData (   // Retrieve data from memory address
+  char* bufPointer,           // Data pointer
+  char* data                  // Buffer to copy data into
 ) {
-  int size = *((int*) bufPointer);  // Get the data size
-  memcpy(data, bufPointer + 4, size); // Copy the data content to the provided address
-  return 0;                           // Return from the function
+  int size = *((int*) bufPointer);
+  memcpy(data, bufPointer + 4, size); // Copy data
+  return 0;
 }
 ```
 
-In LabVIEW, when you need to create a reference for a particular set of data, you can use the function above to store the data in a memory space allocated by C. LabVIEW code then only transmits the memory address. When the data is needed later in the program, it can be accessed using this address value.
+In LabVIEW, we pass the pointer value between VIs. When we need the data, we call the DLL to read it. To make the code safer, we cast the U32 address pointer into a custom Refnum:
 
-Whether using a U32 numeric value or a queue to represent a reference, both can pose security issues for the data. Therefore, in the program, you could convert the memory address into a custom Refnum, using this to represent the data reference:
+![Using Data Reference Created Using C Language](../../../../docs/images/image326.png "Using Data Reference Created Using C Language")
 
-![](../../../../docs/images/image326.png "Using Data Reference Created Using C Language")
-
-This programming approach involves LabVIEW calling C/C++ functions, which will be covered in detail in the [Dynamic Link Library](external_call_dll) section of this book.
+See [Dynamic Link Library](external_call_dll) for details on calling external DLLs.
 
 
 ## Data Value Reference Nodes in LabVIEW
 
-LabVIEW introduced nodes for passing data by reference in its 2009 version. The relevant nodes, "New Data Value Reference" and "Delete Data Value Reference", can be found on the function palette under "Programming -> Application Control -> Memory Control".
+To simplify reference passing, LabVIEW 2009 introduced native **Data Value References (DVRs)**. The nodes are located in **Programming -> Application Control -> Memory Control**:
 
-![](../../../../docs/images/image327.png "Memory Control Function Palette")
+![Memory Control Function Palette](../../../../docs/images/image327.png "Memory Control Function Palette")
 
-The "New Data Value Reference" node is designed to create a reference for a specific piece of data. Conversely, the "Delete Data Value Reference" node is used to retrieve the original data from its reference. These functions serve as alternatives to the data reference methods that use queues and custom data record file Refnums, which were discussed earlier. 
+Use `New Data Value Reference` to create a DVR for a variable, and `Delete Data Value Reference` to destroy it and retrieve the data.
 
-Consider the following example: a program inputs an array, then needs to modify the data within this array in two parallel sub-VIs. Each sub-VI might change different elements of the array. The output array is expected to reflect changes made by both sub-VIs. To achieve this, the program initially generates a reference for the array data, which is then distributed to the two sub-VIs. Once both sub-VIs complete their processes, the program retrieves the modified data from the reference.
+For example, we can generate a DBL array reference, pass it to parallel subVIs to modify elements, and then extract the final array:
 
-![](../../../../docs/images/image328.png "New Data Value Reference and Delete Data Value Reference Nodes")
+![New Data Value Reference and Delete Data Value Reference Nodes](../../../../docs/images/image328.png "New Data Value Reference and Delete Data Value Reference Nodes")
 
-Most functions and sub-VIs in LabVIEW operate on a value-passing basis. When they require the use of referenced data, the reference must first be converted into data. After processing, this data is then converted back into a reference, as demonstrated in the image below:
+Because most VIs are value-based, modifying a DVR requires converting the reference to data, editing it, and writing it back:
 
-![](../../../../docs/images/image329.png "Data and Reference Conversion")
+![Data and Reference Conversion](../../../../docs/images/image329.png "Data and Reference Conversion")
 
-This process often leads to data duplication, especially with large data sets, potentially decreasing program efficiency. To counter this, the "In Place Element Structure" (located under "Programming -> Structures" in the function palette) should be employed. This structure handles the extraction and reinsertion of data from a reference more efficiently, as shown in the image below:
+For large arrays, this conversion creates data copies in memory. To prevent this, use the **In Place Element Structure** (`Programming -> Structures -> In Place Element Structure`):
 
-![](../../../../docs/images/image330.png "Program Block Diagram Using In Place Element Structure")
+![Program Block Diagram Using In Place Element Structure](../../../../docs/images/image330.png "Program Block Diagram Using In Place Element Structure")
 
-Using the "In Place Element Structure" encourages LabVIEW to utilize the original address of the array, thus minimizing unnecessary data duplication and enhancing the efficiency of reference passing. More detailed discussions on optimizing memory usage will be addressed in the [Memory Optimization](optimization_memory) section of the book.
+The In Place Element Structure tells the LabVIEW compiler to modify the data directly in its existing memory space, avoiding duplicate copies. See [Memory Optimization](optimization_memory) for details.
 
 
 ## Handling Deadlocks in Reference Passing
 
-To ensure multi-thread safety, LabVIEW's "In Place Element Structure" locks the data referenced during processing. Other threads requiring operation on the same data must wait until all code within the "In Place Element Structure" completes. This approach prevents data race conditions from multiple threads reading and writing the same memory data, akin to [protecting critical sections with semaphores](pattern_global_data#using-semaphores-to-avoid-data-race-conditions).
+To prevent race conditions, the **In Place Element Structure** locks the referenced data during execution. If another thread tries to access the same DVR, it must wait until the structure completes.
 
-For example, the program in the first image runs in 1 second. This is because the two "In Place Element Structures" process different data, allowing simultaneous execution.
+For example, this program runs in 1 second because the two structures process different data references:
 
-![image](../../../../docs/images/image331.png "Simultaneous processing of references to two different data sets")
+![Simultaneous processing of references to two different data sets](../../../../docs/images/image331.png "Simultaneous processing of references to two different data sets")
 
-Conversely, the program in the second image takes 2 seconds, as the two "In Place Element Structures" process the same data and cannot execute concurrently.
+This program takes 2 seconds because both structures access the same data reference, forcing them to run sequentially:
 
-![image](../../../../docs/images/image332.png "Consecutive processing of references to the same data set")
+![Consecutive processing of references to the same data set](../../../../docs/images/image332.png "Consecutive processing of references to the same data set")
 
-The introduction of a "lock" mechanism introduces the potential for inadvertent deadlocks. Notably, nesting "In Place Element Structures" for the same data reference should be avoided to prevent deadlocks. The program in the third image demonstrates this issue:
+Using locks introduces the risk of **deadlocks**. You must never nest In Place Element Structures for the same DVR:
 
-![image](../../../../docs/images/image333.png "Nested 'In Place Element Structures' leading to deadlock")
+![Nested 'In Place Element Structures' leading to deadlock](../../../../docs/images/image333.png "Nested 'In Place Element Structures' leading to deadlock")
 
-In this scenario, the program stalls at the inner "In Place Element Structure", waiting for the outer structure to finish and release the locked data. However, the outer structure requires completion of all its internal code before it can terminate. This mutual waiting creates a deadlock.
+Here, the inner structure blocks and waits for the outer structure to release the DVR. However, the outer structure cannot complete until the inner code executes. This mutual block causes a permanent deadlock.

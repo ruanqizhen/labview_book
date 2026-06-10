@@ -1,35 +1,43 @@
 # Data Storage
 
-## Choosing Between Text Files and Binary Data Files
+## Text vs. Binary File Storage
 
-In testing programs where data collection is a routine part, deciding how to store this data is crucial. The decision boils down to whether to use text files or binary data files. Text files, readable by humans directly, offer lower efficiency and consume more storage space. Binary files, though not directly interpretable by humans, provide higher efficiency. For data that is frequently accessed but not voluminous, such as configuration settings or test outcomes, text files are the go-to option. For larger data sets, such as collected signals, binary files are more suitable.
+In test and measurement applications, choosing how to serialize and store data is a critical design decision. The choice generally lies between text-based formats and binary formats.
 
-Wherever possible, it's recommended to stick to file formats that LabVIEW supports to ensure rational data storage and speed up the development process. LabVIEW’s functionalities for various file operations can be found under "Programming -> File I/O" in the function palette.
+Text-based files (such as TXT, CSV, XML, and JSON) are human-readable, making them easy to inspect and debug, but they are relatively slow to parse and consume more disk space. Binary files are not human-readable but offer high read/write throughput and compact file sizes.
+
+For configuration data or low-volume test reports, text files are ideal. For high-speed streaming data (such as acquired raw signals), binary formats are preferred.
+
+Wherever possible, you should use standard file formats natively supported by LabVIEW to speed up development. LabVIEW provides a comprehensive set of file operations in the **Programming >> File I/O** palette.
 
 
 ## Text Files
 
-The two most common file formats LabVIEW supports are INI and XML. INI files, with their simple format, are typically used to store configuration details. An INI file consists of entries, each on a new line, comprising a name and a value. Their simplicity is their biggest advantage, making them ideal for storing a range of configuration details such as user interface positions and default user selections. While applications on Windows might prefer storing this information in the registry, considering cross-platform needs, INI files offer better portability.
+The two most common structured text formats in LabVIEW are INI and XML.
 
-INI files fall short when it comes to storing complex information. For example, data with multiple hierarchical levels – a company with various factories, each factory with several departments, each department with numerous production lines, and each line producing multiple products, each with its serial number, production date, and other details. For such complex hierarchical data, the XML file format is more suitable, albeit more complex to use.
+**INI files** use a simple key-value structure categorized under sections. They are lightweight and ideal for saving application preferences, Front Panel control positions, or user-selected defaults. While Windows applications historically used the registry for this purpose, INI files are preferred for cross-platform portability.
 
-
-## Binary Data Files
-
-Binary data files can't be directly opened and read, so there's no need to concern yourself with their specific disk format. LabVIEW offers an efficient file format, TDMS, specifically for signal data storage. Thanks to its rational data storage design, TDMS allows for simultaneous data collection and hard disk storage. When necessary, the required data can be quickly retrieved. Users don't need to understand the intricacies of the TDMS format, just the usage of its associated functions. The TDMS-related functions are intuitive and located in the `Programming -> File I/O->TDM Stream` function panel. Common functions like writing and reading can be inferred from their names.
-
-Occasionally, you might find valuable data, such as a recently displayed waveform, on the VI front panel that needs to be saved. Such spontaneous data storage needs can't be addressed programmatically. In such cases, you can select `Operation -> Data Record -> Record` from the VI front panel menu to save all current interface data in a binary data file. To view the data later, open the same VI front panel, select `Operation -> Data Record -> Get` from the menu, and the data from the file will be read back into the VI control.
+However, INI files struggle with deeply nested or hierarchical data structures. For example, if you need to represent a factory hierarchy (e.g., Company $\rightarrow$ Factory $\rightarrow$ Department $\rightarrow$ Production Line $\rightarrow$ Product Serial Numbers), the **XML** or **JSON** format is far more suitable.
 
 
-## Database
+## Binary Files and TDMS
 
-LabVIEW features a dedicated database connection tool that assists users in reading and writing database data within LabVIEW. With LabVIEW's database connection tool, users can conveniently store or retrieve data from the database without needing a deep understanding of various database concepts.
+For high-performance signal storage, LabVIEW features a specialized binary file format called **Technical Data Management Streaming (TDMS)**. The TDMS format is optimized for streaming data to disk at high speeds, and it supports structured metadata (Channel Groups and Channels) to keep data organized. 
 
-Databases are used to manage interrelated data that can be represented in a tabular form. One major advantage of a database is the convenience it offers in data retrieval. However, the original data generated by each test program usually lacks significant correlation, and there's rarely a need to search for specific data within a curve, so simple test data generally doesn't need to be saved to a database. Another advantage of a database is its ability to manage data uniformly. For instance, a company can have a public database where all test data is stored.
+You do not need to understand the underlying binary byte structure of TDMS; LabVIEW provides a high-level **TDM Streaming** API under **Programming >> File I/O >> TDM Streaming**. Primitives like **TDMS Open**, **TDMS Write**, **TDMS Read**, and **TDMS Close** make saving structured measurement data trivial.
+
+Sometimes you may need to save the current state or values of Front Panel controls manually during a run. Instead of writing custom file I/O code, you can use LabVIEW's built-in Front Panel data logging feature. Select **Operate >> Data Logging >> Log...** from the menu to save the current panel states to a database file. To view the saved states later, open the Front Panel and select **Operate >> Data Logging >> Retrieve...** to load the data back into the controls.
 
 
-## Generate Reports
+## Databases
 
-After the completion of a test program, it's often necessary to present the test results to the user in the form of a written report. LabVIEW can generate four types of report formats: standard, HTML, Word, and Excel. Word and Excel formats are only available after installing the LabVIEW report generation tool. To print a professional and aesthetically pleasing report, you can first generate a Word or Excel format file; then open the generated report in MS Office software, check it, and make minor modifications to any areas where the format is not ideal; then print the report directly from Office.
+For enterprise data management, the **LabVIEW Database Connectivity Toolkit** provides VIs to execute SQL queries and interface with relational databases (e.g., SQL Server, MySQL, Oracle, or Access) directly from G.
 
-The task of generating reports isn't difficult, but it can be quite tedious. When generating Word or Excel format reports, if the report's content and format are fully implemented programmatically, the workload can be quite substantial. Therefore, it's advisable to first create a template for the report: use MS Office software to design the report format, and write all the text that can be pre-written, leaving only the data, conclusions, etc., that need to be added after the test ends. This way, the program only needs to insert a small amount of content into the report template, which can significantly speed up program development.
+Databases excel at managing relational, tabular data and performing complex queries. However, raw, high-speed time-series signals rarely benefit from database storage, as you seldom query individual points inside a waveform. It is usually more efficient to save raw waveforms as TDMS files on disk and store metadata (e.g., test timestamp, operator name, UUT serial number, and file path) in the database.
+
+
+## Report Generation
+
+Once a test concludes, you typically need to generate a formal test report. LabVIEW supports basic HTML and text reporting natively. By installing the **LabVIEW Report Generation Toolkit for Microsoft Office**, you can generate native Word and Excel reports programmatically.
+
+Generating complex layouts programmatically from scratch can be tedious and require extensive G code. A best practice is to design a **Report Template** in Word or Excel first, leaving named placeholders or bookmarks where dynamic results should go. Your LabVIEW code then only needs to open the template, find the bookmarks, insert the dynamic test data and pass/fail verdicts, and save or print the document. This hybrid approach drastically reduces development time.

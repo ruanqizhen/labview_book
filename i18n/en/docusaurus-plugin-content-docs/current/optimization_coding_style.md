@@ -1,238 +1,191 @@
-# Coding Standards and Techniques
+# Coding Standards and Style
 
-Writing code goes beyond just ensuring it runs correctly; it's also important for the code to be readable and maintainable. Codes that are considered to have good readability and maintainability share several common traits. Indeed, this book has focused on how to craft elegant and robust code for specific problems across various chapters. Here, we'll introduce some more universal standards and techniques for code writing.
+Writing high-quality code is about more than just correctness; readability and maintainability are equally critical. Clean, well-structured code is easier to debug, extend, and share. Throughout this book, we have discussed patterns for specific coding problems. In this section, we present universal style guidelines and standards for LabVIEW programming.
 
 ## Concise Block Diagrams
 
-For a program to be easily understood, it must be concise. If a program's block diagram contains only four or five subVIs or functions, along with one or two structures, then its contents are generally easy to grasp at a glance. On the contrary, if a diagram is cluttered with dozens of subVIs, functions, and nested loops and conditional structures, crisscrossed by data wires, it can quickly become overwhelming and difficult to decipher.
+A readable Block Diagram must be concise. If a diagram contains only a few SubVIs, native functions, and one or two structures, it is easy to understand at a glance. Conversely, a diagram crammed with dozens of nodes, deeply nested loops, and a spaghetti-like web of overlapping wires is extremely difficult to decipher.
 
-In an ideal scenario, a VI's block diagram should only include four or five subVIs or functions and one or two structures. Moreover, this diagram should conform to common programming structures or patterns, making it immediately obvious whether it utilizes a state machine structure, an event-driven loop, or something similar. Readers typically have some familiarity with these common structural patterns, which can significantly speed up understanding when they can apply their existing knowledge.
+Ideally, a high-level VI should contain no more than five to ten major nodes and follow a recognizable design pattern (such as a Queued Message Handler, State Machine, or Event Loop). When other developers recognize a familiar structural pattern, they can immediately understand the application flow without tracing every wire.
 
-A complex function cannot likely be achieved with merely four or five functions. Thus, it's advisable to break down large functions into multiple subVIs: the main VI is composed of four or five subVIs, each containing a few functions or even lower-level subVIs, and so on.
+Of course, complex logic cannot be built using only five nodes. The solution is modularization: partition your logic into hierarchy layers. The top-level VI should delegate tasks to several mid-level SubVIs, which in turn contain lower-level SubVIs or primitive functions.
 
-Differing from text-based languages, in LabVIEW, not only should code meant for reuse be made into sub-functions, but also overly large or complex code segments should be split into subVIs to enhance readability, even if they aren't intended for reuse elsewhere. In a project where each subVI encapsulates a modest amount of code, it will certainly be more comprehensible. However, this method may also introduce some disadvantages.
+Unlike text-based languages, where code is typically only modularized into helper functions for reuse, LabVIEW developers modularize code *solely to manage visual complexity*. Even if a block of code will only be called in one place, wrapping it into a SubVI is highly recommended if it improves Block Diagram readability. Keeping VIs visually compact makes the project far easier to maintain. However, this hierarchical approach does introduce some concerns:
 
-Firstly, the concern about an excessive number of subVIs potentially affecting program execution efficiency is common among programmers. Indeed, using subVIs does incur some extra computational resources, but this overhead is minimal and can usually be neglected in most cases. If program efficiency is a critical concern, such that even the slight overhead from subVIs needs to be eliminated, programmers can still develop using subVIs normally during the development phase to maintain code readability. However, for the final release, leveraging VI Scripting capabilities to merge all subVIs into the main VI can ensure the released program consists solely of the main VI, eliminating subVIs to enhance execution efficiency.
+- **Performance Overhead**: A common concern is that deep SubVI call stacks introduce function-call overhead. While calling a SubVI does consume some CPU cycles (for thread switching and memory allocation), this overhead is negligible (typically sub-microsecond) in most applications. If your code operates in a highly execution-critical loop (such as real-time control loops), you can make the SubVI **reentrant** or configure it to **inline** the SubVI into the calling VI (via **VI Properties >> Execution >> Inline subVI**). Inlining completely eliminates the call overhead while preserving the visual modularity of the source code.
+- **Navigation Complexity**: Too many layers can make tracing code flow tedious, as developers must continuously double-click to drill down into sub-VIs. However, in large projects, modular encapsulation is essential. It allows developers to work on a specific component using defined APIs without having to understand the low-level implementation details of the rest of the application.
 
-Secondly, having many layers in a program could make reading the entire code challenging. However, in team settings, each programmer typically handles only a small segment of a project. They are primarily focused on the project's overall structure and the specifics of their assigned segment, with less concern for the minutiae of other parts. Therefore, the more detailed the division into modules and layers within a project, with an increased number of subVIs, the easier it becomes for programmers to understand the general workflow and maintain their specific code segment.
+In practice, developers sometimes prioritize raw speed over layout quality, leading to "spaghetti code". However, sacrificing style for speed is a false economy: poorly organized code takes significantly longer to debug and test. Investing time in proper layout and modularity pays off almost immediately.
 
-The above describes an ideal scenario. In practice, creating subVIs also takes additional programming time, leading programmers to prioritize immediate coding speed over optimizing program style. To accelerate development, programmers might even sacrifice code maintainability, reasoning that they may not be the ones maintaining the code in the future, and that currently, writing speed is more likely to receive commendation from supervisors than code style.
+As a rule of thumb, **a VI's Block Diagram should fit entirely on a single screen**. Developers should not have to scroll horizontally or vertically to see the entire logic of a single VI. If a diagram exceeds one screen, it is a clear sign that some code block should be factored out into a SubVI.
 
-Thus, when setting coding standards, a balanced approach can be adopted. Each subVI can be slightly more complex, including more nodes, but the complexity of the block diagram should not exceed what can fit on a single screen. Considering the size of contemporary monitors, a VI's block diagram should not exceed the display area, allowing all code to be visible without scrolling.
-
-Many beginners attempt to maximize the content on the block diagram by opting for a full-screen display. However, when developing large programs, it often becomes necessary to view the VI's front panel and subVI block diagrams simultaneously. Maximizing a VI's block diagram window makes it inconvenient to view other windows simultaneously. Therefore, it is advisable to keep the VI's block diagram window to no more than two-thirds of the screen size.
+Additionally, avoid maximizing the Block Diagram window to fill the entire monitor. When coding, you frequently need to view the Front Panel, parent VIs, or project explorer side-by-side. Resizing your Block Diagram window to occupy roughly half to two-thirds of the monitor width provides a much more efficient development environment.
 
 
 ## Layout and Wiring
 
-Two block diagrams with identical content can vary significantly in readability, largely influenced by the layout of nodes and the organization of wires. Generally, programs with orderly layouts and consistent wiring directions are easier to read and understand than those that are cluttered and chaotic.
+A readable Block Diagram relies on clean spacing, logical node alignment, and straight wires. Here are the core guidelines for Block Diagram layout:
 
-Key considerations for arranging a block diagram include:
-
-- All wires on the block diagram should run from left to right, reflecting the natural flow of data in this direction. This left-to-right orientation aligns with the most intuitive reading habit.
-- There should be a primary data line traversing the diagram from left to right. This line often represents crucial data, such as file references, instrument connections, or class instances. Having this main line allows others to more easily navigate and comprehend the code.
-- Efforts should be made to minimize wire bending and crossing. Theoretically, since data flows from left to right, wires should ideally run parallel to each other.
+- **Left-to-Right Data Flow**: Wires should always enter nodes from the left and exit from the right, matching the natural reading order. Avoid running wires backward (from right to left) unless implementing a feedback loop.
+- **Clear Main Data/Error Wires**: Run primary data lines (such as file refnums, hardware sessions, class instances, or error clusters) in straight, parallel lines across the bottom of the diagram. This serves as the "spine" of your code, making the execution path obvious.
+- **Minimize Bends and Crossings**: Keep wires straight and parallel. Avoid routing wires behind nodes or overlapping them, which makes tracing connections confusing.
 
 The example below shows a program block diagram that is exceptionally easy to read due to its well-organized wiring:
 
 ![](../../../../docs/images/image709.png "Typically well-organized block diagram")
 
-Arranging the nodes and wires on a block diagram neatly can be time-consuming and somewhat cumbersome. Fortunately, LabVIEW offers an auto-arrange feature for block diagrams, serving as a great convenience for those looking to streamline the process. By clicking the "Clean Up Diagram" button on the VI block diagram window toolbar, the block diagram is automatically organized. This feature adjusts the positions of nodes and wires without changing the program's logical relationships, enhancing readability and neatness. Consider this cluttered block diagram:
+Wiring manually can be tedious. LabVIEW includes the **Block Diagram Clean Up** tool (the broom icon on the Block Diagram toolbar, or **Ctrl+U**). Clicking this automatically realigns nodes, reroutes wires, and compacts structures without altering your code logic.
+
+For example, this messy Block Diagram:
 
 ![](../../../../docs/images/image710.png "Disorganized block diagram")
 
-After utilizing the "Clean Up Diagram" button, it transforms into the neatly organized block diagram shown below:
+...becomes this clean layout after applying the cleanup tool:
 
 ![](../../../../docs/images/image711.png "Block diagram after using the 'Clean Up Diagram' tool")
 
-However, this automated tool, despite its usefulness, cannot outperform the nuanced adjustments a human can make. While the reorganized block diagram is significantly tidier than its original form, it still doesn't match the aesthetic quality of a manually adjusted diagram.
+While the automated cleanup tool is highly convenient, it is not a complete replacement for manual layout. It can sometimes group nodes tightly or create unnecessary bends. A professional developer should use the cleanup tool as a starting point and make manual adjustments to maximize clarity and beauty.
 
 
 ## Comments
 
-Adding textual explanations to your code is crucial for helping others quickly grasp the program logic or specific implementation methods. In LabVIEW, the following practices should be implemented when adding textual explanations:
+Adding text documentation is essential for maintainable code. In LabVIEW, this includes:
 
-* Utilize meaningful names for controls and constants.
-* Show labels on nodes and use descriptive text.
-* Design meaningful icons for subVIs.
+- **Descriptive Control Names**: Give controls and indicators meaningful names instead of default labels like "Numeric" or "String 2".
+- **Visible Subdiagram Labels**: Display descriptive text above Case structures and Loops to explain their role.
+- **Meaningful SubVI Icons**: Create graphical icons instead of leaving the default LabVIEW numbered grid.
 
-Nodes and structures on the block diagram, much like controls, come with labels, which by default are not shown. For LabVIEW structures, it's advised to use Subdiagram Labels for adding annotations. Right-click the structure and navigate to "Visible Items -> Subdiagram Label":
+To document execution structures (such as While Loops, Case Structures, and Event Structures), use **Subdiagram Labels**. Right-click the border of the structure and select **Visible Items >> Subdiagram Label**:
 
 ![images_2/image17.png](../../../../docs/images_2/image17.png "Adding a Subdiagram Label to a Structure")
 
-A text area will appear above the structure for you to write comments specific to that diagram. You can adjust the background and font color of this area as needed.
+This creates a dedicated text bar pinned to the top of the structure. Subdiagram labels are excellent because they remain anchored to the structure when you resize or move it, preventing comments from drifting and cluttering the diagram.
 
-Using labels for annotations offers two main advantages: firstly, it facilitates the unification of comment style across the project; secondly, comments will always maintain their relative positioning to nodes and structures, avoiding disarray from code layout adjustments.
+For general block diagram comments, you can double-click any empty space on the diagram to create a **Free Label**.
 
-If labels and structure tags still fall short—for instance, in programs meant for educational or demonstration purposes that require more detailed explanations—you can place text annotations directly on the block diagram for in-depth comments.
-
-Comments should ideally be positioned close to the node or wire they refer to. If the comment is too lengthy and to prevent disrupting the normal code flow, you might need to place the comment further away from its related node or data. For making annotations more prominent and intuitive, you might opt for one of the following two annotation styles.
-
-The first method uses arrows to specify the nodes or data targeted by the comments, as illustrated below:
+Free labels can drift if you run the **Block Diagram Clean Up** tool, as the layout engine is unaware of which node a label refers to. To prevent this, use **Callouts (anchored arrows)**. When you hover over a Free Label, a small circle icon appears in the corner. Dragging this icon pulls out an arrow line that you can anchor directly to a specific wire or node:
 
 ![](../../../../docs/images/image712.png "Using arrows to indicate the target of comments")
 
-LabVIEW's text labels include built-in arrows, so no additional arrow graphics are needed. When you hover the mouse over a text label, a small icon appears at the label's bottom right. Dragging this icon extends an arrow (as shown in the following image). Pulling this arrow towards the node or structure you intend to comment on anchors the arrow there. This ensures that even if you move the node or the comment label, they remain linked.
+Even if you move the node or run the cleanup tool, the label and arrow remain logically linked and move together:
 
 ![images_2/z320.gif](../../../../docs/images_2/z320.gif "Comment label with an arrow anchored to a node")
 
-The second method links comment text and the commented node or data using numbers, as shown in the image below:
+Another method is numbering comments and placing matching number tags on the diagram, though anchored callout arrows are generally preferred because they are fully interactive:
 
 ![](../../../../docs/images/image713.png "Using labels to indicate the target of comments")
 
-It's advisable to use the text label's built-in arrow to anchor comments directly to the node being discussed.
 
-There's a limitation to using text labels for comments: their arrangement can be disrupted by the "Clean Up Diagram" tool. This can lead to misplaced comments within the program. In LabVIEW, text labels and diagram elements such as nodes and wires do not share a logical relationship. The "Clean Up Diagram" tool, unaware of their interconnected content, may alter node positions during diagram organization, consequently affecting the placement of comments. Text labels with anchored arrows are usually relocated to appropriate positions, but unanchored labels may end up in completely unrelated areas.
+## Type Definitions (.ctl)
 
+Test applications often pass complex datasets (like a cluster of experiment metadata containing "Test Name" and "Date") through multiple SubVIs. If you later need to modify this dataset—for example, adding a "Test ID" string—you would have to manually update every single VI, control, and constant in the project. This is tedious and prone to compiler mismatches.
 
-## Using Type Definition
+To solve this, always use **Type Definitions** (`.ctl` files). A Type Definition acts as a centralized template. If you modify the `.ctl` file, LabVIEW automatically propagates the changes to all instances of that control across your entire project.
 
-"Cluster" data types are a common occurrence. In larger programs, the same type of cluster data might be utilized across multiple subVIs. For example, a program designed to store experimental data could use the "Experiment Info" data type in several VIs. "Experiment Info" is a cluster composed of elements like "Experiment Name" and "Experiment Date".
+LabVIEW supports three types of custom controls in `.ctl` files:
 
-During development, it might become evident that the cluster data type needs modification. Initially consisting of just two elements, the program may require the addition of an "Experiment ID" for further detail:
+- **Control**: A customized UI control. Once dragged onto a Front Panel, the link is broken; modifying the `.ctl` file does not affect existing VIs.
+- **Type Definition (TypeDef)**: Links the data type of all instances to the `.ctl` template. If you add or remove elements in a TypeDef cluster, or change a data type, all instances update their types automatically.
+- **Strict Type Definition (Strict TypeDef)**: Links not only the data type but also the visual appearance (color, font, size, and Enum/Ring item lists) of the controls. 
 
-![](../../../../docs/images/image714.png "Modifying a commonly used data type during development")
-![](../../../../docs/images/image715.png)
-![](../../../../docs/images/image716.png "Modifying a commonly used data type during development")
+For example, if you have a Ring Control with options "Pass" and "Fail" saved as a standard TypeDef, adding a third option "Incomplete" in the `.ctl` file will *not* update the item list of existing instances. If saved as a **Strict TypeDef**, all instances will automatically inherit the updated item list.
 
-Since this data type is prevalent across multiple subVIs, any alteration necessitates corresponding updates in all VIs that use this cluster. Such updates are not only cumbersome but also fraught with the risk of overlooking certain instances, potentially introducing latent errors into the program.
-
-Creating a [type definition](data_custom_control#type-definition) for such datasets is the solution. Similar to [custom controls](data_custom_control#custom-control), type definitions are stored in .ctl files. Their creation mirrors that of custom controls, with the distinction lying in setting the control type to "Type Definition" or ["Strict Type Definition"](data_custom_control#strict-type-definition). Within the program, utilizing this .ctl file equates to employing an instance of this custom control or type.
-
-Custom controls and their instances lack any direct linkage. For example, if you create and save a stylish button as a custom control, adding an instance of this custom control to a VI's front panel is achieved by dragging or opening the .ctl file. Once instantiated, this instance becomes independent of the original custom control. Modifications to either the instance or the original control have no impact on one another.
-
-Instances of type definitions and strict type definitions are generated in VIs similarly to custom controls. However, the key difference is the linkage between type definition (and strict type definition) and their instances. For instance, creating a type definition for a numeric data type means all its instances will be numeric. Changing the data type to string within the type definition file causes all its instances to automatically convert to string types.
-
-For strict type definitions, the connection extends beyond data types to include the control's properties with their instances. These properties, like the control's color, size, and options in enumeration or dropdown list controls, remain synchronized.
-
-For example, using a type definition where the control is a text dropdown list with a U16 numeric data type, containing options such as "Item One" and "Item Two". Adding "Item Three" in the type definition doesn't affect existing instances if the data type remains U16; they continue to display only the original two items. However, with strict type definitions, all instances automatically update to include the new option.
-
-LabVIEW often requires adjustments to certain data types and their properties during development, like clusters, enumerations, dropdown lists, combo boxes, arrays, and waveforms. To simplify these modifications, strict type definitions should be created whenever such data types are encountered. strict type definitions should also be used when a uniform appearance across all control instances is desired.
+**Best Practice**: Always use **Strict Type Definitions** for Clusters, Enums, and Ring controls that are shared across VIs. This maintains visual and structural consistency throughout your application.
 
 
-## Connector Pane
+## Connector Pane Layout
 
-To keep the block diagram wiring tidy, all subVIs should ideally adhere to a uniform connector pane layout.
+To keep Block Diagram wiring neat and parallel, you should establish a standardized connector pane pattern for all SubVIs in your project.
 
-For example, it might be stipulated that all VIs within a program adopt a 4224 pattern: ![](../../../../docs/images/image717.png) (the pattern is named for the count of terminals in each column). For all VIs, input parameters are represented by the six terminals on the left side of the connector pane, while output parameters use the terminals on the right side. SubVIs are typically represented by their icon on the block diagram, but their connector panes can be displayed: right-click on the subVI icon and select "Show Terminals".
+The industry standard is the **4-2-2-4** connector pane layout (the numbers indicate the count of terminals on the left, top, bottom, and right columns, respectively). Under this standard:
+- **Inputs** are always wired to the left column.
+- **Outputs** are always wired to the right column.
+- **Reference / Session inputs and outputs** are wired to the top-left and top-right terminals.
+- **Error In and Error Out** are wired to the bottom-left and bottom-right terminals.
 
-In the program illustrated below, all subVIs consistently use the 4224 connector pane pattern. This uniformity ensures that terminal positions for each VI are fixed. Between two subVIs, terminals on the same row will have the same relative height. Therefore, connecting them with data wires ensures straight lines without any bends.
+Using a uniform 4-2-2-4 layout across all SubVIs ensures that common inputs and outputs (like references and errors) align at the exact same height on the Block Diagram, creating straight, parallel wires:
 
 ![](../../../../docs/images/image718.png "Uniform use of the 4224 connector pane across all subVIs")
 
-If subVIs on the block diagram each utilize different connector pane patterns, aligning their terminals at the same height becomes difficult, leading to wires with inevitable bends, as shown below:
+If SubVIs mix different layouts (e.g., one uses 4-2-2-4 and another uses 5-3-3-5), aligning the wires becomes impossible, resulting in messy bends and crossovers:
 
 ![](../../../../docs/images/image719.png "Varying connector pane patterns across subVIs")
 
-The 4224 pattern offers a total of 12 terminals. If a VI's parameters (inputs and outputs) exceed 12, this pattern becomes impractical. In practice, it's advised to limit a VI's parameters to no more than 8. Exceeding this number not only complicates the use of the VI but also affects the readability of the code that calls it. Identifying among a dozen or more data wires in a subVI can be quite taxing for readers.
+The 4-2-2-4 pattern provides 12 terminals. If a VI requires more than 12 inputs and outputs, do not switch to a denser grid. Instead, **refactor the VI**. A VI with more than 8 to 10 terminals is difficult to read and maintain. You should group related parameters into a custom Strict TypeDef Cluster to pass them as a single wire, or break the VI into smaller, more focused SubVIs.
 
-Should a VI require managing a large volume of data, consider merging similar or related data into an array or cluster to decrease the parameter count. Or, explore alternative methods for data exchange between VIs, such as employing global variables.
-
-The arrangement of terminals on the connector pane should mirror the positioning of their corresponding controls on the VI's front panel. This design choice helps readers intuitively grasp the connection between terminals and controls. For instance, in the VI shown below, the terminal layout on the connector pane precisely matches the control layout on the front panel. This clarity allows readers to instantly recognize that the second terminal in the first column on the connector pane corresponds to the "AC Filter Bandwidth" parameter.
+Additionally, organize the physical layout of controls on your Front Panel to match the relative positions on the connector pane. This visual correspondence makes it intuitive for developers to know which Front Panel control maps to which connector terminal:
 
 ![](../../../../docs/images/image720.png "A VI's front panel and connector pane")
 
 
+## Designing SubVI Icons
 
-## Icons
+A professional SubVI should have a custom, descriptive icon. Here are the core guidelines for icon design:
 
-Icons are a crucial part of VIs, and thoughtfully designed icons can significantly enhance the readability of a program. Here are some key considerations for designing VI icons:
-
-**Avoid Default Icons**: Default icons result in a block diagram where all subVIs appear identical, making it difficult to differentiate between them.
-
-**Prefer Graphics Over Text**: Humans process visuals much faster than text, making graphical icons not only more visually appealing but also quicker to identify. Sometimes, developers may struggle to find an appropriate icon and opt for text instead. This defeats the purpose of icons, as the name of the subVI or comments are already text-based. While temporary or internal VIs might use text on their icons, VIs released to users should always have meaningful graphical representations.
-
-**Unified Style for Related Icons**: Icons within the same functional module or library should have a consistent style to indicate their relationship at first glance. This consistency can be in color schemes or shared design elements, such as the same labels or graphics. Below are two examples: the first set is from an instrument driver program featuring a common red "AG34401" label; the second set includes LabVIEW VIs for configuration file processing, all adorned with a consistent file icon.
+- **Avoid Default Icons**: Never leave the default LabVIEW icon (a numbered grid). If all VIs have default icons, it is impossible to understand the Block Diagram flow without opening each subVI.
+- **Prefer Glyphs Over Text**: Visual shapes and glyphs are processed much faster by the human brain than words. Use icons with clear graphical representations rather than just typing the VI's name in text.
+- **Unified Banner / Color Coding**: VIs belonging to the same project library (`.lvlib`), class, or driver should share a unified style. Use a consistent top header banner (e.g., color-coded) and a shared label (such as a hardware identifier) so developers can instantly identify which module the VI belongs to:
 
 ![](../../../../docs/images/image721.png "A set of instrument driver VIs")
 ![](../../../../docs/images/image722.png "A set of icons with a unified style")
 
-LabVIEW icons can be up to 32×32 pixels in size, which is the standard dimension. Usually, the default size suffices for most applications. However, icons can also be designed in other sizes or irregular shapes. In specific scenarios, uniquely shaped icons can add aesthetic value to a LabVIEW block diagram. Here are two examples where such an approach is beneficial.
 
+### Irregularly Shaped Icons
 
-## Creating Irregularly Shaped SubVI Icons
+Standard SubVI icons are 32×32 pixel squares. However, you can create irregularly shaped icons (such as triangular or round shapes) to match native LabVIEW operators (like the Add or Multiply nodes).
 
-Typically, SubVI icons are square. However, for aesthetic and readability purposes, it might be necessary to display SubVIs as irregular shapes on their parent VI's block diagram. Many of LabVIEW's built-in functions, such as arithmetic operations, do not adhere to the regular 32×32 square icon format. In applications, SubVIs can also adopt non-square shapes, such as the triangular icon for My Function.vi illustrated below.
-
-![](../../../../docs/images/image723.png "Block diagram incorporating My Function.vi")
-
-When modifying a SubVI's icon to an irregular shape, several considerations are important. Firstly, selecting an appropriate connector pane pattern is crucial. The default 4224 pattern usually doesn't suit irregular icons. For instance, My Function.vi requires a centrally located output terminal, a requirement that the symmetrically distributed terminals of the 4224 pattern cannot fulfill.
-
-By right-clicking on the icon in the VI's front panel and selecting "Show Connector", followed by another right-click to choose "Pattern", you can select a suitable pattern. For My Function.vi, the 52225 pattern would be suitable, as shown below:
+When designing an irregular icon, choose a connector pane pattern that fits the shape. For instance, if you have a triangular function node (`My Function.vi`) with a single output at the apex, the standard 4-2-2-4 grid will not align properly. You can right-click the icon on the Front Panel, select **Show Connector**, and change the **Pattern** to a custom grid (such as the 5-2-2-2-5 pattern):
 
 ![](../../../../docs/images/image724.png "Choosing the 52225 connector pane pattern")
 
-The next phase is the crucial task of editing the icon. Key considerations include:
-
-- Avoid adding a border to the icon.
-- If using the old [Icon Editor](ramp_up_complex_vis#polishing-icons), ensure the three colored icons in the editor are consistent.
-
-The image below showcases LabVIEW's old-style icon editor, with three small squares in the center representing the icon in black and white, 16 colors, and 256 colors. Clicking one of these squares opens the editing area for that color scheme on the left.
-
-![](../../../../docs/images/image726.jpeg "Editing an irregular icon")
-
-Since modern displays support more than 256 colors, the 256-color icon is what will primarily be seen on the block diagram; only on older displays with fewer colors, such as 16-color displays, would the 16-color icon be utilized. However, 16-color displays are virtually extinct, rendering the 16-color icon generally unused. While black-and-white displays are even rarer, the black-and-white icon plays a crucial role in defining the icon's outline. Therefore, a black-and-white icon that matches the 256-color icon's shape is necessary for crafting an irregularly shaped icon. Usually, clicking the "Copy from 256 colors" button to copy the 256-color icon into the black and white area suffices.
-
-When creating an irregular-shaped icon, it's recommended to enable "Show Connectors" to visualize the connector pane pattern within the icon editing area. This ensures the icon's shape aligns with the connectors properly. For instance, to connect an output data terminal at the right side's center, the icon's shape must extend over that terminal.
-
-The new icon editor has completely eliminated black-and-white and 16-color icons, allowing for straightforward creation of irregularly shaped icons:
+When drawing the irregular icon in the **Icon Editor**:
+- Do not draw a border box around the perimeter.
+- If using LabVIEW's legacy icon editor, synchronize the black-and-white, 16-color, and 256-color slots. The black-and-white slot acts as the transparency mask; any pixel left blank in the black-and-white grid will be transparent on the Block Diagram.
+- In modern LabVIEW (which features the vector-based Icon Editor), transparency is handled natively via the alpha channel, making it simple to draw irregular shapes:
 
 ![](../../../../docs/images_2/z321.png "Editing an irregular icon")
 
 
-### Hiding Large Cluster Constants on the Block Diagram
+### Hiding Large Cluster Constants
 
-During the development of certain programs, you might come across situations like the one illustrated below: using an extremely complex data type constant. This constant, due to its large size, makes the block diagram visually unappealing, regardless of layout. So, how can we modify this program to enhance its aesthetic appeal?
+Large, complex cluster constants on the Block Diagram can occupy massive visual space and clutter the code:
 
 ![](../../../../docs/images/image727.png "A large constant can be visually disruptive")
 
-To address this, the objective is to conceal the constant within the main block diagram. Typically, there are two methods to achieve this:
+To keep the diagram clean, you can hide these bulky constants using one of two methods:
 
-The first method involves converting the constant into a control and then hiding the control. While straightforward, this approach has its downsides. Firstly, it may cause confusion, as controls generally indicate incoming values, leading others to wonder about the source of the value; secondly, modifying an element within the cluster constant can be cumbersome.
-
-The second method entails hiding it within a deeper subVI. The steps are as follows:
-
-As depicted below, start by establishing a strict typedef for the complex data type.
-
-![](../../../../docs/images/image728.png "Defining a strict typedef")
-
-Next, create a new VI, placing the bulky constant within this VI, and create a display control of the same type to pass its value out. The VI's connector pane should adopt the 4224 pattern, with the third terminal in the fourth row used to output the VI's single data point, as illustrated below:
+1. **Hidden Control**: Convert the constant into a Front Panel control and hide it from view (using properties). The downside is that this is confusing to other developers (who expect controls to be inputs) and makes modifying default values difficult.
+2. **Constant SubVI (Best Practice)**: Wrap the constant inside a dedicated SubVI:
+   - Create a Strict TypeDef for the cluster.
+   - Create a helper VI containing only the cluster constant wired to an output indicator. Configure the connector pane to output the cluster:
 
 ![](../../../../docs/images/image729.png "VI designed to conceal the large constant")
-
-This VI's icon should be designed to be small and visually appealing, as shown below:
+   - Design a compact, descriptive icon for this helper VI (e.g., representing the config value):
 
 ![](../../../../docs/images/image730.png "Icon for the constant data VI")
-
-Drag this newly created constant data VI onto the block diagram, connect its output to where the original constant was connected, and position it properly. Does this revised block diagram look much more attractive?
+   - Place this SubVI on your main Block Diagram. It acts as a visual constant but takes up only the size of a standard icon, keeping your code neat:
 
 ![](../../../../docs/images/image731.png "After the redesign block diagram")
 
 
-### VI Analyzer
+## Automated Code Reviews with VI Analyzer
 
-Actually, there are many standards to consider while programming. It can be quite challenging for programmers to memorize all these standards and apply them during coding consistently. Inevitably, oversights can occur, necessitating a means to identify these lapses. LabVIEW's "VI Analyzer" tool serves to detect errors or stylistic issues within program code effectively.
+Remembering and enforcing all style and layout guidelines manually can be difficult, especially in large teams. To automate code reviews, you can use the **LabVIEW VI Analyzer Toolkit**.
 
-The "VI Analyzer" boasts a wizard-like interface, activated by selecting "Tools -> VI Analyzer -> Analyze VIs" from the menu. Simply follow the prompts step by step to analyze your VIs.
+The VI Analyzer automatically scans your VIs and checks them against a library of style, performance, and documentation rules (such as checking for overlapping controls, unwired error terminals, or missing subdiagram labels). To launch the analysis wizard, select **Tools >> VI Analyzer >> Analyze VIs...**.
 
-This tool scrutinizes each VI being tested against predefined standards, checking for issues like spelling errors and proper alignment of controls. These checks or test items are available as plugins, and users have the option to craft custom check plugins. All test plugins reside in the `[LabVIEW]\project\_VI Analyzer\` folder.
+The wizard will guide you through the following steps:
 
-Without the "VI Analyzer Toolkit" installed, your computer may not have any plugins. This Toolkit enriches the "VI Analyzer" with capabilities to check VIs for common issues.
+1. **Select VIs**: Choose which files, directories, or project items you want to scan:
 
-Below are three key steps in the "VI Analyzer" wizard interface, illustrated through screenshots.
+![](../../../../docs/images/image732.png "Selecting VIs")
 
-![Selecting VIs](../../../../docs/images/image732.png "Selecting VIs")
+2. **Select Tests**: Choose which rules to enforce. You can enable or disable specific tests (such as performance checks for variables inside loops) to customize the ruleset:
 
-Firstly, select the VIs for testing within the "VI Analyzer" (shown above). You can opt for all VIs within a project or select a directory to analyze all VIs contained within. For this example, all VIs under the `[LabVIEW]\examples\xml` path are chosen for analysis.
+![](../../../../docs/images/image733.png "Selecting Test Items")
 
-![Selecting Test Items](../../../../docs/images/image733.png "Selecting Test Items")
+3. **View Results**: The analyzer runs and displays a report. Items with red indicators are critical style/logic violations, while blue indicators mark minor warnings. Double-clicking any error in the list automatically opens the target VI and highlights the exact node or wire that failed the test:
 
-Next, decide which tests to conduct on the VIs (shown above). Some test items might not be crucial; for instance, concerns regarding arrays or string operations within loops can be overlooked. Simply by unchecking these items, they won't be subjected to tests.
+![](../../../../docs/images/image734.png "Test Results")
 
-![Test Results](../../../../docs/images/image734.png "Test Results")
-
-Upon completion, the "VI Analyzer" displays all detected issues (shown above). While many flagged issues might be false alarms or minor, it's advisable to ignore these. Problems highlighted with red exclamation points are considered serious, whereas blue exclamation points mark less critical issues. These warrant special attention. The "Explanation" column in the results window offers detailed descriptions of the issues.
-
-![Opening the Problematic VI](../../../../docs/images/image735.png "Opening the Problematic VI")
-
-If the explanations remain unclear, double-clicking an entry prompts LabVIEW to automatically open the problematic VI and highlight the area of concern (shown above).
+Using the VI Analyzer as part of your testing workflow ensures that your codebase remains clean, uniform, and free of common data-flow bugs.

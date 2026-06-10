@@ -1,137 +1,130 @@
 # Interface
 
-## The Essential Distinction Between Interfaces and Classes
+## The Essential Difference Between Classes and Interfaces
 
-Before we delve into the specifics of interfaces in LabVIEW, it's crucial to understand the key distinctions between classes and interfaces, as discussed in the section on the pros and cons of classes:
-- Class inheritance aims to utilize the functionalities already available in a parent class; implementing an interface ensures that a class can offer certain functionalities. For instance, if a class for the instrument model LV12345 inherits from the **Oscilloscope Class**, it suggests that LV12345 is a type of oscilloscope that relies on the functionalities already implemented in the oscilloscope class. Conversely, if the LV12345 class implements the **Oscilloscope Interface**, it doesn't categorize LV12345 under any instrument type but signifies that it will provide the functionalities typical of an oscilloscope.
-- A class can only inherit from one parent class; however, a class can implement multiple interfaces. If the LV12345 class inherits from the Oscilloscope class, it cannot inherit from the Spectrum Analyzer class. The LV12345 class can implement both Oscilloscope and Spectrum Analyzer interfaces, indicating it can serve both as an oscilloscope and a spectrum analyzer.
+Before diving into LabVIEW interfaces, let's review the fundamental conceptual differences between classes and interfaces:
+- **Class Inheritance (Implementation Reuse):** Inheriting from a parent class allows a subclass to reuse existing functionality. For example, if instrument model `LV12345` inherits from an `Oscilloscope` class, it means `LV12345` *is* a type of oscilloscope and reuses the code defined in the parent class.
+- **Interface Inheritance (Capability Contract):** Implementing an interface declares that a class is capable of performing certain behaviors, without forcing it into a specific taxonomic category. If `LV12345` implements the `Oscilloscope` interface, it simply guarantees that it provides oscilloscope capabilities.
+- **Single vs. Multiple inheritance:** A class can inherit from only one parent class, but it can implement multiple interfaces. If `LV12345` inherits from `Oscilloscope`, it cannot also inherit from `Spectrum Analyzer`. However, if `LV12345` represents a hybrid instrument, it can implement both the `Oscilloscope` and `Spectrum Analyzer` interfaces, signaling it supports the capabilities of both.
 
-This distinction highlights that interfaces, rather than classes, should be used as the type for input/output controls when a functional module is required in an application (e.g., using oscilloscope functionality to record the waveform of an input signal). Using a class for input/output types limits the application to using only oscilloscopes, excluding those instruments that have oscilloscope functionalities but do not fit into the oscilloscope category. Clearly, the application needs not a specific oscilloscope but any instrument offering oscilloscope functionalities.
+This distinction has direct implications for software design. When designing modular APIs (e.g., a VI that takes an instrument input and acquires a waveform), you should set the input terminal type to an **Interface** rather than a class. If you use an `Oscilloscope` class type, the VI will refuse to accept a hybrid instrument that has oscilloscope capabilities but inherits from a different class hierarchy. By using an interface, your API remains decoupled and can interact with any hardware model that implements the required capabilities.
 
-In several programming languages, interfaces are not just for defining a class's externally accessible properties and methods. They also serve to ensure abstraction and minimize code duplication.
+In text-based OOP languages, interfaces serve two main purposes:
+1. **Abstraction:** Interfaces cannot be instantiated directly (they do not have concrete objects). They define a contract, and the runtime ensures that only concrete class instances are passed to parameters expecting an interface type.
+2. **Code Reuse:** Some languages allow interfaces to provide default method implementations so that implementing classes don't have to duplicate boilerplates.
 
-Abstraction means that interfaces cannot be instantiated; they lack objects. Thus, classes and interfaces distinctly separate functionalities. For example, in Java, interfaces are commonly used as function parameter types, whereas the actual parameters are objects of specific classes. Continuing with the previous example, an application that requires oscilloscope functionality should utilize an oscilloscope interface to operate any instrument that fulfills the required functionality, regardless of the instrument's model. Every instrument always represents an instance of a specific type of instrument class, and there shouldn't be an instrument in the program that doesn't belong to a specific type. This method prevents programmers from inadvertently writing incorrect code.
+In LabVIEW, interfaces are structurally very similar to classes, but with two key differences:
+1. **Interfaces contain no private data.**
+2. **Interfaces support multiple inheritance.**
 
-To reduce code duplication, some languages allow default implementations for methods within interfaces. These default implementations can be directly utilized by classes that implement the interface, avoiding the need to add similar code repeatedly in every class that implements the same interface.
-
-In LabVIEW, interfaces resemble classes but with two main distinctions: 1. Interfaces contain no data, and 2. Interfaces can be inherited by multiple classes. LabVIEW interfaces primarily function to define the methods a class can expose externally. However, their ability to ensure defined abstraction and reduce code duplication is somewhat limited. Therefore, when employing interfaces in programs, it may be necessary to undertake additional design measures to reinforce these aspects of interfaces.
+While LabVIEW interfaces are excellent for defining public APIs, G does not strictly enforce abstraction (you can place an interface constant directly on a block diagram), and code reuse is limited because interfaces cannot store state. Therefore, G developers must apply specific design patterns to get the most out of interfaces.
 
 
 ## Creating Interfaces
 
-Creating a new interface in LabVIEW mirrors the process of creating a new class: right-click in the Project Explorer and select "New -> Interface" to initiate a new interface. The "LabVIEW Object" acts as the root ancestor for all interfaces. Unlike classes, interfaces cannot inherit from any classes but can inherit from other interfaces. For the initial interface created within a project, there won't be any existing interfaces from which to inherit:
+To create an interface in LabVIEW, right-click in the Project Explorer and select **New -> Interface**:
 
 ![images_2/image57.png](../../../../docs/images_2/image57.png "The new interface does not inherit from any other interface")
 
-The file extension for an interface is lvclass, identical to that used for class files. It’s common in projects to have a class and its corresponding interface share the same name, for instance, a Table class and a Table interface, making distinction based solely on file extension impractical. In English contexts, it's customary to prefix interface names with an "I", denoting Interface, such as ITable for a table interface. LabVIEW imposes no stringent naming conventions for classes and interfaces as long as the naming aligns with the organizational or company standards.
+Like classes, all interfaces ultimately inherit from **LabVIEW Object**. Interfaces cannot inherit from classes, but they can inherit from other interfaces.
 
-Interfaces can maintain inheritance relationships, akin to classes. For example, we might first create an interface named IParent, then create another interface named IChildFoo, setting it to inherit from IParent:
+LabVIEW interfaces are saved as files with the `.lvclass` extension—the exact same extension used for classes. Because they share the same extension, you cannot distinguish between a class and an interface by their file names alone. To make your code readable, it is standard practice to prefix interface names with a capital `I` (e.g., `ITable` for a table interface, `IInstrument` for an instrument interface).
+
+Interfaces can inherit from other interfaces to build functional hierarchies. For example, you can create an interface named `IParent` and a child interface `IChild` that inherits from it:
 
 ![images_2/image58.png](../../../../docs/images_2/image58.png "Child interface inherits from parent interface")
 
-We then proceed to create some classes and select their applicable interfaces. While only one parent class can be selected, multiple interfaces can be inherited (or none at all):
+When you create a class, you configure which parent class it inherits from and which parent interfaces it implements:
 
 ![images_2/image59.png](../../../../docs/images_2/image59.png "Selecting interfaces for the newly created class to implement")
 
+
 ## Properties
 
-LabVIEW interfaces cannot contain any data definitions. Interfaces are designed to specify which data and methods a class exposes externally. However, as all data within LabVIEW classes are private and thus inaccessible externally, interfaces naturally cannot include data definitions.
+LabVIEW interfaces cannot contain private data. Because class data in LabVIEW is strictly encapsulated and accessible only via member VIs, interfaces (which define only API signatures) do not define data fields at all.
 
 
 ## Methods in Interfaces
 
-Creating methods within an interface follows a similar process to creating methods within a class. When adding new content under an interface, options such as VI, Virtual Folder, Dynamic Dispatch Template VI, Static Dispatch Template VI, Overriding VI, and Type Definitions appear. Unlike classes, interfaces lack "Property Definition Folder" and "VI for Data Member Access" due to the absence of data fields. The options for VI, Virtual Folder, Overriding VI, and Type Definitions are very much akin to their class counterparts. However, Dynamic and Static Dispatch Template VIs require a deeper look.
+Creating methods inside an interface is very similar to creating methods inside a class. When you right-click an interface, you can add VIs, virtual folders, templates, and type definitions. Because interfaces have no data, the options for **Property Definition Folder** and **VI for Data Member Access** are not available. Let's look at how static and dynamic dispatch methods behave within an interface:
 
-### VI Based on a Static Dispatch Template
+### Static Dispatch VIs in Interfaces
 
-Creating a VI based on a static dispatch template within an interface suggests that this method cannot be overridden by any derived interfaces or classes. Yet, it can be inherited by them. This means instances of derived classes can directly invoke the VI implemented in the interface:
+A **Static Dispatch** VI in an interface cannot be overridden by implementing classes or child interfaces, but it is inherited by them. This means subclass instances can call the static interface method directly:
 
 ![images_2/image60.png](../../../../docs/images_2/image60.png "Invoking an interface's VI with a subclass instance")
 
-Effectively, this approach allows for adding default method implementations in the interface, accessible directly by descendant classes. However, due to interfaces lacking data definitions, a static dispatch template VI cannot manipulate any data within an object, limiting it to general operations that might not necessarily fit within an interface. In essence, while LabVIEW restricts ideally shared code from being placed in interfaces, it does permit shared code that might not suitably belong there. This significantly limits how interface method inheritance can aid in code efficiency enhancement.
+This allows you to add default helper methods directly inside the interface. However, because interfaces cannot store data, these static VIs cannot read or write object fields. They are limited to stateless operations, restricting their utility for code reuse compared to helper VIs in classes.
 
-A class implementing different interfaces can have VIs with the same name based on a static dispatch template in each interface. As these methods are not subject to being overridden and their invocation path is explicit, they do not suffer from the confusion that can arise with multiple inheritances in classes.
+If a class implements two interfaces that happen to contain static VIs with the same name, there is no conflict. Since static VIs are resolved at compile-time and cannot be overridden, the call path remains unambiguous.
 
+### Dynamic Dispatch VIs in Interfaces
 
-### Dynamic Dispatch Template VIs in Interfaces
-
-Creating a Dynamic Dispatch Template VI within an interface implies that any class implementing this interface must override this VI. If not overridden, LabVIEW signals an error as illustrated below.
+By default, when you add a **Dynamic Dispatch** VI to an interface, LabVIEW configures it as **Must be overridden by descendant classes**. If an implementing class fails to override this method, LabVIEW will flag a compilation error:
 
 ![images_2/image61.png](../../../../docs/images_2/image61.png "Error for not overriding a Dynamic Dispatch Template VI in an interface")
 
-In most cases, altering this setting isn't necessary. Consequently, a VI in the interface needs to be overridden, indicating its code shouldn't execute; instead, the class that overrides it will. Thus, dynamic VIs in interfaces are mainly to define the method's name and the types of its input/output parameters. A class that implements various interfaces can have Dynamic Dispatch Template VIs with identical names and parameters. Since the interface's VI needs to be overridden in the class, it's clear that the class's overridden method is executed upon calling. This clarity prevents the confusion that class multiple inheritances could cause.
+A dynamic dispatch VI in an interface has no executable block diagram (or has an empty one that should not be called). Its sole purpose is to define the API signature: the name of the method and the layout of its connector pane terminals.
 
-By default, an interface's Dynamic Dispatch Template VI can't be called by descendant classes. As previously mentioned, interface methods are quite limited in their capabilities; even if a default implementation were provided, it wouldn't significantly enhance programming. However, if one insists on using the default implementation of a Dynamic Dispatch Template VI in an interface, it's feasible by deselecting the "Must be overridden by descendant classes" option. This allows descendant classes to inherit the interface's method default implementation. LabVIEW restricts the default implementation of interface methods for multiple inheritances; if a class implements different interfaces with the same dynamic VI, the descendant class must override this method. This ensures any program using this class's object will clearly understand the method being called is the one overridden in the class, not implemented in any interfaces, thereby avoiding confusion in multiple inheritance scenarios.
+If a class implements multiple interfaces that define the same dynamic dispatch method, the class must implement a single overriding VI. At runtime, calling the interface method dispatches directly to the class's override, avoiding the ambiguities associated with multiple inheritance.
 
-LabVIEW typically errors out in complex situations or where there could be confusion, to mitigate potential risks. For instance:
-- If a class implements different interfaces with dynamically named Template VIs that differ in input/output types or connection patterns, the class cannot be correctly implemented and will always result in an error. An overriding VI can only meet the demands of one interface, leaving the other unmet.
-- If a class implements different interfaces with a method named the same, but defined as static in some interfaces and dynamic in others, the class cannot be correctly implemented. Failing to override this VI would cause an error for not overriding a dynamic VI in the interface; whereas overriding it would trigger an error for overriding a static VI in the interface.
+You can allow subclasses to inherit an interface's dynamic method implementation without overriding it by disabling the **Must be overridden...** flag. However, if a class implements multiple interfaces that contain the same dynamic dispatch method *and* both provide default implementations, the subclass **must** override the method to resolve the conflict. This prevents any diamond-problem ambiguities.
 
-LabVIEW's functional limitations may prevent the implementation of some common functionalities. For example, suppose there's an instrument model LV12345 that functions both as an oscilloscope and a spectrum analyzer. If the oscilloscope and spectrum analyzer interfaces each define an "initialize" method with different parameters, the LV12345 class cannot implement both interfaces. Even if both interfaces define an "initialize" method with identical names and parameter types, if the required actions differ, the LV12345 class still cannot be correctly implemented. The class can only implement one initialize method and cannot determine if it's being called by the oscilloscope or spectrum analyzer interface, thus unable to decide how to set the switch.
+LabVIEW will flag compilation errors in the following conflicting scenarios:
+- **Signature Mismatch:** If a class implements two interfaces containing a dynamic dispatch method with the same name but different connector pane terminals, the class cannot resolve the conflict and will fail to compile. An overriding VI can only match one signature.
+- **Static/Dynamic Conflict:** If a class implements two interfaces where one defines `DoWork.vi` as static and the other defines it as dynamic, the class cannot compile. Overriding it violates the static interface's constraint, while failing to override it violates the dynamic interface's constraint.
+- **Dynamic Dispatch Initialization Conflict:** If you have an instrument class `LV12345` implementing both `IOscilloscope` and `ISpectrumAnalyzer`, and both interfaces define an `Initialize.vi` with identical signatures, the class can only write one override. The class has no way of knowing whether it was called via an oscilloscope interface wire or a spectrum analyzer interface wire, which can lead to logical issues if the initialization steps for the two modes differ.
 
-To prevent the aforementioned issues, it's advised that interface design should aim to avoid using methods with identical names in related interfaces. Extending method names, such as "initialize oscilloscope" for the oscilloscope interface and "initialize spectrum analyzer" for the spectrum analyzer interface, could offer a solution.
-
+To prevent these conflicts, **avoid using identical method names in related interfaces**. A cleaner design is to use descriptive names, such as `Initialize Oscilloscope.vi` and `Initialize Spectrum Analyzer.vi`.
 
 ### Access Permissions
 
-In an interface, VIs have similar access permissions to those in a class. However, considering the purpose of an interface is to outline functionalities a module makes available externally, it's preferable to exclude functionalities not meant for external use from the interface. Essentially, methods defined in an interface should generally be public.
-
+Like classes, interface methods support public, private, community, and protected access. However, since the purpose of an interface is to define a public API contract, almost all methods defined in an interface should be **Public**.
 
 ### Retrofitting Existing Classes
 
-Interfaces in LabVIEW are relatively new, but they can be applied to pre-existing classes. To do this, first create or add the necessary interfaces within the same project. Then, by accessing the class's properties dialog, you can adjust its parent class and any interfaces it implements:
+Because interfaces are decoupled from implementation, you can easily add them to existing classes. Open the **Class Properties** dialog of your target class, navigate to **Inheritance**, and add the target interfaces to the **Parent Interfaces** list:
 
 ![Adjusting the class's parent class and parent interfaces](../../../../docs/images_2/image76.png "Adjusting the class's parent class and parent interfaces")
 
-After integrating an interface into a class, it may be necessary to add or modify some of the class's methods to comply with the interface's requirements.
+After implementing the interface, you will need to create overrides in the class to implement the interface's dynamic dispatch methods.
 
 
 ## Application Example
 
-Let's revisit the furniture store program discussed in the [LabVIEW Classes](oop_class) section. It had notable deficiencies, such as allowing the creation of furniture that is neither a chair nor a table and not enabling programs that process chair objects to also accept combo chair-table objects. These issues can be addressed by introducing interfaces.
+Let's refactor the furniture store application from [Class](oop_class) using interfaces to support a `ChairWithTableAttached` combo item.
 
-We suggest the following adjustments to the program design through the use of interfaces:
+Here is our updated design:
+- **Three Interfaces:** `IFurniture` (base), `ITable` (inherits `IFurniture`), and `IChair` (inherits `IFurniture`).
+- **Interfaces do not contain data fields**, but they can contain shared custom enums (such as a tablecloth type enum).
+- `IFurniture` defines: `Return Price` and `Assemble`.
+- `ITable` defines: `Spread Tablecloth` (and inherits the methods from `IFurniture`).
+- `IChair` defines: `Place Cushion` (and inherits the methods from `IFurniture`).
 
-- Initially, we require three interfaces: Furniture Interface, Table Interface, and Chair Interface. Both the Table and Chair Interfaces inherit from the Furniture Interface.
-- Interfaces do not contain data but can include controls for user-defined data types, such as controls defining different tablecloth types.
-- The Furniture Interface specifies two methods: Return Price and Assemble. These are universal methods shared by all furniture objects.
-- The Table Interface outlines three methods: Return Price, Assemble, and Lay Tablecloth. The Return Price and Assemble methods are inherited from the Furniture Interface.
-- The Chair Interface also defines three methods: Return Price, Assemble, and Place Cushion, with Return Price and Assemble methods being inherited from the Furniture Interface.
+To instantiate the physical items, we define three concrete classes:
+- `Table` class: implements `ITable` (meaning it must implement `Return Price`, `Assemble`, and `Spread Tablecloth`), plus its own constructor.
+- `Chair` class: implements `IChair` (meaning it must implement `Return Price`, `Assemble`, and `Place Cushion`), plus its own constructor.
+- `ChairWithTableAttached` class: implements both `ITable` and `IChair` interfaces, plus its own constructor. This combo class must override all methods declared by both interfaces.
 
-Since instances of tables and chairs are required in the program, the Table Class and Chair Class are still necessary:
+### Creating the Interfaces and Classes
 
-- Table Class: Implements all methods defined by the Table Interface, including an initialization method (to set product ID, cost price, and tablecloth type).
-- Chair Class: Implements all methods defined by the Chair Interface, including an initialization method (to set product ID, cost price, and cushion type).
-
-The initialization method, which lacks a class (or interface) type input parameter, can't be constructed as a Dynamic Dispatch Template VI and therefore can't be defined within an interface. Additionally, we introduce a ChairWithTableAttached class to showcase a class implementing multiple interfaces, complete with tests for it.
-
-- ChairWithTableAttached Class: Implements all methods defined by both the Table and Chair Interfaces, including an initialization method (to set product ID, cost price, tablecloth type, and cushion type).
-
-
-### Creation
-
-The process for creating interfaces and classes has been covered previously and will not be repeated here. By accessing LabVIEW's "View -> LabVIEW Class Hierarchy", you can see the inheritance relationships between the new program's interfaces and classes as illustrated below:
+Open the class hierarchy window in LabVIEW (**View -> LabVIEW Class Hierarchy**) to view the relationship between our classes (rectangles) and interfaces (ovals):
 
 ![Interface and class inheritance relationships](../../../../docs/images_2/image62.png "Interface and class inheritance relationships")
 
+### Attributes and Data Duplication
 
-### Attributes
-
-Compared to the previous example that exclusively utilized classes, in this demonstration, we opted for a Furniture Interface in place of a Furniture Class. While we've discussed the advantages of using interfaces before, here we encounter a drawback: it's not possible to place commonly shared data and method code within the interface. As a result, the implementation of shared data and methods had to be dispersed across the specific classes. For instance, in the new example, the Table Class, Chair Class, and the ChairWithTableAttached Class each independently include identification numbers, cost prices, and other data that could have ideally been shared.
+Replacing the `Furniture` parent class with an `IFurniture` interface provides type compatibility but introduces a drawback: since interfaces cannot hold data, we cannot place the shared attributes (`ID` and `Cost`) in a parent class. Instead, each concrete class (`Table`, `Chair`, and `ChairWithTableAttached`) must define its own private `ID` and `Cost` fields:
 
 ![Each class has to independently add data that could have been shared](../../../../docs/images_2/image63.png "Each class has to independently add data that could have been shared")
 
-The shared data access functionalities previously implemented in the Furniture Class also needed to be duplicated in each class.
+The data access VIs (`get_id.vi`, `set_id.vi`, etc.) must also be implemented independently in each class.
 
+### Overriding Interface Methods
 
-### Methods
-
-Since the methods defined within interfaces are expected to be overridden in classes by default, LabVIEW will flag an error if a class does not override a method defined in an interface. New classes may lack numerous methods; at this juncture, by selecting "New -> VI for Override", you can choose all the missing VIs simultaneously and generate them.
+Since a class must implement all methods of its inherited interfaces, LabVIEW will flag a compilation error if any methods are missing. To generate these overrides quickly, right-click the class, select **New -> VI for Override**, select all the interface methods, and click OK:
 
 ![When creating VIs for override, multiple selections are possible](../../../../docs/images_2/image65.png "When creating VIs for override, multiple selections are possible")
-
-The methods are implemented in a manner similar to what has been previously illustrated in the examples, hence will not be detailed further here.
-
 
 ### Application Testing
 
@@ -139,52 +132,61 @@ The test program closely resembles the earlier example that used classes exclusi
 
 ![Test Program Block Diagram](../../../../docs/images_2/image64.png "Test Program Block Diagram")
 
-Binding a chair object and a combo chair-table object into an array causes LabVIEW to classify the array as an array of the chair interface type. This adjustment allows both objects to be processed by programs designed to accept the chair interface. Similarly, binding a table object and a combo chair-table object into an array prompts LabVIEW to classify the array as an array of the table interface type. Binding three different objects into an array leads LabVIEW to classify the array as a furniture interface type.
+- Wiring a `Chair` object and a `ChairWithTableAttached` object together into an array automatically types the array as `IChair` interface references. Any VI that accepts the `IChair` interface can process both elements.
+- Wiring a `Table` object and a `ChairWithTableAttached` object together types the array as `ITable` interface references.
+- Wiring all three objects together types the array as `IFurniture` interface references.
+- If two classes share no common interface, G upcasts their array to **LabVIEW Object** (the universal base type).
 
-If two objects lack any common ancestor interface, binding them into an array will result in LabVIEW classifying the array as a "LabVIEW Object", thereby enabling the processing of any type of object.
-
-However, there's a scenario where LabVIEW triggers an error: if several distinct objects share multiple common ancestor interfaces and these objects are bound into an array, LabVIEW will face uncertainty regarding the intended interface for use, causing an error. For instance, as depicted below:
+However, a type conflict occurs if two classes share multiple common ancestor interfaces and you attempt to wire them to the same array without casting. For example, if classes `CFoo` and `CBar` both implement `IAAA` and `IBBB`:
 
 ![Example with Two Classes Implementing the Same Interfaces](../../../../docs/images_2/image66.png "Two classes each implementing two same interfaces")
 
-The classes CBar and CFoo each implement the IAAA and IBBB interfaces. In such cases, binding a CBar object with a CFoo object into an array will result in an error, signaling a type conflict:
+Wiring them to the same array node triggers a type conflict error because the compiler doesn't know whether the array should be typed as `IAAA` or `IBBB`:
 
 ![Error when Binding Two Classes with Multiple Common Interfaces into an Array](../../../../docs/images_2/image67.png "Error when binding two classes with multiple common interfaces into an array")
 
-Encountering such situations necessitates the programmer manually specifying the intended interface type:
+To resolve this conflict, you must manually cast the inputs to a specific interface type (e.g., using the **To More Generic Class** node to cast them to `IAAA`):
 
 ![Manually Specifying the Interface Type](../../../../docs/images_2/image68.png "Manually specifying the interface type")
 
 
-## Why LabVIEW Interfaces Aren't Abstract
+## Instantiating Interfaces and the Lack of Abstract Classes
 
-In the furniture store demo program, we ideally shouldn't allow the existence of a furniture object that isn't classified as either a chair, a table, or a combo chair-table. Since the program only defines these three categories, any object not fitting into them likely indicates a programming oversight. In this demonstration, we replaced the furniture class with a furniture interface. Unfortunately, this change alone doesn't prevent the direct instantiation of the furniture interface. LabVIEW interfaces aren't abstract; you can directly instantiate an interface on the block diagram and then call the methods defined within:
+In our furniture store application, we want to prevent users from creating a generic "furniture" item. Since the store only sells tables, chairs, and combo units, any raw furniture object represents a programming error.
+
+In our second design, we replaced the `Furniture` class with the `IFurniture` interface. However, this alone does not prevent developers from instantiating it. In LabVIEW, **interfaces are not abstract**. You can drop an interface constant directly onto a block diagram, compile, and run it:
 
 ![Instance Generated from Interface](../../../../docs/images_2/image69.png "Instance Generated from Interface")
 
-Effective interface design should ideally prevent misuse by programmers, necessitating protective measures for such scenarios. The methods defined in an interface, based on the dynamic dispatch template, are expected to be overridden by descendant classes. Thus, in normal circumstances, the code within an interface's VI should never execute. If it does, it suggests the method was called by an object directly generated from the interface. Reporting an error in such cases can alert programmers to correct the mistake. Therefore, even though interface methods likely won't be executed, it's recommended not to leave them empty but rather to return an error message to prevent potential issues. Below is a block diagram for a method VI within an interface:
+To prevent developers from accidentally executing an un-implemented interface method, you should write safety checks inside the interface's default member VIs. Since dynamic dispatch interface methods are designed to be overridden, the code inside the interface's own VI will only run if a developer directly instantiates the interface and calls the method.
+
+By default, rather than leaving the interface VI's diagram empty, you should place an error-generation node inside it to notify the caller:
 
 ![Error if an Interface's VI is Called](../../../../docs/images_2/image70.png "Returns an Error if an Interface's VI is Invoked")
 
-The lack of abstract classes in LabVIEW fundamentally boils down to the platform's design, where data types cannot be defined separately from data. LabVIEW requires actual data to represent data types. Unlike many programming languages that have keywords for data types, like "int" for integer types, LabVIEW lacks similar keywords (or constants, controls, nodes, etc.). LabVIEW necessitates the use of specific values, like 0 or 23, to denote integer data types. Recall the example of forcibly converting a double to an integer from the "Numeric Data" section:
+The lack of true "abstract classes" or "abstract interfaces" in LabVIEW stems from its G dataflow architecture: **data types and data values are inseparable in G**.
+
+Unlike text-based languages that use type keywords (like `int` or `class`), LabVIEW has no text-only type names. A data type is always represented by a physical value constant on the block diagram. For example, to cast a double to a 64-bit integer, we must wire a `0` constant of type `I64` to the type terminal:
 
 ![Forcing a DBL to I64 Type Conversion](../../../../docs/images/image133.png "Forcing a DBL to I64 Type Conversion")
 
-To indicate the target data type as I64, we use a value of 0, even though we don't actually need a value of 0 for this purpose. In the "Manually Specifying the Interface Type" example, to convert a CBar class object to the IAAA interface type, an instance of IAAA type is used to represent the IAAA type. This design in LabVIEW, where data types and data are inseparable, might not be particularly logical, but it appears to be too ingrained to change.
+Similarly, to cast an object to the `IAAA` interface type, we must place an `IAAA` constant on the diagram to serve as a type descriptor. While this linking of type and value can seem unusual, it is a core mechanism of G compilation.
 
 
 ## Enhancing Code Reusability
 
-The furniture store example also highlights a common issue: the presence of redundant code. For instance, similarly named VIs across different classes tend to have very similar implementations. Unfortunately, we cannot consolidate their shared logic within the interface due to the absence of necessary data fields. A straightforward approach to mitigate this problem is to create sub-VIs for these common operations, which can then be utilized across classes to increase code reusability.
+Our interface-based furniture store program introduced redundant code because we couldn't store the `ID` and `Cost` data or their accessors inside the interface.
+
+To mitigate this, you can extract common logic into helper VIs (standard subVIs) and call them from the class overrides. This allows the concrete classes to implement the interface contract while reusing shared code.
 
 
 ## Summary
 
-In wrapping up this section, let's distill the key recommendations for employing LabVIEW interfaces, drawn from the experiments and discussions above:
-- Prefer interfaces over classes for defining functionalities that a module exposes for external invocation.
-- Strive for singularity in interface functionality, avoiding the amalgamation of disparate functionalities within a single interface.
-- Limit interfaces to defining public methods that a module (the class implementing the interface) offers for external interaction, steering clear of specifying internal methods or their implementations.
-- Ensure interfaces only encompass VIs based on dynamic dispatch templates, mandating that these VIs be overridden in descendant classes.
-- Objects instantiated directly from interfaces should solely serve for type conversion purposes to derive the interface data type, and not for invoking methods within the interface. If a VI from the interface is directly invoked, it should promptly issue an error message.
-- Aim for detailed method naming to sidestep potential name clashes.
-- When an interface is implemented by multiple classes, consider creating supplementary sub-VIs to foster code reusability.
+Here is a summary of best practices for using LabVIEW interfaces:
+- **API Definition:** Prefer interfaces over classes to define public APIs for your software modules.
+- **Single Responsibility:** Design small, focused interfaces rather than large, multi-purpose ones.
+- **Expose Public Methods Only:** Interfaces should only declare public APIs. Internal helper VIs belong inside concrete classes, not interfaces.
+- **Use Dynamic Dispatch:** Interface methods should generally be dynamic dispatch, forcing implementing classes to override them.
+- **Interface Error Handling:** Place error-generating nodes inside the interface's default VI diagrams to catch invalid direct instantiations at runtime.
+- **Descriptive Naming:** Use descriptive method names to prevent conflicts if a class implements multiple interfaces.
+- **Modular SubVIs:** Use standard helper subVIs to share code across different classes implementing the same interface.

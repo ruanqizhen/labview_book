@@ -2,193 +2,196 @@
 
 ## Varieties of "Classes"
 
-To simplify the learning process, LabVIEW only offered a single type of "class" prior to 2020. However, examining other object-oriented programming languages reveals they often provide many different types of "classes", categorized in various ways.
+To keep the learning curve gentle, LabVIEW supported only a single, standard type of class before LabVIEW 2020. However, other object-oriented programming languages often feature various kinds of classes, categorized by their access permissions, instantiation requirements, and inheritance rules.
 
-### Access Permissions
 
-Classes can be categorized based on access permissions for their attributes (data) and methods (functions or VIs):
+### Access Permissions {#access-permissions}
 
-- **Public:** Accessible both inside and outside the class. Internal access refers to the ability to read and write within the code of methods (functions or VIs) that belong to the same class, while external access encompasses everything else.
-- **Private:** Accessible only within the class and not from the outside.
-- **Protected:** Accessible within the class itself or within any of its subclasses.
-- **Friend:** Some programming languages embrace the concept of "friends", where specific attributes and methods of a class can be accessed by other methods or classes designated as friends.
+Classes control access to their attributes (data) and methods (VIs or functions) using access scopes:
 
-In LabVIEW, class attributes (data) are exclusively private, meaning they can only be read and written by VIs within the same class. However, LabVIEW does support all four types of access permissions for class methods (VIs), which can be adjusted in the class's settings dialog:
+- **Public:** Accessible from both inside and outside the class. "Internal" access means reading or writing data from within the class's own methods; "external" access refers to calls from any other code.
+- **Private:** Accessible only within the class's own methods.
+- **Protected:** Accessible within the class itself and any of its subclasses.
+- **Community (Friend):** Some languages use "friend" classes or functions. In LabVIEW, this is called **Community** access. It allows designated "friend" libraries or classes to access methods that are otherwise hidden from the general public.
+
+In LabVIEW, class attributes (data) are strictly private—they can only be read or written by VIs belonging to the same class. However, LabVIEW supports all four access levels for class methods (VIs). You can configure these permissions in the Class Properties dialog:
 
 ![images_2/image55.png](../../../../docs/images_2/image55.png "Configuring Access Permissions for Class Methods")
 
-It's advisable to set lower-level methods (VIs) to private to prevent their direct utilization by end-users. Before LabVIEW enhanced its private VI protection, I frequently encountered scenarios where tweaking a low-level VI led to user complaints that such changes disrupted their applications because they could no longer use the altered VI as before. These VIs weren't initially meant for user consumption, but since customers have the final say and had been utilizing them, reverting the changes to maintain the VIs' unchanged behavior was often the only recourse. This situation rendered functionality modules incredibly hard to maintain, as any minor detail could affect some clients and was therefore untouchable. By setting lower-level VIs to private, it ensures that users cannot access them, allowing module maintainers to confidently update them. As long as the APIs provided to users remain constant, updates to the underlying structure are feasible without issues.
+It is best practice to keep low-level helper VIs private or protected to prevent end-users from calling them directly. In the past, when low-level VIs were left public, developers often faced situations where a minor internal tweak broke a customer's application because the customer had bypassed the official API and called the internal VIs directly. To keep customers happy, developers had to restore the old, flawed behavior, making the module nearly impossible to maintain or refactor. Encapsulating internal VIs as private ensures that consumers can only interact with the official public API, giving module authors the freedom to update internal logic safely.
 
-For instance, in the furniture store example from the previous section, the data access methods in the Furniture class were meant solely for use by methods in descendant classes, so they should be set to "Protected" permission.
+For instance, in our furniture store example, the data access VIs in the `Furniture` parent class are only intended for subclasses like `Table` and `Chair`. Therefore, their access scope should be set to **Protected**.
 
-Some languages allow setting access permissions for the class itself, as private or public. This facilitates modular hierarchy: an application can be segmented into several large modules, each further divisible into smaller modules. These smaller modules can be defined as private or shared across different large modules. While LabVIEW classes cannot nest, LabVIEW libraries can be nested, and it's feasible to divide a large project into multiple libraries, each containing several classes. In this scenario, a class, as a library member, can also be designated as private or public.
+Some languages also support setting access permissions on the class itself (e.g., public vs. package-private classes) to help structure larger software components. While LabVIEW classes cannot be nested directly inside other classes, they can be nested within LabVIEW project libraries (`.lvlib`). In this setup, a class acts as a library member, and you can mark the class itself as public or private relative to the library's namespace.
 
 
 ### Instantiation Requirements for Classes
 
-Classes can be categorized based on their need for instantiation before their attributes and methods can be accessed:
+In text-based OOP, class members are divided by whether they require an instance to be accessed:
 
-- **Static:** Static attributes and methods do not require the class to be instantiated for access.
-- **Dynamic:** Dynamic attributes and methods require an instance of the class to be accessed.
+- **Static Members:** Attributes or methods that belong to the class itself rather than any specific instance. They can be accessed without creating an object of the class.
+- **Instance (Dynamic) Members:** Attributes or methods that belong to a specific object. You must instantiate the class before you can access them.
 
-It's important to distinguish that the "dynamically dispatched template" and "statically dispatched template" in LabVIEW are entirely different from the conventional dynamic and static concepts discussed in other programming languages. By the standard definitions used in most languages, the attributes and methods we've shown in LabVIEW classes are predominantly dynamic: the VIs within the class all feature a "class" input control, and this input is mandatory. Meaning, these VIs cannot be invoked without providing an instance of the class. LabVIEW classes can also contain "static methods" by including a regular VI that lacks a class input control. As illustrated below, although this VI is located within a class, it lacks class input, allowing it to be directly called from anywhere.
+Note that LabVIEW's "static dispatch" and "dynamic dispatch" templates mean something completely different from the terms "static" and "dynamic" in other OOP languages. In standard computer science terms, most methods in a LabVIEW class are instance methods because they require a class control input on their front panel and cannot run without a valid object wired to them.
+
+However, you can create static methods in LabVIEW by building a standard VI inside a class folder that does *not* include a class input terminal. As shown below, this VI is physically grouped inside the class library but can be called directly from anywhere without wiring an instance to it:
 
 ![images_2/image21.png](../../../../docs/images_2/image21.png "VI Callable Without a Class Instance")
 
-This approach effectively utilizes the class's encapsulation feature, grouping it with related VIs within the same class. Some VIs, particularly constructor VIs that don't have class input but can create and initialize a class instance, are ideal for class encapsulation. These VIs are capable of setting initial object data, opening necessary files, instruments, and establishing network connections, etc. Below are examples of a constructor VI:
+This technique is useful for grouping helper functions with the class. A prime example is a **constructor** VI: since it doesn't take a class input but outputs a newly initialized class instance, it cannot be an instance method. Constructors are used to set default data, open files or hardware resources, and initialize network connections. Below is an example of a constructor VI:
 
 ![images_2/image22.png](../../../../docs/images_2/image22.png "Front Panel of a Constructor VI")
 
 ![images_2/image23.png](../../../../docs/images_2/image23.png "Block Diagram of a Constructor VI")
 
-Except for this segment, when discussing "static" and "dynamic" within the context of classes, this book adheres to LabVIEW's definitions of static and dynamic, rather than the broader programming context of whether instantiation is required for class access.
+To avoid confusion, except for this section, this book will use LabVIEW's definitions when referring to "static" and "dynamic" (referring to how VIs resolve at edit-time vs. runtime) rather than the broader text-based programming definitions (whether instantiation is required).
 
 
-### Whether Subclass Overriding is Required or Mandatory
+### Overriding Requirements in Subclasses
 
-Classes can be categorized based on their need for methods to be overridden by subclasses:
+Methods can also be categorized by how subclasses are allowed or required to override them:
 
-- **Ordinary Functions:** In many languages, ordinary functions, similar to virtual functions discussed below, can be inherited and overridden by subclasses. They differ from virtual functions in that they lack polymorphism (dynamic binding). LabVIEW does not have an equivalent VI type for ordinary functions.
-- **Virtual Functions:** These correspond to LabVIEW's "dynamically dispatched template" VIs, indicating that the function or VI can be inherited, overridden by subclasses, and exhibit polymorphism.
-- **Final Functions:** These functions cannot be overridden by subclass functions. In LabVIEW, they correspond to "statically dispatched template" VIs, which cannot be rewritten by VIs in subclasses.
-- **Abstract Functions:** Also known as pure virtual functions, these virtual functions are typically defined by their name and input/output parameters in the base class without any implementation. Abstract functions must be overridden in subclasses with actual code before they can be invoked. In LabVIEW, a method VI can be set to require overriding in descendant classes, making such VIs effectively abstract or pure virtual:
+- **Virtual Functions:** Methods that can be overridden by subclasses to exhibit polymorphic behavior. In LabVIEW, these are VIs created using the **Dynamic Dispatch** template.
+- **Final Functions:** Methods that subclasses are explicitly forbidden from overriding. In LabVIEW, these correspond to **Static Dispatch** VIs, which cannot be redefined in subclasses.
+- **Abstract Functions (Pure Virtual Functions):** Methods defined in a parent class with only their interface (name and connector pane terminals) but no implementation. Subclasses must override and implement these VIs before they can be used. In LabVIEW, you can mark a dynamic dispatch VI as **Must be overridden by descendant classes** in its properties, making it an abstract method:
 
 ![images_2/image56.png](../../../../docs/images_2/image56.png "Configuring an Abstract Method")
 
-Like functions, classes can be either ordinary or abstract, and some languages feature final classes.
-- **Abstract Classes:** These classes cannot be instantiated and are meant solely for inheritance by subclasses.
-- **Final Classes:** These classes cannot be inherited.
+Just like methods, classes themselves can be categorized by how they are inherited:
 
-What purpose do non-instantiable classes serve? In the furniture store example from [the previous section](oop_class), the store sells only tables and chairs. We defined a "Furniture" class as a parent class with two subclasses: "Table" and "Chair". This Furniture class should be an abstract class since the store does not sell any furniture types beyond tables and chairs. Setting the Furniture class as abstract forces programmers to create furniture objects only from the Table or Chair classes, preventing the creation of furniture that doesn't conform to the expected types.
+- **Abstract Classes:** Classes designed solely to serve as templates for subclasses; they cannot be instantiated directly.
+- **Final Classes:** Classes that cannot be inherited by any subclass.
 
-Setting the Table and Chair classes as final classes would not be appropriate because furniture can be further divided into many categories, such as recliners and benches, which could be derived from the Chair class. The use of final functions and classes is typically motivated by security concerns. For instance, if we developed a class for password verification, making the class final prevents someone from overriding the password verification logic in a subclass and passing it to the caller.
+What is the point of a class that cannot be instantiated? In our furniture store example, the store only sells tables and chairs. We created a `Furniture` parent class to hold shared behavior, but since there is no generic "furniture" item for sale, we shouldn't allow users to instantiate a raw `Furniture` object. By designing `Furniture` as an abstract class, we force developers to instantiate either a `Table` or a `Chair`, preventing invalid configurations.
 
-LabVIEW lacks a specific definition for abstract classes, but in [the next section](oop_interface), we introduce a very similar concept: "interface". Interfaces can be used to achieve the functionality of abstract classes.
+Marking `Table` and `Chair` as final classes would be too restrictive here, as a user might want to derive a `Recliner` from the `Chair` class. Final classes and methods are generally used for security or performance optimization. For example, if you write a class for security validation, making it final prevents someone from creating a malicious subclass that overrides your password checks.
+
+While LabVIEW does not have an explicit keyword for "abstract class," you can achieve the same result using **Interfaces** (discussed in [Interfaces](oop_interface)), which were introduced in LabVIEW 2020.
 
 
 ### Multiple Inheritance
 
 #### The Challenges of Multiple Inheritance
-LabVIEW classes do not support multiple inheritances; a class can have only one parent class but can have numerous subclasses. Despite this, real-world scenarios frequently arise where multiple inheritances would be desirable. Consider a furniture store scenario that sells only tables and chairs but has a peculiar piece of furniture that functions both as a table and a chair:
+
+LabVIEW classes use **single inheritance**: a class can have only one parent class, although it can have multiple subclasses.
+
+However, real-world problems often present cases where multiple inheritance would be convenient. Consider a furniture store that sells tables and chairs, but also introduces a combo table-chair:
 
 ![images_2/image24.png](../../../../docs/images_2/image24.png "Combo Table-Chair")
 
-This combo table-chair possesses both the attributes and methods of tables and chairs, intuitively suggesting it should inherit from two parent classes: "Table" and "Chair". Ideally, it would inherit attributes and methods from both, but limitations to single inheritance, such as inheriting only from the Chair class, mean that table attributes and methods would need to be re-implemented from scratch, which is inefficient. Beyond inefficiency lies a bigger problem: if a program designed to process tables can only accept table objects, it wouldn't be able to process the combo piece since it inherits from the Chair class, despite being a type of table too.
+This combo piece has characteristics of both tables and chairs, suggesting it should inherit from both the `Table` and `Chair` classes. Under a single-inheritance model, if we inherit only from `Chair`, we have to duplicate the table-specific code inside the combo class, which is highly inefficient. Even worse, any existing VIs designed to accept and process `Table` objects won't accept our combo object because it doesn't belong to the `Table` inheritance tree.
 
-Some programming languages, like C++, allow multiple inheritances, but this capability introduces several significant issues, such as conflicts in property and method calls. With multiple inheritance, a "Combo Table-Chair" class could inherit from both Table and Chair classes. If both parent classes have methods with the same name, which one should the Combo Table-Chair class inherit?
-- In some cases, it may be necessary to retain methods of the same name from both parents. For example, both tables and chairs might have a "Return Weight Capacity" method, but the table and chair parts of the combo furniture might have different capacities, requiring both parents' methods to be retained.
-- Other times, it might be appropriate to keep only one version of the method with the same name, such as a "Return Price" method. The combo furniture piece can't logically return two different prices.
-- A more complicated situation arises when a program designed to process all furniture, taking "Furniture" as its input type, receives a combo table-chair instance. When the program calls the "Return Weight Capacity" method, should it execute the method inherited from the Table class, the Chair class, or the original method from the "Furniture" class?
+While some languages (like C++) support multiple inheritance, it introduces the infamous **Diamond Problem** and class member conflicts. For example, if both `Table` and `Chair` implement a `Calculate Weight Capacity` method, which version does `Combo Table-Chair` inherit?
+- Should it keep both implementations separate?
+- If they both inherit from a common ancestor like `Furniture` which defines `Calculate Price`, which path does the compiler resolve to avoid calculating the price twice?
+- If a program accepts a generic `Furniture` wire and calls `Calculate Price` on the combo object, does it dispatch through the `Table` path or the `Chair` path?
 
-Programming languages do define rules for these scenarios. The challenge is that programmers may struggle with understanding and implementing these rules correctly, leading to code that yields baffling results. Thus, the issues stemming from multiple inheritances often outweigh its benefits. A common recommendation for C++ programming is to avoid multiple inheritances. Reflecting on C++'s lessons, many newer mainstream programming languages have outright removed the feature for class multiple inheritances. So, how can we accommodate a combo table-chair in a system that requires it to be recognized by both table and chair processing programs without multiple inheritances? The solution lies in using "interfaces".
+The rules to resolve these ambiguities in languages like C++ are notoriously complex and error-prone. Consequently, modern languages (including Java, C#, and LabVIEW) forbid multiple class inheritance. Instead, they resolve this design dilemma using **Interfaces**.
 
 
 ### Interfaces
 
-Interfaces can be likened to abstract classes composed exclusively of abstract functions. They allow for multiple inheritances without causing confusion because they only offer method definitions without actual implementations. It's clear that methods within an interface won't be directly called by a program since there's no implementing code. When a class inherits from a parent class, it's to leverage the parent's implemented methods. Conversely, inheriting an interface compels the class to implement all the methods the interface demands. Naturally, a class can inherit from multiple interfaces, ensuring it supports every method defined across these interfaces. For instance, a hybrid table-chair inheriting from both "Table" and "Chair" interfaces signifies it possesses functionalities of both, making it compatible with programs processing either tables or chairs.
+An **Interface** can be thought of as a purely abstract class containing only method signatures without any implementation code. Because interfaces do not contain code or data, inheriting from multiple interfaces does not cause conflicts or duplicate data issues.
 
-While interfaces address the challenge of enabling an object to support functionalities of various types—thereby making it compatible with diverse programs handling different data types—they don't tackle the issue of minimizing code redundancy effectively. That's because many methods, already defined elsewhere, can't be inherited. Various programming languages have introduced different strategies for more efficient code reuse. PHP, for example, introduced Traits—a block of code encapsulated in a manner similar to a class. Classes can utilize a defined Trait, like TableTraits, which encapsulates methods common to tables, such as the put_tablecloth method. A class named DeskClass utilizing TableTraits inherits all its encapsulated methods. A Trait can be utilized by multiple classes, and a class can employ multiple Traits. Therefore, another class named DiningTableClass that uses TableTraits also inherits the put_tablecloth method.
+When a class inherits from a parent class, it gains the parent's behaviors (implementation reuse). When a class inherits (implements) an interface, it signs a contract agreeing to implement all the methods defined by that interface. In LabVIEW, a class can inherit from exactly one parent class, but it can implement multiple interfaces. A `Combo Table-Chair` class can inherit from `Chair` and implement a `Table` interface, making it compatible with any program designed for either chairs or tables.
 
-Distinct from class inheritance, methods from Traits are directly incorporated into the class, making them indistinguishable during execution from methods natively implemented in the class. This approach solves the ambiguity of method implementation that arises with multiple inheritances, as seen with DeskClass:put_tablecloth and DiningTableClass:put_tablecloth methods.
+While interfaces solve the type-compatibility issue (allowing a class to belong to multiple types), they do not directly solve code reuse because interfaces do not contain code. Different programming languages have addressed this in different ways:
+- **Traits (e.g., PHP, Rust):** Reusable blocks of code that can be imported directly into a class, avoiding inheritance-based duplication.
+- **Default Interface Methods (e.g., Java, C#):** Allow interfaces to provide a default method implementation. To avoid conflicts if a class implements multiple interfaces with the same default method signature, the language forces the implementing class to override the method and explicitly declare which version to use.
 
-Java took a different approach to this issue by allowing interfaces to provide default method implementations. If a class using the interface doesn't override a method, its objects default to using the method as implemented in the interface. Given that interface methods can now have implementations, and considering the possibility of multiple inheritances, restrictions are necessary to avoid reintroducing all the problems associated with class multiple inheritances. Java imposes a restriction for using default implementations in classes: if a class implements several different interfaces with identically named methods, and these interfaces offer default implementations, the class must override this method. This ensures any program using the class's objects knows it's invoking the method as overridden in the class, not any interface-implemented method. This clarity prevents the confusion about call relationships that multiple inheritances often bring.
+LabVIEW 2020 introduced interfaces to the G language. We will detail how to use them in [Interfaces](oop_interface).
 
 
-### Object-Oriented Programming and Data Flow in LabVIEW
+### OOP and Data Flow in LabVIEW
 
-Let's consider whether LabVIEW class objects are passed by value or by reference in programs. A simple experiment can shed light on this question:
+A fundamental design question for any programming language is whether objects are passed by value or by reference. Let's run a simple experiment in LabVIEW to see:
 
 ![images_2/image54.png](../../../../docs/images_2/image54.png "Passing Object by Value")
 
-If we pass an object along two branches and modify its data on one branch, the data on the other branch remains unaffected. Thus, similar to most data types in LabVIEW, class objects are passed by value.
+If we branch an object's wire and modify the object's data on one branch, the data on the other branch remains completely unaffected. This demonstrates that, like most native G data types, LabVIEW class objects are **passed by value**.
 
-LabVIEW operates on a dataflow-driven programming model. Data travels along wires, each node receiving data through its input, processing it, and then passing the result through its output. Aligning with the data flow concept, LabVIEW functions or VIs predominantly utilize pass-by-value: as if data flows entirely along the wire into the node, and whenever there's a fork, a duplicate of the data is created. This ensures two identical but independent data pieces continue along different paths.
+LabVIEW is built on a dataflow paradigm. Data travels along wires: a node executes when all its inputs are available, processes that data, and passes the result downstream. Forking a wire duplicates the data, creating two independent copies. To maintain this intuitive behavior, LabVIEW objects navigate the block diagram via pass-by-value, differing from languages like C++, Java, or C# where objects are almost exclusively passed by reference.
 
-To preserve this dataflow-driven methodology users are accustomed to, LabVIEW class objects also navigate between nodes by value, which is distinct from the approach of many other programming languages where objects are typically passed by reference.
+Pass-by-value in LabVIEW has distinct architectural advantages, particularly when it comes to memory management and thread safety:
 
-Pass-by-value and pass-by-reference each have their unique advantages. LabVIEW's unique selection of pass-by-value is because the benefits of value passing are more pronounced within LabVIEW's context.
+1. **Efficiency and Memory Optimization:** In text-based languages, passing large structures by value can be slow because data must be copied onto the call stack. In LabVIEW, subVIs do not use stack pushing to pass arguments. The LabVIEW compiler optimizes memory allocations (buffer allocation) by reusing memory blocks in-place when a VI modifies data. Consequently, pass-by-value in G is highly optimized and doesn't incur the performance penalties typically seen in text-based environments.
+2. **Race Conditions and Multithreading:** In pass-by-reference languages, multiple threads can access the same memory location simultaneously. If thread A writes to an object while thread B reads from it, a race condition occurs. Developers must use complex synchronization tools (like mutexes, semaphores, or critical sections) to write thread-safe code.
+   LabVIEW is inherently multithreaded. The compiler automatically parallelizes nodes that have no data dependencies. Because LabVIEW uses pass-by-value, branching a wire automatically isolates the data in each execution branch. Programmers don't have to worry about concurrent read/write errors because the two threads are working on independent copies of the data.
 
-The primary advantage of pass-by-reference is its efficiency, as objects often consist of large amounts of data. In languages like C, where function parameters are passed by stacking, large data volumes can make stack operations costly. Meanwhile, a reference typically occupies only 4 or 8 bytes, making it far less costly than passing the data directly. LabVIEW does not use stack pushing when passing parameters to subVIs. With well-designed programs allowing for cache reuse, where subVI parameters directly utilize the source data's memory, the efficiency of parameter passing is significantly improved. Thus, in LabVIEW, pass-by-value doesn't detrimentally affect efficiency as it might in languages like C.
-
-In multithreaded programs, passing by reference means different threads can access the same data block, making concurrent read-write operations risky and potentially leading to unpredictable results. Critical sections, semaphores, and other mechanisms are often employed to prevent race conditions. This scenario is manageable for programmers accustomed to multithreading in languages like C++. They're generally aware of the risks of race conditions and take measures to avoid errors.
-
-A substantial portion of LabVIEW's user base, however, are not computer science experts. To facilitate the use of multithreading more straightforwardly, LabVIEW employs an automatic multithreading mechanism. Developers don't need to explicitly create new threads; any two code segments without a logical sequence dependency may automatically execute in parallel threads. In this environment, passing by reference becomes perilous, as programmers might be unaware of their program's multithreaded nature, inadvertently writing code that leads to race conditions.
-
-Pass-by-value resolves this issue. It means that when necessary, data is duplicated at each fork, creating equal but independent copies for each potentially concurrent execution path. This ensures data remains isolated, preventing unintentional race conditions. If a program needs to process the same object across different threads, developers can consciously use LabVIEW's pass-by-reference mechanisms, understanding the associated risks and implementing thread safety precautions.
+If your application explicitly requires a single shared instance of a class across different parts of the diagram, you can implement **by-reference classes** using LabVIEW's reference mechanisms (such as Data Value References, queues, or DVR-wrapped objects), which we will discuss later in the book.
 
 
-### The Influence of Object-Oriented Principles on LabVIEW Programming
+### The Impact of OOP on LabVIEW Programming
 
-In the current landscape of LabVIEW program development, the process typically begins with designing and implementing the top-level VI, often the main interface of the program. From this point, the development strategy generally follows a top-down approach. This methodology tends to result in most program modules lacking reusability, necessitating their redevelopment for each new project. Only a handful of foundational modules at the very bottom might be versatile enough for reuse.
+Traditional LabVIEW development often starts with the top-level UI and proceeds top-down. This ad-hoc approach makes modules highly project-specific, resulting in low code reuse. Typically, only a few low-level driver or utility VIs end up being reused in subsequent projects, while the core logic has to be rewritten from scratch.
 
-As program sizes expand, the overlap between different projects increases, leading to more components that could potentially be reused. Consequently, the efficient management, maintenance, and reuse of these modules have become crucial factors in software development productivity. Programmers are increasingly concentrating their efforts on the thoughtful design and creation of these modules.
+As application complexity grows, managing, maintaining, and reusing software components becomes critical. OOP addresses these challenges by organizing code into self-contained, encapsulated classes. Because class methods are bound to their private data structures, classes act as highly decoupled modules that can be developed, tested, and maintained independently. Inheritance allows developers to extend existing modules without rewriting them, and polymorphism enables writing clean, pluggable architectures. Adopting OOP principles allows LabVIEW applications to scale up cleanly to support large, enterprise-grade software systems.
 
-Object-oriented programming emerged in response to these challenges, offering a way to encapsulate program functionalities into modules to enhance their universality and security. It supports the inheritance of module features, streamlining the development of new modules. Modules can be developed and tested in parallel, making collaborative work more manageable. These advantages significantly elevate the efficiency of developing extensive LabVIEW programs. As a result, LabVIEW applications built on a foundation of various modules are poised for a substantial leap forward in scale.
 
-## Efficiency Issues Stemming from LVClass Memory Loading
+## Class Memory Loading and Performance {#class-memory-loading}
 
-A LabVIEW user once expressed frustration over his program taking several minutes to open each time, a situation he found increasingly intolerable. Analysis of his project pinpointed the cause of the efficiency bottleneck: the extensive use of LvClass. His project included hundreds of classes (LvClass), and the proliferation of LvClass was identified as a primary factor in the reduced efficiency.
+A LabVIEW developer once complained that their application took several minutes to load, making updates painful. Analysis of the project revealed that the bottleneck was due to class design: the project defined hundreds of `.lvclass` files, resulting in thousands of VIs loading into memory simultaneously.
 
-LabVIEW features a property node capable of displaying all VIs currently loaded into memory. This tool allows users to determine precisely which VIs are loaded after a program is opened:
+LabVIEW provides property nodes to query which VIs are currently loaded in memory. You can use these to profile your application's memory footprint:
 
 ![](../../../../docs/images/image817.png "Viewing all VIs in memory")
 
-If a VI doesn't belong to any LvClass and includes no subVIs, opening this VI (even if it's part of an lvlib) results in only that specific VI being loaded into memory. However, opening a VI within an LvClass triggers the loading of not just that VI but all other VIs within the same class into memory. Furthermore, if this class is a descendant of a parent or ancestor class, then all VIs within those parent and ancestor classes are also loaded into memory, compounding the efficiency issue.
+If a VI is independent (or belongs to a standard project library, `.lvlib`) and has no subVIs, opening it loads *only* that specific VI into memory. However, opening any VI belonging to a `.lvclass` triggers the loading of the **entire class** (all member VIs) into memory. Furthermore, if the class has parent or ancestor classes, all VIs inside those ancestor classes are loaded as well.
 
 
-### Summary
+### Summary of Memory Loading Rules
 
-When a VI is loaded into memory, the following occurs:
-1. All its subVIs are also loaded into memory.
-2. Every VI within its class gets loaded into memory.
-3. Every VI within its parent class gets loaded into memory.
+When a VI is loaded:
+1. All of its subVIs are loaded.
+2. Every member VI of its class is loaded.
+3. Every member VI of all its ancestor classes is loaded.
 4. These rules apply recursively.
 
-For example, if a main VI, A.vi, is loaded, its subVI, B.vi, will be loaded too, along with C.vi that belongs to the same class as B. If C contains a subVI, D.vi, from class E.lvclass, and E's parent class is F.lvclass with a method VI G.vi, then G.vi will also be loaded into memory, even if it has no direct relevance to A.vi. This program might not seem extensive at first glance, but starting it up could involve loading many unrelated VIs into memory, potentially delaying the process by several minutes.
+For example, if you load `A.vi`, and it calls `B.vi` (which belongs to class `C.lvclass`), LabVIEW will load `B.vi` and all other methods of `C.lvclass`. If another method `C.lvclass:other.vi` (which isn't called by `A.vi`) contains a subVI `D.vi` belonging to class `E.lvclass`, then all methods of `E.lvclass` and its parent class `F.lvclass` will be pulled into memory. This recursive dependency chain can quickly drag thousands of unrelated VIs into memory, leading to slow startup times and high memory usage.
 
-Given LvClass's characteristics, careful design is crucial. Keep in mind:
+To prevent memory bloat, follow these class design guidelines:
 
-1. For mere VI encapsulation, opt for lvlib instead of lvclass. Lvlib encapsulates methods (VIs), whereas lvclass can encapsulate both methods and object attributes (data used by the module).
-2. Ensure that VIs within a class are highly cohesive, working together to accomplish a basic function that cannot be further divided. If an application is likely to use only a few VIs from a class, then employing a class may not be necessary.
-3. Simplify inheritance structures as much as possible and avoid unnecessary inheritance. Without support for interfaces in LabVIEW, creating purely virtual classes intended as interfaces should be avoided.
-4. Avoid nested calls within classes. For example, refrain from calling a VI from one class within a VI of another class.
-5. Exercise caution when using class polymorphism. While polymorphism allows applications to select an appropriate method based on an object's type at runtime, some choices should be determined at compile-time and might not be suitable for polymorphism.
+1. **Use `.lvlib` for Namespace Encapsulation:** If you only need to group related VIs into namespaces, use a Project Library (`.lvlib`) rather than a Class (`.lvclass`). Use classes only when you need to encapsulate both data (state) and methods.
+2. **Ensure High Cohesion:** Class methods should be tightly focused on a single responsibility. If a program only needs to use one or two VIs from a large class, the class is likely too bloated.
+3. **Keep Inheritance Trees Shallow:** Avoid deep, complex inheritance hierarchies. Before LabVIEW supported interfaces, developers often created deep hierarchies of purely virtual classes. This practice should now be replaced with interfaces to keep classes decoupled.
+4. **Minimize Dependencies Between Classes:** Avoid nesting classes where a method in class A calls methods in class B, C, and D, as this links their loading behaviors.
+5. **Use Polymorphism Judiciously:** While runtime polymorphism is powerful, use it only when the type is unknown at edit-time. If choices are fixed at compile-time, dynamic dispatch is unnecessary.
 
-### Specific Examples:
+### Practical Examples
 
-- A module for reading and writing INI files suits class design, with each INI file represented by a class instance. It involves rich data (file content) and a limited number of methods (open, read entries, write entries, save, and close), typically used together in applications.
-- Complex instrument driver programs are ill-suited to class design due to the vast number of functionalities provided. For instance, an oscilloscope may have various trigger modes, but an application usually requires only one.
-- A module for generating user reports in a testing program, where users can choose different report types at runtime, can be well-designed using lvclass. Significant code reuse across methods for generating different report types makes it practical to design a base class.
-- A testing program supporting various instrument models should not use lvclass for selecting instrument drivers. Although different users may employ different hardware, a specific user's hardware setup is fixed. The selection of instruments should be determined upon program release, not each time the program is run.
+- **Good Fit for Classes:** An INI file reader/writer module. Each INI file represents an object instance. The class encapsulates the file path and cached data, and the methods (`open`, `read`, `write`, `save`, `close`) are highly cohesive and typically used together.
+- **Poor Fit for Classes:** A comprehensive instrument driver (e.g., an oscilloscope driver with hundreds of configuration VIs). An application usually only configures a few specific trigger modes, but class loading would load every single driver VI into memory. Use project libraries (`.lvlib`) for instrument drivers instead.
+- **Good Fit for Classes:** A report generation module. If the application needs to dynamically generate PDF, HTML, or Excel reports at runtime based on user configuration, you can create a `Report` base class with subclasses for each format, sharing common layout methods.
+- **Poor Fit for Classes:** A testing program supporting multiple instrument models. While a factory pattern using classes seems appealing, a single user's test station typically has fixed hardware. Since the instrument type is known at deploy-time and does not change dynamically during execution, loading all driver classes into memory is wasteful. A conditional build, plugin architecture, or library-based approach is often better.
 
 
-## Handling LVClass Memory Loading and Type Conversion Issues
+## Class Serialization and Dynamic Loading
 
-Let's conduct an experiment to determine if we can convert an LVClass object into an XML format for file saving and then revert the data back to the corresponding LVClass object.
+Let's perform an experiment to see how LabVIEW classes behave when serialized to XML and restored.
 
-Initially, we assign some data to an object of a subclass. Then, we treat it as a parent class type, flatten it into XML text, and save it:
+First, we populate an instance of a subclass with data, cast the wire to its parent class type, and use the **Flatten to XML** function to save the data to a file:
 
 ![](../../../../docs/images_2/image12.png)
 
-After closing and reopening LabVIEW, we write a program to reverse the process, converting the XML data back into the parent class type data:
+Next, we restart LabVIEW (to clear the memory) and write a program to deserialize the XML back into the parent class object:
 
 ![](../../../../docs/images_2/image13.png)
 
-We encounter an error from the Unflatten From XML function, resulting in an output of an empty data set.
+Running this VI throws an error from the **Unflatten From XML** function, returning empty data.
 
-This error occurs because, although the object's type changes to that of the parent class during conversion, its data remains that of the subclass. Consequently, when converting to XML format, the XML format still captures the subclass data.
+Why does this happen? Even though we cast the subclass object to the parent class type in the first G diagram, the underlying object data remains that of the subclass. Consequently, the generated XML contains the subclass type descriptor and subclass-specific data fields.
 
-In the reverse process, when Unflatten From XML receives subclass data but discovers no subclass type information in memory, it fails to know how to convert the data, hence the error.
+When we restart LabVIEW and run the deserialization program, the block diagram only references the parent class type, so only the parent class is loaded into memory. When **Unflatten From XML** parses the XML and finds subclass data, it attempts to load the subclass. However, since the subclass is not currently loaded in memory, the function does not know the subclass's data structure and fails, throwing an error.
 
-If we slightly modify the program to directly convert XML data back into subclass data, it proceeds without errors:
+If we modify the deserialization VI to output the subclass type directly, the code runs without error:
 
 ![](../../../../docs/images_2/image14.png)
 
-Indeed, subclass data can always be represented using the parent class. Therefore, this XML data can also be directly converted back to the parent class type, provided the subclass type has already been loaded into memory. Merely placing an object of the subclass in the program automatically loads the subclass into memory. A program like the following would function correctly:
+Because a subclass can always be represented by its parent, we can also successfully unflatten the subclass data back into a parent class wire, *provided* the subclass is already loaded in memory. Dropping a subclass constant onto the block diagram forces LabVIEW to load the subclass, making the following code run perfectly:
 
 ![](../../../../docs/images_2/image15.png)
 
-From this experiment, we observe:
+From this experiment, we can draw two important conclusions:
 
-1. If the XML content is of a specific LVClass type, converting this data back into the corresponding LVClass object is feasible only if the LVClass is already loaded into memory. Otherwise, LabVIEW is unable to perform the conversion.
-2. As mentioned previously, loading a subclass into memory also loads all its parent classes. However, the converse is not applicable. A class has a definite hierarchy of parent classes, and the parents' addresses are cataloged within the subclass. But a parent class cannot anticipate its potential subclasses since anyone could derive various subclasses from it. Therefore, when a parent class is loaded into memory, it cannot simultaneously load all its subclasses.
+1. Deserializing XML or JSON data into a specific LabVIEW class type is only possible if that class has already been loaded into memory.
+2. Loading a subclass into memory automatically loads all of its parent classes because the subclass contains explicit dependencies pointing to its parents. However, loading a parent class does *not* load its subclasses. The parent class has no knowledge of which classes inherit from it.

@@ -2,4 +2,4 @@
 
 ![](../../../../docs/cover/ui.png)
 
-This chapter delves into designing and crafting both professional and visually compelling LabVIEW program interfaces.
+This chapter focuses on the design and implementation of professional, robust, and visually compelling LabVIEW user interfaces.

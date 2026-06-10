@@ -1,79 +1,79 @@
 # Principles of UI Design
 
-Some program interfaces immediately dazzle users upon launch, perhaps due to their innovative and lavish design. However, a visually striking interface does not automatically signify a well-functioning one. The primary benchmarks for evaluating an interface's quality are, firstly, its functionality - can users efficiently provide necessary information to the program and receive the information they need in return? Secondly, the ease and intuitiveness with which users can input or access information are crucial. The aesthetic appeal of the interface is considered last.
+Some software interfaces immediately dazzle users when launched with their innovative or striking designs. However, a visually striking interface is not necessarily a well-functioning one. The primary benchmarks for evaluating a user interface are functionality (can users efficiently input data and receive the information they need?) and usability (how easy and intuitive is it to use?). Aesthetics, while important, come last.
 
-From this standpoint, a well-designed interface ought to feel instinctive to users without drawing undue attention. Often, if an interface captures attention, it might be because users find it visually uncomfortable or because they struggle to locate required information or input fields.
+From this standpoint, a well-designed interface should feel natural and intuitive, never drawing undue attention to itself. In fact, when an interface draws attention, it is often because users find it visually jarring or struggle to locate the fields or information they need.
 
-When developing a project or software with LabVIEW, the typical workflow involves five steps: gathering requirements, designing, coding, testing, and deployment and maintenance. During the design phase, a project might necessitate various design aspects, including user interface design, program structure design, interface design, and module design. Starting with the user interface design in LabVIEW programming is common practice. Prioritizing interface design ensures it remains uninfluenced by the constraints of program implementation. Designing the program structure first can lead programmers to prioritize coding simplicity over interface usability, often resulting in interfaces that are not the most convenient for users.
+The typical software development lifecycle consists of five stages: gathering requirements, system design, coding, testing, and deployment/maintenance. The design phase itself covers several areas, such as user interface design, software architecture design, API/interface design, and module design. In LabVIEW development, it is common practice to start with the user interface design. Prioritizing the UI design ensures that the user experience is not constrained by back-end implementation details. Conversely, designing the program structure first often tempts developers to prioritize coding simplicity over usability, resulting in interfaces that are awkward or inconvenient for end-users.
 
-Designing and programming user interfaces with traditional textual languages usually requires drafting prototypes on paper first. LabVIEW possesses a unique advantage in this area with its visual programming environment, which greatly facilitates the creation of interface prototypes. With its extensive selection of readily adjustable controls, LabVIEW enables users to draft interface designs simply by dragging and dropping controls.
+When designing user interfaces in traditional text-based languages, developers typically start by sketching prototypes on paper. LabVIEW offers a unique advantage here: its visual programming environment makes rapid prototyping incredibly easy. With a rich selection of built-in controls, developers can draft fully interactive UI mockups simply by dragging and dropping elements onto the Front Panel.
 
-Perceptions of what constitutes a good or bad interface can differ widely. Beauty is in the eye of the beholder, as is wisdom. Nonetheless, high-quality user interfaces often share common characteristics, such as consistent design, proper use of data and control types, logical and streamlined control layout, and ease and convenience of user operations. Programmers should thoughtfully incorporate these elements when designing program interfaces.
+While aesthetics can be subjective, high-quality user interfaces generally share key traits: a consistent design language, appropriate choice of data and control types, logical layout, and smooth usability. Developers should carefully consider these principles when designing their VIs.
 
 
 ## Consistency
 
-A crucial characteristic of a user interface that facilitates quick adaptation and ease of use is its consistency. The term "consistency" here spans several dimensions.
+Consistency is critical for making a user interface easy to learn and operate. In UI design, consistency spans several dimensions:
 
 ### Internal Program Consistency
 
-Different software caters to varied application domains and target audiences, each adopting a unique style. For instance, software designed for children, like the LEGO edition of LabVIEW, might feature cartoon imagery to make it appealing and fun. Software targeted at young adults could use bright colors to appear vibrant and energetic. Most LabVIEW applications, being utilized in industrial settings and aimed at professional users, should opt for a subdued, simplistic design that underscores their professional utility.
+Different software applications cater to different domains and audiences. For instance, educational software designed for children—like the LEGO MINDSTORMS edition of LabVIEW—often features bright cartoon imagery to make it fun and engaging. In contrast, most LabVIEW applications are deployed in industrial, test, or laboratory environments for professional users. These applications should opt for a clean, professional, and uncluttered design that highlights utility rather than visual flair.
 
-No matter the style chosen, the various interfaces within a program—such as different dialog boxes—and the different controls on a single panel, should adhere to a consistent style. Using a uniform style across the board can give users a sense of harmony and cohesion.
+Regardless of the style you choose, all interfaces within an application—such as dialog boxes, setup screens, and subpanels—must maintain a consistent look and feel. Using a uniform style across all screens creates a cohesive, professional user experience.
 
-As illustrated below, opening LabVIEW's control palette reveals controls in several distinct styles: Classic, Modern, and System.
+Opening the LabVIEW Controls palette reveals controls in several distinct styles: Classic, Modern, System, and Silver:
 
 ![Different Styles of Controls](../../../../docs/images/image572.png "Different Styles of Controls")
 
-Controls in the Classic style may seem somewhat dated; they were the standard in versions of LabVIEW prior to LabVIEW 6. Apart from two specific scenarios, this style has largely fallen out of use.
+Classic controls look dated; they were the standard in LabVIEW versions prior to LabVIEW 6.0. Aside from two specific scenarios, this style has largely been abandoned.
 
-One scenario involves maintaining legacy programs. If an older program was originally designed using Classic controls, and there is a need to keep the interface style consistent without the intention to invest time in revamping the original interface, then Classic style controls would still be necessary.
+The first scenario is legacy maintenance. If you are modifying an older application built with Classic controls, you should continue using them to maintain a consistent style unless you plan to revamp the entire interface.
 
-The second scenario is when you need to design a transparent control. In LabVIEW's interface design, setting control backgrounds and borders to transparent can unlock various special effects. This application will be explored in more detail with later examples. For now, let's consider a simple case: if you need to display instructional text on the interface while the program is running, but you don't want the string control's borders to be visible, you can set both the border and background of the string control to transparent.
+The second scenario is when you need transparent controls. Setting a control's background or border to transparent is a powerful technique for creating special UI effects. For example, if you want to display dynamic instructional text on the Front Panel without showing the borders of a String Control, you can make its background and borders transparent.
 
-To do this, click on "View -> Tools Palette" from the menu to open LabVIEW's tools palette. By selecting the "Color Settings" tool at the bottom of the palette and choosing the transparent color option in the top right corner, you can make the background and border of the string control transparent.
+To do this, select **View >> Tools Palette** from the menu to open the Tools Palette. Click the **Color Copy/Set Color** tool at the bottom of the palette, select the transparent option (represented by a "T" icon) in the upper right of the color picker, and paint the background and border of the control.
 
-For modern and system style controls, certain parts cannot have their colors changed, necessitating the use of classic style controls for full transparency:
+Unlike Classic controls, certain parts of Modern, System, and Silver controls cannot be painted transparent, which is why Classic controls are still used for this purpose:
 
 ![Effects of Making Two Types of Controls Transparent](../../../../docs/images/image573.png "Effects of Making Controls Transparent")
 
-With the introduction of LabVIEW 6 and later versions, a range of aesthetically pleasing controls featuring a three-dimensional effect, known as modern style controls, became available. These controls are particularly suitable for software developed for the testing domain.
+In LabVIEW 6.0, NI introduced Modern controls, which feature a three-dimensional, beveled appearance. These controls are highly popular and well-suited for traditional test and measurement software.
 
-System style controls align with the look and feel of the operating system. Using these controls for your interfaces ensures consistency with the native style of the system, which users tend to readily accept. These controls automatically adapt to different operating systems and their settings. For instance, if a program is transferred to a Mac OS machine, text boxes will automatically switch to the Mac OS style with rounded corners. Similarly, if the system color scheme is set to high contrast, text boxes will adapt to a black background with white text.
+System controls match the look and feel of the host operating system (such as Windows or macOS). Using System controls makes your application look like a native OS application, which feels familiar to users. These controls automatically adapt to the host OS and user preferences. For instance, if you run the program on macOS, the controls will automatically adopt native macOS styling. Likewise, if a Windows user enables a high-contrast theme, the System controls will adjust their colors accordingly.
 
-However, certain LabVIEW-specific controls, like the waveform display controls, lack a system style option. If your program predominantly uses system style, you might need to tweak the colors of these specific controls to keep them in harmony with the system's color scheme.
+However, some LabVIEW-specific controls (such as the Waveform Graph and Waveform Chart) do not have native System equivalents. If your application relies heavily on System controls, you will need to manually adjust the colors and borders of these graphs to match the rest of the interface.
 
-In LabVIEW 2011, a new "Silver" style set of controls was introduced, aligning with contemporary design trends. When crafting applications, making use of the "Silver" series can lend a modern flair to your interface.
+LabVIEW 2011 introduced Silver controls, which offer a flat, clean, and modern appearance aligned with modern software design. Using Silver controls can give your application a sleek, contemporary look.
 
 
 ### Adhering to Established Conventions
 
-There are numerous design and operation methods that might not be the most visually appealing or the most optimized, yet they have been broadly accepted by the public and are therefore challenging to change.
+Many interface designs and interaction patterns are widely accepted by users simply because they are industry standards, even if they are not theoretically optimal.
 
-Take, for instance, our current keyboard layout, which was intentionally designed to slow down typing speeds. Despite its inefficiency, it has become so ingrained in our habits that few people would switch to a different layout just for the sake of increased typing speed.
+For example, the standard QWERTY keyboard layout was originally designed for mechanical typewriters to prevent key jams by slowing down typing. Despite being inefficient compared to modern layouts like Dvorak, it is so deeply ingrained in user habits that attempting to change it is practically impossible.
 
-Similarly, certain classic operations associated with system software, like using Ctrl+C for copy and Ctrl+V for paste, have become universally accepted standards. Attempting to repurpose these shortcuts for tasks you might deem more fitting would likely not be well-received by users.
+Similarly, standard keyboard shortcuts like **Ctrl+C** for copy and **Ctrl+V** for paste are universal. Mapping these shortcuts to other functions in your application would frustrate and confuse users.
 
-In terms of application interfaces, the most familiar setup is arguably the Windows default style: windows with a title bar at the top, a menu below it, followed by a toolbar, the main content area, a status bar at the very bottom, and scroll bars to the right and at the bottom. Deviating from this familiar arrangement, such as swapping the positions of the title bar and scroll bars, would undoubtedly make the interface feel unintuitive. For example, Microsoft's Office 2007 underwent a significant makeover in terms of interface style, becoming much more visually appealing. However, the rearrangement of many commonly used menus and buttons required users to reacquaint themselves with a new layout. As a result, after the release of Office 2007, many users preferred to stick with the older versions of Office software with which they were already comfortable.
+In desktop application design, users expect standard layouts: a title bar at the top, a menu bar and toolbar below it, a main workspace in the center, scroll bars on the right and bottom, and a status bar at the very bottom. Deviating from this layout (e.g., placing the menu bar at the bottom) makes the application feel awkward and difficult to navigate. A classic example is Microsoft Office 2007, which introduced the "Ribbon" interface. Although visually appealing, the drastic rearrangement of familiar menus frustrated users and delayed adoption, with many choosing to stick to older versions.
 
-LabVIEW's default color scheme and control style are somewhat different from those of the system. Hence, to make things easier for new users, it is advisable to utilize system-style controls and color schemes in your programs wherever possible.
+Because LabVIEW's default 3D/Modern controls and color schemes differ from standard OS windows, it is often best to use System controls and standard OS colors for general utility dialogs and configuration screens. This helps users feel immediately at home.
 
 
 ### Aligning with Real-World Analogues
 
-Many applications aim to simulate or replicate real-world environments. For user interfaces to be easily accepted, they should closely align with real-world counterparts.
+Many software applications model or control real-world devices. Designing interfaces that mirror physical hardware makes them much more intuitive.
 
-Programs developed in LabVIEW are often related to measurement and control. In these domains, certain widely recognized instruments or devices have become ingrained in user familiarity. Thus, software interfaces can draw design cues from these instruments. For instance, if a program is intended to mimic an oscilloscope, its interface should resemble that of a traditional oscilloscope as closely as possible: featuring a waveform display on one side, with knobs and switches for adjusting vertical and horizontal scales surrounding it. This design approach ensures that anyone who has previously used an oscilloscope can intuitively operate the software.
+Since LabVIEW is primarily used for test, measurement, and control, users are often already familiar with physical instruments like oscilloscopes, multimeters, and power supplies. Designing software front panels to look and behave like their physical counterparts reduces the user's learning curve. For example, a virtual oscilloscope interface should feature a large waveform graph in the center, flanked by knobs and switches for adjusting horizontal (timebase) and vertical (gain) scales. Anyone who has operated a physical oscilloscope will immediately understand how to use it.
 
-Below is an example from LabVIEW's built-in examples. Despite its design utilizing older-style controls, which might not match the aesthetic softness and appeal of modern interfaces, it achieves consistency with actual oscilloscopes in control appearance, layout, and operational methods, mirroring the real-life buttons and knobs on oscilloscopes. As a result, users familiar with oscilloscopes can typically operate this VI's oscilloscope-like functions without needing to refer to the VI's help documentation.
+The figure below shows a classic example from LabVIEW's built-in library. While its styling uses older controls, its layout, knobs, and buttons mimic a physical benchtop oscilloscope. Operators familiar with hardware instruments can use this virtual instrument immediately without reading a manual.
 
 ![LabVIEW Built-in Dual-Channel Oscilloscope Example](../../../../docs/images/image574.png "LabVIEW Built-in Dual-Channel Oscilloscope Example")
 
 ### Establishing and Adhering to Interface Standards
 
-A key to maintaining interface consistency is the observance of specific design standards during development. These standards detail the program interface's aspects, such as uniform color for all dialog boxes, consistent button sizes, and standard font size for all text.
+Maintaining UI consistency across a team or large project requires defining and adhering to clear interface standards. These standards dictate details such as window background colors, standard button sizes, font families, and text sizes.
 
-Standards can be defined internally by an organization or adhere to established industry norms. For programs designed in the style of the Windows operating system, Microsoft's interface standards offer a guideline. Microsoft hosts a comprehensive introduction to Windows program interface standards on its http://www.msdn.com website. For LabVIEW programs, the LabVIEW Program Development Standards provide a framework. The "LabVIEW Development Guidelines: LabVIEW Style Guide (Chapter 6)" document, available on http://zone.ni.com/devzone/cda/tut/p/id/4434, outlines specifics like panel colors, font sizes, and control arrangement guidelines for LabVIEW applications.
+These standards can be defined internally or align with platform-specific guidelines. For Windows-style applications, Microsoft's *Windows User Experience Interaction Guidelines* (historically found on MSDN) are the gold standard. For LabVIEW-specific guidelines, refer to the **LabVIEW Style Guide** (often chapter 6 of the *LabVIEW Development Guidelines* or NI's online developer zone), which details recommended panel colors, font choices, and control alignments.
 
 
 ## Association of Interface Elements
@@ -81,112 +81,112 @@ Standards can be defined internally by an organization or adhere to established 
 ![Original Menu](../../../../docs/images/image575.jpeg "Original Menu")    
 ![Shuffled Menu](../../../../docs/images/image576.jpeg "Shuffled Menu")
 
-The images above compare two menus: one from LabVIEW and another creatively designed by the author. It's reasonable to assume most readers would prefer the first menu, which is neatly organized and logical.
+The figures above compare a standard LabVIEW menu with a scrambled, randomized menu. Most users will immediately prefer the first one because it is organized logically.
 
-The denser the interface with elements, the longer it takes to locate specific information. When users identify an element related to their search, they expect it to provide guidance, helping them find what they're looking for more quickly. Thus, interfaces need clear cues indicating which elements are related and which aren't.
+The more cluttered an interface, the longer it takes for a user to find what they need. When a user scans a UI, they look for visual patterns and groupings. A well-designed interface must provide clear visual cues to indicate which elements are related and which are independent.
 
-Various methods can showcase the relationships between interface elements, including their arrangement, borders, whitespace, colors, and fonts.
+You can group and associate interface elements using alignment, borders, whitespace, color, and typography.
 
-People tend to look for information near content that appears related. Therefore, controls or items that are logically connected should be positioned close to each other on the screen. For instance, related items like "Save", "Save As", "Save All" in the menu mentioned are grouped together.
+Proximity is a powerful cue: users expect logically related items to be physically close to one another. For instance, file operations like **Save**, **Save As**, and **Save All** are grouped together in standard menus.
 
-However, merely placing related content in proximity isn't sufficient. Consider the illustrations below:
+However, proximity alone is not always enough. Consider the following humorous example:
 
 ![Kids' Names 1](../../../../docs/images/image577.jpeg "Misinterpreted Kids' Names")  
 ![Kids' Names 2](../../../../docs/images/image578.jpeg "Misinterpreted Kids' Names Continued")
 
-This represents a classic joke circulating on the internet: A teacher is distributing homework and calls out names written on the books: "Yellow Belly" and "Fish Is Worm", but receives no answer. Eventually, two kids haven't received their books, revealing their names are actually "Huang Yupi" and "Lu Dan". While the kids ordered the interface elements sequentially, they failed to logically group them, leading to a humorous misunderstanding.
+This is a classic joke from the Chinese internet: A teacher is handing back notebooks and calls out the names written on the covers: "Yellow Belly" and "Fish Is Worm", but no one answers. It turns out the notebooks of two students, "Huang Yupi" and "Lu Dan", were placed side-by-side. The teacher read horizontally across both books instead of vertically down each cover. Although the students wrote their names clearly, the lack of visual separation between the books led to a humorous mix-up.
 
-In a menu containing more than twenty items, simply grouping related items together may still not be user-friendly. A better approach is to organize them into different functional zones. For instance, separating file-saving operations from project operations with a divider can clarify their distinct functionalities.
+For interfaces or menus with many items, proximity alone isn't enough. You should partition the elements into distinct functional zones. For example, using a horizontal separator line in a menu to split file saving from printing makes the structure immediately clear.
 
-This principle also applies to panel controls. Grouping functionally related controls together, whether through borders, dividing lines, or varying spaces, helps users intuitively understand their close functional connections.
+The same principle applies to Front Panel controls. Grouping related inputs and outputs using **Decorations** (such as boxes or lines), **Tab Controls**, or whitespace helps users grasp their functional relationships at a glance.
 
-Color serves as another way to signify the relationship between controls. For example, on a sports field, team members are easily distinguished by their uniform colors once the spatial arrangement dissolves with the start of the game. This logic can similarly guide interface design by assigning distinct colors to controls based on their functions.
+Color is another effective way to show relationships. For example, players on a sports field are easily identified by their jersey colors, even when they are mixed together. In UI design, you can use color coding to group related controls or highlight specific functions.
 
-However, it's crucial to use color only as a secondary method. It should be reserved for instances where the other methods are not feasible. People's preferences for interface color richness vary significantly. While a neatly organized, logically structured interface is universally preferred, an overly colorful one is not. Interfaces with bright, contrasting colors can lead to visual fatigue and even discomfort for some users.
+However, color should be used sparingly and as a secondary cue. Visual structure should rely primarily on alignment and spacing. Overly colorful interfaces are often distracting, look unprofessional, and can cause visual fatigue. Furthermore, some users have color vision deficiencies, so color should never be the sole mechanism for conveying meaning or grouping.
 
-LabVIEW's color configuration panel is segmented into various color zones:
+The LabVIEW color picker is organized into different functional palettes:
 
 ![LabVIEW Color Configuration](../../../../docs/images/image579.jpeg "LabVIEW Color Configuration")
 
-When designing in a system style, it's essential to use system colors. Otherwise, opt for soft colors over bright, flashy ones. Interface color schemes should also be considerate of users with color blindness or color vision deficiencies.
+When designing system-style dialogs, always use the predefined **System Colors** (like *Panel*, *Window*, *App Font*). If you use a custom color scheme, opt for soft, muted tones instead of highly saturated primary colors. Ensure high contrast between text and backgrounds to accommodate visually impaired or color-blind users.
 
-For interfaces with minimal content, it's wise to limit the use of multiple colors. Color diversity is more beneficial when dealing with interfaces that contain a large amount of information. For instance, in texts where differentiating between various segments is necessary (like highlighting spelling mistakes or identifying different word types), colors can help distinguish these elements. However, even in such cases, employing different fonts or font sizes can achieve a similar distinction without relying on color.
+Simple interfaces should use minimal color variation. Color is best used to draw attention to exceptional states or highlight specific categories in information-dense displays (such as syntax highlighting in code editors or error flags in a system log). Even then, combining color with other visual cues (like bold text or status icons) ensures the interface remains accessible and clear.
 
 
 ## Providing Help and Feedback
 
-Designing user interfaces requires special consideration for new users. To aid their understanding of the interface's functionality, ample help or guidance should be readily available. LabVIEW offers several avenues for delivering this information, including user manuals, the Context Help window, tooltips, descriptive titles and option texts for controls, and embedding help text directly on the interface.
+A good user interface must guide and support its users, especially beginners. Help should be accessible right where the user needs it. LabVIEW provides several mechanisms for this: descriptive labels, the **Context Help** window, tooltips, embedded instructions, and external documentation.
 
-First and foremost, it's essential to use control names that are meaningful and easily understood. Consider the control depicted below, which is designed to specify the trigger condition for a signal: either the rising or falling edge. If this control lacks a name or is given a vague label like "Mode", it fails to convey its purpose effectively. A more descriptive label like "Edge Trigger Mode" significantly aids user comprehension.
+First, ensure all controls and indicators have clear, descriptive labels. Consider the Boolean switch below, which selects the trigger edge for data acquisition. A vague label like "Mode" is unhelpful. A precise label like "Trigger Edge" immediately tells the user what the control does.
 
 ![Text Representation for Different States of a Boolean Control](../../../../docs/images/image580.png "Text Representation for Different States of a Boolean Control")
 
-However, a title alone may not suffice. This control, representing two possible values, is best depicted as a Boolean. But users might be unsure whether "True" indicates a rising or falling edge. Thus, displaying the Boolean text that describes the current state can instantly clarify the control's function and its present setting.
+However, a label alone may not be enough. For a binary switch, the user might not know which position corresponds to which state. Enabling the **Boolean Text** property (e.g., displaying "Rising Edge" and "Falling Edge" on the switch itself) makes the current state and option immediately clear.
 
-Tooltips are another widely utilized feature in software. Setting up a control's tooltip means that when users hover their mouse over it, a small yellow box appears near the cursor, revealing pre-defined help information. Additionally, LabVIEW's Context Help window can showcase even more detailed assistance. Compared to tooltips, the Context Help window offers more space for in-depth information.
+Tooltips (or hover help) are extremely useful. When a user hovers the cursor over a control, a brief description appears in a small popup box. For more detailed instructions, you can configure descriptions that display in LabVIEW's **Context Help** window (Ctrl+H) when the control is hovered.
 
-To add explanations and tooltips to a control, right-click on the control and select "Description and Tip." This action opens the "Description and Tip" dialogue:
+To configure these, right-click the control on the Front Panel and select **Description and Tip...** to open the properties dialog:
 
 ![Adding Descriptions and Tips to Controls](../../../../docs/images/image581.png "Adding Descriptions and Tips to Controls")
 
-In the dialogue, the upper field is for entering information displayed by the Context Help window, while the lower field is for the text shown in tooltips.
+The upper text box (**Description**) defines the content displayed in the Context Help window, while the lower box (**Tip**) defines the hover tooltip.
 
-It's worth noting that the Context Help window's capacity is somewhat limited. Overloading it with information can consume too much screen space, potentially disrupting the program's display or detracting from the interface's overall aesthetic.
+Note that the Context Help window has limited space. Avoid writing excessively long text there, as it can clutter the screen and distract the user.
 
-If further detailed assistance is required, it might be necessary to direct users to a user manual or dedicated help documentation. LabVIEW's help documentation is accessible through "Help -> Search LabVIEW Help" in the menu. It's important to clearly indicate on the interface that users can refer to the user manual for more information:
+For complex operations, you should link to a user manual or compiled help file (`.chm`). You can place a **Help** button on dialog boxes that directly opens the relevant section of your documentation:
 
 ![“Help” button in a dialog box opens related help documentation](../../../../docs/images/image583.png "‘Help’ Button in Dialog Boxes for Accessing Related Help Documentation")
 
-In LabVIEW programs, it's common to include links to relevant information in the Context Help window:
+You can also embed hyperlinks in the Context Help description to point users to detailed web pages or local help files:
 
 ![Context Help window with links to detailed documentation](../../../../docs/images/image582.png "Context Help Window with Detailed Documentation Links")
 
-For interfaces that are infrequently accessed—such as configuration screens that might only be used once every few years—do not expect users to recall the purpose of each item. If the interface does not need to be overly streamlined, including help information directly on the interface itself can be beneficial.
+For screens that are rarely opened (such as system installation or calibration wizards), do not expect users to remember what every setting does. If space permits, embed concise instructional text directly on the panel itself.
 
-Consider the "Tools -> Import -> Import Shared Library" tool as an example. The image below displays one of its interface pages, where the primary user decision involves selecting an "Error Handling Mode". Given the infrequent use of this setting, its description should be as comprehensive as possible, even if it occupies a substantial portion of the interface. In this case, to enhance understanding, demonstration images are also integrated into the interface.
+For example, look at the **Tools >> Import >> Shared Library...** wizard. One of its steps requires the user to select an "Error Handling Mode". Because this wizard is run infrequently, the panel includes detailed explanations of each option, updated dynamically with text and diagrams to clarify the selected mode.
 
 ![Interface of the Import Shared Library Tool](../../../../docs/images/image584.png "Interface of the Import Shared Library Tool")
 
-The text at the bottom of the interface offers detailed explanations for the various error handling modes, adjusting dynamically based on the user's selection. The center part of the interface features an illustrative diagram for the option. Pressing Ctrl+H activates Context Help, providing explanations for each interface element. If users seek even more detailed information, they can click the help button located in the interface's bottom-right corner to access the help documentation for an in-depth explanation.
+The text description at the bottom changes dynamically depending on the selected option, and a diagram in the center visualizes the selected mode. Pressing **Ctrl+H** brings up the Context Help window for additional details, and a dedicated **Help** button in the lower-right corner links directly to the full documentation.
 
 
 ## Implementing Constraints
 
-Ensuring software reliability falls under the purview of developers. In instances where users might make operational errors or input incorrect data, a robust program should be capable of halting further execution and reporting the error. However, addressing issues after they arise is less than ideal. A superior approach is to prevent misoperations and incorrect data inputs from occurring in the first place.
+Ensuring software reliability is the developer's responsibility. While a robust application should catch invalid inputs and display errors, it is far better to prevent users from entering invalid data or clicking the wrong buttons in the first place.
 
-Designing an interface thus requires consideration of how to limit incorrect inputs and operations by preventing errors and ensuring all data inputs fall within acceptable ranges.
+A well-designed UI restricts user input to valid ranges and operations, eliminating common errors at the source.
 
 
 ### Restricting Input Data
 
-Certain LabVIEW controls come with built-in functionality to limit input data. For example, numeric controls allow you to specify the range of acceptable data in their "Data Entry" properties tab. If you have a data acquisition program with a numeric control for selecting an input signal channel, valid inputs being channels 0 through 3, you should set the control's maximum and minimum values to 3 and 0, respectively, and select "Coerce" for the "Out of Range Response".
+Many LabVIEW controls have built-in validation. For example, you can limit the range of a Numeric Control via its **Data Entry** properties tab. If a data acquisition VI only has channels 0 through 3, configure the control with a minimum of 0, a maximum of 3, and set the **Out of Range Response** to **Coerce**.
 
 ![Data Range Restriction](../../../../docs/images/image585.png "Data Range Restriction")
 
-With such settings, even if a user enters an unreasonable number, such as 99, LabVIEW will disregard this invalid input.
+With these settings, if a user types `99`, LabVIEW automatically coerces it back to `3`, preventing the out-of-range value from propagating through your code.
 
-A safer strategy is to eliminate the possibility of incorrect inputs altogether. For instance, you might use an enumeration or a ring control for channel number selection. These controls offer a limited range of selectable values, ensuring users can only choose from the correct options:
+An even safer design is to eliminate manual text entry entirely. For selecting channels, use an **Enum** (Enumeration) or **Ring** control. These restrict selection to a predefined list of valid channels:
 
 ![Enumeration Type Data](../../../../docs/images/image586.png "Enumeration Data")
 
-Radio buttons offer another solution, with the added benefit of displaying all available options directly on the interface, potentially with detailed explanations for each. If the interface allows for ample space, radio buttons could be an excellent choice. The interface below, part of the VI properties dialog used for setting VI passwords, clearly displays the three protection options available:
+Radio buttons are another excellent choice when you want all options visible simultaneously, especially if they require brief descriptions. For example, the VI Properties dialog uses radio buttons to select protection settings:
 
 ![Interface Using Radio Buttons](../../../../docs/images/image587.png "Interface with Radio Buttons")
 
-For another example, if users need to select a color on the interface, the "Numeric -> Color Box" control ensures that only valid color values can be entered, effectively limiting input to legal color specifications.
+Similarly, if the user needs to select a color, using a **Color Box** control prevents them from entering invalid hexadecimal values.
 
 
 ### Preventing Misoperations
 
-Users interact with software interfaces in a wide variety of ways, not always in the manner anticipated by developers. Without meticulous design, unconventional user actions, whether intentional or accidental, can lead to software malfunctions. Thus, a well-designed program interface should also safeguard against user misoperations.
+Users do not always interact with interfaces in the ways developers expect. Unplanned actions, whether accidental or intentional, can cause runtime exceptions. A resilient interface should actively prevent invalid actions.
 
-One straightforward way to prevent misoperations is to disable any controls that should not be in use. For instance, consider an interface where the "Change Password" button is grayed out. This design choice is made because the user has selected "Unlocked", eliminating the need for a password. Instead of leaving users to determine whether they can use the button, it's more prudent to disable it entirely to prevent unintended errors from an accidental click. The button can be re-enabled once the user opts for password protection settings.
+The most effective way to prevent invalid actions is to disable or gray out controls that are not currently applicable. For example, in a password setup dialog, if the user selects "No Password (Unlocked)", the "Change Password" button should be grayed out. This prevents the user from clicking the button by accident and alerts them that the action is irrelevant. The button is re-enabled only when they select a password-protected option.
 
-By selecting "Create -> Property Node -> Disabled" from the control's right-click menu and inputting 0, 1, or 2 into the disable property node, the control's state will be set to "Enabled", "Disabled", or "Disabled and Grayed Out", respectively.
+In LabVIEW, you can control this programmatically. Right-click a control on the Block Diagram and select **Create >> Property Node >> Disabled**. Writing a value of `0` enables the control, `1` disables it, and `2` disables and grays it out.
 
 
 ## Highlighting Key Elements
 
-Interfaces should ideally be kept simple. An overload of controls, even if well-organized and logically connected, might overwhelm users, making it difficult for them to discern the functionality of each control at a glance.
+A good interface layout should remain simple. Cluttering the panel with too many controls—even if organized—can overwhelm users and obscure the primary functionality.
 
-If an interface is cluttered with numerous controls, the initial step should be to explore whether a more efficient layout could reduce the number of controls needed. For example, a single waveform chart control capable of displaying multiple curves could replace several individual waveform chart controls. If reducing the number of controls is not feasible, then prioritizing them based on their importance and usage frequency is essential, rather than treating all controls equally. Key controls should be placed in prominent positions and may be larger than less critical ones, allowing users to quickly identify the most important information. Take the oscilloscope interface as an example: despite its multitude of controls, the waveform display, being the oscilloscope's primary function, dominates the interface with its size and central positioning.
+If your UI requires many elements, first check if you can simplify the layout. For example, instead of separate charts for each sensor, you can use a single **Waveform Graph** that plots multiple channels. If you cannot reduce the control count, you must establish a clear visual hierarchy. Key elements (like the primary data display or critical status indicators) should be larger, styled more prominently, and placed in central positions. Less important settings can be smaller or tucked away in tab controls. On our virtual oscilloscope interface, for example, the waveform screen dominates the display due to its size and central position, while control knobs are grouped neatly around the periphery.

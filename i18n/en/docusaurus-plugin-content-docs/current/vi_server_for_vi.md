@@ -1,73 +1,94 @@
-# Dynamically Creating and Modifying VIs
+# Programmatically Creating and Modifying VIs
 
-You're likely already acquainted with writing or modifying a VI. Yet, some VIs might involve monotonous and repetitive development tasks, leading to the desire for automation. Consider a project comprising hundreds of VIs, each requiring the addition of copyright information, or needing to change all controls named “xxx handle” to “xxx reference.” Manually updating each VI is not only tedious but also prone to errors or omissions. This section introduces how to programatically handle these VI editing and modification tasks.
+Most developers are familiar with manually creating or editing VIs. However, when tasks become monotonous and repetitive, automation is highly desirable. For example, if you have a project with hundreds of VIs that all need copyright headers, or require renaming all controls matching `xxx handle` to `xxx reference`, manual editing is tedious and error-prone. This section introduces how to programmatically automate these editing and modification tasks.
 
 ## VI Scripting Permissions
 
-The VI scripting-related properties and methods previously mentioned are readily available in the LabVIEW Professional edition without needing special permission. However, some of the more potent VI scripting capabilities aren't enabled by default. For tasks like creating new VIs or VI elements such as controls and functions, or altering a VI's block diagram, these advanced features need to be activated. Starting from LabVIEW 2010, the option to enable these features is found in the LabVIEW options dialog. Within the options, under the VI Server page, there's a VI Scripting option. Checking this box activates VI scripting capabilities:
+The basic VI Server properties and methods discussed earlier are available in LabVIEW Professional without any special settings. However, more powerful capabilities (such as programmatically creating VIs, controls, and functions, or editing a VI's block diagram) are disabled by default.
+
+To activate these advanced features, open the LabVIEW **Options** dialog box, navigate to the **VI Server** page, and check the **Show VI Scripting functions, properties and methods** checkbox:
 
 ![Activating VI Scripting in LabVIEW Options Dialog](../../../../docs/images/image429.png "Activating VI Scripting in LabVIEW Options Dialog")
 
-After enabling VI scripting permissions, a new subpalette named VI Scripting becomes available in the "Application Control" function palette:
+Once checked, a new **VI Scripting** subpalette appears under the **Application Control** functions palette:
 
 ![VI Scripting Functions Accessible After Authorization](../../../../docs/images/image430.png "VI Scripting Functions Post Authorization")
 ![VI Scripting Subpalette](../../../../docs/images/image431.png "VI Scripting Subpalette")
 
-This subpalette introduces some novel functions. The "New VI" function creates new VIs; "Open VI Object Reference" allows for opening references to objects on a VI, like controls and functions, by their labels. Functions similar to "Controls[]" for the front panel and "Nodes[]" for the block diagram can also achieve comparable outcomes. "New VI Object" facilitates the creation of new objects; "Traverse for GObjects" obtains references for all objects of a certain type on a VI. This function serves a purpose very similar to that of "Get Control.vi", discussed in the section on "[Getting Object References](vi_server_for_ui#Getting Object References)", and could replace "Get Control.vi" going forward.
+This subpalette provides specialized primitives:
 
-With VI scripting permissions activated, a broader array of properties and methods becomes available. The image below shows a property selection menu for a VI object type, listing several properties like “Include Compiled Code,” “Block Diagram,” and “Block Diagram Window” that become accessible only after activation.
+- **New VI**: Creates a new, blank VI.
+- **Open VI Object Reference**: Opens references to specific front panel or block diagram objects (like controls, terminals, or functions) by matching their labels. (Note: Using `Panel -> Controls[]` or `BD -> Nodes[]` properties can yield similar results.)
+- **New VI Object**: Programmatically creates new objects on the front panel or block diagram.
+- **Traverse for GObjects**: Retrieves references to all objects of a specified class on a VI. This is very similar to `Get Control.vi` discussed in [Obtaining Object References](vi_server_for_ui#getting-object-references) and can be used as a more robust replacement.
+
+Enabling VI Scripting also unlocks many additional properties and methods. The image below shows the property selection menu for a VI object. Options like **Include Compiled Code**, **Block Diagram**, and **Block Diagram Window** only appear after enabling VI Scripting:
 
 ![Expanded VI Property Settings](../../../../docs/images/image432.png "Expanded VI Property Settings")
 
-The capabilities granted through these permissions are more extensive, enabling activities such as the creation or modification of VI code. When these privileged properties or methods are selected, the corresponding property nodes or invoke nodes are displayed in light blue, distinct from the previously seen pale yellow.
+Because these properties and methods allow you to programmatically modify source code, their corresponding Property Nodes and Invoke Nodes are colored light blue on the block diagram, distinguishing them from the standard pale yellow VI Server nodes.
 
 
 ## Creating a VI
 
-The "New VI" function allows for the creation of a new VI, providing you with its reference. By activating the VI's "Front Panel -> Open" and "Block Diagram -> Open" properties, you can display both its front panel and block diagram:
+The **New VI** function creates a new VI and returns its reference. By setting its `Front Panel -> Open` and `Block Diagram -> Open` properties to True, you can programmatically display its front panel and block diagram windows:
 
 ![Creating a New VI](../../../../docs/images/image433.png "Creating a New VI")
 
-After executing this program, a newly created VI will appear on your computer screen, behaving identically to when you select "File -> New VI" from LabVIEW's menu.
+Running this code opens a blank VI on your screen, identical to selecting **File -> New VI** from the menu.
 
-## Adding New Controls
 
-Once you have an empty VI, the next consideration is filling it with content. For instance, you might begin by adding two numeric controls. This is accomplished using the "Create VI Object" function. Providing this function with the appropriate control type, reference type, position, and the owner of the new control (here referring to the reference of the newly created VI) enables the creation of a new control on this VI. The block diagram for adding new controls is illustrated below:
+## Adding Controls
+
+Once you have a blank VI reference, you can add controls using the **New VI Object** function. Pass the target control type, the refnum style, the front panel coordinates, and the owner reference (in this case, the newly created VI) to place a control on the front panel:
 
 ![Creating Controls](../../../../docs/images/image434.png "Creating Controls")
 
-Executing the program above results in the front panel of the created VI as shown here:
+Running this code produces the following front panel layout on the new VI:
 
 ![Front Panel of the Program-Created VI](../../../../docs/images/image435.png "Front Panel of the VI Created by Running the Program")
 
 
 ## Creating the Block Diagram
 
-Creating nodes on the block diagram follows the same procedure as creating controls on the front panel. The image below is a segment of an example program that skips over the initial creation of a new VI, focusing instead on the part that constructs content for the block diagram:
+Placing objects on the block diagram uses the same **New VI Object** function. The following block diagram snippet demonstrates how to place an Add function and a numeric constant:
 
 ![Creating an Addition Function and a Numeric Constant](../../../../docs/images/image436.png "Creating an Addition Function and a Numeric Constant")
 
-Running the code depicted will generate a new addition function and a numeric constant on the block diagram of the newly created VI.
+Running this code adds the function node and the constant to the block diagram.
 
-Beyond just creating nodes on the block diagram, you also need to connect them with wires. This is done using the "Connect Wire" method for terminals, allowing you to link two terminals together. The program illustrated below shows how to connect the newly created numeric constant to the addition function:
+To wire the nodes together, use the **Connect Wire** method. The following code demonstrates wiring the numeric constant to the input terminal of the Add function:
 
 ![Wiring the Constant to the Addition Function's Input](../../../../docs/images/image437.png "Wiring the Constant to the Addition Function's Input")
 
-All other terminals also need to be interconnected, culminating in a complete block diagram. This encompasses the creation of the VI, addition of controls, generation of nodes on the block diagram, and their subsequent wiring:
+By wiring all remaining terminals, you can construct a fully functional block diagram programmatically:
 
 ![Overall Program Diagram](../../../../docs/images/image438.png "Overall Program Block Diagram")
 
-Executing the program illustrated above produces the block diagram for the new VI as shown below:
+The resulting block diagram is shown below:
 
 ![Block Diagram Generated via VI Scripting](../../../../docs/images/image439.png "Block Diagram Created with VI Scripting")
 
-Programmatically creating a new VI is an uncommon necessity, typically reserved for scenarios requiring the generation of many VIs. For instance, a company developing hardware drivers might need to mass-produce VIs with similar panels and block diagrams. Moreover, scripting programs to construct VI block diagrams is also a method used in creating [XControls](ui_xcontrol) and [XNodes](oop_xnode).
+> [!WARNING]
+> **Always Close References**: For simplicity, some of the example block diagrams in this chapter omit the **Close Reference** step. However, in production VI Scripting programs, every object reference obtained (such as nodes, wires, and terminals) must be explicitly closed using the **Close Reference** function once you are finished with it. Failing to close these references causes severe memory leaks, which can quickly consume all system memory and crash LabVIEW during batch operations.
+
+Programmatically generating VIs from scratch is rarely needed unless you are mass-producing highly templated files, such as hardware driver VIs. Instead, VI Scripting is primarily used to develop editor extensions: creating custom **Quick Drop keyboard shortcut plugins** (e.g., to automatically wire nodes), writing custom right-click context menu options, or building static code analysis and automated refactoring tools. Dynamic code generation is also the foundation for building [XControls](ui_xcontrol) and [XNodes](oop_xnode).
 
 
 ## Batch Modifying VIs
 
-A common scenario in practical applications involves needing to batch modify existing VIs. For example, you might have a project composed of several dozen VIs and later receive new requirements necessitating changes to a particular attribute across all VIs, adjustments to similar code snippets within them, or updates to the layout of all front panels. When such modifications are uniform across each VI, programming-based unified changes are highly efficient.
+A more common real-world scenario is batch-modifying existing VIs. For example, if you need to update a specific attribute, refactor inconsistent labels, or change the background color across dozens of files, scripting the changes is extremely efficient.
 
-Take a straightforward task as an example: When you're ready to distribute a set of VIs you've developed to users, you may need to password-protect these VIs to protect intellectual property rights. The first step in this process is to gather the paths of all the VIs that need to be modified. For this example, we'll use the simplest approach by listing all the VIs within a specified folder. Each VI is then opened individually, and modifications are made using properties and methods. In this case, we're employing the VI's "Lock State -> Set" method to apply a password to the VI. It's imperative to save the VI after making modifications; otherwise, all changes will be lost once the VI reference is closed. Saving the VI is done with the "Save -> Instrument" method (noting that VI stands for "Virtual Instrument"). The code for accomplishing this task is shown below:
+Let's look at a practical task: password-protecting a folder of VIs to protect intellectual property before distribution.
+
+To automate this:
+
+1. Retrieve the file paths of all target VIs (for simplicity, we will list all VI files within a specified directory).
+2. Open each VI reference individually.
+3. Modify the VI's properties or execute its methods. Here, we use the VI's `Lock State -> Set` method to apply a password.
+4. **Save the modifications**: All changes made to a VI reference reside in memory. You must call the `Save -> Instrument` method to write these changes to disk; otherwise, they will be lost when the reference closes. (Note: "Instrument" is a historical name in G representing the VI instance itself).
+5. **Close the reference** at the end of each iteration to release memory.
+
+The following block diagram shows the batch scripting workflow:
 
 ![Batch Password Protection for VIs](../../../../docs/images/image440.png "Batch Setting Passwords for VIs")

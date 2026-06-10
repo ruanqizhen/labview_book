@@ -1,165 +1,173 @@
-# UI Modular Division
+# Modular UI Design
 
 ## Dividing Interfaces into Modules
 
-For complex program diagrams, it's beneficial to divide them into multiple sub-VIs. This approach not only makes each sub-VI easier to manage but also significantly improves the readability and maintainability of the program. Similarly, when an interface becomes overly complicated, dividing it into several modules is advisable. This strategy not only aids in the software's programming and maintenance but also simplifies user interaction with the interface.
+For complex program diagrams, it is standard practice to divide the code into multiple SubVIs. This modular approach makes the code easier to manage, read, and maintain. Similarly, when a user interface becomes overly complex, dividing it into multiple UI modules is highly recommended. This strategy simplifies software development, layout design, and user interaction.
 
-Some programs require users to input a vast amount of information, such as the "Options" window in LabVIEW:
+Some programs require users to input a vast amount of configuration data, such as the **Options** dialog in LabVIEW:
 
 ![LabVIEW Options Interface](../../../../docs/images/image736.png "LabVIEW Options Interface")
 
-This window provides a plethora of setting options within LabVIEW. Displaying all these settings simultaneously would overwhelm even a large screen. Moreover, an interface cluttered with too many controls can confuse users, making it difficult for them to locate the information they need. Thus, the LabVIEW options interface organizes settings into various groups based on their functionality, displaying only one group at a time. Users can select which group to display using the "Categories" list on the left side of the interface.
+This dialog provides hundreds of settings within LabVIEW. Displaying all these settings simultaneously would overwhelm the user and require a massive screen. To prevent clutter and confusion, the LabVIEW Options interface organizes settings into functional groups, displaying only one group at a time. Users switch between groups using the **Category** list on the left.
 
-Another example is the LabVIEW tool for importing shared libraries, designed to wrap functions from DLL files into LabVIEW VIs. This process demands extensive information from the user, such as the DLL's filename and the names for the generated VIs. Like the previous example, displaying all these settings at once would be daunting for the user. The shared library import tool adopts a solution slightly different from the LabVIEW options window by using a wizard-style interface to guide users through the process. The main difference between a wizard-style interface and the LabVIEW options interface is the method of switching the display page (i.e., which group of controls is shown); one allows for arbitrary display of any page, while the other only permits sequential page switching.
+Another example is the LabVIEW **Import Shared Library** wizard, which wraps C-DLL functions into LabVIEW VIs. This process requires step-by-step user inputs (such as selecting the DLL file, configuring header files, and naming the generated VIs). Rather than using a flat category list, this tool uses a **Wizard** interface to guide the user sequentially. The main difference between a wizard and a tabbed options dialog is the navigation flow: one allows arbitrary page switching, while the other enforces a sequential step-by-step process.
 
-If a program requires inputting extensive information or settings with sequential dependencies, a wizard-style interface is more appropriate.
+If your application requires extensive user inputs with strict sequential dependencies, a wizard-style interface is the most appropriate design.
 
 ![Import Shared Library Tool](../../../../docs/images/image737.png "Import Shared Library Tool")
 
-Both types of interfaces discussed share a commonality: they organize a multitude of controls into related groups, displaying only one group at a time to the user, thus making the program interface more clear and user-friendly.
+Both designs organize a multitude of controls into logical pages, displaying only one page at a time. This keeps the interface clean, focused, and user-friendly.
 
-These interfaces, when implemented in programming, use a similar mechanism with the sole distinction being the method of page switching. One allows for the arbitrary display of a specific page, and the other only supports sequential page transitions.
-
-Below, using a wizard-style program as an example, we'll illustrate how to implement multi-page interface programs effectively.
-
+From a programming perspective, both patterns are implemented using a similar layout structure; they differ only in their navigation logic. Below, we will use a wizard-style application to illustrate how to implement multi-page UI architectures in LabVIEW.
 
 ## Utilizing Tab Controls for Wizard-Style Programs
 
-Wizard-style programs, characterized by multiple pages each filled with various controls for different functionalities, are perfectly suited for the use of tab controls. Tab controls, a staple in application settings dialogs, consist of multiple tabs. Users can navigate between pages by clicking on their respective labels, causing the control to reveal the content of the selected tab while concealing the others.
+Wizard-style interfaces, consisting of multiple pages containing various controls, are easily implemented using **Tab Controls**. Tab Controls are standard UI containers containing multiple pages. By default, users switch pages by clicking on the tab labels at the top of the control:
 
 ![LabVIEW Tab Control](../../../../docs/images/image738.png "LabVIEW Tab Control")
 
-In designing wizard-style programs, you can leverage the functionality of tab controls to correspond each wizard page to a tab within the control. By hiding the tab page labels and programmatically controlling which page is displayed, you can streamline the user experience.
+When building a wizard-style interface, you can customize the Tab Control to hide the tab labels entirely. You then programmatically control the active page using a Block Diagram property node, exposing only the **Next** and **Back** navigation buttons to the user:
 
 ![A Wizard-style Program Interface VI Front Panel](../../../../docs/images/image739.png "A Wizard-style Program Interface VI Front Panel")
 
-The image above showcases the interface of a wizard-style program in its editing state. When the VI's front panel display area is expanded, a prominently placed large tab control is revealed, with operational controls for the program arranged on the corresponding tab pages.
+The image above shows a wizard interface in edit mode. The Front Panel features a large Tab Control with its tab labels hidden, containing the controls for each step.
 
-Upon the user clicking the "Next" button, the program diagram changes the tab control's value to display the subsequent page:
+When the user clicks the "Next" button, the Block Diagram code increments the Tab Control's value to transition to the next page:
 
 ![Diagram for Switching Display Pages](../../../../docs/images/image740.png "Diagram for Switching Display Pages")
 
-Tab controls drastically simplify both the design and programming of the interface, making it more user-friendly. However, they do not inherently simplify the program's flowchart or enhance the readability and maintainability of the code. Despite employing tab controls, all user-required controls are still located on this main interface VI. Consequently, all related handling, including the code to manage page displays, must be executed on the main VI. For complex interfaces that might require about a dozen pages, this could result in the front panel hosting dozens of controls. If the VI's program diagram is based on a loop event structure, it would necessitate managing a correspondingly large number of events. Below is an image displaying only a fragment of this program's events:
+While Tab Controls simplify Front Panel layout design, they do not simplify the underlying Block Diagram code. Because all controls physically reside on the same main VI Front Panel, the main VI's Block Diagram must house the terminals and event handling code for every control across all pages. 
+
+If you have a 10-step wizard, the main Block Diagram will contain dozens of control terminals and events. This leads to a massive, cluttered Event Loop that is difficult to read and maintain:
 
 ![Events for a Complex Interface Program](../../../../docs/images/image741.png "Events for a Complex Interface Program")
 
-Navigating such a program diagram to grasp its logic or locate a specific event can be daunting, requiring a thorough examination of each event. Adding a new step to an existing wizard significantly amplifies the complexity and workload. Thus, to enhance the readability and maintainability of the program, it's imperative not just to divide the interface into pages but also to modularize the code handling these segments.
-
+Locating a specific control's logic in such a massive VI is time-consuming, and adding a new step to the wizard requires modifying the main Event Loop, increasing the risk of introducing bugs. To make the application scalable and maintainable, we must modularize both the user interface and the underlying code.
 
 ## Subpanels
 
-The subpanel control is located in the "Modern -> Containers" section of the control palette. It allows the display of one VI's front panel within the main interface of another VI. To utilize a subpanel control, drag it onto the main VI's front panel. Initially, it appears as a transparent rectangle. This control is unique; it requires programming in the VI's block diagram to show the front panel of a different, child interface VI when the main interface VI runs. An empty subpanel control looks like this:
+The **Subpanel** control (located in the Controls Palette under **Modern -> Containers**) allows you to display the Front Panel of a completely separate VI inside a container on your main VI's Front Panel. 
+
+When you drag a Subpanel onto the Front Panel, it appears as a blank, transparent rectangle:
 
 ![Empty Subpanel Control](../../../../docs/images/image742.png "Empty Subpanel Control")
 
-For demonstration purposes, create a child interface VI. When the main interface VI is executed, the subpanel control will show the front panel of this child interface VI:
+At runtime, the main VI must dynamically load and insert the Front Panel of a child VI into the Subpanel container. For example, we can create a child VI containing our step layout:
 
 ![Child Interface VI's Front Panel](../../../../docs/images/image743.png "Child Interface VI's Front Panel")
 
-Next, the code for loading the subpanel must be developed. Differently from other controls, placing a subpanel control on the main VI's front panel doesn't create a corresponding terminal in the VI's block diagram. Instead, it presents an invoke node labeled "Insert VI". This node's purpose is to insert another VI's front panel into the subpanel control. The "Insert VI" node's input is the reference to the child interface VI whose front panel is to be displayed. Therefore, the first step is to open the reference to the child interface VI using VI Scripting functions and nodes, and then pass it to the subpanel control's "Insert VI" method:
+In the main VI Block Diagram, we use an **Invoke Node** linked to the Subpanel reference. The Invoke Node provides the **Insert VI** method, which accepts a reference to the child VI:
 
 ![Program Diagram for Inserting a Child Interface](../../../../docs/images/image744.png "Program Diagram for Inserting a Child Interface")
 
-Two important considerations: firstly, if the child interface VI's front panel is already open, it cannot be inserted into the subpanel control; therefore, its front panel must be closed. Secondly, to observe and control the child interface from the main interface, the child interface VI must be operational. Thus, it is essential to run the child interface VI to enable its functionalities.
+To insert a child VI into a Subpanel, keep these two rules in mind:
+1. The child VI's Front Panel must not be open in edit mode or in another window. If it is open, the **Insert VI** method will return an error.
+2. The child VI must be running to be interactive. Therefore, you must call the **Run VI** method on the child VI reference before (or immediately after) inserting it.
 
-After launching the main VI, the following appearance is achieved. Within this main VI, it's possible to monitor and control changes on the child interface.
+At runtime, the child VI's Front Panel is embedded seamlessly within the main window:
 
 ![Subpanel Effect](../../../../docs/images/image745.png "Subpanel Effect")
 
-Looking back at the wizard-style application interface we previously discussed, its primary challenge was managing the overwhelming number of controls on the main interface, which made maintenance difficult. By utilizing subpanel controls, we can identify a more effective approach: employing a plugin framework architecture for developing wizard-style programs. The illustration below depicts the structure of such a plugin framework program.
+By combining Subpanels with a plugin-based architecture, we can build highly modular wizard interfaces. The diagram below illustrates this architecture:
 
 ![Plugin Framework Structure](../../../../docs/images/image746.png "Plugin Framework Structure")
 
-The essence of the plugin framework program is to assign each page of the wizard interface to a distinct child interface VI. Each of these pages' operations is fully managed within its respective child interface VI. The top left portion of the diagram showcases the child interface VIs designated for each page. Treated as plugins, these VIs are invoked and displayed on the main interface as required by the main program.
+In this plugin framework:
+- Each page of the wizard is designed as an independent child VI. All controls and event handling logic for that step are completely encapsulated within that child VI's Block Diagram.
+- The main VI serves as the host shell. Its Front Panel contains a single Subpanel control and the global navigation buttons (**Back**, **Next**, **Cancel**).
+- When the user clicks **Next**, the main VI unloads the current child VI, opens a reference to the next child VI, and inserts it into the Subpanel.
 
-The main program (main interface) VI, shown at the bottom right of the diagram, primarily features a subpanel control on its front panel. This control is tasked with displaying the front panels of the page VIs. To exhibit a specific step within the wizard, the main program adjusts the subpanel to show the front panel of the corresponding step VI, thereby facilitating the wizard functionality. Additionally, some universal controls, such as "Previous" and "Next" buttons, are placed on the main frame. These buttons are consistently needed across all steps and thus eliminate the need for duplication across each page.
+This decoupled design ensures that both the Front Panel layouts and the Block Diagrams remain small, focused, and easy to maintain. Adding a new step simply requires creating a new child VI without modifying the event handling logic of the other steps.
 
-Employing a subpanel control within the plugin framework simplifies the design and coding of complex program interfaces by segregating it into several manageable child VIs. Each child VI maintains a simpler interface and codebase, substantially easing the program's overall maintenance.
+However, using Subpanels introduces some development trade-offs:
+- **No Edit-Time Preview**: In edit mode, the Subpanel appears empty, making it difficult to adjust the overall layout alignment relative to the embedded pages.
+- **Data Exchange Complexity**: Because the main VI and the child VIs run as independent entities, you must implement a mechanism (such as queues, user events, or references) to pass data between the host shell and the loaded plugins.
+- **Extra Boilerplate**: You must write code to handle opening, running, inserting, and closing the child VI references.
 
-Nevertheless, there are some drawbacks to using subpanels. For instance, displaying child interfaces necessitates writing some extra code. In edit mode, the inability to view child interfaces hampers interface adjustments. Additionally, data exchange between the main interface and child VIs, as well as among child VIs, could be improved for convenience. Lastly, making child interfaces available as reusable modules for other programs presents challenges.
+## XControls
 
-
-## XControl
-
-In software development, especially within a single company, there's often a need to share interface modules across multiple applications. To facilitate this, these modules should be as easily integrated into a LabVIEW VI's front panel as any built-in control, allowing for straightforward resizing and data exchange with other program elements.
-
-One might wonder if LabVIEW's custom controls could serve as these shared modules. Unfortunately, they fall short because while they allow for the customization of a control's appearance, they do not permit the same flexibility with its behavior. Complex shared interface modules typically require some level of customized behavior, which is where components come in. These are relatively independent modules with specific interfaces and functionalities, like the component shown below.
+In large-scale applications, you often need to reuse complex UI modules across different projects. For example, you might need a reusable component that allows users to add, remove, and manage file paths:
 
 ![Interface Component for Adding and Managing a Group of Paths](../../../../docs/images/image747.png "Interface Component for Adding and Managing a Group of Paths")
 
-This component is designed to assist users in selecting and managing a set of paths. If an application necessitates user input of multiple paths, this component can be directly utilized, streamlining the process.
+This path manager component consists of several controls: a listbox, a string input, a file browse button, and buttons to add, delete, and reorder paths.
 
-The component's interface is made up of several basic controls: a list box to display paths, a text box for path editing, a button to open a path browsing dialog, and four buttons for path management (add, delete, and reorder).
+It also requires custom runtime behaviors:
+- When a path is selected, it pre-populates the edit text box.
+- Clicking the browse button opens a file dialog.
+- Clicking the arrow buttons shifts items up or down in the list.
 
-Beyond its interface, this component incorporates custom behaviors. Initially, it merely displays paths, with the text box and browse button hidden. Once a user selects a path for editing, the component reveals the text box and browse button, pre-populating the text box with the selected path for easy editing. Other behaviors include opening a browsing dialog when the browse button is clicked and moving a selected path when the appropriate button is pressed.
+The rest of the application should interact with this component as if it were a single control, reading or writing a 1D array of paths.
 
-This component's interaction with the rest of the program is straightforward, revolving around the manipulation of a path array. This simplicity and clarity in functionality make it an ideal candidate for a shared module.
+While LabVIEW's **Custom Controls** (.ctl) allow you to customize the visual appearance of controls, they cannot package execution logic or behaviors.
 
-However, can LabVIEW's custom controls be used as such modules? They cannot, primarily because they do not allow for behavior customization, a key requirement for more complex shared interface modules, which are essentially components. An example is the path management component pictured above.
+To solve this, LabVIEW provides **XControls**. An XControl encapsulates the Front Panel interface, local data state, properties, methods, and event handling logic into a single reusable component. Once created, an XControl appears in the Controls Palette and can be dragged, dropped, and wired like a native LabVIEW control. 
 
-LabVIEW offers a solution in the form of XControl. XControl allows for the creation of controls that not only have a customized appearance but also bespoke behaviors. These can be shared across applications or published for customer use, just like native LabVIEW controls. They're designed to be drag-and-dropped onto a VI's front panel and used seamlessly within a program, offering a higher degree of integration and utility than traditional custom controls.
+> [!NOTE]
+> XControls are an advanced LabVIEW feature. While they provide powerful encapsulation, they have a steep learning curve and are largely succeeded by **Object-Oriented UI** techniques or **QControl** toolkits in modern LabVIEW development.
 
+## Multiple Interface Styles for a Single Core Functionality
 
-## Implementing Applications with Multiple Interface Styles for the Same Functionality
+Suppose you are developing an application that will be deployed to various clients. While the core calculations and hardware logic remain identical, different clients require different UI layouts, color schemes, or languages. 
 
-Imagine you need to develop an application that will be sold to various users. While the functionality required from the software remains constant across users, their preferences for the software's interface might vary significantly. For instance, a testing program for a single product might need different interface versions tailored to various languages, as well as specific control layouts, sizes, and colors for each version. Ideally, developers would want a single codebase (the program's block diagram) that could adapt to multiple interfaces (VI front panels). However, this isn't straightforward with conventional methods, as each VI in LabVIEW is traditionally limited to one front panel and one block diagram.
+Ideally, you want to maintain a single Block Diagram codebase (to avoid duplicate code and parallel bug fixing) but swap the Front Panel interface dynamically. However, in LabVIEW, a VI's Front Panel and Block Diagram are tightly bound.
 
-Typically, the VI that constructs the main interface of the program serves as the main VI, containing the bulk of the complex code. Managing multiple complex yet functionally identical main VIs within a project is far from optimal. It leads to extensive code duplication, inflates the program size, and necessitates parallel modifications across all versions whenever a bug is discovered or a functional adjustment is required.
+We can solve this using **Dynamic Event Registration** to completely decouple the user interface from the business logic. We design:
+1. **Interface VIs**: Multiple VIs containing only Front Panel layouts. Their Block Diagrams contain no business logic—only a simple loop to keep the window open and code to output control references.
+2. **Function VI**: A single VI containing the core state machine, calculations, and event handlers. It has no user-facing Front Panel.
 
-Dynamic event registration offers a solution to streamline such programs. One of its key features is the complete decoupling of the interface from the code logic. To address the outlined needs, developers can create multiple VIs for different interface styles (referred to as "interface VIs"), alongside a single VI dedicated to handling functions without displaying an interface (referred to as "function VI"). The interface VIs need only minimal diagram complexity, just enough to keep the program running (possibly requiring an empty loop) and to relay control references to the function VI. The function VI's interface, not meant for display, leverages its diagram for execution. This setup ensures that each VI within the project has a clear focus: managing either the interface or executing functionalities. Alterations to the program's functionalities or tweaks to a specific interface style require updates to just the respective VI, eliminating the redundancy of code across VIs and significantly boosting maintainability.
+By passing control references from the active Interface VI to the Function VI, the Function VI can register to receive UI events dynamically, execute the math, and write results back to the interface indicators.
 
-Let's consider a simple example: executing the same basic function—generating a random number upon a button click—across two drastically different interface styles. This example project comprises three VIs: Main.vi acts as the function VI, whereas Interface1 and Interface2 serve as two distinct style interface VIs.
+Let's look at a simple example: a program that generates a random number when a button is clicked, supporting two different UI styles. The project contains three VIs: `Main.vi` (Function VI), `Interface1.vi` (Style 1), and `Interface2.vi` (Style 2).
 
 ![Demonstrating the project setup for multiple interfaces for the same functionality](../../../../docs/images/image288.png "Demonstrating the project setup for multiple interfaces for the same functionality")
 
-The functionality is encapsulated within Main.vi, employing a conventional event structure.
+There are two primary approaches to implementing this architecture.
 
-There are two distinct approaches to accomplish this project setup. The first method is straightforward and suitable for less complex interfaces; the second method is more comprehensive, catering to more elaborate requirements. Both methods will be elucidated below.
+### Approach 1: Interface VI as the Caller
 
+In this approach, the program launches `Interface1.vi` or `Interface2.vi` as the startup VI.
 
-### First Approach
-
-In this first approach, the program initiates with either interface1.vi or interface2.vi as the start-up VI. Shown below is the front panel of interface1.vi, which comprises three straightforward controls:
+The Front Panel of `Interface1.vi` contains the UI controls:
 
 ![Front Panel of interface1.vi](../../../../docs/images/image289.png "Front Panel of interface1.vi")
 
-The block diagram of interface1.vi doesn’t carry out any detailed tasks. Its sole purpose is to pass the references of all interface controls to Main.vi and initiate Main.vi as a subVI:
+The Block Diagram of `Interface1.vi` contains no calculation logic. It simply bundles its control references and passes them to `Main.vi`, which it calls as a SubVI:
 
 ![Block Diagram of interface1.vi](../../../../docs/images/image290.png "Block Diagram of interface1.vi")
 
-Main.vi lacks a displayable interface; the controls on its front panel are strictly for data entry:
+The Front Panel of `Main.vi` is not displayed; its controls serve as inputs to receive the references:
 
 ![Front Panel of Main.vi](../../../../docs/images/image291.png "Front Panel of Main.vi")
 
-In Main.vi, the event structure dynamically registers to receive events from controls in interface1.vi. Consequently, when the "get value" button in interface1.vi is pressed, it generates a random number and assigns it to the numeric control:
+In `Main.vi`'s Block Diagram, the Event Structure registers the dynamic events from the passed control references. When the user clicks the button on `Interface1.vi`, `Main.vi` handles the event, generates the random number, and writes it back to the indicator using a property node:
 
 ![Block Diagram of Main.vi](../../../../docs/images/image292.png "Block Diagram of Main.vi")
 
-The front panel of interface2.vi contains controls identical to those in interface1.vi, albeit with a completely different style and layout:
+`Interface2.vi` has a completely different layout but uses the exact same Block Diagram code to call `Main.vi`:
 
 ![Front Panel of interface2.vi](../../../../docs/images/image293.png "Front Panel of interface2.vi")
 
-The block diagram for interface2.vi mirrors that of interface1.vi:
-
 ![Block Diagram of interface2.vi](../../../../docs/images/image294.png "Block Diagram of interface2.vi")
 
-Given that the functionality of the program is fully encapsulated within Main.vi, any modifications needed for the program's function require updates to only this VI.
+Because the core logic is isolated in `Main.vi`, any functional changes or bug fixes only need to be implemented once.
 
+### Approach 2: Function VI as the Caller
 
-### Second Approach
-
-In the second method, Main.vi serves as the startup VI, simplifying the block diagrams of interface1.vi and interface2.vi even further. They don't require the invocation of any subVIs, only needing a simple while loop to ensure continuous operation:
+In this approach, `Main.vi` serves as the startup VI. The Interface VIs (`Interface1.vi` and `Interface2.vi`) contain only a simple While Loop to remain open:
 
 ![The block diagram for interface1.vi under the second implementation approach](../../../../docs/images/image295.png "The block diagram for interface1.vi under the second implementation approach")
 
-However, the programming within Main.vi becomes more complex as it shoulders the responsibility of launching and displaying the interface VIs:
+`Main.vi` is responsible for dynamically opening, displaying, and querying the Interface VIs:
 
 ![The block diagram for Main.vi under the second implementation approach](../../../../docs/images/image296.png "The block diagram for Main.vi under the second implementation approach")
 
-This method does not rely on interface VIs to actively pass control references to Main.vi, necessitating Main.vi to fetch these control references independently. To locate a control's reference by its name, the program employs the "Open VI Object Reference" function. This function isn't included in LabVIEW's default set of functions but is thoroughly explained in the section "[Dynamically Creating and Modifying VIs](vi_server_for_vi)" of this book.
+Here:
+1. `Main.vi` uses **Open VI Reference** to load the target Interface VI and runs it.
+2. Instead of the Interface VI passing references, `Main.vi` queries the Interface VI Front Panel dynamically to find the controls by name.
+3. Once the references are acquired, `Main.vi` registers the events and runs the Event Loop.
 
-Once the control references are acquired, the remainder of the program operates similarly to the first method. This setup grants the program abilities akin to those of a traditional main VI, such as reading and writing values of controls on the interface and capturing events emitted by controls. Interface2.vi's block diagram mirrors that of interface1.vi in this setup. A crucial point is that this strategy hinges on the consistency of control labels across each interface VI, necessitating identical labels for corresponding controls.
+> [!IMPORTANT]
+> This approach requires that corresponding controls across all Interface VIs share identical label names (e.g., `Random Button` and `Result Indicator`) so that `Main.vi` can locate them programmatically.
 
-In this example, we opted to conceal Main.vi's front panel, choosing instead to display the front panel of either interface1 or interface2. This effect could also be achieved using a subpanel, treating Main.vi as a framework and interface1 or interface2 as plug-ins.
-
-This design strategy effectively segregates the program's interface from its functional components into distinct VIs. As a result, it's feasible to alter the program's interface without impacting the functional code and vice versa.
+This approach is highly clean because the Interface VIs are completely passive templates. You can also implement this by placing a **Subpanel** in `Main.vi` and loading the Interface VIs into it, treating the Interface VIs as interchangeable skin plugins.

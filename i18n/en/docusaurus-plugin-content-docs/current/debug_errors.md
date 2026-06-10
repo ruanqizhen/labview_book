@@ -1,8 +1,8 @@
 # Common Mistakes in LabVIEW Code
 
-Finding issues in a program and then debugging to identify errors inevitably leads to significant time consumption. To improve development efficiency, a fundamental principle is to avoid common and elementary mistakes while writing code. This approach can greatly reduce the time dedicated to debugging.
+Finding and debugging errors in a program can consume significant time. To improve development efficiency, a fundamental principle is to avoid common, elementary mistakes while writing code. This approach greatly reduces the time dedicated to troubleshooting.
 
-Producing code with few potential errors demands patience, meticulousness, and the accumulation of experience. Yet, some programming errors are remarkably frequent, and nearly every LabVIEW programmer has likely encountered them at the beginning stages. Highlighted below are some of the common mistakes to watch out for during programming. Being mindful of these can make your work much more efficient. These topics have been touched upon in earlier chapters of this book but are summarized here to remind readers to pay extra attention.
+Producing clean, robust code demands patience, attention to detail, and accumulated experience. However, certain programming mistakes are remarkably frequent, and nearly every LabVIEW programmer encounters them when starting out. Highlighting these common pitfalls can help you avoid them in your own development. These topics were touched upon in earlier chapters, but they are summarized here as a handy checklist.
 
 ## Numeric Overflow
 
@@ -10,113 +10,113 @@ Below is an example program previously introduced in the [Numeric Representation
 
 ![](../../../../docs/images/image507.png "Numeric Overflow Error")
 
-This VI is tasked with a simple multiplication operation: 300×300. Intuitively, the answer is 90000. However, the outcome produced by the program is 24464. The multiplication node itself is accurate; the error arises because the data type used in the program is I16, which has a maximum representable value of 32767. Consequently, a numeric overflow error occurs during the multiplication calculation, indicating that the value has exceeded the range that the data type can represent.
+This VI performs a simple multiplication: $300 \times 300$. Mathematically, the answer is $90,000$. However, the program outputs $24,464$. The multiplication node itself is correct; the error occurs because the inputs and output use the `I16` (16-bit signed integer) representation, which has a maximum value of $32,767$. Consequently, a numeric overflow occurs, meaning the calculation exceeds the range that the data type can represent.
 
-To prevent such errors, it's crucial to ensure that the data within the program never surpasses the range that can be represented by the short data type in use. Short data types, as opposed to longer ones, have the benefit of conserving program storage space and enhancing operational efficiency. However, their smaller representable data range makes them more susceptible to numeric overflow errors. For individual data points (not part of arrays) where usage frequency isn't exceptionally high, the efficiency gained from using short data types is minimal and can often be disregarded. In these instances, it's advisable to opt for longer data types to avoid potential errors.
+To prevent overflow, ensure that the data type is large enough to handle the maximum possible value. While smaller data types conserve memory and can optimize operations (especially in large arrays), using them for individual scalars on a modern PC yields negligible savings. For general scalar operations, it is best practice to default to larger data types (such as `I32` or double-precision float `DBL`) to prevent accidental overflow.
 
 
 ## For Loop Tunnels
 
-Shift registers in a for loop are primarily utilized when the loop requires the use of local variables; that is, the output data from one loop iteration is needed as input for the next. Data from arrays outside the loop can be accessed within the loop body through indexed tunnels. For straightforward data transfer into and out of the loop, standard tunnels are adequate.
+Shift registers are used in a For Loop when data from one iteration needs to be passed to the next (local state). Arrays outside the loop are typically fed into the loop using auto-indexed tunnels. For simple data passage where no iteration-to-iteration state is needed, standard non-indexed tunnels are used.
 
-If data is fed into a for loop structure and also needs to be output, then shift registers or indexed tunnels should be employed for this data transfer, avoiding non-indexed tunnels. This precaution is necessary because the iteration count of a for loop could be zero. Programmers often plan to use the data processed through the loop in subsequent parts of the program. However, if there are zero iterations, none of the code inside the loop, including connections between two tunnels, will execute. As a result, data will not be transferred from the input tunnel to the output tunnel, leading to the loss of the input value, rendering it unusable for later parts of the program.
+However, if data is fed into a For Loop and must be passed out to subsequent nodes, you must use shift registers or auto-indexed tunnels rather than standard non-indexed tunnels. This precaution is necessary because the iteration count of a For Loop can be zero (e.g., if the input array is empty). If the loop executes zero times, the code inside the loop—including any direct wires connecting the input and output tunnels—does not run. Consequently, a standard output tunnel will not receive the input value, resulting in default data values (like $0$ or null references) being passed downstream.
 
-The program illustrated below is designed to store a set of input data in a file:
+Consider the program below, which is designed to write data to a file inside a For Loop:
 
 ![](../../../../docs/images/image508.png "Passing Data Using Loop Structure Tunnels")
 
-In this example, both the file reference and error cluster are passed into and out of the For Loop via standard tunnels. When the input data constitutes an empty array, resulting in zero iterations, the for loop's code does not execute. Consequently, the file reference obtained from the loop's output tunnel is not the same as the input reference, which then prevents the program from properly closing the opened file. I have encountered and resolved programs with memory leaks caused by this very issue.
+In this example, both the file reference (refnum) and the error cluster are passed into and out of the For Loop via standard non-indexed tunnels. If the input array is empty, the For Loop runs zero times. As a result, the file refnum output from the loop is a null reference rather than the valid open file refnum, preventing the downstream code from closing the file properly. I have encountered and resolved many memory and file resource leaks caused by this exact issue.
 
-Therefore, it's imperative to use shift registers when passing handle-like data into and out of a for loop:
+Therefore, you must use shift registers when passing refnums, handles, and other state data into and out of a For Loop:
 
 ![](../../../../docs/images/image509.png "Correct Data Passing Method Should Use Shift Registers")
 
-Likewise, error cluster data must be transferred via shift registers when moving in and out of loop structures. This approach is not only to prevent the loss of error information when the iteration count is zero but also because an error output typically signals that subsequent program segments should not execute. Proceeding with program execution after an error can be highly risky, possibly leading to program crashes or system failures. By employing shift registers, errors generated during any iteration are immediately propagated to subsequent iterations, preventing further execution within the loop structure if an error has been detected.
-
-For more in-depth information, refer to the [Loop Structures](data_array#for-loop) section.
+Similarly, the error cluster must always be passed via shift registers. This not only preserves error details if the loop runs zero times, but also allows you to implement a conditional exit or skip logic within the loop if an error is encountered in an earlier iteration.
 
 
 ## Loop Iteration Count
 
-When employing an indexed input tunnel in a for loop structure, specifying the loop's iteration count becomes unnecessary. The for loop determines its iterations based on the length of the array connected to the indexed input tunnel.
+When you use an auto-indexed input tunnel in a For Loop, you do not need to wire a value to the loop count terminal `N`. The loop automatically determines its iteration count based on the size of the array connected to the auto-indexed tunnel.
 
-Complications arise when a loop structure has multiple indexed input tunnels or a specific iteration count, N, is also defined. This setup can inadvertently lead to programming errors. In such instances, the loop will execute a number of times equal to the smallest value among the lengths of arrays connected to the indexed input tunnels or the specified N. If the loop iterates fewer times than expected or fails to iterate at all, it's likely because one of the input arrays is shorter than anticipated.
+However, issues arise when a For Loop has multiple auto-indexed input tunnels, or when the count terminal `N` is also wired. In these cases, the loop will run a number of times equal to the **smallest** value among the sizes of the auto-indexed arrays and the value wired to `N`. If your loop runs fewer times than expected (or not at all), check whether one of the input arrays is smaller than anticipated.
 
-While loops can similarly utilize indexed tunnels, their use within while loops presents a greater risk. Despite incorporating indexed tunnels, the iteration count of a while loop is governed by the stop condition, not the input array's length. When employing indexed tunnels, careful consideration is required to handle scenarios where the array size exceeds or falls short of the loop's iteration count. It might prove simpler to feed the entire array into the while loop and manage indexing inside the loop body. For situations where the loop count must align with the array size, a for loop offers a more straightforward and understandable solution. Thus, for scenarios necessitating indexed tunnels, for loops are generally more suitable.
+While Loops can also use auto-indexed tunnels, their iteration count is determined solely by the stop condition, not the size of the array. When auto-indexing out of a While Loop, you must manage how much data is written. It is usually simpler to pass the entire array into the While Loop and index it manually inside the loop body. For situations where the loop count matches the array size, a For Loop is always the cleaner and more readable choice.
+
 
 ## Initializing Shift Registers
 
-The program displayed below uses indexed tunnels in a while loop, leading to reduced clarity. Understanding the output of array out after executing the program may take a moment of thought:
+The program below uses auto-indexing in a While Loop, which reduces code clarity. Take a moment to think about what the value of `array out` will be after execution:
 
 ![](../../../../docs/images/image510.png "Uninitialized Shift Register")
 
-Interestingly, even with a constant input value array in, the outcome for array out changes with each execution, with the array's length consistently increasing. This behavior stems from the absence of an initial value for the loop's shift register.
+Interestingly, even if the input `array in` is constant, the size of the output `array out` increases every time you run the VI. This occurs because the shift register is uninitialized.
 
-Uninitialized shift registers retain their data from the end of the previous execution until the VI is closed. This feature can be beneficial in certain contexts, akin to how global variables operate, by leveraging this persistence. However, when shift registers are intended to serve as local variables within loops, initializing them is essential to avoid potential errors.
+Uninitialized shift registers retain their values in memory between consecutive executions of the VI (until the VI is cleared from memory). While this behavior can be leveraged deliberately to maintain state across runs (similar to static variables in C), it is a common source of bugs when developers expect the shift register to reset on each run. Unless you are intentionally implementing a state-retention pattern, always initialize shift registers.
 
 
 ## Order of Elements in Clusters
 
-The program depicted below inputs and outputs clusters named `info` and `info out`, respectively, each containing three elements: `name`, `high`, and `weight`. The procedure first modifies the values of these three elements within `info`, then transfers them to `info out`. Assuming the inputs are `high=10, weight=21`, one might easily predict the outcome to be `high=10, weight=21`:
+The program below takes an input cluster named `info` and outputs a modified cluster named `info out`. Both clusters contain the elements `name`, `high`, and `weight`. The code modifies these values and passes them downstream. Assuming the inputs are `high = 10` and `weight = 21`, you might expect the output to reflect those same values:
 
 ![](../../../../docs/images/image511.png "Modifying an Element in a Cluster")
 
-However, executing this program produces unexpected results:
+However, running the program yields unexpected values:
 
 ![](../../../../docs/images/image512.png "Program Output")
 
-The root cause of this discrepancy is that the order of elements within a cluster in the data wire does not necessarily align with their visible sequence in the user interface. Element controls on the interface can be moved around, and their data sequence adjusted. By selecting "Reorder Cluster Elements" from the cluster's contextual menu, you can set the sequence of the element data:
+The root cause is that the logical order of elements within a cluster's data structure does not necessarily match their visual arrangement on the Front Panel. You can drag controls around in a cluster shell without changing their underlying data index. Right-clicking the cluster border and selecting **Reorder Controls in Cluster** displays the data indexes:
 
 ![](../../../../docs/images/image513.png "Setting the Order of Data in a Cluster")
 
-The order depicted for the `info out` cluster above does not match that of the `info` cluster. In the example program, the aim is to modify the cluster's third element, but the interpretation of the third element differs between the input and output clusters.
+In this example, the element order in `info out` does not match the order in `info`. Because the wire passes the cluster data as a flat structure, the elements are mismatched.
 
-To circumvent such errors and facilitate ease of use, adhere to the following guidelines when working with cluster data types:
+To prevent these errors, adhere to the following rules when working with clusters:
 
-- Always create a type definition for a cluster where it's used. Then, in all program sections that require this cluster type, employ instances of this single type definition. This method ensures that the type, order, and consistency of all cluster elements are maintained, avoiding the kind of error shown in the example. If there’s a need to alter cluster elements, updating the type definition will automatically propagate changes to all instances, negating the need for individual modifications across VIs.
-- Always utilize the Bundle By Name or Unbundle By Name nodes for bundling or unbundling cluster data. These nodes visually present the labels of the elements being manipulated, preventing wiring mistakes due to variances in order.
-- Opt for automatic horizontal or vertical alignment of cluster elements on the interface. This practice ensures the sequence of controls within the cluster remains consistent with the data order.
-
-For an in-depth exploration, refer to the [Cluster Data Type](data_array#cluster) section.
+- **Use Type Definitions (TypeDefs)**: Always create a TypeDef (`.ctl` file) for your clusters. Use instances of this TypeDef throughout the application. If you need to add, remove, or reorder elements, updating the TypeDef automatically updates all VIs, keeping the cluster structures synchronized.
+- **Use Bundle/Unbundle By Name**: Avoid using the standard **Bundle** and **Unbundle** nodes, which rely on index order. Instead, use **Bundle By Name** and **Unbundle By Name**. These nodes display the element labels, making the code self-documenting and immune to changes in element index order.
+- **Arrange Elements Systematically**: Use the auto-arranging options (horizontal or vertical) for cluster controls to keep the visual layout consistent with the logical data structure.
 
 
 ## Timing Errors
 
-LabVIEW inherently supports multithreading, offering both convenience and potential challenges. In single-threaded programs, the execution sequence of functional modules is predetermined and fixed. In contrast, automatically multithreaded programs can have an indeterminate execution order for parallel modules, potentially diverging from the programmer's expectations and leading to errors.
+Because LabVIEW is inherently multi-threaded and dataflow-driven, parallel sections of code execute concurrently. In single-threaded text-based languages, execution order is strictly sequential. In LabVIEW, if two nodes do not have a data dependency (i.e., they are not connected by a wire), they can run in any order.
 
-Consider the program illustrated below, designed with the following sequence: initially, a file is opened; subsequently, two sub-VIs, A and B, access this file; and, ultimately, the file is closed.
+Consider the program below: the developer intends to open a file, have subVI A and subVI B read/write to it in parallel, and then close the file.
 
 ![](../../../../docs/images/image514.png "VI with Parallel Execution Sections")
 
-A hidden problem in this VI is the uncertain execution order of the parallel sections. It's possible that during execution, the file close function is triggered before sub-VI B has a chance to run. Since sub-VI B requires access to the file, it may encounter an error if the file is already closed.
+The bug here is the lack of sequence control. Because the file close function has no data dependency on subVI A or subVI B, LabVIEW might execute the close node before subVI B has finished running, leading to a file access error.
 
-This issue can be easily circumvented. By leveraging the error cluster data wire, the execution sequence can be controlled, ensuring the file is closed only after both sub-VI A and sub-VI B have concluded their operations:
+To control the execution sequence, use the error wire to establish a clear dataflow path, ensuring the file is closed only after both subVI A and subVI B have completed:
 
 ![](../../../../docs/images/image515.png "Using Error Cluster Data Wire to Control Execution Sequence")
 
-Timing errors are also common when determining the exit conditions for a While Loop. Take, for instance, the program below:
+Timing issues are also common when exiting While Loops. Consider the example below:
 
 ![image](../../../../docs/images/image516.jpeg "Exiting a Loop After a Set Duration")
 
-The program's objective is to execute the sub-VI "Takes 40 milliseconds.vi" repeatedly within a specific time frame. The "Elapsed Time" VI evaluates the program's runtime, prompting an immediate loop exit by outputting "True" from the "Stop" parameter once the predefined duration is surpassed. However, this program has a flaw: the "Takes 40 milliseconds.vi" and "Elapsed Time" VIs operate in parallel, with "Elapsed Time" VI completing very swiftly. In every iteration, "Elapsed Time" VI promptly returns its result, meaning the loop has to wait until "Takes 40 milliseconds.vi" concludes before it can terminate, even after the designated time has elapsed and the "Stop" parameter signals to end.
+The goal is to run the subVI `Takes 40 milliseconds.vi` repeatedly for a specific duration. The `Elapsed Time` Express VI checks the duration and outputs `True` to the loop stop terminal when time runs out. However, because the `Elapsed Time` Express VI and `Takes 40 milliseconds.vi` run in parallel, the loop cannot evaluate the stop terminal until the 40 ms subVI finishes.
 
-To address this, the code assessing the loop's exit criteria and the remaining code's sequence must be clearly defined within the loop body. Utilizing sequence structures to specify execution order can be an effective strategy:
+To guarantee that the loop exits exactly when the condition is met without waiting for parallel execution, you must define a strict sequence within the loop body. Using a Sequence Structure is an effective way to enforce this order:
 
 ![image](../../../../docs/images/image517.jpeg "Definitively Sequenced Loop Exit Condition Evaluation")
 
 
 ## Race Conditions
 
-Race conditions are a specific type of timing error, characterized by data chaos when multiple threads access the same resource at the same time. They are most commonly associated with the misuse of global (or local) variables. To improve programming practices, it's advisable to minimize the use of global variables. When the use of global or local variables is inevitable, a standard solution to prevent race conditions involves protecting shared resources with semaphores. This means a thread needs to verify whether the resource is currently being used by another thread before accessing it. If the resource is occupied, the thread waits until it becomes available. If unoccupied, the thread locks the resource, signaling to others that it is in use, then proceeds with its operations, unlocking the resource upon completion:
+A race condition is a specific timing error that occurs when multiple parallel execution threads read and write to the same shared resource simultaneously, resulting in corrupted data. In LabVIEW, this is typically caused by the misuse of local or global variables.
+
+To avoid race conditions, minimize the use of local and global variables. If you must use them, protect the shared resource using **Semaphores**. A semaphore acts as a lock: before a thread accesses a resource, it must acquire the semaphore. If another thread holds the lock, the requesting thread waits. Once the lock is acquired, the thread performs its read/write operation and releases the semaphore, allowing other threads to proceed:
 
 ![](../../../../docs/images/image518.png "Preventing Race Conditions with Semaphores")
 
-This approach is akin to protecting data when using queues to pass references. Semaphore-related functions can be found under the "Programming -> Synchronization -> Semaphore" function palette. For more in-depth discussion, refer to the section on [Using Semaphores to Avoid Data Race Conditions](pattern_global_data#using-semaphores-to-avoid-data-race-conditions).
+Semaphore VIs are located under `Programming -> Synchronization -> Semaphore`. For more information, see [Using Semaphores to Avoid Data Race Conditions](pattern_global_data#using-semaphores-to-avoid-data-race-conditions).
 
-## Delays in Wait Loops
+
+## Delays in Polling Loops
 
 ![](../../../../docs/images/image43.png)
 
-The above diagram illustrates an early example from this book, featuring a loop intended to respond quickly to changes in data or state. Solely relying on loop structures for this purpose is inefficient because, in most cases, the data or state does not change, rendering many iterations unnecessary. The ideal scenario is for the program to react only upon actual changes.
+When a loop needs to respond to user events or check for data/status updates from external hardware, it must poll the status continuously if interrupts or events are not available.
 
-However, immediately triggering an event upon any change in values or states may not always be feasible. For example, when data from an external device changes, it doesn't automatically generate an event. The only way for the application to monitor such changes is by continuously reading the data value. In these instances, the program must resort to an incessant loop, repeatedly checking if the data or state has changed. It's essential to incorporate a delay of a few dozen to several hundred milliseconds in such polling loops to prevent monopolizing the CPU for futile calculations. While this won't cause logical errors within the program, it can significantly slow down the execution of other parts of the program.
+If you run a While Loop without any timing delay, it will execute as fast as the CPU allows, pegging a CPU core to 100% usage for useless iterations. To prevent this, always include a small timing delay (e.g., using **Wait (ms)** or **Wait Until Next ms Multiple**) inside your polling loops. A delay of just 10 ms to 100 ms will drop CPU utilization to near 0% while remaining responsive enough for user actions and typical hardware updates.

@@ -2,61 +2,59 @@
 
 ## Structuring Your Program
 
-For LabVIEW programs of a manageable size, the approach to either analyzing an existing program or designing a new one typically progresses from the overall to the specific—that is, from a high-level to a low-level analysis and design. Diving straight into the details from the get-go can prove to be less efficient.
+When analyzing an existing application or designing a new one, it is best practice to use a top-down design methodology. Moving from a high-level architectural view down to low-level implementation details prevents getting bogged down in minutiae too early.
 
-In the design phase, developers initially segment the program into several tiers vertically. Starting from the very top, they contemplate how to split this highest layer into various sections based on the program's functions and the interrelations between these sections. Then, for each segment of this topmost layer, the next tier down is considered, further dividing it into more detailed functional modules according to their respective tasks. This layered approach continues downwards.
+During the design phase, developers partition the application into vertical layers. At the highest level, they divide the application into distinct subsystems based on their general roles and interfaces. They then break down each subsystem into modular components and individual VIs. This layered approach is repeated until the individual functions are defined.
 
-Depending on the program's scale and complexity, it can be divided into varying levels of hierarchy. The simplest programs might consist of just one level, accomplished with a single VI. Moderately complex programs could feature two levels, made up of a main VI and several sub VIs. For even more intricate programs, the number of levels could increase.
+The number of hierarchical layers depends on the project's scale. A simple tool might exist as a single VI. A moderate application typically has two layers: a main VI (mediating user interaction) and several SubVIs (performing specific calculations). Complex industrial systems can span four or more layers.
 
-The hierarchical structure of straightforward programs is evident in the VI hierarchy (refer to [Using Sub VIs](ramp_up_complex_vis#utilizing-sub-vis)). However, for larger-scale programs, the VI hierarchy diagram falls short for analysis purposes. As shown in the diagram below, only a fraction of the VI hierarchy is visible even on a full-screen display. For such extensive programs, a more abstract approach to dividing program levels is advisable.
+While you can visualize simple projects using LabVIEW's built-in **VI Hierarchy** window (see [Using SubVIs](ramp_up_complex_vis#utilizing-sub-vis)), this tool is overwhelming for large applications. In a large project, the hierarchy diagram is a dense web of hundreds of nodes, making it impossible to analyze visually:
 
 ![](../../../../docs/images/image443.png "A Complex Program's VI Hierarchy Diagram")
 
-A frequent strategy for segmenting test and measurement programs involves three tiers.
+A standard architectural pattern for test and measurement systems splits the software into three distinct layers:
 
-The apex tier is the main VI. Typically, a test program's main VI also serves as the interface VI, hence this topmost layer could also be termed the interface (interaction) layer. It is tasked with rendering the program's interface, facilitating user interaction, and invoking lower-level VIs.
-
-Beneath it lies the functional layer. A test program conventionally comprises several core functionalities: data acquisition, data analysis and processing, data display, and data storage. This chapter will delve into the design and execution of these functionalities in detail.
-
-The foundation tier is known as the driver layer. The program's diverse functions are fulfilled by calling different drivers for more specific and generalized tasks, such as drivers for data acquisition devices, file read/write operations, and graphic displays. This tier also encompasses low-level mathematical operation VIs and more. LabVIEW already equips users with a suite of standard low-level driver functionalities, thus this book will not cover drivers extensively.
+- **Presentation / User Interface Layer (Top)**: The main VI, which presents the Front Panel, handles user input events, and displays test results.
+- **Business Logic / Functional Layer (Middle)**: Implements core algorithms, routing, and processing tasks. In measurement systems, this is represented by the four primary pillars: Data Acquisition, Data Processing, Data Visualization, and Data Storage.
+- **Hardware Abstraction / Driver Layer (Bottom)**: Provides low-level drivers to communicate with hardware instruments (e.g., NI-DAQmx, VISA), file I/O APIs (e.g., TDMS, CSV), database connectors, and core mathematical utilities. Since LabVIEW includes these drivers out of the box, we will not focus heavily on their low-level implementation details.
 
 The main VI employs various program structures when invoking several functional modules, adapted to the program's specific needs. Below, we introduce several structural models frequently employed in test programs.
 
 
 ## The Standard Loop Model
 
-The process of a straightforward test program can be broken down into data acquisition, processing, display, and storage phases. The structure of the main VI program block is illustrated below.
+The baseline process of a measurement system runs through four sequential steps: acquisition $\rightarrow$ processing $\rightarrow$ display $\rightarrow$ storage. The simplest program structure is shown below:
 
 ![](../../../../docs/images/image444.png "Simple Test Program Model")
 
-Typically, programs aren't run just a single time but need to continuously cycle through collecting, processing, displaying, and storing data. This cyclical program model is depicted below, essentially adding a loop to the previously mentioned structure.
+To monitor a system continuously, you must repeat this sequence in a loop. This **Single-Loop** architecture is shown below:
 
 ![](../../../../docs/images/image445.png "Sequential Test Program Model")
 
-In the program illustrated above, the final sub-VI is tasked with deciding whether the experiment should end or if another loop iteration is necessary. This model operates with sequential execution in a single thread. Its main advantage is straightforward program logic, making it simpler to design and comprehend.
+The loop terminates when a stop condition is met. Because this single-loop model executes sequentially, it is easy to program, debug, and understand.
 
-However, this model introduces sequential dependencies between each functional module. It runs in a single thread, necessitating the completion of one module before proceeding to the next. For instance, despite data storage being a relatively slower process, the computer must wait for its completion before initiating the next loop for data acquisition, consequently slowing down the overall program execution speed.
+However, the sequential dependency between stages is a major performance bottleneck. Because all tasks execute in a single thread, a delay in one stage stalls the entire loop. For example, writing data to disk (Data Storage) is a slow operation. The loop must wait for the disk write to finish before it can acquire the next batch of data (Data Acquisition), leading to potential buffer overflows on the DAQ card and a reduced sampling rate.
 
 
-## Pipeline Model
+## The Pipeline Model
 
-Improving efficiency can be achieved by simultaneously running several functions. Naturally, the sequence for individual data pieces still needs to follow acquisition, processing, then display, and finally storage. Simultaneously running functions doesn't imply operating on the same data simultaneously but rather collecting new data while processing and displaying/storing the data from the previous loop iteration. This resembles a multi-stage product manufacturing assembly line.
+We can optimize performance by running these tasks in parallel, similar to a manufacturing assembly line. In a **Pipeline** architecture, while the acquisition stage collects block $N$ of data, the processing stage analyzes block $N-1$, and the display/storage stage writes block $N-2$ to disk:
 
 ![](../../../../docs/images/image446.png "Pipeline Processing Data")
 
-The pipeline approach enhances program efficiency to a certain extent. In this model, the duration of one loop iteration—or the time taken to process a single data piece—depends on the longest step among acquisition, processing, display, and storage. If there's consistently one step that takes the most time, then the pipeline model is a great choice.
+This pipeline model improves throughput. The overall loop execution period is no longer the *sum* of all stages, but is dictated by the *slowest single stage* in the pipeline.
 
-In reality, due to variations in data transmission speeds, the rate at which data is collected into the computer can fluctuate. Similarly, data processing speeds may vary due to other programs running on the computer. The pipeline speed is always constrained by the slowest process. Introducing a buffer to store data temporarily when data collection outpaces processing can further optimize overall efficiency. When data collection slows or processing speeds up, the buffered data can be processed.
+However, in real-world environments, execution times fluctuate (e.g., disk writes can experience brief OS delays, or processing times vary with CPU load). If the consumer stage experiences a spike in latency, it stalls the upstream stages. To absorb these fluctuations, you should introduce a **Buffer** between stages. When acquisition runs faster than processing, data is safely buffered; when processing catches up, it drains the buffer.
 
 
-## Producer-Consumer Model
+## The Producer-Consumer Model
 
-Building on the buffering concept for collected data, the resulting program model is depicted below.
+Implementing this buffer model in LabVIEW leads to the **Producer-Consumer** architecture:
+
+In this design, a **FIFO Queue** acts as the buffer. The acquisition loop (the **Producer**) writes newly acquired data blocks directly to the queue. Enqueueing is extremely fast, ensuring that the hardware interface loop never stalls or misses a sample. A separate execution loop (the **Consumer**) continuously dequeues and processes the data:
 
 ![](../../../../docs/images/image447.png "Data Collection and Processing Program with Buffer")
 
-In this instance, a queue serves as the buffer, although alternatives like arrays could also be used for data buffering. Newly collected data is directly placed into the queue, a procedure that is incredibly time-efficient. That is, data collection speeds directly influence how quickly data can be stored in the buffer. Another section of the program consistently extracts data from the queue for processing. Additionally, the data display and storage components of this model could be run in another separate loop, if necessary.
+This Producer-Consumer pattern decouples the timing of the acquisition thread from the processing/storage threads. You can find pre-built templates for this architecture in LabVIEW's **New...** project dialog box. 
 
-This approach is known as the "producer-consumer model". The upper loop in the model acts as the producer (collecting data), while the lower loop acts as the consumer (processing data). Templates for this model can be found in LabVIEW's New Dialog.
-
-At first glance, programs adopting the producer-consumer model may seem complex. However, once the roles of the two primary loops in these programs are understood, analysis becomes simpler. Actual applications of this model tend to be more intricate and, compared to the pipeline model, more challenging to grasp and maintain.
+Although the Producer-Consumer pattern introduces multi-threaded complexity and requires managing queue lifecycles, it is the industry-standard architecture for high-performance test and measurement systems.

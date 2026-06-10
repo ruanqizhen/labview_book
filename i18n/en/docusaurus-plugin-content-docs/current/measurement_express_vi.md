@@ -1,47 +1,54 @@
-# Express VI
+# Express VIs
 
 ## What Are Express VIs?
 
-Express VIs are equipped with a configuration dialog box that allows users to set input parameter values directly while editing the VI. They are purposefully designed to streamline programming for common tasks. For typical LabVIEW programming patterns, such as data acquisition or performing frequency domain transformations on waveforms, one or two Express VIs with some straightforward configuration can suffice. To facilitate easy access for programmers, LabVIEW includes the most commonly used Express VIs in the "Express" section of the function palette. Meanwhile, some of the more complex and less frequently used Express VIs are categorized into other sub-palettes based on their functionality.
+Express VIs are specialized VIs that feature interactive configuration dialogs. They allow developers to configure input parameters visually in edit mode, dramatically simplifying common programming tasks. For standard operations like data acquisition or spectral analysis, you can build a complete program using just one or two Express VIs. To make them easily accessible, LabVIEW groups the most common Express VIs in the **Express** palette of the Functions Palette, while other advanced Express VIs are nested in domain-specific palettes.
 
-One can easily distinguish Express VIs from regular VIs on the function palette by the light blue border around their icons, as seen in the "Time Delay" and "Elapsed Time" VIs below.
+You can easily distinguish Express VIs from standard VIs on the Functions Palette by the light blue border around their icons (as seen on the **Time Delay** and **Elapsed Time** icons below):
 
 ![images/image306.png](../../../../docs/images/image306.png "Express VIs on the Function Palette") 
 
-The usage of Express VIs diverges from that of regular VIs as well. Typically, Express VIs feature a configuration dialog box (as shown below), which facilitates the setting of necessary data for the Express VI's operation, thereby removing the need for direct data input on the block diagram. This significantly declutters the block diagram. Express VIs usually offer more robust functionality compared to standard VIs. For instance, basic programs for data acquisition and display can be easily achieved using just a few Express VIs, thanks to their simplicity and user-friendly nature, thus earning the name "Express VIs".
+When you drag an Express VI onto the Block Diagram, its configuration dialog opens automatically. This visual configuration eliminates the need to wire static constants on the diagram, keeping your code exceptionally clean. Because they encapsulate complex multi-step routines into a single node, beginners can quickly build functional data acquisition and signal display utilities without writing low-level code.
 
 ![images/image307.png](../../../../docs/images/image307.png "'Time Delay' Express VI")  
 ![images/image308.png](../../../../docs/images/image308.png "Dialog Box of 'Time Delay' Express VI") 
 
-Despite the powerful features and convenience offered by Express VIs, they come at the cost of lower efficiency. In applications with simple functionality, the Express VIs employed may include an array of unneeded features. These superfluous functionalities not only take up memory space but also slow down the program's execution. Consequently, for efficiency-critical applications, Express VIs may not be the best choice.
+Despite their convenience, Express VIs have a major drawback: poor runtime efficiency. Because they are designed to cover a broad range of use cases, they contain a massive amount of generic overhead and safety checks that you may not need. This redundant code bloats the compiled VI size and increases execution latency. For high-performance, real-time, or memory-constrained applications, you should avoid Express VIs and use standard, low-level API VIs instead.
 
 
-## How Sub VIs Appear on the Block Diagram
+## How SubVIs Appear on the Block Diagram
 
-Standard sub VIs, when placed on the block diagram, default to being displayed as icons. In icon mode, you can opt to "Show Terminals" via the right-click menu to reveal its connector pane. An alternative display style available is the expandable node, which can be activated by deselecting "Show as Icon" in the sub VI's right-click menu. Sub VIs shown as expandable nodes allow for all their terminals to be moved and listed by dragging the diagram's bottom border line (as seen with the sub VI on the right in the image below).
+By default, standard SubVIs are displayed as rectangular icons on the Block Diagram. You can right-click an icon and select **Show Terminals** to reveal its connector pane layout. Alternatively, you can view the SubVI as an **Expandable Node** by right-clicking it and unchecking **View As Icon**. An Expandable Node displays its input and output terminals as a vertical list that can be resized by dragging the bottom border (as shown on the right in the figure below):
 
 ![images/image309.png](../../../../docs/images/image309.png "Three Different Display Styles of Sub VIs")
 
-Like standard sub VIs, Express VIs also support these various display modes. However, Express VIs are by default shown as expandable nodes and always feature a blue border background, regardless of the chosen display style.
+Express VIs support the same display modes. However, by default, Express VIs are displayed as Expandable Nodes. They are always marked by a distinctive light-blue background outline to distinguish them from standard VIs.
 
-Sub VIs displayed as expandable nodes take up more screen space but have several benefits: they display the names of the terminals, improving program readability; the expandable style for Express VIs is collapsible, allowing terminals not in use to be minimized. The expanded terminals are spaced out, facilitating the differentiation between numerous wires and terminals, particularly when the VI has many terminals.
+Although Expandable Nodes consume more block diagram space, they offer several advantages: they show the full names of each terminal, making the code self-documenting, and you can collapse or hide unused terminals to save space. The generous vertical spacing also prevents overlapping wires on complex nodes.
 
-Take the "ex_subFileWrite.vi" sub VI shown below as an example. It has a multitude of input and output parameters. Utilizing the expandable node display method clearly illustrates the connections for each parameter. If displayed as an icon, distinguishing the connections between parameters would be virtually impossible.
+For example, consider the `ex_subFileWrite.vi` SubVI below, which has dozens of parameters. Viewing it as an Expandable Node makes it easy to see where each wire connects. If it were displayed as a standard icon, wiring these parameters would be extremely difficult and error-prone:
 
 ![images/image310.png](../../../../docs/images/image310.png "Displaying a Sub VI with Numerous Parameters as an Expandable Node")
 
 ![images/image311.png](../../../../docs/images/image311.png "Displaying a Sub VI with Numerous Parameters as an Icon")
 
 
-## Understanding Express VIs
+## How Express VIs Work
 
-Standard sub VIs come with both a front panel and a block diagram, where the front panel controls define the parameters used by the VI, and the block diagram contains the code that executes its functions. In a VI's block diagram, double-clicking on a standard sub VI's icon opens its front panel; if you hold the Ctrl key and double-click, it opens both the front panel and block diagram.
+A standard SubVI is a static file containing a Front Panel (defining the user interface and parameters) and a Block Diagram (containing the executable code). In edit mode, double-clicking a standard SubVI on the Block Diagram opens its Front Panel; holding the **Ctrl** key and double-clicking opens its Block Diagram directly.
 
-Express VIs, however, operate differently from standard sub VIs. Double-clicking an Express VI's icon on the block diagram launches a configuration dialog box instead. Typically, standard sub VIs are developed by programmers themselves, necessitating the opening of the sub VI's front panel and block diagram for edits, modifications, and debugging. Express VIs, usually provided with LabVIEW or its toolkits, don't require developers to create or modify them, often eliminating the need to access their internal code. An Express VI integrates multiple functions, enabling programmers to easily configure it through its dialog box to suit their specific requirements.
+Express VIs behave differently. Double-clicking an Express VI on the Block Diagram opens its configuration dialog rather than its Front Panel. Because most Express VIs are built-in NI libraries or toolkit utilities, developers configure them interactively and rarely need to view or modify their internal implementation code.
 
-The block diagram of a standard sub VI is stored in a .vi file. For such VIs, the executed code remains the same regardless of where or how often it is called within an application, running the block diagram contained in the .vi file. Express VIs, however, do not adhere to this rule. Programmers can alter the configuration dialog box as needed, and any change in configuration modifies the Express VI's execution code. Thus, the same Express VI called in different contexts may execute different code, meaning its block diagram isn't stored in a single .vi file. Actually, the block diagram of an Express VI is saved within the .vi file of the VI that calls it. For example, if a VI named A.vi calls an Express VI named B, B's block diagram is saved within A.vi. However, double-clicking B's icon won't directly reveal its block diagram.
+The executable code of a standard SubVI is stored inside its own `.vi` file. When called, the host VI executes the exact same underlying Block Diagram. Express VIs violate this rule. When you adjust the parameters in an Express VI's configuration dialog, LabVIEW dynamically updates the underlying Block Diagram of that specific instance. As a result, two instances of the same Express VI on a diagram can run completely different code. 
 
-While some Express VIs allow viewing of their block diagrams (and others do not), selecting "Open Front Panel" from an Express VI's right-click menu converts it into a non-configurable standard sub VI, solidifying its code. This action grants access to the front panel and block diagram. Take the "Convert from Dynamic Data" Express VI as an example (found under "Express --> Signal Operations --> Convert from Dynamic Data"). When placing two such Express VIs on a block diagram, named "Data Conversion 1" and "Data Conversion 2", and configuring them differently:
+Consequently, the executable code of an Express VI instance is not stored in a shared library file; it is compiled and saved directly *inside the caller VI's file*. For instance, if `main.vi` calls the **Simulate Signal** Express VI, the generated code for that instance is embedded directly inside `main.vi`.
+
+You can inspect the underlying code generated by an Express VI by right-clicking it and selecting **Open Front Panel**.
+
+> [!WARNING]
+> Selecting **Open Front Panel** permanently converts the Express VI into a standard, static SubVI. You will lose the ability to reopen its configuration dialog.
+
+Let's look at the **Convert from Dynamic Data** Express VI (**Express >> Signal Operations >> Convert from Dynamic Data**) as an example. We place two instances, 'Data Conversion 1' and 'Data Conversion 2', on our diagram and configure them with different types:
 
 "Data Conversion 1" is set to "1D Waveform Array":
 
@@ -62,66 +69,74 @@ The block diagram consists of a straightforward sub VI:
 ![images/image316.png](../../../../docs/images/image316.png "Block Diagram of 'Data Conversion 2' Express VI")
 
 
-## Express VIs Tailored for Test Programs
+## Express VIs in Test and Measurement
 
-Test programs represent a prevalent type of LabVIEW application, prompting LabVIEW to specifically offer a wide array of Express VIs designed for these programs. These include Express VIs for tasks such as data acquisition/generation, analysis, display, and storage:
+Since LabVIEW is primary used for test and measurement, it provides a large set of Express VIs designed specifically for signal generation, acquisition, analysis, and storage:
 
 ![images/image448.png](../../../../docs/images/image448.png "Express VIs Commonly Used in Test Programs")
 
-LabVIEW streamlines the work for programmers by integrating functionalities commonly utilized in testing into a few highly capable sub VIs. The complexity of a sub VI's functions directly correlates with the diversity of data it necessitates. Typically, configuring a few simple parameters suffices for a specific program's needs.
+These VIs encapsulate complex mathematics and driver commands into simple nodes. Because these functions are highly versatile, they require many configuration parameters, though in practice you only need to customize a few settings for a specific test run.
 
-For example, generating waveform data is a frequent requirement in programs. Thus, LabVIEW offers a sub VI dedicated to waveform generation. Creating a waveform demands extensive information from the programmer, such as type, frequency, amplitude, phase, sampling rate, and sample count, among many others. Implementing these functionalities through standard sub VIs would overwhelm the block diagram and diminish the program's readability. Moreover, it complicates programming by making it difficult to predefine every data point before program execution.
+For example, generating a simulated waveform requires configuring the wave shape, frequency, amplitude, phase offset, sample count, and sampling rate. If you used standard SubVIs, you would have to wire constants to all these inputs, cluttering the Block Diagram and reducing code readability.
 
-However, not all of these parameters need to be variable in certain specific applications. Often, a program only requires generating a fixed waveform type or specific frequencies and amplitudes. That is, the program only utilizes a fraction of the available functionality. Using a complex VI for such tasks not only feels like overkill but also becomes cumbersome due to the multitude of parameters involved.
+In most applications, these parameters are static (e.g., you always want a 50 Hz sine wave). Having to wire them on the diagram is overkill. Express VIs solve this: you double-click the VI to open the configuration dialog, set the parameters once, and they are saved directly in the instance metadata.
 
-Express VIs emerged to bridge this gap. They feature a configuration dialog box that allows users to easily select the data needed. Placing an Express VI on the block diagram or double-clicking an existing one brings up its configuration interface, complete with instructions to assist programmers in choosing appropriate configuration data. Some interfaces, like that of the Simulate Signal Express VI, even include a "Result Preview" feature, enabling programmers to see the effects of their parameter selections in real time without having to run the entire program.
-
-Below is the "Simulate Signal" Express VI’s configuration dialog box. Altering parameters such as frequency and amplitude immediately reflects changes in the simulated signal waveform in the "Result Preview".
+Furthermore, configuration dialogs often feature a **Result Preview** graph. For instance, in the **Simulate Signal** Express VI, you can preview the generated waveform immediately as you adjust the frequency and amplitude sliders, without needing to run the VI:
 
 ![images/image449.png](../../../../docs/images/image449.png "The 'Simulate Signal' Express VI Configuration Dialog Box")
 
 
-### About Setting the Sampling Rate
+### Note on Sampling Rate Configuration
 
-Higher sampling rates demand more computing and storage resources. When setting a sampling rate, it's important to weigh the device's capabilities. On the flip side, a sampling rate that's too low may miss critical signal details (high-frequency components). According to Shannon's sampling theorem (Nyquist sampling theorem), the sampling frequency should be at least twice the maximum frequency in the analog signal's spectrum to avoid distortion. For a pure sine wave, which consists of a single frequency, the sampling rate need only be slightly more than twice that frequency. Other waveforms, like a perfect square wave, have infinitely high high-frequency components, but sampling rates cannot be infinitely high. High-frequency bands often carry less critical information, so perfectly reconstructing the original signal after sampling isn't always necessary; it suffices to accurately reconstruct the most significant frequency bands. For imperfect sine waves, a sampling rate marginally above twice the fundamental frequency might result in excessive distortion. Finding the most suitable sampling rate requires aligning with project demands. If starting from scratch, setting the sampling rate to ten times the fundamental frequency and adjusting as needed can serve as a practical approach.
+Configuring the sampling rate is a balance between CPU/storage capacity and signal fidelity. Under the **Nyquist-Shannon sampling theorem**, the sampling frequency ($f_s$) must be at least twice the highest frequency component ($f_{max}$) of the analog signal to prevent **aliasing** (distortion):
+
+$$f_s > 2 f_{max}$$
+
+For a pure, ideal sine wave, a sampling rate slightly higher than $2f$ is mathematically sufficient. However, real-world signals (like square waves or distorted inputs) contain high-frequency harmonics. While we cannot sample at an infinite rate, we must sample fast enough to capture the primary harmonics of interest. In practical engineering, a rule of thumb is to set the sampling rate to at least **10 times** the fundamental frequency of the target signal to ensure low-distortion reconstruction, and then adjust based on specific application requirements.
 
 
-## Applications
+## Application Example
 
-Utilizing NI's data acquisition devices in conjunction with Express VIs simplifies the creation of standard test programs considerably. Essentially, each major step - acquisition, processing, display, and storage - typically requires just one or two Express VIs.
+Using National Instruments DAQ hardware with Express VIs allows you to build complete test applications in minutes. The entire pipeline—acquisition, analysis, display, and storage—can be implemented using one or two Express VIs per stage.
 
-For instance, with the "DAQmx" software package installed, you can employ the "DAQ Assistant" Express VI for data acquisition:
+For example, with the **NI-DAQmx** driver package installed, you can use the **DAQ Assistant** Express VI to acquire data:
 
 ![images/image450.png](../../../../docs/images/image450.png "DAQ Assistant Express VI")
 
-This Express VI offers a wizard-style configuration dialog box that methodically guides users through the process of selecting and setting up NI hardware for signal acquisition:
+This VI opens a step-by-step configuration wizard that guides you through selecting physical channels, setting measurement ranges, and configuring timing and triggering settings on your NI DAQ hardware:
 
 ![images/image451.png](../../../../docs/images/image451.png "DAQ Assistant Express VI and Its Configuration Dialog Box")
 
 Users first select a type of signal to measure. The wizard then presents compatible hardware options. After selecting the hardware, it's configured as needed.
 
-Although not every computer is fitted with the same model of NI data acquisition card, most have a sound card. Sound cards function as signal input/output devices, making them suitable examples for data acquisition program demonstrations in this book. Using sound cards, programming with Express VIs is just as straightforward. The goal here is to implement a program that generates a sine wave, outputs this wave through the computer speakers as sound, captures this sound signal with a microphone, and then compares the differences in power spectra between the original and captured waveforms.
+Since not every developer has access to dedicated NI DAQ hardware, standard PC sound cards are excellent for demonstrations. A sound card acts as a basic dual-channel analog input/output device. 
 
-The program involves four key steps: generating the waveform signal, outputting the signal, capturing the signal, and calculating the signal's power spectrum. These steps can be executed using just four Express VIs. The program's block diagram is depicted below:
+In the following example, we will build a program that generates a simulated sine wave, outputs it through the PC speakers, records the sound using a microphone, and compares the power spectra of the generated vs. captured waveforms.
+
+The pipeline consists of: **Simulate Signal** (generating the waveform) $\rightarrow$ **Play Waveform** (outputting to speakers) $\rightarrow$ **Acquire Sound** (recording via microphone) $\rightarrow$ **Spectral Measurements** (calculating the power spectrum). This entire application can be built using just four Express VIs, as shown in the block diagram below:
 
 ![images/image452.png](../../../../docs/images/image452.png "Block Diagram of the Sound Signal Processing Program")
 
-The next image illustrates the program's output. On the power spectrum display, the original signal is shown in blue (lighter color), and the signal captured via the microphone appears in red (darker color). It's clear that the recaptured signal, while matching the original in frequency, shows a decrease in power and an increase in relative noise.
+The Front Panel of the running application is shown below. On the Power Spectrum graph, the original simulated signal is plotted in blue, while the microphone-acquired signal is shown in red. The captured signal clearly shows amplitude attenuation and a higher noise floor introduced by the room acoustics and microphone hardware:
 
 ![images/image453.png](../../../../docs/images/image453.png "Interface of the Sound Signal Processing Program")
 
-When configuring these Express VIs, it's crucial that the length of the simulated signal corresponds with the duration of the sound capture to prevent the inclusion of additional irrelevant signals in the captured data.
+Note: When configuring these VIs, ensure the simulated signal duration matches the sound capture window. If the recording window is longer than the playback signal, the tail end of the capture will record silence or ambient room noise, distorting the spectrum comparison.
 
-Programming with Express VIs might be straightforward, but their functionalities are inherently limited to those most frequently utilized in test programs. If a program has specific requirements or if devices and data acquisition cards from other manufacturers are used, employing more specialized, lower-level VIs for programming may become necessary.
-
-
-## Advantages and Disadvantages of Express VIs
-
-The primary advantage of Express VIs lies in their ability to make programming more accessible. Many LabVIEW users do not have a background in computer software or related fields, and they might find writing complex programs challenging. Utilizing Express VIs to achieve certain functionalities often involves simply selecting a few parameters in a configuration panel, which is undoubtedly easier than coding directly on the block diagram.
-
-However, Express VIs have two main drawbacks. First, the available selection of Express VIs is limited, covering only a subset of the common functionalities needed for testing and measurement. It is impractical to rely solely on Express VIs for the entirety of a project's needs. Second, they are less efficient in execution compared to standard VIs. Despite an application only requiring a fraction of an Express VI's capabilities, the inclusion of its additional functionalities means that the compiled executable code for programs utilizing Express VIs tends to be larger and slower than those employing standard VIs.
+While Express VIs make rapid prototyping easy, they only support standard, high-level configurations. If your project has advanced requirements (e.g., custom hardware drivers, complex triggering, or raw buffer operations), you will need to replace them with low-level, specialized API VIs.
 
 
-## Creating Your Own Express VI
+## Pros and Cons of Express VIs
 
-In addition to the built-in Express VIs provided by LabVIEW, programmers also have the option to create their own Express VIs. Starting from LabVIEW 8.6, accessing the menu item "Tools -> Advanced -> Create or Edit Express VI" opens a dialog box titled "Create or Edit Express VI". This dialog box offers step-by-step guidance for crafting an Express VI.
+### Pros
+- **Accessibility**: Express VIs lower the entry barrier for non-programmers (such as test technicians or researchers) by replacing G coding with interactive, visual configuration panels.
+- **Speed**: Allows rapid prototyping and instant validation of signal processing settings via the Result Preview graph.
+
+### Cons
+- **Limited Selection**: Only a small subset of standard LabVIEW functions are available as Express VIs. You cannot build a complex application using Express VIs alone.
+- **Performance Overhead**: Because they compile generic, all-in-one code to handle many options, they consume more memory and execute slower than optimized standard VIs.
+
+
+## Creating Custom Express VIs
+
+In addition to using LabVIEW's built-in libraries, you can build your own custom Express VIs. Select **Tools >> Advanced >> Create or Edit Express VI...** to launch the Express VI creation wizard, which guides you through designing a custom configuration dialog and wrapping it into an Express VI library.

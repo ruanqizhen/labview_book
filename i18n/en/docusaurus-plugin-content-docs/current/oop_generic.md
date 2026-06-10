@@ -1,357 +1,338 @@
 # Generic Programming
 
 ## Fundamentals
-In programming, we often abstract out common functionalities. For example, when designing a sorting algorithm, we typically don't rewrite the algorithm's code for specific data wherever sorting is needed. Instead, we abstract this algorithm into a subfunction (sub VI) and pass the data to be sorted as a parameter. Since the abstracted algorithm is independent of specific data, the same algorithm can be applied to different datasets, such as sorting the arrays `[1,3,2]` and `[5,6,4]`.
 
-Generic programming is a programming paradigm that abstracts algorithms even further, away from specific data types. Algorithms written using generic programming are not only independent of specific data but also of specific data types. For example, a generic sorting function could sort an array of integers, an array of strings, order a set of apples by size, or sort a group of students by their grades, and so on.
+In software development, we often abstract common logic. For example, when implementing a sorting algorithm, we don't rewrite the code for every specific array we need to sort. Instead, we package the logic into a subfunction (subVI) and pass the target array as an input parameter. Since the sorting algorithm itself is independent of the specific values, the same subVI can sort `[1, 3, 2]` as easily as `[5, 6, 4]`.
 
-Previously, when creating sub VIs, the data type (control type) for inputs and outputs was fixed once chosen. For instance, a sub VI using a numeric control for input data could only process numeric data. Connecting a string data wire would result in a syntax error. To utilize generic programming in LabVIEW, we need to write a type of sub VI that can accept different types of data for its parameters. You might have noticed that many of LabVIEW's built-in functions support generics, such as the addition function, which can accept numeric types as well as clusters or arrays (as shown below). Another example is the array-related functions, which can operate on arrays of both numbers and strings.
+**Generic programming** takes abstraction a step further by decoupling algorithms from specific *data types*. A generic sorting algorithm can sort an array of integers, an array of strings, a list of apples sorted by weight, or a database of students sorted by grade.
 
-![images_2/z045.png](../../../../docs/images_2/z045.png "The addition function can support multiple data types")
+In traditional G programming, inputs and outputs on a subVI's connector pane have fixed data types. If a subVI is configured with a numeric input terminal, you can only wire numbers to it; wiring a string array will result in a broken wire syntax error. However, many built-in LabVIEW functions are inherently generic. For example, the addition function (`+`) accepts numeric types, arrays, or clusters:
 
-If a VI uses a variant as its parameter data type, then its parameter can accept any type of data. Does this mean it supports generic programming? (Or, like in programming languages such as Python 2.0, where variables do not need to have a defined type, and any type of data can be passed to the same variable, does this mean it inherently supports generic programming?)
+![images_2/z045.png](../../../../docs/images_2/z045.png "The addition function supports multiple data types")
 
-This isn't enough. For a programming language to support generic programming, it must not only allow a single parameter to support different data types but also possess static type checking capabilities. Static type checking means that if the code uses an incorrect data type, the program will report an error during compilation rather than waiting until runtime to discover the error. For instance, if an algorithm can support numeric and string data types but not boolean data types, then there should be a mechanism where connecting boolean data type to this algorithm's sub VI immediately triggers a syntax error, without needing to run the VI to identify a data type error. Obviously, a sub VI that uses a variant data type cannot achieve this, as passing any type of data to a variant won't cause a syntax error. Even more complex scenarios, like creating an array of string types and then operating on this array with other array functions (such as insert, index, etc.), should only accept string data types, and connecting other data types should also result in an error.
+Similarly, array functions (like *Insert Into Array* or *Index Array*) adapt dynamically to whatever data type the array contains.
 
-In mainstream programming languages, two common methods are employed to support generic programming:
+If we write a subVI and set its input parameter to the **Variant** data type (which can accept any type of data), does that constitute generic programming?
 
-One method is the type erasure technique, represented by Java. When the compiler compiles Java code with generics, it performs type checking and type inference. If it encounters a type error, it reports an error. However, the executable code generated by the compiler is generic-free, meaning the data type information is erased. Thus, the same piece of code can be utilized by the Java Virtual Machine to process various types of data, allowing Java's generic programming to support multiple data types while ensuring type safety.
+Not quite. A true generic programming model requires not only parameter flexibility but also **static type checking**. Static type checking means the compiler identifies type mismatches at edit-time (causing a broken wire), rather than letting the program compile and fail at runtime. For example, if a custom sorting algorithm supports numbers and strings but not Booleans, wiring a Boolean array should immediately break the wire, prompting the developer before the code runs. A subVI using raw Variant inputs cannot achieve this because a Variant accepts any G data type without breaking the wire.
 
-For example, in the code, types like `List<Int\>` or `List<String\>` are defined. During compilation, the compiler checks whether the data passed is of type Int or String, etc. After compilation, they all turn into List. What the Java Virtual Machine sees is just List, so related functions can operate normally regardless of the List's data type.
+In mainstream text-based languages, generic programming is implemented in two main ways:
+- **Type Erasure (e.g., Java):** The compiler performs type checking and type inference during compilation to ensure type safety. Once checked, it erases the generic type parameters, producing generic-free bytecode. A single compiled class (like `List`) is reused for all types.
+- **Code Generation / Templates (e.g., C++):** When you write a generic template, the compiler does not compile it directly. Instead, when it compiles code like `List<int>` and `List<string>`, it automatically generates separate, type-specific source code classes behind the scenes. This trades executable size (code bloat) for execution speed, ensuring strict compile-time type safety.
 
-Another approach is the code injection (code bloat) technique, represented by C++. In C++, when writing generic functions or classes, you're not directly writing a specific function or class but a template for that function or class. For instance, if you need a List that supports generics, you must write a template for List. In places within the program that use types like `List<Int>` or `List<String>`, the compiler automatically generates code for the specific data types from the template during compilation. `List<Int>` and `List<String>` generate different codes. During program compilation, the compiler checks the code for data type errors to ensure type safety. Due to a large amount of code automatically generated from templates, the code space will be quite large. Compared to Java's support for generics, C++'s technique trades space for time.
-
-In LabVIEW, there are also several methods to write VIs that support many different types of data, which will be introduced one by one in this section.
+LabVIEW offers several techniques to build VIs that support multiple data types. This chapter will walk through these approaches.
 
 
-## Utilizing Variants as Sub VI Parameter Types
+## Utilizing Variants as SubVI Parameter Types {#utilizing-variants-as-sub-vi-parameter-types}
 
 ### The Variant Data Type
 
-In LabVIEW, the Variant stands out as a unique data type, capable of being transformed from any other data type through the "Programming -> Cluster, Class & Variant -> Variant -> To Variant" function. When required, the variant can be converted back to its original data type using the "Variant To Data" function. This variant data type mirrors the Variant in VB and the void data type in C.
+The **Variant** is a unique data type in LabVIEW that can represent any G data type. You can convert any variable to a variant using the **To Variant** function, and convert it back using the **Variant To Data** function (both located in the **Programming -> Cluster, Class & Variant -> Variant** palette):
 
 ![](../../../../docs/images_2/z224.png "Variant Functions Palette")
 
-### Type Transformation
+The Variant data type functions similarly to `void*` in C or `Variant` in Visual Basic.
 
-Upon converting different data types into a variant, the variant retains the original data's type information. Hence, the "Variant To Data" function can only revert a variant to its original data type, not to any other type. For instance, the program below shows a cluster data type being converted into a variant, which is then restored back to a cluster:
+### Type Conversion
+
+When you convert data to a variant, the variant retains the original data type information. Consequently, the **Variant To Data** function can only cast the variant back to its exact original type (or a compatible type); attempting to convert it to an incompatible type will output default data and a type mismatch error.
+
+Below is an example of converting a custom cluster into a variant and then restoring it:
 
 ![](../../../../docs/images/image125.png "Variant Data Conversion")
 
-On the variant control, choosing "Show Type" and "Show Data" from the context menu allows for the display of the original data's type and value within the variant, based on the user's preference:
+During debugging, you can right-click a variant indicator or control and select **Show Type** and **Show Data** to inspect its internal type metadata and actual value directly on the front panel:
 
 ![](../../../../docs/images/image126.png "Displaying the Internal Data's Type and Value in the Variant Control")
 
-In scenarios where the original type of variant data needs to be identified within the program, the "Get Type Information.vi" from the "Data Type Parsing" sub-palette under the "Variant" functions palette can be employed to extract the variant's original data type. Subsequent actions can then be tailored according to its original data type. This "Data Type Parsing" sub-palette also includes various VIs for dissecting data types, enabling the parsing of diverse data types, such as identifying the data type of each element within a cluster:
+If you need to inspect the data type programmatically, use `Get Type Information.vi` inside the **Data Type Parsing** subpalette. This subpalette contains several advanced VIs for parsing complex data structures, such as inspecting the data type of individual fields inside a cluster:
 
 ![](../../../../docs/images_2/z225.png "Data Type Analysis")
 
-The program depicted below converts cluster type data into a variant, followed by an analysis of the data type:
+The program below demonstrates converting cluster data to a variant and extracting its internal type structure:
 
 ![](../../../../docs/images/image127.png "Extracting Original Data Type Information from a Variant")
 
 
-### Utilizing Variants for Sub VI Parameters
+### Applying Variants as Parameters
 
-#### Variant Data Type
+By setting a subVI's inputs and outputs to the **Variant** type, you can pass any data type to the subVI. This is also useful when you need to store different data types inside the same collection, such as an array of variants.
 
-In LabVIEW, the Variant data type is somewhat unique, capable of being converted from any other data type via the "Programming -> Cluster, Class & Variant -> Variant -> To Variant" function. When needed, the "Variant To Data" function can revert it back to the original data type. The Variant type is akin to the Variant in VB or the void data type in C.
+However, using variants as inputs bypasses compile-time type safety. The compiler cannot verify if the incoming type is valid. Instead, the subVI must inspect the data type at runtime (dynamic type checking) and report errors if a mismatch occurs.
 
-#### Type Conversion
-
-When converting other data types to a Variant, the Variant retains information about the original data type. Therefore, the "Variant To Data" function can only revert a Variant back to its original data type, not any other type. For example, the following program converts cluster data to a Variant and then back to a cluster:
-
-![images/image125.png](../../../../docs/images/image125.png "Variant Data Conversion")
-
-You can choose to display the type and value of the original data within the Variant control by selecting "Show Type" and "Show Data" from the right-click context menu:
-
-![images/image126.png](../../../../docs/images/image126.png "Displaying Data Type and Value in a Variant Control")
-
-To extract the original data type from a Variant in your program, use the "Get Type Information.vi" from the "Variant" palette's "Data Type Parsing" subpalette. This palette contains various VIs for parsing data types, such as determining the data type of each element in a cluster:
-
-![images_2/z225.png](../../../../docs/images_2/z225.png "Data Type Analysis")
-
-The following program converts cluster data to a Variant and then parses the data type:
-
-![images/image127.png](../../../../docs/images/image127.png "Extracting Original Data Type Information from a Variant")
-
-### Applying Variants
-
-Generally, LabVIEW sub VIs have fixed parameter data types, meaning a sub VI can only operate on a specific type of data. However, some algorithms can be applicable to multiple data types. It's not efficient to create multiple sub VIs for an algorithm to handle various data types. An effective method is to use the Variant data type as the sub VI's parameter. This way, any type of data, once converted to a Variant, can invoke this sub VI. Variants are also used when different data types need to be stored in the same array. By converting all data to Variants first, an array of Variants can be formed.
-
-Using Variants as parameters doesn't fully achieve generic programming because it lacks the ability for static type checking. Static type checking means identifying incorrect data types during program compilation rather than at runtime. The VIs for parsing data types from a Variant, introduced earlier, operate at runtime and can only perform dynamic type checking. Despite this, Variants remain crucial in certain applications, so this section details how to pass different types of data with Variants and discusses the limitations of the Variant type.
-
-Imagine needing a sub VI with addition functionality that supports both numerical and string data types. If two numerical values are input, the output should be their sum; if two strings are input, the numerical values they represent should be added and output as a string. Using a Variant as the parameter data type allows the sub VI to handle multiple data types. The sub VI for this purpose is shown below.
+Suppose you want to write a subVI that adds two inputs. It should support both numbers and strings: if the inputs are numbers, it outputs their sum; if they are strings, it parses them, adds them, and outputs the sum as a string. Setting the parameters to Variant allows the subVI to accept both:
 
 ![images/image298.png](../../../../docs/images/image298.png "Sub VI Using Variant as Parameter Type")
 
-The "Variant Addition.vi" has Variant as its parameter data type, allowing it to accept any type of data:
+The calling code wires different types directly to `Variant Addition.vi`:
 
 ![images/image299.png](../../../../docs/images/image299.png "Calling a Sub VI with a Variant Data Type")
 
-Although using Variants as sub VI parameters allows handling multiple data types, there are drawbacks.
+This approach has two main drawbacks:
+1. **Poor Type Safety:** The algorithm is only designed to handle numbers and strings. However, if you wire a Boolean or a path control to this subVI, G will allow it without showing a broken wire. The error will only be caught during execution when the subVI fails to parse the variant.
+2. **Output Unflattening:** Because the subVI output is also a variant, the caller must manually use **Variant To Data** to convert the result back to a concrete type before it can be used in downstream logic.
 
-First, its type safety is poor. For example, the algorithm can only process two numerical values or two strings. However, connecting any type of data to this sub VI or inputting different types of data for parameters x and y won't cause an error. An error is only discovered when the sub VI attempts data type conversion during execution.
-
-Ideally, such errors should be detected and flagged during programming for timely correction. This means, if the input data type is incorrect, the VI should immediately be prevented from running and prompt an error message, rather than waiting until runtime to discover the issue.
-
-Secondly, since the sub VI's output is also a variant, subsequent programs must add an extra step to convert it to a specific data type for further use.
-
-Therefore, using Variant data types as parameters doesn't perfectly solve the problem of a VI supporting multiple data types. A better solution for this kind of issue is to use polymorphic VIs, which will be introduced next.
+To solve these issues, we can use **Polymorphic VIs**, which we will discuss next.
 
 
-### Implementing Map Container Functionality with Variants
+### Implementing Map Containers with Variant Attributes
 
-The Variant function palette in LabVIEW includes some useful functions for working with Variant attributes, such as "Get Variant Attribute", "Set Variant Attribute", and "Delete Variant Attribute". Variant data can have attributes composed of a unique name and data of any type. For example, waveform data converted to a Variant type can have added properties for extra information, such as a property named “Device Model” for storing hardware information, or “Operator” for personnel details. However, this is not an ideal way to store information. If these details are required, it's better to design specific data structures (like clusters or classes) or file formats for storing data, rather than relying on the overly flexible and error-prone Variant data type.
+The Variant palette includes three functions for managing metadata: **Get Variant Attribute**, **Set Variant Attribute**, and **Delete Variant Attribute**. This allows associating key-value attributes (where the key is a string and the value is any G data type) directly with a variant variable.
 
-Despite this, Variant properties have their advantages, such as their underlying implementation using a hash table data structure, which ensures exceptionally fast write and search speeds. Before LabVIEW introduced the Map data type, programmers often used Variant properties to store key-value type data for fast read/write access. Here's a specific example:
+Because variant attributes are implemented internally as a hash table, reads and writes are highly optimized. Before LabVIEW introduced native Map and Set data types in LabVIEW 2019, G developers frequently used variant attributes as key-value dictionaries.
 
-Imagine we need a program to look up student grades by name. The data is in a table format, with the first column for "Name" and the second for "Grade". When a user inputs a name, the program finds the corresponding grade and returns it. Each entry in the grade sheet (each row) can be considered as a property of a Variant, with the student's name as the property name and their grade as the property data. To create and modify the grade sheet, we use "Set Variant Attribute" and "Delete Variant Attribute" functions; to query a student's grade, we simply use the "Get Variant Attribute" function:
+For example, to build a grade-lookup table where a student's name is the key and their numeric score is the value:
 
 ![images/image129.png](../../../../docs/images/image129.png "Block diagram for a program implementing a Dictionary container using Variant attributes")
 
-The program produces the following results:
+This program yields the following lookup results:
 
 ![images/image130.png](../../../../docs/images/image130.png "Program output for implementing a dictionary container using Variant attributes")
 
-While using Variant attributes for implementing highly efficient queries has its benefits, it is not a true data container and has limitations, such as only allowing strings as keys. Now that LabVIEW has introduced the Map data type, there's no longer a necessity to use Variants for storing query data.
+Although variant attributes provide quick lookups, they are not a formal data container and are limited to string-based keys. In modern LabVIEW, you should use the native **Map** and **Set** collections instead.
 
 
-### Using Polymorphic VIs
+## Polymorphic VIs
 
-LabVIEW is not only equipped with functions that can accept a wide variety of data types, but it also includes built-in subVIs capable of handling multiple data types. For instance, the VIs for reading and writing configuration files can process not just numerical data but also strings, booleans, and more. This functionality extends to VIs for audio output, data acquisition, and beyond.
+Many of LabVIEW's built-in VIs are polymorphic, meaning they accept multiple data types. For example, the VIs for reading and writing configuration files can handle numbers, strings, Booleans, paths, and more. This is also true for audio output, file I/O, and data acquisition VIs:
 
 ![images/image300.png](../../../../docs/images/image300.png "Examples of LabVIEW's built-in polymorphic VIs")
 
-A popular method for creating VIs that can deal with different data types is known as a "Polymorphic VI". It's important to note that this type of polymorphism differs from what’s typically discussed in object-oriented programming, although they share the commonality of being able to execute different code based on the input data type.
+A **Polymorphic VI** is a special container VI that doesn't contain any functional code itself. Instead, it wraps a collection of standard VIs, known as **instance VIs**. Each instance VI implements the exact same logic but for a specific data type. When a developer wires a data type to the polymorphic VI on their diagram, G automatically routes the call to the matching instance VI.
 
-A polymorphic VI itself doesn’t directly implement any specific program functionality. Instead, its role is to select and invoke one of several specific VIs—known as "instance VIs"—each of which is tailored to perform the desired functionality for a particular data type based on the data type of the input parameter.
-
-Employing a polymorphic VI addresses the issue of data type safety mentioned earlier. A polymorphic VI’s parameters are restricted to those data types for which its instance VIs have an implemented method; it cannot accept other data types. For example, if we provide a polymorphic VI with two instance VIs designed to process either two numerical values or two strings, then this polymorphic VI can only accept either two numbers or two strings as inputs; any mismatch or incorrect data type would trigger an error, preventing the VI from running.
-
-When you need to offer a user-friendly subVI that implements a certain algorithm capable of handling several different data types, it’s preferable to provide a single subVI with a unified interface rather than a collection of distinct VIs. This approach allows users to interact with a single interface that automatically adapts to different input data types, selecting the appropriate algorithm for each. This is the essence of what polymorphic VIs achieve, offering streamlined functionality that adapts to the user's data types without necessitating prior selection of the correct VI for each specific data type.
+Polymorphic VIs solve the type-safety problem. If you configure a polymorphic VI with two instances (one for numbers and one for strings), it will only accept numbers or strings. Wiring a Boolean to its input will break the wire immediately, ensuring compile-time safety.
 
 
 ### Creating Polymorphic VIs
 
-Let's follow the steps to implement a subVI capable of performing addition on inputs of two different data types: numeric and string. This will be exemplified with a polymorphic VI named "add polymorphic.vi", designed to support numeric and string data types. Depending on the input data type, "add polymorphic.vi" will delegate the operation to one of two instance VIs - "add numeric.vi" or "add string.vi", as illustrated below:
+Let's build a polymorphic VI named `add_polymorphic.vi` that supports both numbers and strings. Based on the input data type, it will delegate the call to either `add_numeric.vi` or `add_string.vi`:
 
 ![images/image301.jpeg](../../../../docs/images/image301.jpeg "Call relationship of a polymorphic VI implementing addition functionality")
 
-Before you can create a polymorphic VI, you must first develop its instance VIs. These are the specific VIs that execute the functionality for each data type, in this case, add numeric.vi and add string.vi. Instance VIs are essentially standard subVIs. For example, here's the block diagram for add string.vi:
+To create a polymorphic VI, you must first create all of its instance VIs as standard subVIs. For example, here is the block diagram of `add_string.vi`:
 
 ![images/image302.png](../../../../docs/images/image302.png "add string.vi")
 
-Once the instance VIs are ready, you can start creating the polymorphic VI. To do this in LabVIEW, open the New dialog box (File -> New) and select "VI -> Polymorphic VI" to initiate a new polymorphic VI.
+Once your instance VIs are saved, select **File -> New** and choose **VI -> Polymorphic VI**.
 
-Polymorphic VIs look quite different from standard VIs as they lack a front panel and block diagram, offering only a configuration interface. Since the functionality of a polymorphic VI is fulfilled within its instance VIs, you simply need to assign these instance VIs to it.
+A polymorphic VI has no front panel or block diagram. Instead, it opens a configuration window where you manage its instance list:
 
 ![images/image303.png](../../../../docs/images/image303.png "Polymorphic VI")
 
-The essence of a polymorphic VI is a list that specifies which instance VIs the polymorphic VI can invoke. Use the "Add" button to include instance VIs in this list. The list in the above illustration contains an extra entry for demonstration purposes related to polymorphic VI menus, discussed subsequently. For the intended functionality of our program, only the first two instance VIs are necessary.
+Use the **Add** button to load your instance VIs into the list.
 
-The VI's icon, displayed in the top right of the polymorphic VI interface, can be customized by clicking the "Edit Icon" button.
-
-Choosing "Draw polymorphic VI icon" on the bottom left ensures the polymorphic VI's icon is consistently shown on the block diagram. Opting for "Draw instance VI icon" changes the displayed icon according to the data type of the input, thus clarifying the polymorphic VI's current function.
-
-The two checkboxes at the bottom right offer further configuration options. When "Allow polymorphic VI to automatically match data types" is checked, the polymorphic VI will automatically select the suitable instance VI based on the input data types. If left unchecked, programmers are required to manually select the necessary instance VI for each use. Checking "Default to showing selector" will display a purple data type selector box beneath the icon on the block diagram whenever the polymorphic VI is added, enabling users to select their desired data type.
-
-Regardless of the status of "Allow polymorphic VI to automatically match data types", the specific instance VI that the polymorphic VI calls can be altered through its context menu.
-
-The "Edit Names" button in the instance VI configuration dialogue allows for editing the "Menu Name" and "Selector Name" entries, which appear in the polymorphic VI's right-click menu and selector, respectively.
+Here are the key configuration options in this dialog:
+- **Icon:** Click **Edit Icon** to design the main icon.
+- **Draw polymorphic VI icon / Draw instance VI icon:** Choosing the former displays a single icon for the polymorphic VI. Selecting the latter dynamically changes the icon on the block diagram depending on which instance VI is selected.
+- **Allow polymorphic VI to automatically match data types:** When checked, LabVIEW automatically resolves the data types wired to its terminals and selects the matching instance. If unchecked, the user must select the instance manually.
+- **Default to showing selector:** When checked, a purple selector menu appears under the VI icon when placed on the diagram, allowing users to manually choose the active data type.
+- **Edit Names:** Customizes the names shown in the selector menu and right-click menus.
 
 
-### Considerations When Designing Polymorphic VIs
+### Design Considerations
 
-There are several important considerations to keep in mind when designing polymorphic VIs.
+When designing polymorphic VIs, keep the following best practices in mind:
+- **Connector Pane Consistency:** All instance VIs must share the exact same connector pane layout and terminal positions. The inputs and outputs must match in quantity and function, even though their data types differ.
 
-Firstly, polymorphic VIs are limited to handling only a specific set of data types - those for which instance VIs have been created. Some algorithms might theoretically apply to an unlimited variety of data types. For instance, an addition algorithm could apply to various types of clusters, each considered a distinct data type based on its composition. Polymorphic VIs, however, cannot cater to every possible data type. While LabVIEW’s built-in functions like addition can handle an unlimited array of data types, achieving this with polymorphic VIs is not possible.
+  ![images/image304.png](../../../../docs/images/image304.png "Consistent Connector Pane Layout")
 
-Each instance VI within a polymorphic VI can be entirely unique, with distinct front panels, block diagrams, and utilized subVIs. Nevertheless, for ease of use and comprehension, a polymorphic VI should typically represent a specific algorithm with each instance VI tailored to a different data type. Moreover, to simplify the transition between data types for users, each instance VI should maintain consistent connector pane patterns and wiring positions, as illustrated below:
+- **Unified Behavior:** While instance VIs can have entirely different internal code, they should perform conceptually identical tasks. The user expects the polymorphic VI to act as a single API.
+- **Nesting Restriction:** Polymorphic VIs cannot be nested. A polymorphic VI cannot be used as an instance VI inside another polymorphic VI.
 
-![images/image304.png](../../../../docs/images/image304.png "Consistent Connector Pane")
 
-It's also worth noting that polymorphic VIs cannot be nested; a polymorphic VI cannot act as an instance VI for another polymorphic VI.
+### Structuring Selectors and Menus
 
-### Tips for Designing Menus
-
-You can create multi-level "Select Type" right-click menus for a polymorphic VI by specifying the menu hierarchy in the "Menu Name" section of the VI’s settings dialog. Colons ":" are used to denote different levels of the hierarchy. For instance, for a first level of "Numeric" and a second level of "Float", you would write "Numeric:Float" in the "Menu Name".
-
-This approach is equally applicable to polymorphic VI selectors and other areas where menu customization is necessary.
+For polymorphic VIs with many instances, you can group them into hierarchical right-click menus. Use colons (`:`) in the **Menu Name** field of the configuration dialog to define menu subfolders. For example, setting the menu name to `Numeric:Double` creates a `Numeric` category with `Double` as a nested option:
 
 ![images/image305.png](../../../../docs/images/image305.png "Hierarchical Context Menu")
 
+
 ### Drawbacks of Polymorphic VIs
 
-Although polymorphic VIs offer convenience, creating them can be particularly challenging. A distinct VI must be developed for each potential data type. This becomes even more complex when considering algorithms that could theoretically apply to an infinite array of data types, as it's impossible for developers to cover all possibilities with polymorphic VIs. Solutions for such broad applicability, which cannot be achieved through polymorphic VIs, require an alternative approach, which leads us to the next topic: the "Adaptive VI".
+While polymorphic VIs ensure type safety, they require substantial developer effort. You must create and maintain a separate physical VI file for every data type you want to support. This becomes impractical for algorithms that should theoretically accept an infinite variety of data types (such as a generic sorting VI that could sort *any* user-defined cluster).
+
+To handle generic programming without file duplication, LabVIEW offers **Malleable VIs**, which we will discuss next.
 
 
-## Malleable VI
+## Malleable VIs
 
-LabVIEW comes equipped with a host of built-in Malleable VIs, recognizable in the function palette by their distinct orange color.
+LabVIEW includes a set of built-in **Malleable VIs**, which are recognizable on the functions palette by their bright orange background color:
 
 ![images_2/z046.png](../../../../docs/images_2/z046.png "Function Palette with Malleable VIs")
 
-When you drag one of these VIs onto the block diagram of a new VI, you'll find that it can accept a variety of different data types at its inputs:
+Dragging a malleable VI onto your block diagram allows it to accept a wide variety of input data types automatically:
 
 ![images_2/z047.png](../../../../docs/images_2/z047.png "Malleable VI Accepting Various Data Types")
 
+
 ### How Malleable VIs Work
 
-Malleable VIs are a unique kind of VI that, on the surface, look almost identical to regular VIs. The most noticeable difference is their file extension: \*.vim. Simply changing the extension of a regular VI to .vim turns it into an Malleable VI. It's essential for Malleable VIs to be [reentrant](pattern_reentrant_vi) and [inlined](optimization_mechanism#compiler-optimization-and-inlining-sub-vis).
+Malleable VIs are standard VIs with a unique file extension: `.vim`. You can convert any standard VI into a malleable VI simply by changing its extension from `.vi` to `.vim`. To compile successfully, a malleable VI must be configured as **Reentrant** and set to **Inline**:
 
-![images_2/z048.png](../../../../docs/images_2/z048.png "Malleable VI Settings")
+![images_2/z048.png](../../../../docs/images_2/z048.png "Malleable VI Execution Properties")
 
-Much like [inlined subVIs](optimization_mechanism#compiler-optimization-and-inlining-sub-vis), when a Malleable VI is placed onto a block diagram, it integrates its code directly into the diagram of the calling VI. However, while inlined subVIs have fixed parameter types based on their front panel controls, Malleable VI controls act more like placeholders, dynamically adapting to the data types passed by the calling VI. Any data type the Malleable VI can handle is deemed valid, thanks to this flexible mechanism, somewhat similar to C++'s templates used in generic programming.
+When a malleable VI is compiled, LabVIEW inlines its code directly into the caller's block diagram. Unlike standard inlined VIs which enforce strict type checking based on their front panel terminals, a malleable VI's terminals act as generic type placeholders. The compiler inspects the actual data types wired to the malleable VI terminals. If the code inside the malleable VI is syntactically valid for those types, G generates type-specific code for the call. This is conceptually identical to templates in C++ or generics in Java.
 
-When contrasting Malleable VIs with polymorphic VIs, key distinctions emerge: polymorphic VIs are a collection of pre-made VIs, each potentially completely different from the others, even in terms of the number of parameters; an Malleable VI, however, is a single entity. Crafting polymorphic VIs demands more effort but yields stronger capabilities, making them ideal for complex, customer-facing toolkits. Conversely, Malleable VIs are less labor-intensive to produce and can easily switch between being a standard VI and an adaptive one, making them particularly well-suited for algorithms or functionalities that are applicable across a range of data types.
+
+### Malleable VIs vs. Polymorphic VIs
+
+- **Structure:** A polymorphic VI is a directory of separate, type-specific `.vi` files. A malleable VI is a single `.vim` file.
+- **Flexibility:** Malleable VIs are much easier to create and maintain. They dynamically support an infinite number of user-defined data types (such as custom clusters), whereas polymorphic VIs are hardcoded to a fixed list of instances.
+- **Complexity:** Polymorphic VIs can support instances with completely different parameters or panel structures. Malleable VIs must use a single, unified connector pane layout.
 
 
 ### Writing a Malleable VI
 
-This example demonstrates how to write and use a Malleable VI using a VI included with LabVIEW. Let's say we need to create a shuffling sub VI that accepts a deck of cards, randomly rearranges all cards, and outputs the new order. The shuffling algorithm is as follows:
+Let's build a custom malleable VI to implement a **shuffling algorithm** (Knuth/Fisher-Yates shuffle). The algorithm is as follows:
+1. Iterate through the array from the first element to the last.
+2. For each element, select a random index from the remaining elements (current index to end).
+3. Swap the elements at these two indices.
 
-- Sequentially select a card from front to back.
-   - Randomly select another card from the remaining ones behind the chosen card.
-   - Swap the positions of the two cards.
-   - End the program if the last card has been processed. Otherwise, return to the first step for the next card.
-   
-This algorithm guarantees that each card has an equal probability of being placed in any position. Interested readers are encouraged to verify this.
+This algorithm ensures that every possible permutation of the array is equally likely.
 
-Not limited to cards, this algorithm can randomly reorder any set of data, whether integers, strings, or cards, using the same shuffling approach. It is independent of the specific data type. It would be too limiting if our sub VI worked only with cards. By making this VI malleable, it can be applied to any data type.
+This algorithm can shuffle any list of items, whether they are integers, strings, or custom hardware driver references. It would be highly inefficient to restrict the VI to only one array type. By writing it as a malleable VI, we can shuffle arrays of any type.
 
-First, we create an empty Malleable VI:
+First, create a new malleable VI:
 
 ![images_2/z049.png](../../../../docs/images_2/z049.png "Creating a Malleable VI")
 
-(To transform an existing VI into a Malleable VI, simply change the VI's file extension.)
-
-Next, we implement the logic for the shuffling algorithm. A Malleable VI also needs input and output controls, which can be of any legal data type: any one-dimensional array data type. This data type will be replaced when the Malleable VI is inserted into the caller VI. For our example, we used the most common numeric array:
+Next, implement the shuffling logic. On the malleable VI's block diagram, we must place input/output controls. Since G needs to compile the diagram, we drop a standard 1D Numeric Array control onto the front panel to serve as our data template. G will dynamically substitute this type with the caller's wire type:
 
 ![images_2/z050.png](../../../../docs/images_2/z050.png "Shuffling algorithm VI")
 
-The completed Malleable VI can now randomly sort arrays of various types:
+Once saved as `shuffle_array.vim`, this single VI can randomly sort 1D arrays of any G data type:
 
 ![images_2/z051.png](../../../../docs/images_2/z051.png "Using the Shuffle algorithm VI")
 
 
-### Working with Type Specialization Structures
+### Type Specialization Structures
 
-The previously developed shuffle program, shuffle_array.vim, is limited to processing one-dimensional arrays. Attempting to use it with other data types, such as two-dimensional arrays or strings, will cause errors, preventing the program from executing.
+Our `shuffle_array.vim` works perfectly for 1D arrays, but wiring a string or a 2D array to it will result in a broken wire:
 
 ![images_2/z052.png](../../../../docs/images_2/z052.png "Malleable VI unable to accept certain data types")
 
-Here, if using a certain type of control in a Malleable VI leads to a syntax error, then passing that type of data to the Malleable VI in the calling program will result in an error as well. For instance, changing the input/output controls in the Malleable VI example to string controls would display a syntax error:
+If a datatype is wired to a malleable VI, and that datatype causes a syntax error inside the malleable VI's block diagram, the compiler breaks the wire at the call site. For instance, passing a string to `shuffle_array.vim` breaks because the internal array manipulation nodes cannot accept string inputs:
 
 ![images_2/z053.png](../../../../docs/images_2/z053.png "Unsupported input control type for Malleable VI")
 
-If we want this Malleable VI to support string data, we must recognize that the current code in shuffle_array.vim is unsuitable for string data. We need to design a new algorithm specifically for strings. Suppose our requirement is as follows: if a string is input, the Malleable VI should randomly shuffle each character within the string. If the input data is a one-dimensional array, the behavior remains as previously described. Having defined this behavior, we can implement a new Malleable VI: shuffle_string_and_array.vim. In this new Malleable VI, we'll use a "Type Specialization Structure" to select code that corresponds to different input data types.
+If we want the shuffle VI to support strings by shuffling their characters, we need to execute different logic for string inputs. We can implement this inside a new malleable VI (`shuffle_string_and_array.vim`) using the **Type Specialization Structure**:
 
 ![images_2/z056.png](../../../../docs/images_2/z056.png "Type Specialization Structure and Type Comparison Functions")
 
-A Type Specialization Structure is specific to Malleable VIs and can include multiple branches. LabVIEW will try each branch in the structure during code compilation, ignoring branches with syntax errors until it finds the first error-free branch, which it then adopts for compilation. This way, we can prepare multiple sets of code for one VI, letting LabVIEW automatically select the appropriate set for the current input type.
+The **Type Specialization Structure** is a G structure designed specifically for malleable VIs. It works like a compile-time case structure. When LabVIEW compiles the calling code, it tests the branches sequentially. If a branch generates syntax errors (like passing a string to an array function), the compiler ignores that branch and tests the next. The first branch that compiles successfully is the one used to generate the final machine code.
 
-Below is the block diagram for shuffle_string_and_array.vim:
+Here is the block diagram of `shuffle_string_and_array.vim`:
 
 ![images_2/z054.png](../../../../docs/images_2/z054.png "Two branches in the Type Specialization Structure")
 
-The core of the program is a Type Specialization Structure with two branches: Branch 0 directly calls shuffle_array.vim; Branch 1 converts the string to a byte array, shuffles it, and then converts it back to a string.
-
-When using shuffle_string_and_array.vim Malleable VI:
-* For a one-dimensional array input, Branch 0 is used since shuffle_array.vim accepts one-dimensional arrays without syntax errors.
-* For string input, Branch 0 will have syntax errors because shuffle_array.vim doesn't accept string data. LabVIEW then tries Branch 1, which successfully processes the string data, making it the adopted branch.
-* For any other data type, both branches will show syntax errors, leading to syntax errors in the calling VI as well.
+- **Branch 0:** Wired directly to `shuffle_array.vim`. If the input is a 1D array, this branch compiles without errors and runs.
+- **Branch 1:** Converts the incoming string to a byte array, shuffles it using `shuffle_array.vim`, and converts it back to a string. If the input is a string, Branch 0 fails to compile, so LabVIEW uses this branch instead.
+- If a Boolean is wired, both branches fail, resulting in a broken wire at the caller.
 
 ![images_2/z055.png](../../../../docs/images_2/z055.png "Malleable VI now accepts string parameters")
 
-Although it's possible to implement many sets of code within a Malleable VI for various data types and algorithms, Malleable VIs are most effectively used for applying a single algorithm across different data types. Adding multiple code sets can reduce code readability. In scenarios requiring multiple sets of code, using polymorphic VIs or writing a class may be more appropriate.
+While the Type Specialization Structure lets you write different implementations for different types, it should be used sparingly. If your implementations are completely different, using polymorphic VIs or classes is much better for readability.
 
 
 ### Type Checking
 
-In some scenarios, you might require a Malleable VI that accepts only a specific type of data, or perhaps you need a Malleable VI that explicitly rejects a particular data type. This can be achieved by utilizing various type comparison functions and VIs available under “Programming -> Comparison -> Assert Type” on the function palette. Among these, the most frequently used functions are “Assert Structural Type Match” and “Assert Structural Type Mismatch”. Each of these functions has two input parameters. If the data types of the two inputs match, the Assert Structural Type Match function will not trigger a syntax error; if the data types differ, it will trigger a syntax error. The Assert Structural Type Mismatch operates inversely, triggering a syntax error when the two input data types match.
+To control which types a malleable VI accepts or rejects, you can use compile-time type assertions located under **Programming -> Comparison -> Assert Type**:
 
-For instance, suppose we're tasked with creating a Malleable VI that bundles two pieces of input data into a cluster for output. However, there's a stipulation that the types of the two inputs must match, such as both being integers or both being strings. Inputs like one Boolean and one string should trigger a syntax error. LabVIEW’s native cluster bundling function doesn’t require each input element to be of the same data type. Therefore, to enforce type checking in this scenario, we need to incorporate an Assert Structural Type Match in the Malleable VI to verify whether the two inputs share the same data type:
+- **Assert Structural Type Match:** Takes two inputs and compiles successfully only if their data structures match. If they differ, it triggers a syntax error (breaking the wire).
+- **Assert Structural Type Mismatch:** The inverse of the above. It triggers a syntax error if the two inputs share the same data structure.
+
+For example, suppose we want to write a malleable VI that bundles two inputs into a cluster. The rule is that both inputs must share the same type (e.g., both integers or both strings). Since LabVIEW's native *Bundle By Name* or *Bundle* function allows mixing types, we insert **Assert Structural Type Match** inside the malleable VI to enforce this constraint:
 
 ![images_2/z057.png](../../../../docs/images_2/z057.png "Checking if two input data types are the same")
 
-Upon testing, it's observable that if the two data types fed into the Malleable VI are identical, the wires connect correctly. If they differ, the connection breaks:
+If the input types are identical, the wire compiles. If they differ, G flags a syntax error:
 
 ![images_2/z058.png](../../../../docs/images_2/z058.png "Demonstration of checking if two input data types are the same")
 
-The use of Assert Structural Type Mismatch is strikingly similar. For example, if we need a Malleable VI that accepts all data types except for strings, this function can be utilized effectively:
+Similarly, you can use **Assert Structural Type Mismatch** to exclude specific types. For example, to make a malleable VI accept any G type except strings, you can compare the input against a string constant using this assertion:
 
 ![images_2/z059.png](../../../../docs/images_2/z059.png "Determining if the input data type is not a string")
 
 
 ### Limitations of Malleable VIs
 
-Malleable VIs can handle a vast majority of generic programming requirements. However, there are a few complex scenarios where Malleable VIs fall short.
-
-Firstly, Malleable VIs are a kind of [reentrant VI](optimization_mechanism#compiler-optimization-and-inlining-sub-vis), and certain LabVIEW functionalities cannot be utilized within reentrant VIs, such as specific VI properties and methods. Additionally, unbundling private data of a class is not permissible within a reentrant VI, even if the Malleable VI is located in the same class.
-
-Moreover, Malleable VIs are not suited for some more complex, type-related operations. For instance, if we need to write a sub VI that accepts any kind of cluster data, reverses the order of elements within the cluster, and outputs the new cluster data. Or, if we aim to develop a sub VI with a variable number of input parameters, akin to the cluster bundle function that allows adding more input parameters by extending the function. These requirements cannot currently be achieved using Malleable VIs. LabVIEW does offer alternative methods for these more intricate needs, which will be discussed in the next section on [Xnodes](oop_xnode).
-
-## Application Example - Generic Doubly Linked List Container
-
-In our discussion on object-oriented application examples, we finalized a [doubly linked list container](oop_use_cases#doubly-linked-list) which had a significant limitation: it could only accommodate a fixed type of data. For that demonstration, it was restricted to managing real number data. Suppose there's a new requirement for a doubly linked list container to store strings. In that case, we would need to redevelop a similar suite of classes and VIs for string data, despite the doubly linked list's algorithms being data type-agnostic.
-
-This section aims to refine it into a generic container capable of supporting multiple data types, allowing users to employ the same suite of VIs to create and manage doubly linked lists storing real numbers, strings, or other data types.
-
-So far, our examples have showcased individual generic VIs: a single VI capable of supporting multiple data types. However, for data containers, what's needed is a set of multiple related VIs. They comprise a generic class (or library), where the acceptable data types for different VIs are interrelated to the data types already accepted by other VIs. For example, although this generic doubly linked list container can support various data types, once instantiated, a specific list will only be able to store one type of data. Every method VI within the container needs to verify if the input data matches the data type selected upon creation. For instance, if a user creates a string list, then every insert method within the container must ensure that the inserted data is string-typed.
-
-Achieving this requires a mechanism for passing data type information between VIs. LabVIEW's data wires possess this capability; they transmit not only data but also information about the data type. Unfortunately, we cannot utilize LvClass data wires to transmit potentially variable data types within a class, as LabVIEW classes are static and do not support generic classes. The data types within a class are fixed before runtime. However, we can still utilize other types of data wires for this purpose, such as cluster data types, which can be created at runtime.
-
-Designing an entirely new generic doubly linked list from scratch could offer better runtime efficiency. However, since we've already developed a doubly linked list container class, to simplify the task, we will not redesign it but instead will make minor adjustments and wrap the existing class. The overarching strategy involves changing the data type in the existing doubly linked list container class from real numbers to variant types. This allows us to insert any data type into the container, achieving runtime support for any data type. Then, we'll wrap the methods in the original doubly linked list container class with Malleable VIs and add compile-time data type checking. This method of implementing generic programming shares similarities with how Java supports generic programming.
+While malleable VIs cover most generic programming needs in G, they have key limitations:
+1. **Reentrancy and Inlining Constraints:** Malleable VIs must be reentrant and inlined. Because of this, they cannot access certain VI properties and methods at runtime. Furthermore, you cannot unbundle private class data within an inlined VI, meaning malleable VIs cannot directly manipulate a class's private cluster even if the malleable VI is a member of that class.
+2. **Metadata and Dynamic Terminals:** Malleable VIs cannot inspect or dynamically restructure their own terminals. For example, you cannot write a malleable VI that takes any custom cluster, reverses the ordering of its fields, and outputs the result. Similarly, you cannot dynamically extend the terminals of a malleable VI by dragging the edge, like you would with the native *Bundle* node. For these advanced macros, LabVIEW uses **XNodes** (discussed in [XNodes](oop_xnode)).
 
 
-### Utilizing Variants for Data Storage
+## Application Example: Generic Doubly Linked List
 
-The process of creating the doubly linked list class has been extensively detailed in the [Object-Oriented Application Examples](oop_use_cases#doubly-linked-list) section, so it won't be elaborated upon here again. The modification that needs to be made involves changing the control type used for storing data in the list node class to a variant type:
+In [Object-Oriented Application Examples](oop_use_cases#doubly-linked-list), we implemented a doubly linked list that only supported DBL numeric data. If we wanted to store strings, we would have to copy the entire class hierarchy and recreate all the VIs for string types, even though the underlying linked list algorithm is identical.
+
+In this section, we will refactor the doubly linked list into a **generic container** that supports any G data type. Users will be able to manage numeric, string, or cluster lists using a single unified API.
+
+Unlike our previous single-VI examples, a data container is a collection of related VIs (a library or class) where types are interdependent. Once a user instantiates a list to store strings, all subsequent write operations (like `Insert`) must verify that the incoming data is indeed a string.
+
+To achieve this, we need a way to pass type information between VIs. LabVIEW classes do not support G-type parameters (generic classes) because `.lvclass` wires have static types. However, we can use a **Cluster** wire to pass both a reference to the list data and a type placeholder.
+
+To simplify the implementation, instead of redesigning the doubly linked list from scratch, we will wrap our existing class:
+1. Modify the internal data field in the node class from a DBL numeric type to a **Variant** type. This allows the nodes to store any type of data at runtime.
+2. Wrap the class methods with **Malleable VIs** (`.vim`) that add compile-time type verification. This design mirrors how Java uses type erasure.
+
+
+### Storing Data as Variants
+
+The core steps to build the list class are described in [Object-Oriented Application Examples](oop_use_cases#doubly-linked-list). Our only change to the underlying class is changing the data type in the list node `.ctl` cluster to a Variant:
 
 ![images_2/z060.png](../../../../docs/images_2/z060.png "Node Class Data")
 
-Correspondingly, in all VIs related to reading and writing data, the parameters must be changed to variant types. For example, here is the data reading VI within the Iterator class:
+We also change the input and output terminals of all node-accessing VIs to Variant. Here is the `get_data.vi` method in the Iterator class:
 
 ![images_2/z061.png](../../../../docs/images_2/z061.png "Iterator:get_data.vi")
 
-This adjustment allows the nodes of the doubly linked list to store any type of data during runtime. Implementing support for any data type at runtime is relatively straightforward. Next, we will explore how to conduct compile-time data type checks to ensure the data types stored within a container are consistent.
+This allows the list to store any G type at runtime. Next, we will use malleable VIs to add compile-time type verification.
 
-### Wrapping Methods for the Generic List
 
-A library (LvLibrary) is used to encapsulate all the generic methods. The completed library structure is shown below:
+### Wrapping Methods in a Generic Library
+
+We create a Project Library (`.lvlib`) to group our generic wrapper methods:
 
 ![images_2/z062.png](../../../../docs/images_2/z062.png "Generic Linked List Project Structure")
 
-All methods within this generic linked list container are Malleable VIs, not conventional VIs.
+Every public method in this library is a malleable VI (`.vim`), not a standard VI.
 
-### Method for Creating a New List
 
-When using a linked list container with a fixed data type, a special initialization method isn't necessary, as there are no parameters that need to be set at the time of container creation. However, a generic linked list container must initialize one crucial parameter: the type of data the container will store. If the container is set to store integers, then it can only accept integers in subsequent uses; similarly, if set to store strings, then it can only accept strings thereafter.
+### Creating a Generic List Instance
 
-We've developed a Malleable VI named new_list.vim for creating a new list container. It requires just one input parameter, “element data type,” to indicate the data type of elements in the new list. It's important to note that the data in this control is essentially a placeholder; we're only interested in the data type it represents. The actual data within the list will still be stored in the DoublyLinkedList object, as previously modified. Therefore, in this list creation method, we also need to generate a DoublyLinkedList object. The DoublyLinkedList object, along with the data type, is bundled into a cluster. This cluster is required by other methods of the generic linked list container, allowing those method VIs to identify the container where the data is stored and the type of data it contains.
+A standard list doesn't require initialization arguments, but a generic list needs to know what type of data it will store.
+
+We implement `new_list.vim` to initialize the list. It takes a single input terminal: a placeholder for the element data type. The value is ignored; we only inspect its type. The VI initializes the underlying `DoublyLinkedList` object and bundles it with the type placeholder into a custom cluster:
 
 ![images_2/z063.png](../../../../docs/images_2/z063.png "new_list.vim")
 
+This cluster acts as our generic list reference. Other library VIs will read this cluster to identify both the data container and its expected data type.
 
-### Writing Data Method
 
-Each method for writing data into the container is structured similarly, involving two main steps: 1. Verifying the data type of the input matches the expected type; 2. Utilizing the corresponding method from the DoublyLinkedList class to store the data. Let's examine one such method, illustrated by the program diagram for insert_before.vim:
+### Writing Data to the Generic List
+
+Every method that writes data to the list performs two steps:
+1. Compile-time verification that the input matches the list's expected data type.
+2. Invocation of the underlying class method.
+
+Here is the block diagram of `insert_before.vim`:
 
 ![images_2/z064.png](../../../../docs/images_2/z064.png "insert_before.vim")
 
-The 'list in' input parameter represents the generic linked list cluster generated in new_list.vim. The program initially unbundles 'list in' to extract the DoublyLinkedList object and the data type specified for the container. It then uses the Assert Structural Type Match function to ensure the data type being inserted matches the container's designated type. A syntax error is triggered if the types do not align. If they do match, the program proceeds to invoke the insert_before method within the DoublyLinkedList class to insert the new data.
+The VI unbundles the `list in` cluster, reads the type placeholder, and uses the **Assert Structural Type Match** function to check it against the incoming data. If they mismatch, G flags a syntax error at the call site. If they match, it converts the data to a variant and inserts it into the `DoublyLinkedList` object.
 
-### Reading Data Method
 
-Since the DoublyLinkedList class stores data as variants, the generic container's methods must convert the data from the DoublyLinkedList object back into a specific type before output. The to_array method, shown below, retrieves all data from the list and returns it as an array:
+### Reading Data from the Generic List
+
+When reading data, the generic wrapper reads the variant from the underlying class and automatically casts it back to the concrete type stored in the container. The `to_array.vim` method retrieves all data in the list and outputs it as a typed array:
 
 ![images_2/z065.png](../../../../docs/images_2/z065.png "to_array.vim")
 
+
 ### Utilizing the Generic Linked List
 
-Here is an example demonstrating how to use this generic linked list:
+Here is an example program showing the generic doubly linked list in action:
 
 ![images_2/z066.png](../../../../docs/images_2/z066.png "Utilizing the Generic Linked List")
 
-This same set of Malleable VIs enables the creation of linked lists for storing real numbers, strings, or any other type of data, showcasing the versatility of the generic doubly linked list.
+By using malleable wrappers, we can use the exact same G nodes to build, write, and read lists of double-precision numbers, strings, or any other G data type.

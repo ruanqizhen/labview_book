@@ -1,5 +1,5 @@
-# Appendix
+# Appendices
 
 ![](../../../../docs/cover/appendix.png)
 
-Some related topics.
+Additional resources, reference materials, and supplemental topics.

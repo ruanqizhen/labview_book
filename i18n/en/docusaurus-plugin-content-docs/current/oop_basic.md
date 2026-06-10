@@ -2,60 +2,64 @@
 
 ## Modular Programming
 
-LabVIEW's dataflow-driven paradigm bears resemblance to procedural programming in that both perceive a program as a collection of processes or functionalities, orchestrated through dataflow in LabVIEW to determine the sequence of operations. When designing programs with this mindset, a top-down approach naturally emerges.
+LabVIEW's dataflow-driven paradigm is structurally similar to procedural programming. Both view a program as a collection of sequential tasks or processes, where dataflow determines the execution order. When designing software with this mindset, developers naturally adopt a top-down approach.
 
-Consider, for example, a program designed to perform a testing task. The initial step in its design would involve outlining the overall framework, potentially dividing the test into several phases: data collection, analysis, display, and storage. Consequently, the main VI would comprise sub-VIs dedicated to these specific tasks. The next step involves refining these sub-VIs, further delineating the tasks into more granular processes, such as opening hardware devices, configuring them, retrieving data, and finally closing the devices.
+For example, to design a test-and-measurement application, you begin by outlining the top-level framework, breaking the test down into logical phases: data acquisition, analysis, display, and storage. The main VI is built by wiring together subVIs dedicated to these tasks. You then drill down into each subVI, splitting them into lower-level operations (e.g., opening hardware sessions, configuring channels, reading samples, and closing sessions).
 
-This method intuitively segments a program into various modules across different levels. The complexity and the number of modules increase with the program's size. Given the inherent similarities across different programs or within various sections of the same program, reusing some modules in different contexts or even across multiple programs becomes a time-saving strategy.
+This modular approach works well for organizing code. As applications grow, so does the library of modules (subVIs). Because many test routines share common requirements, reusing these subVIs across different parts of the application—or in entirely different projects—becomes a core strategy to save time and effort.
 
-The trend towards larger programs introduces increased complexity and code volume, necessitating collaborative development efforts. Typically, each developer might only be intimately familiar with a small segment of the overall program. However, discovering that existing code can fulfill a required function would likely lead to its reuse.
+However, as programs scale, they require collaborative development. Multiple engineers work on different codebases, often only understanding their specific subsystems. If they discover a subVI that performs a task they need, they will wire it in.
 
-As a result, upon the completion of a large-scale program, the interconnections among its modules may deviate from the original, neatly structured tree-like hierarchy envisioned. The relationships between modules can become muddled, with both the creators and users of the modules possibly lacking a comprehensive understanding of their application within the program.
+Over time, a large application can lose its clean, hierarchical structure. The dependencies between subVIs become complex and intertwined. Neither the original author of a subVI nor the developers using it have a complete picture of all the dependencies in the program.
 
-The challenge arises when a module requires modification. Developers might identify minor bugs or new requirements that necessitate adjustments to a module's functionality. Therefore, the developer or maintainer might revise the module to meet these new demands. However, they might be unaware that other developers have already employed this module elsewhere in the program, possibly in unforeseen ways. Such modifications could then disrupt the functionality of the program's other components that rely on this module. Module users, unaware of these changes, might struggle to pinpoint the cause of the errors.
+This causes serious problems when a subVI needs modification. If a bug is fixed or a new feature is added to a low-level module, the author might update the code without realizing that another developer has used that same module in a different, unexpected part of the application. The modification can break those other systems, leading to bugs that are incredibly difficult to diagnose because the affected developers are unaware of the low-level change.
 
-In large-scale programming, code and module reuse is unavoidable, and a substantial part of the development and maintenance challenges stem from this misuse of modules. To overcome these issues, a superior module design and implementation strategy is essential. Modules within a program should have clearly defined interfaces, allowing users easy insight into a module's data and methods. Usage of modules should be regulated, with certain methods made accessible to other programs, while those likely to change or cause potential issues should remain private and off-limits. Furthermore, modules should facilitate easy upgrades, optimization, and the addition of new features. Object-oriented programming methodologies are well-suited to address these concerns.
+In large applications, code reuse is essential, but poorly managed dependencies lead to fragile architectures. To scale safely, we need a better module design. Modules must have clearly defined public interfaces. We must be able to restrict access: exposing only safe, stable functions to other developers while keeping internal data and helper VIs private (so they can be modified without breaking upstream code). Additionally, we need to extend or swap modules easily without refactoring the rest of the application. **Object-Oriented Programming (OOP)** is designed to solve these exact architectural challenges.
 
 
 ## Classes and Objects
 
-The real world is filled with a myriad of entities. For instance, a room might contain a table, a chair, a computer, and myself. Some of these entities share numerous similarities and can be grouped into the same category. For example, "human" represents a class, while "Qizhen Ruan" is an entity within this human class. Entities in the human class share common traits, such as walking on two legs, speaking, and thinking.
+The physical world is filled with distinct entities: tables, chairs, computers, and people. We naturally organize these entities into categories based on shared traits. For example, "Human" represents a category (a **class**), while the author, "Qizhen Ruan", is a specific individual (an **object** or **instance**) belonging to that class. All humans share common capabilities, such as walking, talking, and thinking.
 
-Computer software is created to address problems in the real world or to simulate aspects of it. This concept also applies to program design. For instance, when developing management software for a company, the company may have several employees: Tom, Jerry, etc. These employees have some common characteristics that the program needs to process, such as having a name, gender, age, though the specific values for these attributes may vary.
+Software design mirrors this classification. For example, in an HR database, employees (Tom, Jerry, etc.) share common characteristics (names, ages, salaries), although the actual values differ for each person.
 
-An "object" is an instance of a class. For example, each specific employee mentioned (like Tom) represents an object of the employee class.
+- An **Class** is a blueprint or template that defines a category of entities.
+- An **Object** is a specific instance of a **Class** (e.g., Tom is an object of the `Employee` class).
+- **Attributes** (data or properties) describe the static state of an object (e.g., an employee's name, gender, or ID).
+- **Methods** (functions or VIs) define the behaviors or actions an object can perform (e.g., `Calculate Pay` or `Clock In`).
 
-Attributes, also known as data or variables, describe the static state of an object. For instance, instances of the employee class, meaning each employee, would possess attributes like name, gender, and age.
-
-Methods, also referred to as functions or VIs, depict the actions of an object. For example, instances of the employee class might include methods for working overtime and receiving wages.
 
 ## Object-Oriented Program Design
 
-Object-oriented programming (OOP) refers to a software development approach that uses objects as the fundamental building blocks of a program, as opposed to procedural programming, which organizes the program into modules based on functions or procedures. Structuring a program around objects enhances its reusability, flexibility, and extensibility.
+Object-Oriented Programming (OOP) organizes software around data and objects rather than procedural tasks or functions. By structuring code around objects, we make applications more modular, reusable, and extensible.
 
-Object-oriented programming is distinguished by three main characteristics: encapsulation, inheritance, and polymorphism.
+Object-oriented programming is characterized by three main pillars: **Encapsulation**, **Inheritance**, and **Polymorphism**.
 
 
-## Encapsulation (Data Abstraction)
+## Encapsulation (Data Abstraction) {#encapsulation-data-abstraction}
 
-Encapsulation is the practice of bundling the data (attributes) and methods that operate on the data into a single unit, or class, and restricting access to some of the object's components. This concept allows for the internal workings of a class to be hidden from the outside, presenting a clean, simplified interface to the rest of the program. It prevents the module's misuse, which can lead to maintenance headaches.
+**Encapsulation** is the practice of bundling data (attributes) and the functions that manipulate that data (methods) into a single logical unit (the class), while restricting direct access to the internal state. By hiding the internal workings of a class, you present a clean, stable public interface to the rest of the program, preventing other developers from modifying internal data directly.
 
-Take, for example, the task of designing a program to simulate the daily activities of small animals. This scenario could abstract all animal behaviors and characteristics into an "Animal" class. This class might include public attributes like age, origin, and name, along with public methods that represent animal behaviors such as eating, moving, and vocalizing. Additionally, the Animal class contains private attributes and methods for internal use only, not accessible to external programs. For instance, an animal's movement might invoke the class's move method, which internally utilizes a private attribute: "number of legs". This attribute cannot be directly altered or accessed by programs outside the class.
+For example, in an animal simulation program, you might define an `Animal` class. The class has public properties (e.g., `Name`, `Age`) and public methods (e.g., `Eat`, `Walk`). However, the `Walk` method might internally read a private attribute: `NumberOfLegs`. An external VI cannot read or modify `NumberOfLegs` directly; it can only call `Walk`. This prevents external code from putting the object into an invalid state (like setting `NumberOfLegs` to a negative number).
 
 
 ## Inheritance
 
-Inheritance allows for the creation of a new class (subclasses) based on an existing class (the parent class), inheriting all the public attributes and methods of the parent. Subclasses can introduce their specific attributes and methods, enabling the modeling of similar entities and their relationships.
+**Inheritance** allows you to create a new class (**subclass**) based on an existing class (**parent class** or **base class**). The subclass automatically inherits all public attributes and methods of the parent class, allowing you to reuse code while adding specialized features.
 
-For instance, in a program featuring puppies and chicks, both are instances of the Animal class. However, puppies have unique characteristics. To enhance code reusability, these shared features are abstracted into a "Dog" subclass.
+For instance, dogs and chickens are both animals. Instead of rewriting basic movement and naming logic for both, you can inherit them from the base `Animal` class.
 
-The Dog class inherits everything from the Animal class, so when the Dog class is defined as a subclass of Animal, it immediately gains all the public attributes and methods of the Animal class. It can then add its specific attributes and methods, like "guarding" for dogs, while chickens might have "laying eggs".
+A `Dog` subclass inherits from `Animal`, gaining `Eat` and `Walk` automatically, while adding dog-specific features like a `Fetch` method. A `Chicken` subclass also inherits from `Animal` but adds a `Lay Egg` method.
 
-Subclasses are often called derived classes, whereas parent classes may be referred to as base classes. Ancestors include the parent class and its parents up the hierarchy, whereas descendants or progeny refer to subclasses and their subsequent subclasses down the lineage.
+In OOP terminology:
+- The parent class is the **base class** or **superclass**.
+- The child class is the **derived class** or **subclass**.
+- **Ancestors** refer to classes higher up the inheritance tree.
+- **Descendants** refer to subclasses down the lineage.
 
 
 ## Polymorphism (Dynamic Binding)
 
-Polymorphism, initially a genetics term referring to the variation in forms among organisms related by descent, in object-oriented programming, denotes the ability of different classes to respond to the same method call in unique ways. Although subclasses may inherit many methods from the parent class, their implementations can vary. This allows for method calls using the parent class's name, enabling the program to execute the same method across various subclasses, each behaving differently. Polymorphism facilitates a unified approach to invoking similar modules within an application, regardless of their specific differences.
+**Polymorphism** (specifically *dynamic dispatch* or *late binding* in LabVIEW) is the ability of different subclasses to respond to the same method call in their own unique ways. Even though subclasses inherit methods from their parent, they can override those methods to implement custom behaviors. This allows the main program to call a method on a generic parent class wire, and the runtime engine will automatically execute the correct subclass implementation.
 
-For example, various subclasses might share a "makeSound" method inherited from the parent "Animal" class. Yet, the implementation of "makeSound" varies among subclasses: dogs bark, chickens crow. Thus, when an application prompts a group of animals to vocalize, treating all animals as instances of the Animal class allows for a uniform "makeSound" method call. The program automatically discerns whether the instance is a Dog or Chicken subclass, invoking the respective "makeSound" method to produce barking or crowing sounds.
+For example, the parent `Animal` class might define a `Make Sound` method. The `Dog` subclass overrides it to output a bark, while the `Chicken` subclass overrides it to output a cluck. In your main program, you can route an array of generic `Animal` wires to a loop and call `Make Sound` on each element. LabVIEW dynamically determines the object type at runtime and executes the correct method—resulting in barking for dogs and clucking for chickens, without needing Case Structures.

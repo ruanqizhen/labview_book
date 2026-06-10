@@ -2,4 +2,4 @@
 
 ![](../../../../docs/cover/optimization.png)
 
-This chapter is dedicated to writing LabVIEW code that is both efficient and easy to understand.
+This chapter focuses on best practices for styling, documentation, and optimization to ensure your LabVIEW applications are clean, maintainable, and run at peak performance.

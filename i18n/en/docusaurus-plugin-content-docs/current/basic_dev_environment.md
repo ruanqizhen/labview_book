@@ -1,155 +1,145 @@
-# Customizing the Programming Environment
+# Customizing the LabVIEW Environment
 
-LabVIEW's default settings might not always align with your preferences or needs. Fortunately, the LabVIEW programming environment is highly customizable, allowing you to tailor it for enhanced programming efficiency.
+LabVIEW's default settings might not always align with your preferences. Fortunately, the IDE is highly customizable, allowing you to tailor it to your workflow and boost your programming efficiency.
 
 ## Environment Options
 
-To explore and adjust the settings, navigate to "Tools -> Options" in the LabVIEW menu. This action will bring up the LabVIEW options dialog box:
+To explore and adjust settings, navigate to **Tools -> Options** in the LabVIEW menu. This opens the Options dialog:
 
 ![](../../../../docs/images/image54.png "LabVIEW's Options")
 
-This dialog box contains a multitude of configurable options. For detailed explanations of each setting, the "Help" button on the dialog box can be a valuable resource.
+This dialog contains a wide range of configurable settings. If you are unsure what a specific option does, click the **Help** button on the dialog for detailed explanations.
 
-### Personalizing Your Experience
+### Tuning the Block Diagram: Icon vs. Non-Icon Terminals
 
-It’s important to note that these settings are subjective; there is no one-size-fits-all approach. LabVIEW programmers are encouraged to experiment with different configurations to find what best suits their personal style and workflow. For instance, many users prefer to modify the display mode of the control terminals on the block diagram. 
+Configuring your environment is highly subjective; there is no one-size-fits-all setup. You should experiment with different settings to find a workflow that feels natural.
 
-here are two display modes available for control terminals on the block diagram: icon mode and non-icon mode.  While icon mode is more visually appealing, it occupies a massive amount of space and can quickly clutter your block diagram.
-
-As a professional best practice, it is highly recommended to use non-icon mode to conserve screen real estate and keep your code compact. You can make this the default behavior by navigating to `Tools -> Options -> Block Diagram` and unchecking the box for `Place front panel terminals as icons`.
+For example, a common tweak is changing how Front Panel terminals appear on the Block Diagram. By default, LabVIEW places them as large icons:
 
 ![](../../../../docs/images/image55.png "Control terminal Displayed as Icon")
 
-Preferences like these can be set in the options dialog box. Additionally, as discussed in the [Local Variables and Properties](data_and_controls#implementing-blinking-controls-for-alerts) section, settings such as the blinking frequency of a control are also configurable here. Some advanced functions can be enabled through this dialog, which will be covered in later chapters.
+While these icons are colorful, they occupy a significant amount of space and quickly clutter the diagram. As a professional best practice, it is highly recommended to display terminals as small text nodes. To make this the default behavior, go to **Tools -> Options -> Block Diagram** and uncheck **Place front panel terminals as icons**.
 
-### Configuration File
+You can configure many other details here, such as the blinking frequency of UI controls (discussed in [Local Variables and Properties](data_and_controls#implementing-blinking-controls-for-alerts)) or advanced compiler settings that we will cover later.
 
-LabVIEW stores these settings in a configuration file. On Windows, this file is typically the LabVIEW.ini file located in the same folder as LabVIEW.exe. Once you are familiar with the format of this configuration file, you can even modify settings directly in the file. The process of editing such configuration files will be explored in the [File I/O](pattern_file) section.
+### Configuration Files (`LabVIEW.ini`)
+
+LabVIEW saves these preferences in a configuration file. On Windows, this is `LabVIEW.ini`, located in the same directory as `LabVIEW.exe`. Once you are familiar with its syntax, you can edit this file directly to configure advanced settings. We will explore how to read and write configuration files programmatically in the [File I/O](pattern_file) chapter.
 
 
-## Optimizing the Function and Control Palettes
+## Optimizing the Palettes
 
-The function and control palettes are integral to programming in LabVIEW, and their configuration can significantly impact your programming efficiency. The settings for both palettes are similar, so for brevity, we will focus on the function palette as an example to demonstrate customization options.
+The Controls and Functions Palettes are your primary tools in LabVIEW, and customizing them can save you significant time. Since they share similar configuration menus, we will focus on the Functions Palette for this discussion.
 
-### Utilizing Floating Windows
+### Pinning Palettes
 
-For functions that are used frequently, one efficient method is to transform the function palette into a floating window. This is done by clicking the "thumbtack" icon on the palette. In its floating window state, the palette remains visible above all VI windows, providing easy and immediate access to frequently used functions. However, it's worth noting that the floating window can obscure part of the program code. When certain functions are not in regular use, you might prefer to hide the palette to free up screen space. It can be quickly accessed again by right-clicking on a blank area of the block diagram, which brings up the function palette.
+If you are placing many functions, click the **thumbtack** icon in the top-left corner of the palette to pin it as a floating window. This keeps the palette visible above your windows so you don't have to right-click repeatedly. However, a floating palette can block your view of the code. If it gets in the way, close the window and rely on right-clicking the diagram to open a temporary palette instead.
 
-### Customizing the Default Palette Layout
+### Customizing Visible Palette Categories
 
-By default, when the function palette is activated, particularly with the right mouse button, it may displays only one expanded category, with others minimized or even hidden:
+When you first open a palette, it may show only a few default categories, hiding others:
 
 ![](../../../../docs/images/image56.png "Default Function Palette Layout")
 
-Depending on your project or personal preference, the functions you frequently use may not be in the default expanded category. Fortunately, LabVIEW allows you to customize the layout of the palette and set your default visible items: 
+You can customize the visible categories to match your needs:
 
-- If accessing the palette via the right mouse button, first pin it into a floating window by clicking the thumbtack button in the upper left corner.
-- Click the "Customize" button on the floating function palette window.
-- In the "Change Visible Palettes" dialog box, select the categories you use most often. These selected items will then appear by default on the function palette.
-- Conversely, you can remove categories that are seldom used to streamline the palette and expedite the selection of more commonly used functions:
+1. Pin the palette to make it a floating window.
+2. Click the **Customize** button on the palette toolbar and select **Change Visible Palettes**.
+3. In the dialog box, check the categories you want to see and uncheck those you rarely use to keep the menu clean:
 
 ![](../../../../docs/images/image57.png "Need to Change the Default Display Items of the Function Palette")
 
-By default, the function palette in LabVIEW expands the topmost item. Therefore, placing your most frequently used items at the top can enhance your programming efficiency.
+Since LabVIEW expands the topmost category by default, placing your most-used category at the top of the list will save you extra clicks.
 
-### Adjusting the Position of Items
+### Reordering Categories
 
-To reposition an item within the function palette, hover your mouse over the two vertical lines to the left of the desired item (e.g., "Favorites"). The cursor will change to a cross with arrows, indicating that you can drag the item. Click and hold the mouse button to drag the "Favorites" item to the top of the function palette. Once released, the "Favorites" category will be the first expanded item you see:
+To move a category within the palette, click the **Customize** button on the pinned palette and select **Change Visible Palettes**. You can also drag categories directly: hover your mouse over the double vertical lines to the left of a category name (like **Favorites**), and drag it to a new position. Moving **Favorites** to the top ensures it is the first menu that expands when you open the palette:
 
 ![](../../../../docs/images/image58.png "Adjust the Position of the Item")
 
-### Customizing the "Favorites" Category
+### Adding Items to Favorites
 
-The rationale behind moving "Favorites" to the top is its customizable nature, allowing users to easily add their most frequently used functions. For instance, if you want to add the "Programming -> Structure" category to "Favorites", follow these steps:
+The **Favorites** category is highly customizable. You can add frequently used folders or individual functions to it. For example, to add the **Structures** subpalette:
 
-1. Click on the "Programming" category to expand it.
-2. Click on the "Structure" subpalette to expand it.
-3. Right-click on the "Structure" label of the subpalette, select "Add Subpalette to Favorites".
-
-Following these steps will ensure that the "Structure" subpalette is readily accessible under "Favorites" in future sessions:
+1. Navigate to **Programming -> Structures**.
+2. Right-click the **Structures** title bar in the palette and select **Add Subpalette to Favorites**:
 
 ![](../../../../docs/images/image59.png "Add Sub-Category to Favorites")
 
-After adding several frequently used categories to "Favorites", the function palette's layout becomes significantly more user-friendly. In future programming sessions, the commonly used sub-categories will be displayed immediately upon opening the function palette, streamlining the programming process:
+Adding your most-used subpalettes to **Favorites** puts your daily tools right at your fingertips when you open the palette:
 
 ![](../../../../docs/images/image60.png "Customized Function Selection Palette")
 
 
-## Searching Functions and Controls
+## Finding Functions and Controls
 
-LabVIEW offers an extensive array of functions and controls, which can sometimes be overwhelming when you're trying to locate a specific feature. To streamline this process, LabVIEW provides a search function within its function palette.
+With thousands of functions available, searching is often faster than browsing menus.
 
-### Searching in Palettes
+### Palette Search
 
-To access the search, click the "Search" button (marked with a magnifying glass icon) at the top of the function or control palette:
+Click the **Search** button (magnifying glass) at the top of any palette:
 
 ![Search Palettes](../../../../docs/images_2/z132.png "Search Palettes")
 
-In the search dialog, input your keywords, then drag and drop the desired result directly onto your VI's block diagram or front panel. Alternatively, double-clicking a search result navigates you to its location on the palette, helping you learn where specific nodes are typically found for future reference.
+Type your keyword in the search bar. You can drag and drop functions directly from the search results onto your diagram. Double-clicking a search result will navigate to its location on the palette, helping you learn where to find it next time.
 
 ### Quick Drop
 
-LabVIEW also features a tool known as Quick Drop. 
+For experienced developers, the fastest way to place items is **Quick Drop**.
 
-Quick Drop is activated by the default shortcut Ctrl+Space. Note that this shortcut frequently conflicts with operating system shortcuts for switching input methods, particularly on systems with Chinese language support.
-
-If you encounter this conflict, you must manually change the shortcut within LabVIEW. Navigate to Tools -> Options -> Environment, scroll down to the Quick Drop Keyboard Shortcut section, and assign an alternative combination.  Standard alternatives that avoid system conflicts include `Ctrl+Shift+Space` or `Ctrl+Alt+Space`.
+Press **Ctrl+Space** to open the Quick Drop search bar. Type the name of the function you need and press Enter to place it:
 
 ![Quick Drop](../../../../docs/images_2/z133.png "Quick Drop")
 
-### Quick Drop Keyboard Shortcuts
+*Note: The **Ctrl+Space** shortcut conflicts with the default Chinese input method toggle in Windows. If you use a Chinese input method, you should change this shortcut. Go to **Tools -> Options -> Environment**, scroll down to the **Keyboard Shortcuts** section, and map Quick Drop to an alternative like **Ctrl+Shift+Space** or **Ctrl+Alt+Space**.*
 
-Beyond simply placing objects, Quick Drop includes several built-in keyboard shortcuts that execute powerful macros, saving you countless mouse clicks.  After opening Quick Drop (`Ctrl+Space`) and selecting an object (or clicking an existing object on block diagram), you can press the following shortcuts:
-- Ctrl + D: Automatically generates and wires all controls and indicators for the selected function or subVI.
-- Ctrl + R: Removes the selected node from the block diagram and automatically reconnects the broken wires behind it.
-- Ctrl + T: Moves the labels of all selected nodes to a clean, standardized position (e.g., top-left for controls, bottom for indicators). Mastering these shortcuts will exponentially increase coding speed.
+### Quick Drop Shortcuts
 
+Quick Drop also supports powerful shortcuts for modifying existing code. Open Quick Drop (**Ctrl+Space**) and use the following keyboard combinations:
 
-You can view and edit shortcut configurations in Quick Drop by clicking the Configure button. LabVIEW has a default set of shortcuts, but custom shortcuts can be added for more frequently used functions or controls:
+- **Ctrl+D:** Automatically creates and wires controls/indicators for all inputs and outputs of a selected function or subVI.
+- **Ctrl+R:** Removes a selected node from the diagram and automatically reconnects the broken wires on either side of it.
+- **Ctrl+T:** Moves the labels of all selected nodes to a standard position (such as above controls or below indicators).
+
+Click the **Configure** button on the Quick Drop window to customize these shortcuts or add your own:
 
 ![Quick Drop Configuration](../../../../docs/images_2/z134.png "Quick Drop Configuration")
 
-For instance, if you frequently use the "Expression Node", you can assign a simple letter, such as "e", as a shortcut for it. Afterward, typing "e" in Quick Drop and pressing Enter will immediately place an Expression Node on your diagram:
+For instance, if you use the **Expression Node** frequently, you can assign it the custom shortcut `e`. Typing `e` in Quick Drop and pressing Enter will immediately place an Expression Node:
 
 ![Quick Drop Shortcut](../../../../docs/images_2/z135.png "Quick Drop Shortcut")
 
-These search tools and customizable shortcuts significantly enhance the efficiency of programming in LabVIEW, making it easier to navigate the comprehensive suite of functions and controls available.
 
+## The Tool Palette and Mouse Workflows
 
-## Tool Palette
-
-In the graphical programming environment of LabVIEW, the mouse plays a multifaceted and more significant role compared to text-based programming languages. The mouse is used for various actions, including selecting, dragging, and resizing objects, as well as wiring, inserting breakpoints, and adding probes. Essentially, the mouse serves multiple purposes, adapting to different tasks within the LabVIEW interface.
+Unlike text-based programming, where the mouse is primarily used for text selection, graphical coding requires the mouse cursor to perform a variety of operations: positioning elements, resizing boxes, wiring terminals, painting objects, and placing debugging probes.
 
 ### Automatic Tool Selection
 
-"By default, LabVIEW is configured to automatically select the mouse function based on its position and context via the Automatic Tool Selection feature.  For instance, when the cursor hovers over the center of a function, it acts as a positioning tool; when moved to a terminal, it seamlessly switches to the wiring spool.
+By default, LabVIEW uses **Automatic Tool Selection** to change the cursor tool dynamically based on where you hover:
 
-While mastering the precise cursor placement takes a little practice, keeping Automatic Tool Selection enabled is the absolute industry standard for programming efficiency. Manually clicking the palette to switch tools drastically slows down development. For advanced programmers, the most efficient workflow is to leave Auto-Tool ON, and only use the `Shift + Right-Click` temporary tool palette or the Spacebar/Tab shortcuts for rare, specific overrides (such as selecting the Coloring tool to paint a block diagram structure).
+- Hovering over the center of a node turns the cursor into the **Positioning Tool** (arrow) to select or drag elements.
+- Hovering over a terminal changes it to the **Wiring Tool** (wire spool).
+- Hovering over a control's value area switches it to the **Operating Tool** (finger pointer) to edit values.
+
+While positioning the cursor takes some practice, leaving Auto-Tool enabled is the industry standard for development speed.
 
 ### Manual Tool Selection
 
-For programmers who prefer more control over their tools, manually changing the mouse function can be more efficient. Manual tool selection eliminates the need for precise cursor placement by allowing you to choose the desired tool beforehand.
+If you find the automatic switching distracting, you can choose tools manually using the **Tool Palette**:
 
-This manual selection is facilitated through the "Tool Palette". Accessing this board can be done in two ways:
-1. Navigate to "View -> Tool Palette" in the menu.
-2. Press and hold the Shift key and right-click in a blank area of the front panel or block diagram.
+- Open the palette via **View -> Tools Palette**, or
+- Hold **Shift** and right-click an empty area of the panel or diagram.
 
 ![Tool Palette](../../../../docs/images/image61.png "Tool Palette")
 
-At the top of the tool Palette is the "Automatic Tool Selection" button, symbolized by a wrench and screwdriver icon. When engaged, LabVIEW will automatically select the mouse function. Clicking this button again turns off the automatic tool selection, switching to manual tool mode where the user selects the desired mouse function.
+At the top of the palette is the **Automatic Tool Selection** button (wrench and screwdriver icon). Click it to disable Auto-Tool and click any tool below to lock the cursor to that function (e.g., lock to Wiring).
 
-Clicking on the appropriate button on the tool Palette allows you to switch the mouse to that specific function. Alternatively, you can use keyboard shortcuts for rapid switching between different mouse functions.
+You can also toggle tools using keyboard shortcuts:
 
-On the **block diagram** window:
-- Press the **space bar** to toggle the mouse function between "Wiring" and "Positioning/Adjusting Size/Selection".
-- Press the **Tab key** to cycle the mouse through four functions: "Operate Value", "Positioning/Adjusting Size/Selection", "Edit Text", and "Wiring".
-
-On the **front panel**:
-- Press the **space bar** to switch the mouse between "Operate Value" and "Positioning/Adjusting Size/Selection".
-- Press the **Tab key** to toggle the mouse among four functions: "Operate Value", "Positioning/Adjusting Size/Selection", "Edit Text", and "Set Color".
-
-During **VI debugging**:
-- Press either the **space bar** or the **Tab key** to switch the mouse among three functions: "Operate Value", "Set/Clear Breakpoint", and "Probe".
+- Press the **spacebar** to toggle between the **Wiring** tool and the **Positioning** tool on the Block Diagram (or the **Operating** and **Positioning** tools on the Front Panel).
+- Press the **Tab** key to cycle through the four most common tools: Operating, Positioning, Text Editing, and Wiring.
+- During VI debugging, the **Tab** key cycles through the Operating, Breakpoint, and Probe tools.
 
 ## Practice Exercise
 

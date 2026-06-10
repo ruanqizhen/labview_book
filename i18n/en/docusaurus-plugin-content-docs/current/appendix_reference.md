@@ -1,4 +1,4 @@
-# Reference
+# References
 
 ![](../../../../docs/cover/reference.png)
 

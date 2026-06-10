@@ -1,176 +1,170 @@
 # Data Acquisition
 
-Data acquisition often serves as the foundational step in test programs, tasked with collecting data that represents physical quantities or signals from hardware devices.
+Data acquisition (DAQ) is the foundational first step of most test and measurement applications. It is responsible for digitizing and collecting signals representing physical quantities from hardware devices.
 
 ## Utilizing Device Drivers
 
-No matter what data acquisition device is being used, having a device-specific driver designed for LabVIEW can drastically reduce the complexity of programming. Hardware devices used for data collection are diverse, ranging from various card-based devices, traditional instruments, to embedded smart devices. While their drivers may differ, their functionalities and usage methods are generally similar: they involve sequentially opening or initializing the device through the driver's interface VIs, configuring the device as needed, reading data from the device, and ultimately closing the device.
+Regardless of the DAQ hardware you use, employing a LabVIEW-specific driver dramatically simplifies development. Hardware devices for data collection are highly diverse, spanning card-based DAQ boards, benchtop instruments, and embedded smart sensors. Although their drivers vary, their operational lifecycles are identical: initializing the device, configuring its hardware settings, reading or writing data, and closing the device session to release resources.
 
-NI-produced hardware devices typically come equipped with LabVIEW drivers. Many devices from other manufacturers also include LabVIEW drivers; users can obtain these drivers by contacting the respective hardware manufacturers.
+NI-designed hardware comes with native LabVIEW drivers (such as NI-DAQmx). Most third-party hardware manufacturers also provide LabVIEW instrument drivers, which can be downloaded from their websites.
 
-For widely used instruments, LabVIEW provides a "Find Instrument Drivers" tool to help locate and install their drivers. This tool can be found under the menu path: "Tools -> Instruments -> Find Instrument Drivers".
+For stand-alone instruments, LabVIEW features the **Find Instrument Drivers** finder to locate, download, and install drivers from the NI Instrument Driver Network (IDNet). This tool is accessible via **Tools >> Instrumentation >> Find Instrument Drivers...**.
 
-The image below is the launch interface of the "Find Instrument Drivers" tool.
+The figure below shows the startup screen of the tool:
 
 ![](../../../../docs/images/image454.png "Find Instrument Drivers Tool")
 
-To use this tool, you must first register for and log into an ni.com account. You can then search for the drivers of specific instruments using the manufacturer name and keywords. The following image shows the results of such a search.
+To use this tool, log in using your ni.com credentials. You can then search for drivers by manufacturer, model name, or keywords. The figure below shows typical search results:
 
 ![](../../../../docs/images/image455.png "Search Results")
 
 
-## Utilizing C Language Drivers for Hardware Devices
+## Calling C-Language Drivers in LabVIEW
 
-Some hardware devices may lack LabVIEW drivers but often provide C language drivers instead. These drivers are typically delivered in the form of DLLs, which include the necessary functions for controlling hardware devices or reading data. Additionally, a .h header file is provided to declare the definitions of these functions.
+Some hardware lacks native LabVIEW drivers but provides C-language API libraries instead. These are typically distributed as Dynamic Link Libraries (DLLs) on Windows (or shared libraries on other OSs) alongside a C header file (`.h`) declaring the function prototypes.
 
-In LabVIEW, these types of drivers can be used directly by employing Call Library Function (CLN) nodes to invoke the driver functions within applications. However, using CLN nodes isn't the most straightforward approach. A better strategy involves wrapping the C language drivers into a form compatible with LabVIEW before utilizing them in LabVIEW.
+In LabVIEW, you can call these DLL functions directly using the **Call Library Function Node (CLFN)**. However, wiring CLFNs directly on your main Block Diagram is cumbersome. A much cleaner practice is to wrap the C-language driver functions into a reusable LabVIEW VI library.
 
-A straightforward wrapping method involves using LabVIEW's "Import Shared Library" tool to import all functions from the DLL into LabVIEW as VIs. Utilizing driver functionalities provided as VIs in test programs is significantly more convenient than using CLN nodes directly. This is because VIs can include extensive information, such as explanations of the functions, range of parameters, and more.
+You can do this easily using LabVIEW's **Import Shared Library** wizard (**Tools >> Import >> Shared Library...**), which parses the header file and automatically generates wrapper VIs for all functions in the DLL. Using wrapper VIs is far superior to using raw CLFNs because the VIs can be documented with descriptions, parameter ranges, and standard LabVIEW error terminals.
 
-If a driver is frequently used, it merits the effort to design it to be both professional and user-friendly. Redesigning the driver structure allows for a departure from merely wrapping each DLL function into a VI; instead, each VI's functionality can be designed in the most intuitive manner for LabVIEW use. A VI may call multiple DLL functions, offering enhanced functionality. Such drivers can be inspired by IVI instrument drivers used in LabVIEW, which are also created by wrapping DLLs.
+For high-use drivers, you should design a professional, unified API library rather than just exposing 1-to-1 mappings of DLL functions. A single, intuitive LabVIEW VI can invoke multiple underlying DLL functions to perform a logical operation (e.g., initializing, configuring, and checking errors in a single step). You can look at the architecture of standard IVI instrument drivers as a design reference for wrapping DLLs.
 
-## Developing Drivers
+## Developing Custom Instrument Drivers
 
-Some infrequently used or simpler data acquisition devices may not provide any form of drivers, instead being controlled through commands represented as strings or numerical values sent from the program to the instruments.
+For simpler or custom-built devices that do not come with any driver software, you must communicate with them directly using low-level commands (typically ASCII strings or binary packets) sent over standard communication buses.
 
-Instruments typically connect to computers through GPIB, USB, ethernet, or other types of data cables. To send data to these devices in LabVIEW, the "Instrument I/O -> VISA" functions are utilized, with VISA Write and VISA Read being the most frequently used.
+Instruments connect to PCs via physical buses like GPIB, USB, Serial (RS-232), or Ethernet (TCP/IP). In LabVIEW, you control these connections using the **Virtual Instrument Software Architecture (VISA)** API (located under **Programming >> Instrument I/O >> VISA**). The most common functions are **VISA Write** and **VISA Read**:
 
 ![](../../../../docs/images/image456.png "VISA Functions")
 
-By specifying the "VISA resource name" parameter in the correct format, data can be transmitted to a device connected through a specific type of data cable. Detailed instructions on this resource name's format are provided in LabVIEW's help documentation.
+By supplying a properly formatted **VISA Resource Name** (e.g., `GPIB0::2::INSTR` or `TCPIP0::192.168.1.100::inst0::INSTR`), VISA handles the underlying hardware protocol transport automatically.
 
-Direct use of VISA functions in applications, akin to direct use of CLN nodes, is less than ideal due to its lack of intuitiveness and cumbersome configuration. Therefore, for hardware devices without existing drivers, it's viable to develop your own drivers for application use. Essentially, a driver consists of a collection of VIs, each incorporating the device's most commonly utilized functionalities. An instrument's typical functions are often composed of one or several commands. For example, to read a measurement value from an instrument, a command to perform the measurement must first be sent, followed by a command for the instrument to send data, and then reading the data. Accordingly, a driver VI is made up of one or more VISA functions. Below is a VI from the LabVIEW-built Agilent 34401 multimeter driver, with its functionality primarily executed through VISA functions to send commands to the instrument.
+Calling raw VISA functions directly in your application code is bad practice. Instead, you should design a custom Instrument Driver. This is a modular VI library that encapsulates command sequences into logical VIs (e.g., *Initialize.vi*, *Configure Voltage.vi*, *Read Measurement.vi*, *Close.vi*). For example, a single *Read Measurement.vi* might perform a serial sequence of: **VISA Write** (sending the query command), **VISA Read** (retrieving the ASCII response), and string formatting (parsing the text into a numeric double). The block diagram below shows a VI from the Agilent 34401 multimeter driver, which encapsulates this exact command-response pattern using VISA functions:
 
 ![](../../../../docs/images/image457.png "Driver VI Block Diagram")
 
-When creating a driver, the initial step is to design its structure. This includes deciding which VIs the driver should contain, the functionality of each VI, and their implementation. Driver design should take inspiration from existing drivers or standards, as adopting a pre-designed interface saves considerable time and effort. Users of the driver will also benefit from its familiarity with other drivers, thereby reducing the learning curve.
+When building an instrument driver, align its architecture with industry standards like the National Instruments Instrument Driver Guidelines. Organizing the driver VIs in a standard palette structure (Initialize, Configure, Action/Status, Data, Utility, Close) makes it immediately familiar to other LabVIEW developers, reducing their learning curve.
 
 
-## Interchangeable Virtual Instrument Drivers
+## Interchangeable Virtual Instrument (IVI) Drivers
 
-The Interchangeable Virtual Instrument (IVI) driver standards, developed by the Interchangeable Virtual Instrument Foundation, are designed to enable instrument interchangeability during runtime in test programs. 
+The **Interchangeable Virtual Instrument (IVI)** driver standard is defined by the IVI Foundation to enable hardware interchangeability at runtime.
 
-Typically, standard drivers create a dependency between the test software and specific hardware devices and drivers. If a test program is moved to a computer lacking the necessary drivers, it won't operate. Furthermore, if a different instrument is connected to another computer, the test program must be rewritten to incorporate the new instrument's driver. The distinction of IVI instrument drivers lies in their ability to switch to different instrument models without necessitating a rewrite or recompilation of the test program, thereby allowing the use of various models for testing purposes.
+Traditional instrument drivers bind your software application to a specific instrument model and driver. If you swap a multimeter (e.g., replacing a Fluke 45 with an Agilent 34401A), you must rewrite and recompile the test code to use the new driver VIs. IVI solves this by decoupling the application logic from the physical hardware.
 
-For interchangeability, the IVI Foundation extracted common features across similar instruments and set standards for each type, such as oscilloscopes, digital multimeters, spectrum analyzers, etc. Each instrument category has its "Class Driver" (IVI Class Driver), which encompasses common properties and functions. Runtime control of the instruments is achieved by the class driver calling specific functions from each instrument's individual specific driver (IVI Specific Driver). For instance, IviDmm serves as the class driver for digital multimeters, with fl45 being the specific driver tailored for the Fluke 45 multimeter model.
-
-Multiple specific drivers for different models of the same instrument type might be installed on a computer. The IVI configuration file specifies which specific driver should be utilized by the class driver. Installing LabVIEW also installs the "Measurement & Automation" (MAX) software, an NI proprietary application for hardware device configuration, facilitating intuitive adjustments in the IVI configuration file settings.
-
-Instrument interchangeability in test programs is made possible by calling the class driver, which references the IVI configuration file to select the appropriate specific driver. If instruments within the system are replaced, merely adjusting the IVI configuration file suffices without any need for application modification, thus ensuring the test system's versatility.
+To achieve this, the IVI Foundation standardized API interfaces for common instrument classes, such as oscilloscopes, digital multimeters (DMMs), and function generators. Each category has an **IVI Class Driver** defining standard properties and functions, and an **IVI Specific Driver** written for a particular instrument model. The class driver acts as a polymorphic interface: it intercepts calls from the application and routes them to the active specific driver (e.g., the `IviDmm` class driver routing commands to the `fl45` specific driver).
 
 ![](../../../../docs/images/image458.png "IVI Architecture")
 
-IVI drivers, compared to traditional instrument drivers, are better suited for sophisticated applications and developing extensive testing systems. For instance, I developed a calibration program set intended for use across various calibration labs, each equipped with different instruments. Writing individual programs for each lab would be inefficient. Utilizing the IVI architecture for these calibration programs proved to be an optimal solution. With a single software version and each lab configuring their instruments within MAX, the calibration software could be universally applied.
+The mapping between the Class Driver and the Specific Driver is configured externally in the IVI Configuration Store. You configure these logical names, driver sessions, and hardware assets using **Measurement & Automation Explorer (MAX)**, which is installed alongside LabVIEW. 
+
+By writing your test applications using IVI Class VIs, swapping physical hardware is as simple as updating the mapping in MAX. You do not need to edit or recompile a single line of your application code. This architecture is highly beneficial for large-scale industrial test systems or calibration software deployed across multiple labs with varying equipment configurations.
 
 
-## Software Timing
+## Software vs. Hardware Timing
 
-In LabVIEW programs, it's common to encounter scenarios where certain code needs to be executed at timed intervals. Depending on the application, the required precision for these intervals can vary significantly. Some programs might have relatively lax timing requirements. For example, consider the following program:
+Many LabVIEW applications require specific tasks to execute at timed intervals. The level of precision required varies significantly depending on the application.
+
+For simple UI updates or control loops, timing constraints are relatively relaxed. Consider this program:
 
 ![](../../../../docs/images/image43.png)
 
-This program is set to perform calculations and update the interface every 200 milliseconds. The precision required for its timing is quite low; even a 50% deviation from the 200-millisecond target would not significantly impact the program's functionality.
+It performs calculations and refreshes the user interface roughly every 200 milliseconds. A timing deviation of $\pm$20 ms does not affect its usability or accuracy.
 
-Conversely, other programs demand much higher timing precision. When acquiring signals using data acquisition devices, for instance, the precision requirements could be thousands of times more stringent than those of the previously mentioned program. In the realm of high-speed data acquisition, timing errors must be minimized to the order of 10^-9^ seconds.
+Conversely, high-speed data acquisition demands extreme timing precision. If you are sampling a physical waveform, the time interval between individual data points must be highly stable (often requiring sub-nanosecond jitter) to prevent signal distortion.
 
-### Timing Functions and VIs
+### Basic Timing Functions
 
-LabVIEW offers several ways to implement timing functions, with the simplest being the use of provided timing functions and VIs. Commonly used timing-related functions or VIs include "Tick Count", "Wait", "Wait Until Next ms Multiple", "Time Delay", and "Elapsed Time", all located in the "Programming -> Timing" function palette.
+For general software timing, LabVIEW provides several primitives in the **Programming >> Timing** palette, including **Tick Count (ms)**, **Wait (ms)**, **Wait Until Next ms Multiple**, **Time Delay**, and **Elapsed Time**.
 
-The program illustrated below utilizes two "Tick Count" VIs to calculate the duration required for executing a code segment. To implement timing, it continuously checks the current time, executing the task again once the interval since the last execution reaches a specified duration, thereby fulfilling the timing requirement.
+To measure execution time, you can query **Tick Count (ms)** before and after a block of code, as shown below:
 
 ![](../../../../docs/images/image167.png "Using Flat Sequence Structure")
 
-The "Elapsed Time" VI functions similarly to "Tick Count", albeit with additional features.
+The **Elapsed Time** Express VI provides similar timing measurements but includes built-in output flags for elapsed time thresholds.
 
-For simpler timing requirements, direct usage of the "Wait", "Wait Until Next ms Multiple", or "Time Delay" functions suffices, all of which are fundamentally identical in operation. They all discern a minimum wait or delay time of 2 milliseconds, with their main distinction lying in precision. "Wait" and "Time Delay" share similar precision levels, each potentially deviating by several milliseconds upon execution. "Wait Until Next ms Multiple" is noted for its higher precision.
+For simple delays, you can use the **Wait (ms)** or **Time Delay** functions. In desktop operating systems like Windows, these functions have a resolution limit of 1 to 2 milliseconds, and their execution accuracy can deviate by several milliseconds depending on CPU load. **Wait Until Next ms Multiple** provides slightly higher precision because it aligns execution to the system clock grid.
 
-Thus, for programs where precision requirements are modest, such as those needing only to refresh a display every 200 milliseconds, either "Wait" or "Time Delay" is appropriate. For data acquisition programs with moderate precision requirements, "Wait Until Next ms Multiple" might be an option. Should higher precision be necessitated, additional timing methodologies should be considered.
+For basic UI loops, **Wait (ms)** is perfectly sufficient. For low-speed software-timed data acquisition, **Wait Until Next ms Multiple** is a better choice. However, if your application requires high-precision or deterministic timing, you must look to advanced techniques.
 
+### Wait vs. Wait Until Next ms Multiple
 
-In LabVIEW programs, when timing functionalities are needed, the most common approach involves using the "Wait" and "Wait Until Next ms Multiple" functions in conjunction with loops. Therefore, this discussion will primarily focus on comparing these two functions.
+In loop-based software execution, the two most common timing functions are **Wait (ms)** and **Wait Until Next ms Multiple**.
 
 ![](../../../../docs/images/image234.png "Wait Function")
 
-- The "Wait" function is relatively straightforward: it takes an input parameter of n milliseconds, and each time the program encounters this function, it pauses for n milliseconds before continuing with the subsequent code execution.
-- The "Wait Until Next ms Multiple" function is a bit more complex: given an input parameter of n milliseconds, each time the program reaches this function, it pauses. The function wakes up every n milliseconds, and upon awakening, it resumes the subsequent code execution.
+- **Wait (ms)**: Pauses execution for the specified $n$ milliseconds. The delay begins when the execution path hits the function.
+- **Wait Until Next ms Multiple**: Pauses execution until the system millisecond clock becomes an integer multiple of $n$.
 
-Generally, if a program doesn't require very precise timing, the choice between "Wait" and "Wait Until Next ms Multiple" doesn't significantly matter, and either function can be used. Only in situations where high precision in timing is necessary should their subtle differences be considered.
+Let's compare these functions inside a While Loop. In the figure below, suppose the combined execution time of the **Read Data** and **Write Data** functions is $m$ milliseconds. If $m < 50$ ms, and the target loop time is 100 ms:
 
 ![](../../../../docs/images/image235.png "Timing Functions Inside a Loop")
 
-Explaining these concepts in the abstract can be challenging, so let's look at a program example. Suppose in the depicted program, both "Read Data" and "Write Data" functions run for n milliseconds (this runtime applies to these sub-programs in other examples within this section as well). If n is less than 50, typically, each loop iteration in the two programs takes about 100 milliseconds.
+#### Cumulative Error (Jitter)
 
-#### Precision
+The **Wait (ms)** function starts its delay *after* the other VIs in the loop finish executing. The total time for one iteration is therefore $m + 100$ ms. Because $m$ varies slightly between iterations depending on operating system scheduling, this variation causes loop-time jitter. Furthermore, these errors accumulate over time, making it impossible to maintain a stable long-term loop frequency.
 
-However, there's a difference in timing precision between the two programs. The precision of using "Wait Until Next ms Multiple" within a loop far surpasses that of using "Wait".
-
-In non-real-time operating systems like Windows, the accuracy of timing functions is relatively low, and experiencing a few milliseconds of deviation per execution is normal.
-
-With the "Wait" function, timing starts anew each time the loop encounters it, leading to the accumulation of errors. For example, if there's an error of four or five milliseconds per iteration, the total error could reach fifteen milliseconds or more after five iterations.
-
-On the other hand, the "Wait Until Next ms Multiple" function doesn't calculate delay at each invocation. Assuming the function starts timing from zero, it predetermines its wake times right from the program's start: at 100ms, 200ms, 300ms, and so on. If there's an error of ±4 milliseconds, then its actual wake times could be 100±4ms, 200±4ms, 300±4ms, etc., without such errors accumulating.
+Conversely, **Wait Until Next ms Multiple** aligns execution with absolute system clock intervals (e.g., waking up at exactly 100 ms, 200 ms, 300 ms, etc.). Even if $m$ fluctuates, the function adjusts the sleep duration dynamically to hit the next multiple. Jitter is limited to the OS scheduling variation of a single iteration (typically $\pm$1–5 ms under Windows), and the error does not accumulate over time.
 
 ![](../../../../docs/images/image236.png "Cumulative Errors of Two Timing Functions")
 
 
 #### Timing the First Iteration
 
-Let's examine the runtime differences when using the "Wait" and "Wait Until Next ms Multiple" functions. What are the values of x-y after running the programs below, assuming we ignore any errors?
+The two functions behave differently on the very first loop iteration. What will be the value of $x - y$ (measuring the total loop execution time) in the programs below?
 
 ![image](../../../../docs/images/image237.png "Function Program Runtime")
 
-In the program utilizing the "Wait" function, each delay adds 500 to x-y; after five 100 millisecond delays, the sum is 500 milliseconds.
+- For the **Wait (ms)** loop, the result is consistently 500 ms because each iteration runs for a flat 100 ms.
+- For the **Wait Until Next ms Multiple** loop, the result is non-deterministic, ranging between $400 + m$ and $500$ ms. This occurs because the function does not align with the program's start time; it aligns with the system clock. The first iteration's wake-up can occur anywhere from 0 to 100 ms after the loop starts.
 
-In contrast, the program employing the "Wait Until Next ms Multiple" function offers an x-y value that is uncertain but will range between 400+2n and 500. This variance occurs because the "Wait Until Next ms Multiple" function doesn’t anchor its timing to the program's start time. Although it guarantees a wake-up interval of 100ms, the exact moment of the first wake-up varies, potentially occurring at any point within the first 0 to 100ms.
-
-If precise timing of 100 milliseconds for the loop's first iteration is necessary, the solution is straightforward: use the "Wait Until Next ms Multiple" function for an initial sleep phase without action, then commence its operational use from the second iteration onwards. As depicted below, this approach consistently yields a result of 500 for x-y with every program run.
+If your loop requires a precise delay on the very first iteration, you can run an initial empty **Wait Until Next ms Multiple** to align with the clock grid before entering the main processing loop:
 
 ![image](../../../../docs/images/image238.png "Function Start Time")
 
-#### Parallel vs. Serial Execution
+#### Parallel vs. Serial Wiring
 
-The programs discussed previously have the delay function and other code operating in parallel. This setup allows the loop iteration time to be primarily dictated by the delay function's input parameter, assuming the remaining code executes in negligible time. Sometimes, however, the delay function must operate serially, especially if a specific delay between two points is required.
+In the loops above, the timing functions run in parallel with the data tasks. This allows the delay to dictate the loop time. However, if you wire the timing function in series (using sequence structures or error wires) to enforce a specific execution order:
 
 ![](../../../../docs/images/image239.png "Serial Usage")
 
-Serial configuration significantly impacts the accuracy of the "Wait" function. For instance, the left-hand program now requires a total of 2n+100 per loop iteration. The variable n, influenced by the computer's performance and CPU load, introduces substantial timing variability.
+- For **Wait (ms)**, serial wiring forces the total loop duration to become $2m + 100$ ms. Any change in the execution time of the read/write VIs directly increases the loop period.
+- For **Wait Until Next ms Multiple**, the loop duration remains exactly 100 ms (provided that $2m < 100$ ms), because the function dynamically adjusts its sleep time to meet the absolute wake-up grid.
 
-Conversely, the "Wait Until Next ms Multiple" function's operational effectiveness remains unchanged in both parallel and serial configurations (when `2n<100`), as it focuses solely on maintaining consistent wake-up intervals.
 
-### Utilizing Event Structures
+### Timing with Event Structure Timeouts
 
-Event structures come with a timeout event branch. By supplying a positive integer, like "25", to the structure's timeout input, LabVIEW automatically triggers the code within the timeout event branch every 25 milliseconds.
+An **Event Structure** can act as a loop timer via its Timeout terminal (the hourglass node in the upper-left corner). Wiring a millisecond value (e.g., `30`) triggers the **Timeout** event case at that interval if no other events occur.
 
-Employing the event structure's timeout event for timing offers precision akin to the "Wait" function. If the program already includes an event structure and necessitates timing functionality, integrating timing into the existing event structure is a practical first step.
-
-For instance, if the application involves displaying an animation sequence that requires refreshing every 30 milliseconds and the program utilizes an event structure for interface management, the animation refresh code can be conveniently inserted into the timeout handling branch of the event structure:
+Timing via Event Structure timeouts has similar precision to the **Wait (ms)** function. If your application already uses an Event Structure for UI interaction, adding a timeout case is a clean, low-overhead way to handle periodic tasks (such as updating an animation frame or refreshing a sensor readout):
 
 ![](../../../../docs/images/image240.png "Timing with Timeout Event")
 
 
-#### Timing Loops
+### Timed Loops
 
-The common drawback of the timing methods we've previously discussed is their relatively low precision. For high-precision timing, reliance on specialized hardware devices is often required.
+The timing methods discussed above run on desktop operating systems (like standard Windows) and suffer from low precision and jitter due to OS task scheduling. For high-precision or deterministic software timing (especially on real-time targets like NI CompactRIO or PXI running RTOS), you should use **Timed Loops**.
 
-Most data acquisition devices come equipped with their own hardware timing features. Thus, when using these devices, it's typically the device's internal timer, not the software, that controls the interval between each sample.
+A **Timed Loop** (located under **Programming >> Structures >> Timed Structure**) runs at a configurable priority and aligns with specific timing sources (such as the system real-time clock or hardware scan clocks). 
 
-However, when software needs to manage timing with high precision, especially on embedded devices, timing loop structures can be employed. These structures offer significantly higher precision than the methods previously discussed. In a test program I once worked on, relying on the "Wait" function for timing led to several minutes of error after an hour of operation. Switching to the "Wait Until Next ms Multiple" function reduced the error to under a minute. Ultimately, utilizing a timing structure brought the error down to just a few seconds.
+For example, in a long-running test program:
+- Using **Wait (ms)** accumulated several minutes of timing drift after an hour of execution.
+- Using **Wait Until Next ms Multiple** reduced the drift to under a minute.
+- Using a **Timed Loop** reduced the drift to just a few seconds on a PC, and achieved microsecond-level determinism on a Real-Time OS.
 
-Additionally, for programs running on PCs, timing loops should be considered when precise timing is required, multiple timing levels need to be set, or there's a need to dynamically adjust timing functions.
+In desktop applications, Timed Loops are also useful for setting execution priorities, handling multiple timing sources, or dynamically adjusting the loop period during runtime.
 
-Timing loops are found in the "Programming -> Structures -> Timing Structure" function sub-palette. This sub-palette includes "Timed Loop", "Timed Sequence", among other nodes. Their functions and usage are relatively straightforward, and readers are encouraged to refer to the "Help File" for more information, hence this book will not delve into them in detail.
 
 ### Hardware Timing
 
-Setting the sampling rate is crucial when using data acquisition devices. For example, if a program needs to read 100 data points per second, equating to a 10-millisecond interval between samples, you might think of employing LabVIEW's delay functions. Placing a loop with a 10-millisecond delay within it to read a data point with each iteration seems logical.
+For high-speed measurements (e.g., reading 1,000 to 1,000,000 samples per second), software timing is completely unviable. Software loops cannot resolve sub-millisecond intervals on standard Windows, and software jitter would distort the captured waveform.
 
-This approach, however, has several issues: first, on computers running non-real-time operating systems like Windows, delay functions can support a minimum of only 1 millisecond, making intervals below 1 millisecond unachievable using this method. Second, the precision of delay-based methods is relatively low. For instance, setting a delay for 1 millisecond could result in errors several times larger than the intended delay, which is unacceptable for most data acquisition applications requiring high precision. Furthermore, reading from the data acquisition device after every single data point in high-volume data scenarios is inefficient.
+Instead, professional DAQ applications use **Hardware Timing**. DAQ boards have high-precision onboard crystal oscillators (hardware clocks) that trigger analog-to-digital conversions. The device driver automatically stores these samples in a hardware FIFO buffer, which is periodically read in batches by the host application.
 
-In fact, most data acquisition devices are equipped with high-precision internal clocks. Therefore, it's preferable to utilize the hardware's clock for setting the sampling interval, rather than software-based timing methods. The hardware's driver software includes settings for the sampling interval (sometimes referred to as "sampling rate"), enabling efficient data reading by batching several data points together.
+Consider a continuous audio capture example. Using a Sound Capture Express VI is unsuitable here because it is designed only for single, one-off recordings. For continuous streaming, we use the low-level API VIs located under **Programming >> Graphics & Sound >> Sound >> Input**.
 
-Continuing with the audio capture example, if a program needs to continuously capture and display audio signals, using Express VI would be unsuitable. The Sound Capture Express VI is intended for single, fixed-length audio captures. For continuous capture, VIs from "Programming -> Sound -> Input" serve as the sound card's driver program VIs.
-
-Below is a diagram illustrating a simple program for capturing audio signals. Initially, the "Configure Sound Input" VI is used to set the sampling rate to 22050, configuring the sound card's clock accordingly. With a set number of 5000 samples, the sound card's hardware collects 5000 data points before transferring them to memory in one go. The program then visualizes these data points. Displaying 5000 data points at once is much more efficient than displaying one data point at a time over 5000 iterations.
+The diagram below shows a continuous audio capture program. First, **Configure Sound Input** sets the hardware clock to a sampling rate of 22,050 Hz. We configure it to read 5,000 samples per iteration. The sound card's onboard hardware clock handles the high-precision sampling, filling a buffer. When 5,000 points are collected, the driver transfers them to PC memory in a single batch, and the While Loop displays the waveform:
 
 ![](../../../../docs/images/image459.png "Continuous Audio Capture")
+
+Reading and displaying data in batches is highly CPU-efficient and ensures that no samples are lost, achieving gapless, high-precision signal acquisition.

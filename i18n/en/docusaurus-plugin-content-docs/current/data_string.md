@@ -2,139 +2,136 @@
 
 ## String Data Type
 
-In LabVIEW, the storage format for strings is somewhat similar to that in the C language, with both utilizing a numeric array represented as U8 (unsigned 8-bit integers). However, a key difference lies in how the end of a string is marked. In C, a string is terminated with the `\0` character, while in LabVIEW, strings include length information, eliminating the need for a special terminator.
+In LabVIEW, strings are stored in memory as arrays of 8-bit unsigned integers (U8), which is similar to how strings are represented in C. However, they differ in how they define the string's end. A C string is null-terminated (ending with a `\0` character), whereas a LabVIEW string is length-prefixed, meaning it explicitly stores the character count and does not require a special terminator.
 
-Given that strings are stored in memory similarly to U8 arrays, converting between these two data types is logical and meaningful. When a U8 array is converted into a string, each element represents the ASCII code of the corresponding character in the string. Viewing a string in hexadecimal format also reveals the ASCII codes of its characters. LabVIEW offers dedicated functions for this conversion: "String to Byte Array Conversion ![](../../../../docs/images/image116.png "String to Byte Array Conversion function (icon)")" and "Byte Array to String Conversion". Therefore, there's no need to resort to forced type conversion. The two methods shown below achieve the same result:
+Because strings are stored in memory similarly to U8 arrays, converting between them is simple and efficient. When a U8 array is converted to a string, each element is interpreted as the ASCII code of a character. Similarly, displaying a string in hexadecimal mode exposes these ASCII codes directly. LabVIEW provides built-in functions for these conversions: **String To Byte Array** ![](../../../../docs/images/image116.png "String to Byte Array Conversion") and **Byte Array To String**. Because these dedicated functions exist, you do not need to use Type Cast. The two methods shown below produce the exact same outcome in memory:
 
 ![](../../../../docs/images/image135.png "string and U8 array")
 
 :::caution
 
-As of the current version (2023), LabVIEW does not support Unicode on Windows. For more information on this limitation, please refer to the section [LabVIEW's unicode problem](appendix_problem). When using non-English characters (those outside the ASCII range) in LabVIEW, be aware that switching operating systems (e.g., from a Chinese to a French system, or from Windows to Linux) may cause these strings to display incorrectly, potentially resulting in garbled text.
+As of the current version, LabVIEW does not officially support Unicode on Windows. For details on this limitation, see [LabVIEW's Unicode Limitations](appendix_problem). If you use non-ASCII characters (e.g., Chinese or accented European characters), switching operating systems (such as from a Chinese locale to a French locale, or from Windows to Linux) can cause strings to display as garbled text (mojibake).
 
 :::
 
 ## String Control
 
-LabVIEW's string control offers several versatile display methods beyond the standard display. These include "'\\' Code Display", "Hexadecimal Display", and "Password Display" modes:
+LabVIEW string controls and indicators support several display modes beyond standard text. These include **'\' Codes Display**, **Hex Display**, and **Password Display**:
 
 ![](../../../../docs/images/image108.png "different display methods")
 
-In strings, certain characters like carriage returns and line feeds have special meanings or are not directly displayable. The "'\\' Code Display" mode is useful in these situations, as it utilizes `\` escape codes to represent such characters. This approach is familiar to those who have experience with text programming languages, like C, which uses similar escape characters in strings. In LabVIEW, common escape characters include `\n` for a newline, `\r` for a carriage return, `\t` for a tab, `\s` for space, and `\\` for the backslash character itself.
+Non-printable characters (like carriage returns or line feeds) are difficult to inspect visually. In **'\' Codes Display** mode, LabVIEW represents these characters using standard backslash escape codes. This is identical to the string escaping used in C and other text-based languages. Common escape codes in LabVIEW include `\n` for a newline, `\r` for a carriage return, `\t` for a horizontal tab, `\s` for a space, and `\\` for a literal backslash.
 
-When LabVIEW interacts with devices or reads and writes certain files, string data types are often used. However, this data may not always be text but could represent numerical information. In such cases, displaying this data as text might result in meaningless characters or symbols, akin to viewing an EXE file in Notepad. The "Hexadecimal Display" mode is particularly useful here, allowing for the numerical representation of such data.
+When interfacing with instruments or reading binary files, LabVIEW often handles raw binary data using string types. If you display raw binary data as normal text, it will look like garbled symbols—similar to opening an `.exe` file in Notepad. Switching the string indicator to **Hex Display** mode allows you to inspect the raw hexadecimal values of the bytes.
 
-The "Password Display" mode, as the name implies, masks all characters with an asterisk `*`, making it suitable for password entry fields.
+**Password Display** mode masks characters with asterisks (`*`), hiding user input during entry.
 
-The combo box control also utilizes the string data type. It can be used to restrict user selections to predefined string options. The relationship between the combo box and string control is analogous to the relationship between [Dropdown List Control](data_custom_control) and a standard numeric control. These display options enhance the versatility of string controls in LabVIEW, catering to a range of applications and user interface requirements.
+A **Combo Box** is also a string-based control. It presents a list of predefined string choices to the user but stores the selected value as a standard string. The relationship between a Combo Box and a standard string control is analogous to the relationship between a [Ring control](data_custom_control) (or Enum) and a numeric control. These display modes provide the flexibility required to handle both human-readable text and raw binary streams.
 
 
-## Converting between Numbers, Time and Strings
+## Converting Between Numbers, Time, and Strings
 
 ### Basic Conversion Functions
 
-The primary functions related to string manipulation in LabVIEW are located under the "Programming -> String" function palette:
+String manipulation functions are located under **Programming -> String** on the Functions palette:
 
 ![](../../../../docs/images_2/z160.png "String function palette")
 
-Many string functions, such as calculating string length or merging strings, are quite intuitive and can be used effectively without much prior knowledge. Here, we'll focus on some slightly more complex yet frequently used functions, particularly those involving conversions between numbers and strings.
+Basic functions like String Length or Concatenate Strings are intuitive. Here, we focus on converting between numeric and string representations.
 
-Conversion between numbers and strings is a common requirement. Numerical data is essential for calculations, while string representation is often needed for display purposes (e.g., embedding data values in explanatory text) or when storing data in a file. LabVIEW offers two sets of functions for converting between numbers and strings, with the more user-friendly set located under "Programming -> String -> String/Number Conversion". These functions allow users to select the appropriate conversion based on data radix, notation, and other criteria.
+Converting between numbers and strings is a very common task: math operations require numeric types, while user displays and text files require string formats. LabVIEW offers dedicated conversion functions under **Programming -> String -> String/Number Conversion**. These functions let you parse or format values based on radix (decimal, hex, octal) or notation (floating-point, scientific).
 
-Consider a specific example program:  **String conversion to boolean array**. This program takes a hexadecimal character as input and outputs a 4-bit Boolean array corresponding to that character.
+Consider the example program: **Hex Character to Boolean Array**. This program takes a single hexadecimal character as input and outputs its equivalent 4-bit Boolean array.
 
-The program can be broken down into several components: the first part restricts the input string to characters 0–9 and A–F; the second part converts the character into U8 data; and the final part displays the lower four bits of the U8 data as a Boolean array. While these components could be separated into individual subVIs, for demonstration purposes, we present all the code on a single block diagram:
+The program performs three steps: first, it sanitizes the input string to accept only hex characters (`0-9`, `A-F`); second, it converts the character into a U8 integer; and third, it unpacks the lower 4 bits of the U8 value into a Boolean array. We display the complete implementation below on a single Block Diagram:
 
 ![](../../../../docs/images/image148.png "String conversion to boolean array")
 
-A key point in this program is selecting the appropriate data type conversion function. The program's output is shown below:
+The corresponding output showing the Boolean state of the hex character is shown below:
 
 ![](../../../../docs/images/image149.png "String conversion to boolean array")
 
 ### String Formatting
 
-The "Programming -> String" function palette includes two powerful conversion functions: "Format Into String" and "Scan From String". These functions correspond to the `sprintf()` and `sscanf()` functions in the C language. While they can handle multiple data types simultaneously and offer richer formatting options compared to the basic conversion functions, using them effectively requires familiarity with format string syntax, which LabVIEW borrows from C.
+For complex formatting, LabVIEW provides two powerful nodes under **Programming -> String**: **Format Into String** and **Scan From String**. These operate similarly to C's `sprintf` and `sscanf` functions. They allow you to process multiple variables of different types in a single node using format strings. LabVIEW's format syntax is a direct extension of C's printf syntax.
 
-The "Format Into String" function allows input data to be converted into a string according to a user-specified format. This is achieved using a format string, which may include both non-format and format segments. Non-format segments are output as is, while format segments start with `%` and are followed by characters that define the type, form, length, decimal places, and other attributes of the output data. The general form of a format string is `%[minimum output width][.precision][length]type`. Commonly used format specifiers in LabVIEW include:
+**Format Into String** formats multiple inputs into a single text output using a format string. The format string contains plain text (copied to the output as-is) and format specifiers (starting with `%`). The specifier format is `%[width][.precision]type`. Common specifiers include:
 
-- `%d`: Converts a signed decimal integer to a string. For instance, `%4d` pads the output with spaces on the left if the number has fewer than 4 digits and displays the actual number of digits if greater.
-- `%u`: Converts an unsigned decimal integer to a string.
-- `%f`: Converts a decimal number to a string using decimal notation. For example, `%6.2f` ensures the string has at least 6 characters, including 2 decimal places, padding with spaces if necessary.
-- `%e`: Converts a decimal number to a string using scientific notation.
-- `%g`: Automatically selects between `%f` or `%e` format based on the data size.
-- `%s`: Converts an input string to formatted output, with the option to set width.
-- `%%`: Outputs a percent character `%`.
+- `%d`: Signed decimal integer (e.g., `%4d` right-aligns the number to a width of 4 characters).
+- `%u`: Unsigned decimal integer.
+- `%f`: Fractional floating-point notation (e.g., `%6.2f` outputs a float with at least 6 total characters and exactly 2 decimal places).
+- `%e`: Scientific notation.
+- `%g`: Shortest representation, automatically switching between `%f` and `%e` based on value size.
+- `%s`: Plain string input.
+- `%%`: Literal percent sign.
 
-
-If you're unsure about format symbols, there's a helpful tool at your disposal. LabVIEW provides an "Edit Format String" dialog box to assist users in configuring the appropriate format symbols. Right-click on the "Format Into String" or "Scan From String" function and select "Edit Format String" to access this feature. You can then choose the required data type from the "Select Operation" dropdown menu to configure it:
+If you are unfamiliar with format codes, LabVIEW offers an interactive builder. Right-click the node and select **Edit Format String** to open the configuration dialog. You can select your operations, and LabVIEW will automatically generate the corresponding format codes:
 
 ![](../../../../docs/images_2/z167.png "Edit Format String")
 
-"Scan From String" utilizes the same formatted string to extract data from an input string. In the following example, a formatted string is used to insert two input data into a string, and the same formatted string is then used to read the data from this generated string:
+**Scan From String** performs the reverse operation, parsing structured variables out of a single text input. The following example demonstrates formatting two variables into a string, and then scanning them back out using the same format string:
 
 ![](../../../../docs/images_2/z161.png "Scan From String")
 
-Program running result:
+The output matches the inputs perfectly:
 
 ![](../../../../docs/images_2/z162.png "Scan From String result")
 
-However, be cautious when extracting string type data using the "Scan From String" function. This function can sometimes be less intuitive, as demonstrated by the runtime error in the following program:
+Be careful when using `%s` in **Scan From String** to parse contiguous text inputs. Because `%s` is greedy and matches spaces, parsing multiple strings can sometimes produce unexpected results or parsing errors:
 
 ![](../../../../docs/images_2/z163.png "Scan From String for strings")
 
-This error occurs because the function struggles to match %s when all input data are strings. This issue can be resolved using regular expressions, which will be introduced later.
+This happens because the first `%s` consumes the entire rest of the string, leaving nothing for the subsequent specifiers. To perform complex text parsing, use **Regular Expressions** instead.
 
+Consider another challenge: **String Formula Evaluation**. Given a math equation as a string (e.g., `sin(pi(1/2)) + 3*5 - 2`), calculate its numeric result at runtime.
 
-Let's look at another example program: **String Formula Evaluation**. This program requires inputting a string representing a simple mathematical formula (e.g., `sin(pi(1/2)) + 3*5 - 2`) and outputs the real number value of this formula after calculation.
+This is more complex than simple type conversion. While we previously discussed Formula Nodes and Formula Express VIs, those require formulas to be hardcoded at edit time. Here, the formula string is supplied dynamically at runtime.
 
-At first glance, this task seems to involve converting strings to numerical values, as well as using formula Express VIs and formula nodes mentioned in the [Numeric and Boolean](data_number) section. However, these methods alone are insufficient for this complex problem, which requires converting numbers in the string into numeric data and transforming the operators into corresponding calculations. Moreover, formula Express VIs and formula nodes can only set a fixed formula during program editing and don't allow changing the formula after the program runs.
-
-Before writing a program, check if existing LabVIEW functions or VIs can handle the task to avoid redundant work. A good place to start searching is the "Math -> Script & Formula" function palette. By browsing through the instant help window, you may find that the "Math -> Script & Formula -> 1D 2D Analysis -> String Formula Evaluation" VI aligns well with the task requirements and can be used directly:
+Instead of building a parser from scratch, check if LabVIEW has a built-in solution. Under **Mathematics -> Scripts & Formulas**, you will find the **Eval Formula String** VI, which evaluates a dynamic mathematical expression at runtime:
 
 ![](../../../../docs/images/image147.png "String Formula Evaluation")
 
-Interested readers can explore the source code of this VI for insights. For beginners, the VI's programming might seem complex. A simplified version of this string formula evaluation function, utilizing a state machine, will be introduced in the [State Machine](pattern_state_machine) section. This example demonstrates the power of LabVIEW's string handling capabilities, particularly when working with complex data and formulas.
-
+For reference, we will implement a simplified mathematical formula parser using a state machine in the [State Machine](pattern_state_machine) section. This built-in VI highlights the advanced capabilities LabVIEW provides for handling text-based inputs dynamically.
 
 ### Converting Between Time and Strings
 
-In everyday applications, it's common to convert time data into a specific string format for display. LabVIEW's "Get Date/Time String" function is handy for this purpose, as it converts time into the system's default display format. When a more complex format is required, the "Format Date/Time String" function is the tool of choice. This function allows for a high degree of customization in how the date and time are presented.
+To display timestamps in user interfaces, you must convert them to strings. The **Get Date/Time String** function formats a timestamp using the operating system's default format. If you need a custom format, use the **Format Date/Time String** function instead, which offers comprehensive template tokens.
 
-Converting a string representation of time back into a time data type, however, is not as straightforward. This is primarily due to the variety of ways time can be represented as a string, with each format necessitating a different approach. LabVIEW does not provide a universal, simple function for this conversion. Instead, the "Scan From String" function is used. By carefully setting the format string, specific values can be extracted from the string representation and then converted into time data.
+Parsing a date/time string back into a timestamp is more complex due to the variety of date formats. LabVIEW does not have a single, automatic parser. Instead, you use **Scan From String** with a precise format string that describes the exact structure of your time text:
 
 ![](../../../../docs/images/image124.png "Conversion between Time and Strings")
 
-It's important to note that the format conversion characters used for time-string conversions in LabVIEW are unique extensions of the platform. These specific format characters do not have direct equivalents in the C language, which typically uses numeric data types to represent time. This distinction highlights the specialized capabilities of LabVIEW in handling and converting time data, catering to the diverse needs of time-based applications.
+Note that the time format specifiers (such as `%T` or `%Y-%m-%d`) are specific extensions in LabVIEW and differ slightly from standard C printf format characters.
 
 
 ## Regular Expressions
 
 ### Introduction to Regular Expressions
 
-In programming, a common task is searching for specific patterns within a larger text. If the objective is to locate a specific string, such as every occurrence of the word "dog" in a text, the "Search and Replace String" function in LabVIEW can be used. However, often the requirement is to find strings that fit a certain pattern rather than a fixed text. For instance, identifying all function names or variable names in a C language script involves searching for patterns rather than exact strings. Writing a complex program to perform such checks can be quite cumbersome.
+A common task in software development is searching for specific patterns in text. While finding a static string (like 'dog') is simple using the **Search and Replace String** function, finding patterns—like isolating all function declarations in a source file—requires matching rules rather than static text. Writing manual parser logic for this is tedious and error-prone.
 
-LabVIEW provides a more efficient solution for these scenarios: regular expressions. A regular expression is a text pattern composed of standard characters (like letters and numbers) and special characters (known as "metacharacters"). These patterns are used to describe and identify strings that conform to specific syntactical rules. While regular expressions can be intricate, they are a powerful tool that can significantly enhance productivity once mastered. They are not only useful in programming but also in tasks like editing documents. For instance, in this book's Markdown manuscript, the image format is `![alt attribute text](path_to_the_image "optional caption")`. To modify all image paths in the document, a regular expression that matches the pattern of the exclamation mark, followed by square brackets and then parentheses, is required to extract the content within the parentheses.
+Regular Expressions (regex) solve this problem. A regular expression is a search pattern constructed from standard characters and special wildcard symbols (metacharacters). These patterns define matching rules for text. Once mastered, regex is an invaluable tool for both code logic and text processing. For instance, the image markup in this book's markdown files follows the format `![alt text](path 'caption')`. To modify all image paths at once, you can use a regular expression that targets parentheses preceded by `![...]` to extract and rewrite the path strings.
 
 ### Match Pattern
 
-LabVIEW offers two functions for string matching based on regular expressions: "Match Pattern" and "Match Regular Expression". The "Match Pattern" function is simpler and faster, while the "Match Regular Expression" function provides more powerful capabilities at the expense of speed. For straightforward tasks, such as extracting all values or content within parentheses from a text, "Match Pattern" is sufficient.
+LabVIEW provides two regex-based nodes: **Match Pattern** and **Match Regular Expression**. The **Match Pattern** function is lightweight, fast, and sufficient for basic string parsing (like extracting text within brackets). The **Match Regular Expression** function is slower but supports the full, standard regex syntax.
 
-The following example demonstrates how to extract all numerical values from an input text using "Match Pattern". Since there could be multiple values, a loop is necessary. Each iteration extracts a matched value and then continues to search through the subsequent text:
+The following example extracts all numeric values from a block of text using **Match Pattern**. A While Loop processes the text iteratively, extracting the matched numbers and passing the remaining text to the next iteration:
 
 ![](../../../../docs/images_2/z164.png "extracting all values text")
 
-The program shown above uses a regular expression to extract numerical values from a text string. The result of this program is an array: `[33, 0.95]`. The regular expression used here is `[0-9]+[.]?[0-9]*`. In this pattern:
+Running this program on the sample text yields the array `[33, 0.95]`. The regex pattern used is `[0-9]+[.]?[0-9]*`, which breaks down as follows:
 
-- `[0-9]` matches any numeric character between 0 and 9.
-- `+` signifies one or more occurrences of the preceding element.
-- `[0-9]+` collectively matches one or more numeric characters (i.e., an integer).
-- `[.]` represents a decimal point (alternatively, `\.` can be used).
-- `?` denotes 0 or 1 occurrence of the preceding element, making `[.]?` indicate an optional decimal point.
-- `*` signifies 0 or more occurrences, so `[0-9]*` matches any number of numeric characters (i.e., the fractional part of a decimal, if present).
+- `[0-9]`: Matches any digit from `0` to `9`.
+- `+`: Matches one or more occurrences of the preceding character class.
+- `[0-9]+`: Matches an integer.
+- `[.]`: Matches a literal decimal point.
+- `?`: Matches zero or one occurrence (making the decimal point optional).
+- `*`: Matches zero or more occurrences (matching the fractional digits after the decimal point).
 
-The "Match Pattern" function searches the input string from the beginning, matching against the regular expression. In this example, it successfully matches "33" and then "0.95" as valid numbers according to the pattern.
+**Match Pattern** scans the string, extracts the first matching substring, and outputs the remaining text (offset) so the loop can continue searching.
 
-This regular expression is a simplified approach for matching decimal numbers and may not cover all cases. A more precise pattern might be needed for complex scenarios.  Consider another example where the input is a valid VI file path in the Windows system, and the objective is to extract the file name. The program below accomplishes this:
+Note that this regex is simplified and might miss complex number formats. Let's look at another example: extracting the filename from a Windows file path. The program below accomplishes this:
 
 ![Using Regular Expressions](../../../../docs/images/image109.png "Using Regular Expressions")
 
@@ -142,14 +139,13 @@ Running result:
 
 ![Search Result](../../../../docs/images/image110.png "Search result")
 
-The regular expression used for matching the VI file name is `[^\\]+\.[Vv][Ii]$`. This pattern breaks down as follows:
-- `\\` matches a backslash (double backslashes are used because a single backslash is a special character in regular expressions).
-- `[^\\]` matches any character that is not a backslash, which is the path separator in Windows.
-- `[^\\]+` collectively matches all characters until the last backslash, essentially capturing the file name.
-- `[Vv]` matches either an uppercase 'V' or a lowercase 'v'.
-- `.` is for the dot before the file extension.
-- `[Ii]` matches either an uppercase 'I' or a lowercase 'i'.
-- `$` asserts that the match must occur at the end of the input string (ensuring the pattern matches file names ending with ".vi" or ".VI", but not names like "abc.vim" or "template.vit").
+The regex used to match the VI filename is `[^\\]+\.[Vv][Ii]$`, which translates to:
+- `\\`: Matches a literal backslash (escaped, because a single backslash is a regex control character).
+- `[^\\]`: Matches any character that is *not* a backslash.
+- `[^\\]+`: Matches a sequence of non-backslash characters (the filename itself).
+- `\.`: Matches a literal dot.
+- `[Vv][Ii]`: Matches the extension 'vi' case-insensitively.
+- `$`: Asserts that the match must occur at the end of the string (excluding files like `abc.vit` or `xyz.vim`).
 
 ### Regular Expression Metacharacters
 
@@ -188,145 +184,139 @@ The table below lists the commonly used characters and usage in regular expressi
 | `\xn` | n is a hexadecimal value, matches the ASCII character corresponding to n. E.g., `\x41` matches "A". |
 | `\n` (octal) | n is an octal value, matches the ASCII character corresponding to n. E.g., `\101` matches "A". |
 
-### Match Regular Expression
+### Match Regular Expression {#match-regular-expression}
 
-Regular expression aficionados might notice that LabVIEW's regular expression capabilities do not include lookahead matching. For instance, if we need to extract LabVIEW version numbers from a text like "In 2022, we have LabVIEW 2018 and LabVIEW 2020 in lab 4", aiming to retrieve "2018" and "2020" without including "LabVIEW", the task becomes more challenging. In environments supporting lookahead, a pattern like `(?<=LabVIEW\s)20[0-9]{2}` would suffice. However, LabVIEW requires a workaround using nested matching.
+Experienced regex users will note that LabVIEW's regex engine does not support lookarounds (such as lookaheads or lookbehinds). For instance, if you want to extract the version numbers from the text `'LabVIEW 2018 and LabVIEW 2020'` without capturing the word `'LabVIEW'`, you cannot use a lookbehind like `(?<=LabVIEW\s)20\d{2}`. Instead, you must use capturing groups.
 
-One approach is to first match "LabVIEW" along with the following version number using `LabVIEW\s20[0-9][0-9]` and then extract just the version number with `20[0-9][0-9]`. LabVIEW's "Match Regular Expression" function facilitates this by allowing nested matches within parentheses, outputting sub-match results. The following program demonstrates this method to identify all LabVIEW version numbers:
+To do this, capture the desired pattern inside parentheses: `LabVIEW\s(20[0-9][0-9])`. The **Match Regular Expression** function outputs these captured subsets as submatches. The example below demonstrates extracting version numbers using capturing groups in a loop:
 
 ![Extracting All LabVIEW Version Numbers](../../../../docs/images_2/z165.png "Extracting All LabVIEW Version Numbers")
 
-Another practical application is when [interfacing with Python code](external_connectivity). We can use regular expressions to pinpoint function names in Python scripts. Python function definitions typically start with the keyword 'def'. The following program matches lines defining functions:
+Another practical application occurs when [interfacing with Python](external_connectivity). We can parse Python script files to extract function names. Python functions start with the `def` keyword. The program below matches function definitions:
 
 ![Directly Running Python Code](../../../../docs/images_2/z114.png "Directly Running Python Code")
 
-The regular expression for matching function names is `^def[\s]+([^\(\s]*)`. Here, `^` signifies that "def" must appear at the start of a line. The content in parentheses `([^\(\s]*)` captures the function name, defined as a string not containing parentheses or spaces, following "def". The "multiple?" parameter in the "Match Regular Expression" function is set to "true" to enable matching across multiple lines, accommodating function definitions that may not be at the start of the input text.
+The regex to extract function names is `^def[\s]+([^\(\s]*)`. The `^` asserts the start of a line, and `def` matches the keyword. The parentheses `([^\(\s]*)` capture the function name (matching any character that is not a parenthesis or space). Setting the **multiline?** parameter of **Match Regular Expression** to `True` allows the engine to evaluate the regex across multiple lines of a script.
 
 Readers can explore further with some commonly used regular expressions:
 - To match an email address: `^[a-z0-9_\.-]+@[\da-z\.-]+\.[a-z\.]{2,6}$`.
 - To match an unsigned decimal: `([1-9]\d*\.?\d*)|(0\.\d*[1-9])`.
 
 
-## Path
+## Paths
 
-### Path Data
+### Path Data Type
 
-Path data is a unique type in LabVIEW, tailored to address the cross-platform challenges of path representation. In text programming languages, paths are typically represented using strings, but this approach can be problematic for cross-platform compatibility due to varying path separators in different operating systems. For example, Windows uses a backslash "\\" as a path separator; Linux uses a forward slash "/"; Mac OS uses a colon ":". A string representation of a path that works for one operating system may not be universally applicable.
+Paths are a distinct data type in LabVIEW, designed to resolve cross-platform directory formatting issues. In text-based languages, paths are typically represented as strings. However, because different operating systems use different path separators (e.g., Windows uses `\`, Linux and macOS use `/`), string-based paths are not portable.
 
-As a cross-platform language, LabVIEW resolves this issue by employing a specialized data type for paths. Path data in LabVIEW encompasses two components: the path type (whether it's relative or absolute) and the path data itself, which is stored as a string array. This array contains the names of each directory in the path hierarchy, from root to branch. The appropriate path separator is added for display purposes based on the operating system, ensuring the path data remains valid across different platforms.
+LabVIEW's **Path** data type handles this internally. Under the hood, path data stores the path type (relative or absolute) and a string array containing each folder name in the hierarchy (e.g., `['C', 'Projects', 'main.vi']`). When displayed or utilized in OS file system calls, LabVIEW automatically reconstructs the path using the correct OS-specific separator, ensuring cross-platform compatibility.
 
 #### Relative Paths
 
-When working with path data in LabVIEW, it's generally best to use relative paths. This practice ensures that the program remains functional even when its location changes, such as when converting it into an executable file (.exe) or transferring it to another computer.
+When building applications, you should always prefer **relative paths** over absolute paths. This ensures your program functions properly if its installation directory changes or when compiled into an executable (`.exe`).
 
-For instance, if a program needs to access a specific file, you can place this file in the same directory as the program's main VI. The program then records the file's relative path (![Relative Path Icon](../../../../docs/images/image111.png)). Each time the program is run, it should first retrieve the main VI's current path using the `Current VI Path` constant. Because this constant includes the VI's filename (e.g., `C:\Project\main.vi`), you must first pass it through the Strip Path function to remove the VI name, leaving just the directory (`C:\Project`). Then, use the Build Path function to combine this directory with your relative file name (`data.txt`) to construct the valid, full path (`C:\Project\data.txt`).
+For example, if your VI needs to load `data.txt` from its own directory, do not hardcode `C:\Projects\data.txt`. Instead, use a relative path. In LabVIEW, you can retrieve the path of the executing VI using the **Current VI Path** constant. Because this path includes the filename (e.g., `C:\Projects\main.vi`), wire it to the **Strip Path** function to remove the filename and retrieve the parent directory (`C:\Projects`). Then, use the **Build Path** function to append the relative file name (`data.txt`), resulting in the dynamically resolved path `C:\Projects\data.txt`:
 
 ![Using Relative Paths](../../../../docs/images/image112.png "Using Relative Paths")
 
-All functions and constants related to path data are found under the "Programming -> File I/O" subpalette in LabVIEW, providing a comprehensive suite of tools for efficient path management.
-
+All functions and constants related to path data are found under the **Programming -> File I/O** subpalette in LabVIEW, providing a comprehensive suite of tools for efficient path management.
 
 ### Path Constants
 
-LabVIEW offers various path constants as references for using relative paths effectively. These constants are particularly useful for adapting paths dynamically based on the VI's location. For instance, in the previously discussed example, the program uses the "Current VI Path" constant to determine the location of the main VI. If the location of the main VI changes, the value of this constant changes accordingly, ensuring the program can adapt to different file locations.
+LabVIEW provides several path constants under **Programming -> File I/O -> File Constants** to resolve system paths dynamically:
 
 ![Path Constants](../../../../docs/images/image113.png "Path Constants")
 
 ### Converting Between Path and Other Data Types
 
-Conversion functions related to paths are found under the "Programming -> File I/O-> Advanced File Functions" palette. The most commonly used functions include "Path to String Conversion" (![Path to String Conversion](../../../../docs/images/image118.png)) and "String to Path Conversion" (![String to Path Conversion](../../../../docs/images/image119.png)), which allow for seamless conversion between paths and strings.
+Path conversion functions are located under **Programming -> File I/O -> Advanced File Functions**. The most common are **Path To String** (![Path to String Conversion](../../../../docs/images/image118.png)) and **String To Path** (![String to Path Conversion](../../../../docs/images/image119.png)).
 
-Additionally, as path data inherently contains two pieces of information (path type and a string array of folder names), you can use "Path to String Array Conversion" (![Path to String Array Conversion](../../../../docs/images/image120.png)) and "String Array to Path Conversion" (![String Array to Path Conversion](../../../../docs/images/image121.png)) for transforming between paths and string arrays.
+You can also decompose paths into their folder hierarchies using **Path To String Array** (![Path to String Array Conversion](../../../../docs/images/image120.png)) and **String Array To Path** (![String Array to Path Conversion](../../../../docs/images/image121.png)).
 
-The "Reference Handle to Path Conversion" (![Reference Handle to Path Conversion](../../../../docs/images/image122.png)) function is useful for retrieving file path information from a file's reference handle. This function is applicable for converting handles output by functions in "Open/Create/Replace File" into paths, including TDMS file paths. However, it's important to note that this function is not suitable for all file types in LabVIEW, such as INI files opened by the "Open Configuration Data" VI.
+The **Refnum To Path** function (![Refnum to Path Conversion](../../../../docs/images/image122.png)) retrieves the file path from an open file refnum (e.g., standard files or TDMS file handles). Note that this does not support config refnums like those returned by the INI file **Open Configuration Data** VI.
 
 :::caution
 
-The conversion between strings and paths is operating system dependent due to different path separators used across platforms. The previous discussion on regular expressions included an example of extracting a filename from a path, like "test.vi" from `c:\temp\test.vi`. Under Windows, the following program can achieve this:
+Converting strings to paths is OS-dependent. In the regex section, we extracted a filename from a Windows path using string regex:
 
 ![Extract Filename from Path](../../../../docs/images_2/z166.png)
 
-However, this approach may not yield correct results on a Linux system, as Linux uses "/" instead of "\\" as the path separator. If your application needs to support multiple operating systems, consider always use LabVIEW's native Path functions.  To extract a filename like test.vi from a path, simply pass the path wire into the Strip Path function.  This function automatically identifies the correct OS separator and splits the path into the base directory and the isolated filename, completely eliminating the need for string manipulation.
+This string parsing fails on Linux or macOS because of different path separators. For cross-platform compatibility, **always use LabVIEW's native Path functions**. To extract a filename, simply pass the Path wire to the **Strip Path** node. It automatically identifies the active OS separator and splits the path into the parent directory and the isolated filename, eliminating string parsing entirely.
 
 :::
 
-## Data Flattening
+
+## Data Flattening (Serialization)
 
 ### What is Data Flattening?
 
-Data flattening, also known as data serialization, is the process of transforming structured, multi-level data into a single-level, continuous format. This transformation is essential for efficiently storing data on memory or disk devices and transmitting it over networks. Most simple data types, including numeric arrays, are inherently stored in memory in a flattened state, meaning their data occupies a contiguous block of memory.
+Data flattening, commonly known as **serialization**, is the process of converting complex, multi-level data structures into a flat, contiguous sequence of bytes. This flat byte stream is ideal for writing to disk, transmitting over networks, or passing to hardware. Simple scalar types and flat arrays of scalars are already contiguous in memory.
 
-For data types that are already stored in memory in a flattened form, the forced type conversion function can be utilized. The default target type for this function is the string type. Converting general simple data types (excluding strings and U8 arrays) to strings is effectively the same as using the "Flatten to String" function. Since these data are inherently stored in a flattened manner, converting them into strings does not alter their original data. Instead, it simply uses strings to represent the data's memory representation.
+For simple, contiguous data types, you can use **Type Cast** to reinterpret their memory directly as a string. Because strings are U8 arrays in memory, casting a raw numeric array to a string preserves the exact byte sequence of that numeric array, reinterpreting it as text characters.
 
-When dealing with complex data types, forcing type conversion to strings might result in some loss of data type information compared to the "Flatten to String" method. However, the actual data content remains consistent between the two approaches. For instance, when a numeric array is flattened to a string, the resulting string includes information about the array's length and its data. In contrast, forcing type conversion to a string only retains the array data information without the length detail.
+For complex data types (such as clusters containing strings or nested arrays), Type Cast is not enough. You should use **Flatten To String**. When you flatten a numeric array to a string, the resulting string includes a 4-byte header describing the array length, followed by the array elements. In contrast, type-casting the array to a string strips the length header, leaving only the raw element bytes. Use the appropriate method based on whether you need to preserve data headers for deserialization.
 
+### Flattening to String {#flattening-to-string}
 
-### Flattening to String
+Different LabVIEW data types use different memory structures. While basic numbers occupy contiguous memory, complex types do not.
 
-In LabVIEW, different data types are stored in memory in various formats. Simple data types like numbers and strings are allocated contiguous memory spaces. However, this is not the case for all data types.
-
-For instance, consider a string array. In memory, the array holds the handles of each element string arranged sequentially. Each handle points to a separate memory location where the actual string content is stored. This type of data structure, often referred to as a tree structure, is illustrated below:
+For example, in a string array, the array itself stores an array of memory pointers (handles) that point to separate heap locations where the actual text data resides. This creates a non-contiguous structure:
 
 ![](../../../../docs/images/image818.png "string array in memory")
 
-When it's necessary to save data to a hard disk or transfer it to other computers or hardware devices (such as sending a string array to another computer via TCP/IP or transferring data to a peripheral device via a serial line), data represented by linked lists, trees, etc., must be organized into a continuous block of data. This process of converting data into a continuous and coherent format is known as "flattening". For example, flattening a string array means transforming its tree structure in memory into a continuous and linear memory block.
+To transmit this array over TCP/IP or write it to a file, this fragmented structure must be packed into a single, contiguous byte stream. This packing process is called **flattening**. Flattening a string array consolidates the length information and string characters into a linear, contiguous byte array.
 
-The "Flatten to String" function (found under "Programming -> Numeric -> Data Operation") can flatten any data type, regardless of its original format. Its output is a string that represents not a readable text, but a continuous block of memory data in string form. This string data is not meant to be interpreted literally but is used when saving data or exchanging data with other devices, programs, etc. Flattening provides a convenient way to store or transmit data.
+The **Flatten to String** function (under **Programming -> Numeric -> Data Operations**) serializes any LabVIEW data type into a binary string. The output is a raw binary stream, which is not meant to be read as plain text, but serves as a standardized format for data storage and network transmission.
 
-The flattened data can be reverted back to its original data type using the "Unflatten from String" function.
+To reconstruct the original data structure, wire the binary string to the **Unflatten from String** function along with a type specifier.
 
-Additionally, in the "Programming -> Cluster, Class & Variant -> Variant" function palette, there are similar functions for converting between variants and flattened strings. However, these functions are specifically designed for handling variant types and are not as commonly used in broader applications.
-
+Additionally, in the **Programming -> Cluster, Class & Variant -> Variant** function palette, there are similar functions for converting between variants and flattened strings. However, these functions are specifically designed for handling variant types and are not as commonly used in broader applications.
 
 ### Flattening to XML
 
-The main drawback of data flattening to a string is that the resulting information is not directly interpretable. This poses a challenge in scenarios where people need to read data files directly or monitor data content in real-time. In such cases, flattening data to XML (Extensible Markup Language) is a viable alternative. XML's hallmark is its use of tags to provide context and meaning to text data. For example, consider this XML snippet:
+A drawback of binary flattening is that the resulting byte stream is not human-readable, making files difficult to debug or inspect. When human readability is important, serialize your data to **XML** (Extensible Markup Language) instead. XML uses structured text tags to describe the type and value of the data. For example:
 
 ```xml
 <data label="input" type="DBL">34.2</data>
 ```
 
-This line of XML (for demonstration purposes and not directly generated by LabVIEW) encodes the value "34.2" within a "data" tag, indicating that it's a piece of data. XML tags are enclosed in angle brackets `<>`, with each tag featuring a corresponding closing tag. In this example, the data tag has two attributes: "label" and "type", each with its value, signifying the data's title ("input") and type ("DBL").
+This tags the value `34.2` as a double-precision float (DBL) labeled `input`.
 
-While natural language offers a multitude of ways to express data's meaning, its flexibility can be cumbersome for computer interpretation. XML provides a more standardized method for encoding data meaning with tags, facilitating consistent computer interpretation.
-
-The "Flatten to XML" function (found under "Programming -> File I/O -> XML -> LabVIEW Mode") can transform any data type into XML text. The counterpart "Restore from XML" function enables the reversion of this process. The following figure demonstrates a program that flattens a value into XML text:
+The **Flatten to XML** function (under **Programming -> File I/O -> XML**) serializes any LabVIEW data type into XML text. Use **Unflatten from XML** to deserialize it back. Here is a program that flattens a numeric value:
 
 ![](../../../../docs/images/image131.png "Flatten to XML")
 
-The XML output obtained from flattening the value:
+The resulting XML string:
 
 ![](../../../../docs/images/image132.png "Flattened XML Text")
 
-LabVIEW uses simple English tags for XML, making them relatively easy to understand. In this example, the "DBL" tag wraps the entire data, indicating a double-precision real number. The "Name" tag specifies the data's name as "某数据", and the "Val" tag reveals its value of 12.3.
+LabVIEW generates readable tags: the `<DBL>` element denotes a double-precision number, `<Name>` specifies the control name, and `<Val>` stores the value `12.3`.
 
-Due to its dual human-machine readability, XML has seen widespread use in networks, databases, and other fields. When saving data as text files or transmitting data in text form, converting data into XML format is a strategic choice.
+Due to its readability and structured format, XML is widely used for configuration files and network messages.
 
-The primary downside of XML is its inefficiency. The addition of numerous tags in XML format increases storage requirements and the computational load for parsing these tags. Therefore, applications demanding high space efficiency and performance should consider alternatives to XML format data.
-
+The main disadvantage of XML is its verbosity. The text tags inflate file sizes and increase the CPU time required for parsing. For high-performance or high-volume storage, binary flattening is preferred.
 
 ### Flattening to JSON
 
-While XML is a robust and flexible format, its complexity can be a drawback for users who require only a fraction of its capabilities. Most LabVIEW users engage with XML merely to convert data into a human-readable text format. XML's extensive specifications like DTD, XSD, XPath, XSLT, among others, are often underutilized, adding unnecessary complexity and overhead. Recognizing these limitations, JavaScript developers introduced JSON (JavaScript Object Notation) in 2002, six years after XML's debut, as a simpler alternative for certain applications. Rapidly adopted into the JavaScript language standard by the European Computer Manufacturers Association (ECMA), JSON has now surpassed XML in application scope, with widespread support across various programming languages.
+While XML is powerful, it carries a lot of overhead. In 2002, JSON (JavaScript Object Notation) emerged as a simpler, more lightweight alternative. Today, JSON has widely surpassed XML in web services and config files due to its minimal footprint.
 
 JSON's format is straightforward:
+- Numbers are written as plain text.
+- Strings are enclosed in double quotes.
+- Arrays are enclosed in square brackets `[]`.
+- Clusters (analogous to JSON objects) are enclosed in curly braces `{}` with key-value pairs.
 
-- Numeric data is written as plain text.
-- String data is enclosed in double quotes.
-- Arrays are denoted by square brackets.
-- Clusters (objects in JSON terminology) are represented with curly braces.
-
-Consider this LabVIEW example demonstrating data flattening to JSON:
+Here is how you serialize a cluster to JSON in LabVIEW using **Flatten To JSON**:
 
 ![images_2/z041.png](../../../../docs/images_2/z041.png " Flattening to JSON")
 
-The program's result shows data represented in JSON format:
+The output is a clean JSON string:
 
 ![images_2/z042.png](../../../../docs/images_2/z042.png "JSON result")
 
-Given its higher efficiency compared to XML, JSON is often the preferred choice for data flattening. However, it's worth noting that LabVIEW's support for JSON may not be as comprehensive, and certain data types may not directly flatten into JSON. In such scenarios, XML remains a viable alternative.
+Due to its compact size and readability, JSON is usually preferred over XML for text serialization. However, native LabVIEW support for JSON has some limitations, and certain complex or custom data types (like paths or complex numbers) may not serialize cleanly without custom handling. In those cases, XML or custom flattening remains useful.
 
 
-## Practice Exercise
+## Practice Exercises
 
-- Consider two one-dimensional string array constants, each containing a list of student names. Write a VI to merge these names into a single array and sort them alphabetically.
+- **Sort Student Names**: Create two one-dimensional string array constants containing lists of names. Write a VI that merges these two arrays into a single array and sorts the final list alphabetically.
