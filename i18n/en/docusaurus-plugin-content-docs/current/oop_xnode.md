@@ -29,7 +29,7 @@ To enable XNode creation on Windows:
    ```
 3. Restart LabVIEW.
 
-Alternatively, you can use third-party community tools like the *XNode Editor* to manage and package XNode files.
+XNode development on Windows may require a special license. As an alternative, you can develop on Linux (which is what I did), or use third-party community tools such as XNode Editor to manage and package XNode files.
 
 #### On Linux Systems
 
