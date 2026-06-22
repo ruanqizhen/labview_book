@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import Link from '@docusaurus/Link';
 
 export default function NotFoundContent({ className }) {
-  const [seconds, setSeconds] = useState(10);
+  const [seconds, setSeconds] = useState(5);
   const [targetPath, setTargetPath] = useState('/');
   const [isEnglish, setIsEnglish] = useState(false);
 
