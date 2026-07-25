@@ -283,7 +283,7 @@ GenerateCode 功能 VI 的逻辑大致如下，先判断一下 XNode 当前的�
 
 ![images_2/z099.gif](images_2/z099.gif "运行 XNode")
 
-这个示例 XNode 的运行逻辑是非常简单的，所以它的全部逻辑都使用 VI Scripting 编写出来也不算太复杂。但是在大多数 XNode 项目里，需要生成的代码都比这复杂的多。如果全部用 GenerateCode 功能 VI 编程生成，会让准格尔功能 VI 过于繁琐。一个常用的简化 GenerateCode 的技巧是：先为 XNode 的运行逻辑编写好一个模板 VI，这样，在 GenerateCode 功能 VI 里可以先把所有模板中的代码拷贝到那个临时 VI 里去，再用 VI Scripting 编程进行加工，这样可以 GenerateCode 功能 VI 的代码量可以大大降低。
+这个示例 XNode 的运行逻辑是非常简单的，所以它的全部逻辑都使用 VI Scripting 编写出来也不算太复杂。但是在大多数 XNode 项目里，需要生成的代码都比这复杂的多。如果全部用 GenerateCode 功能 VI 编程生成，会让该功能 VI 过于繁琐。一个常用的简化 GenerateCode 的技巧是：先为 XNode 的运行逻辑编写好一个模板 VI，这样，在 GenerateCode 功能 VI 里可以先把所有模板中的代码拷贝到那个临时 VI 里去，再用 VI Scripting 编程进行加工，这样可以 GenerateCode 功能 VI 的代码量可以大大降低。
 
 ### Initialize
 
