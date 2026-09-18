@@ -1,4 +1,4 @@
-### The LabVIEW Jurney
+### The LabVIEW Journey
 
 Online Reading: Access the book at <https://lv.qizhen.xyz/en/> or <https://labview.qizhen.xyz/en/>
 

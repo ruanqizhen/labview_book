@@ -22,7 +22,7 @@
 
 打开 LabVIEW 的控件选板，可以看到几种不同风格的控件：经典（Classic）、新式（Modern）、系统（System）、银色（Silver）以及较新的 NXG 风格（NXG Style）。
 
-![](images/image572.png "三种不同风格的控件")
+![](images/image572.png "不同风格的控件")
 
 经典风格的控件看上去比较 "土气"，它是 LabVIEW 6 之前的版本所使用的控件。除非是以下两种特殊情况外，这种风格的控件已经几乎不再使用了。
 

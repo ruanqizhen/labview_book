@@ -167,9 +167,9 @@ LabVIEW 中，几个操作信号量的 VI 是开源的，我们可以看看它�
 
 这依然是一个经典的利用队列传递数据传引的用法。它只做了一件事，从队列中取出一个元素，如果队列是空的，它就会等在这里。
 
-下图是解锁信号量的 VI “Relase Semaphore.vi”：
+下图是解锁信号量的 VI “Release Semaphore.vi”：
 
-![](images_2/z272.png "Relase Semaphore.vi")
+![](images_2/z272.png "Release Semaphore.vi")
 
 它做的事情是在队列中添加一个元素，元素的值本身并不重要。
 
@@ -182,24 +182,24 @@ LabVIEW 中，几个操作信号量的 VI 是开源的，我们可以看看它�
 
 这种做法的思路是，数据存放在 C 语言开辟的内存空间里，C 语言把数据的内存地址传给 LabVIEW。平时在 VI 间传递参数时，传递的是这个地址的数值；需要时，再把数据从内存中读到 LabVIEW 里使用。
 
-下列代码是一个在 C++ 语言中开辟内存空间，保存 LabVIEW 中数据的一个范例函数：
+下列代码是一个在 C++ 语言中开辟内存空间，保存 LabVIEW 中数据的一个范例函数（需包含头文件 `<cstring>` 以使用 `memcpy`）：
 
 ```cpp
-int stdcall CreateBuffer ( // 为数据开辟空间并传出指针
+int __stdcall CreateBuffer ( // 为数据开辟空间并传出指针
   const char data [],       // 数据内容
   int size,                // 数据大小
-  char* bufPointer         // 用于返回新开辟空间的指针
-) {char buffer = new char [size+4];  // 开辟一块内存空间保存数据和数据的大小信息
-  ((int) buffer) = size;            // 新开辟空间的头 4 字节，保存数据的大小信息
+  char** bufPointer        // 用于返回新开辟空间的指针
+) {char* buffer = new char [size+4];  // 开辟一块内存空间保存数据和数据的大小信息
+  *((int*) buffer) = size;           // 新开辟空间的头 4 字节，保存数据的大小信息
   memcpy (buffer+4, data, size);   // 其余部分用于保存数据
   *bufPointer = buffer;            // 把新开辟内存空间传给 bufPointer 参数
   return 0;                        // 函数返回
 }
 
-int stdcall GetBufferData (   // 从数据的地址得到数据内容
-  char bufPointer,            // 数据地址
-  char data                   // 用于返回数据内容
-) {int size = ((int) bufPointer);        // 得到数据的大小
+int __stdcall GetBufferData (   // 从数据的地址得到数据内容
+  char* bufPointer,           // 数据地址
+  char* data                  // 用于返回数据内容
+) {int size = *((int*) bufPointer);       // 得到数据的大小
   memcpy (data, bufPointer+4, size);   // 把数据内容拷贝给调用函数提供的地址
   return 0;                            // 函数返回
 }
@@ -207,7 +207,7 @@ int stdcall GetBufferData (   // 从数据的地址得到数据内容
 
 在 LabVIEW 语言中，需要为某段被引用数据创建一个引用时，就利用上述函数，把这段数据保存到 C 语言中开辟的内存空间里。LabVIEW 代码中传递的只是这个数据空间的地址值。后续程序若需要用到被引用数据，可以通过地址值得到数据的内容。
 
-用一个 U32 的数值表示引用，或者用队列表示引用，同样都会有数据不安全的问题。因此，在程序中，同样也可以把这个地址值，强制转换为一个自定义的引用句柄，用自定义的引用句柄来表示这一数据引用：
+用一个与地址宽度一致的无符号整数表示引用（64 位系统上用 U64，32 位系统上用 U32），或者用队列表示引用，同样都会有数据不安全的问题。因此，在程序中，同样也可以把这个地址值，强制转换为一个自定义的引用句柄，用自定义的引用句柄来表示这一数据引用：
 
 ![](images/image326.png " 使用借助 C 语言创建的数据引用")
 

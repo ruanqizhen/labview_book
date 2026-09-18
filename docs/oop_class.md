@@ -71,7 +71,7 @@ static.vi 由于是基于静态分配模板的 VI，不能被子孙类重写，�
 
 Parent 类的实例调用 Parent.lvclass:dynamic.vi 返回值是 “Parent Dynamic VI”；Child 类的实例调用 Child.lvclass:dynamic.vi 返回值是 “Child Dynamic VI”。这也是比较确定的。
 
-需要注意的是最后一条测试，“message 6” 中的文字。因为 Child 类继承自 Parent 类，Child 类可以被认为是 Parent 类的一个子集。如果一个对象属于 Child 类，也就必然属于 Parent 类。因此在程序中我们可以把这个 Child 类的对象的数据类型转化成为 Parent 类的数据类型，然后用它去调用 dynamic.vi。这里的实例是由 Child 类生成的，不论它在程序中使用哪个祖先类的数据类型表示它，它都始终还是一个 Child 类实例，所以程序调用它的 dynamic.vi，运行的一定还是 Child 类中的那个 dynamic.vi。我们可以看到这里返回的文字是 “Child Dynamic VI”。只有当子类中没有重写某个基于动态分配模板的 VI 时，程序才会调用它父类中的同名 VI。
+需要注意的是最后一条测试，“message 6” 中的文字。因为 Child 类继承自 Parent 类，Child 类的实例集合可以被认为是 Parent 类实例集合的一个子集。如果一个对象属于 Child 类，也就可以把它当作 Parent 类的对象来使用。因此在程序中我们可以把这个 Child 类的对象的数据类型转化成为 Parent 类的数据类型，然后用它去调用 dynamic.vi。这里的实例是由 Child 类生成的，不论它在程序中使用哪个祖先类的数据类型表示它，它都始终还是一个 Child 类实例，所以程序调用它的 dynamic.vi，运行的一定还是 Child 类中的那个 dynamic.vi。我们可以看到这里返回的文字是 “Child Dynamic VI”。只有当子类中没有重写某个基于动态分配模板的 VI 时，程序才会调用它父类中的同名 VI。
 
 下面我们再改动一下 Parent.lvclass:static.vi 的程序逻辑，让它去调用一下 Parent.lvclass:dynamic.vi：
 
@@ -204,7 +204,7 @@ Parent 类的实例调用 Parent.lvclass:dynamic.vi 返回值是 “Parent Dynam
 
 ![images_2/image46.png](images_2/image46.png "椅子类重写了组装方法")
 
-椅子类中还有一个初始化方法（construct.vi），用于初始化椅子的数据。它首先调用家居类中的数据访问 VI，设置产品编号和成本价，然后再把靠垫型号写入到椅子类的数据当中去。桌子类也有一个初始化方法，与之类似。
+椅子类中还有一个初始化方法（construct.vi），用于初始化椅子的数据。它首先调用家具类中的数据访问 VI，设置产品编号和成本价，然后再把靠垫型号写入到椅子类的数据当中去。桌子类也有一个初始化方法，与之类似。
 
 ![images_2/image47.png](images_2/image47.png "椅子类的初始化方法")
 
@@ -220,13 +220,13 @@ Parent 类的实例调用 Parent.lvclass:dynamic.vi 返回值是 “Parent Dynam
 
 ![images_2/image49.png](images_2/image49.png "为一组椅子放置靠垫的 VI")
 
-接下来再写一个 VI 用于组装所有的家具（setup_funitures.vi）。因为这个 VI 要处理所有类型的家具，它的输入输出控件就不能再是桌子或椅子类了，而必须是家具类型。这个 VI 稍微复杂一点，首先针对每一个家具调用 “组装方法”，再调用 “返回售价” 方法，再把两个方法返回的字符串合并起来：
+接下来再写一个 VI 用于组装所有的家具（setup_furnitures.vi）。因为这个 VI 要处理所有类型的家具，它的输入输出控件就不能再是桌子或椅子类了，而必须是家具类型。这个 VI 稍微复杂一点，首先针对每一个家具调用 “组装方法”，再调用 “返回售价” 方法，再把两个方法返回的字符串合并起来：
 
-![images_2/image50png](images_2/image50.png "组装一组家具的 VI")
+![组装一组家具的 VI](images_2/image50.png "组装一组家具的 VI")
 
 最后，可以编写用于测试的程序了：
 
-![images_2/image51png](images_2/image51.png "测试程序的程序框图")
+![测试程序的程序框图](images_2/image51.png "测试程序的程序框图")
 
 这个测试程序大致可以分成三个部分：
 * 最左面那一部分是初始化的部分，它调用桌子和椅子类的初始化方法，创建了两个椅子对象，和一个桌子对象。
@@ -235,12 +235,12 @@ Parent 类的实例调用 Parent.lvclass:dynamic.vi 返回值是 “Parent Dynam
 
 运行这个测试 VI，输出结果如下：
 
-![images_2/image52png](images_2/image52.png "测试程序的程序运行结果")
+![测试程序的程序运行结果](images_2/image52.png "测试程序的程序运行结果")
 
 按照传统的编程方式，如果需要对不同的输入对象调用不同方法，需要写一个条件结构，用于判断输入对象的类型，然后按照不同类型去调用不同的子 VI。但是，借助类的多态特性，应用程序（测试程序）不再需要程序员编写代码去判断实例数据所属的子类，以及调用不同子 VI。在程序中，我们完全可以把所有实例用它们共同的父类的类型来传递，代码中也只使用父类的方法。而程序执行到父类的方法时，会自动执行已经重写了它的相应的子类的方法。
 
-在我们的示例中桌子类和椅子类同时从家具类那里继承了 "组装" 这个方法。但是，它们都重写了这个方法，这样就实现了多态。尽管 setup_funitures.vi 的输入控件类型是家具类，但是程序在执行到组装（assemble.vi）这个方法时，会自动判断输入对象的具体类型，然后调用相应的方法，所以我们可以在测试的返回结果中看到桌子类的对象都返回了 “Table” 字符串，而椅子类的对象都返回了 “Chair” 字符串。
+在我们的示例中桌子类和椅子类同时从家具类那里继承了 "组装" 这个方法。但是，它们都重写了这个方法，这样就实现了多态。尽管 setup_furnitures.vi 的输入控件类型是家具类，但是程序在执行到组装（assemble.vi）这个方法时，会自动判断输入对象的具体类型，然后调用相应的方法，所以我们可以在测试的返回结果中看到桌子类的对象都返回了 “Table” 字符串，而椅子类的对象都返回了 “Chair” 字符串。
 
 在程序调用了 assemble.vi 的地方双击这个子 VI，LabVIEW 不会像对待普通 VI 那样立刻打开子 VI，而是会列出所有类中的同名 VI，询问用户需要看哪一个。    
 
-![images_2/image53png](images_2/image53.png "打开被重写过的子 VI")
+![打开被重写过的子 VI](images_2/image53.png "打开被重写过的子 VI")

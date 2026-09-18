@@ -31,8 +31,8 @@ vi.FPWinOpen = True
 vi.Run
 ```
 
-由于 IE 支持 VB
-Script，这段代码还可以嵌在 HTML 文件中实现这样的功能：页面上有一处超链接指向一个 VI，点击这个链接，就可以打开相应的 VI。其他浏览器使用 JavaScript 也可以实现类似的功能。
+由于 IE 支持 VBScript，
+这段代码还可以嵌在 HTML 文件中实现这样的功能：页面上有一处超链接指向一个 VI，点击这个链接，就可以打开相应的 VI。其他浏览器使用 JavaScript 也可以实现类似的功能。
 
 更新：
 - 已被 Web 浏览器淘汰： 过去曾有开发者将此类代码嵌入 HTML 中供 IE 浏览器调用。请注意，这种做法在现代 IT 环境中已经完全失效且极其危险。 现代浏览器（Chrome, Edge, Firefox）的沙盒机制严格禁止网页脚本调用本地的 ActiveX/COM 组件。

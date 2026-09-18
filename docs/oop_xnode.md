@@ -132,7 +132,7 @@ GetBounds 功能 VI 用于设定当前 XNode 图标的尺寸。打开这个功�
 
 ![images_2/z078.png](images_2/z078.png "GetImage")
 
-再次把这个 XNonde 拖到测试 VI 里，可以看到我们新绘制的图标是一个“苦脸”：
+再次把这个 XNode 拖到测试 VI 里，可以看到我们新绘制的图标是一个“苦脸”：
 
 ![images_2/z079.png](images_2/z079.png "苦脸图标")
 
@@ -157,7 +157,7 @@ XNode 的图标不但可以比正常子 VI 图标大，它还允许用户在使�
 * Horizontal Only Resize?： 设置是否只能横向调节尺寸；
 * Resize None?： 设置是否允许调节尺寸。
 
-再次把这个 XNonde 拖到测试 VI 里，把鼠标移动到 XNode 的图标上，就可以看到允许调节尺寸的提示光点了。点击拖动一个光点，可以看到图标的轮廓的大小是可变的：
+再次把这个 XNode 拖到测试 VI 里，把鼠标移动到 XNode 的图标上，就可以看到允许调节尺寸的提示光点了。点击拖动一个光点，可以看到图标的轮廓的大小是可变的：
 
 ![images_2/z081.gif](images_2/z081.gif "调节大小")
 
@@ -226,7 +226,7 @@ GetImage VI 也要做相应的修改，不再用常量来绘制图标，所有�
 
 ![images_2/z089.png](images_2/z089.png "State")
 
-然后，在 AdaptToInputs 功能 VI 中读出 XNode 的“data in”接线端连接的数据的类型，把这个信息保存传递给状态数据。当数据类型有变化时，是需要重新绘制 XNode 的接线端的，所以这个功能 VI 的 Reply 输出需要包含一个“UpateTerms”命令，通知 LabVIEW 更新 XNode 的接线端。
+然后，在 AdaptToInputs 功能 VI 中读出 XNode 的“data in”接线端连接的数据的类型，把这个信息保存传递给状态数据。当数据类型有变化时，是需要重新绘制 XNode 的接线端的，所以这个功能 VI 的 Reply 输出需要包含一个“UpdateTerms”命令，通知 LabVIEW 更新 XNode 的接线端。
 
 ![images_2/z090.png](images_2/z090.png "AdaptToInputs")
 
@@ -250,7 +250,7 @@ GetTerms4 功能 VI 也要做相应修改，它不再使用 Adaptive 自适应�
 
 ![images_2/z095.png](images_2/z095.png "GetImage")
 
-再次把这个 XNonde 拖到测试 VI 里，发现 XNode 已经可以对输入输出类型做正确的处理了：
+再次把这个 XNode 拖到测试 VI 里，发现 XNode 已经可以对输入输出类型做正确的处理了：
 
 ![images_2/z096.png](images_2/z096.png "测试输入输出数据类型")
 
@@ -309,7 +309,7 @@ BuildMenu5 功能 VI 只是为 XNode 增加了一些菜单项目，但是用户�
 
 ![images_2/z103.png](images_2/z103.png "SelectMenu5")
 
-对话框可以自己编写，也可以使用 LabIVEW 自带的 VI。
+对话框可以自己编写，也可以使用 LabVIEW 自带的 VI。
 
 ![images_2/z104.gif](images_2/z104.gif "SelectMenu5")
 
