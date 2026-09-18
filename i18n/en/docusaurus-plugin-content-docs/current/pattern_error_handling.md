@@ -19,7 +19,7 @@ In LabVIEW, if a node generates an error and its error output terminal is left u
 
 This dialog box offers two choices:
 - **Continue**: LabVIEW ignores the error and continues running.
-- **Stop**: Halted immediately, terminating execution.
+- **Stop**: Halts immediately, terminating execution.
 
 While helpful during development, automatic error handling can be disruptive. For example, some minor errors can be ignored safely without prompting the user. In user-facing applications, constant pop-up dialogs degrade the user experience. You can disable this feature in the VI Properties dialog:
 
@@ -79,7 +79,7 @@ If an error occurs in the `Open/Create/Replace File` node, the `Read Text File` 
 
 ### Code That Must Run Regardless of Errors
 
-Some cleanup code must run even if preceding steps fail. For example, open references (such as file marks, network sockets, or hardware sessions) must be closed to prevent memory leaks or resource lockups.
+Some cleanup code must run even if preceding steps fail. For example, open references (such as file refnums, network sockets, or hardware sessions) must be closed to prevent memory leaks or resource lockups.
 
 In the example above, the `Close File` function must execute even if the `Read Text File` node fails. Standard cleanup functions in LabVIEW (like `Close File` or `Close Reference`) are designed to run their cleanup routines regardless of the value of their **error in** terminal. However, when designing custom VIs, you must ensure that resource cleanup logic executes regardless of the error state.
 

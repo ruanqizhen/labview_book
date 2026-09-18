@@ -71,7 +71,7 @@ The block diagram consists of a straightforward sub VI:
 
 ## Express VIs in Test and Measurement
 
-Since LabVIEW is primary used for test and measurement, it provides a large set of Express VIs designed specifically for signal generation, acquisition, analysis, and storage:
+Since LabVIEW is primarily used for test and measurement, it provides a large set of Express VIs designed specifically for signal generation, acquisition, analysis, and storage:
 
 ![images/image448.png](../../../../docs/images/image448.png "Express VIs Commonly Used in Test Programs")
 

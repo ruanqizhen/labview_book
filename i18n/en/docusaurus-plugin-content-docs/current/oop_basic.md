@@ -19,11 +19,11 @@ In large applications, code reuse is essential, but poorly managed dependencies 
 
 ## Classes and Objects
 
-The physical world is filled with distinct entities: tables, chairs, computers, and people. We naturally organize these entities into categories based on shared traits. For example, "Human" represents a category (a **class**), while the author, "Qizhen Ruan", is a specific individual (an **object** or **instance**) belonging to that class. All humans share common capabilities, such as walking, talking, and thinking.
+The physical world is filled with distinct entities: tables, chairs, computers, and people. We naturally organize these entities into categories based on shared traits. For example, "Human" represents a category (a **class**), while the author, "Qizhen Ruan" is a specific individual (an **object** or **instance**) belonging to that class. All humans share common capabilities, such as walking, talking, and thinking.
 
 Software design mirrors this classification. For example, in an HR database, employees (Tom, Jerry, etc.) share common characteristics (names, ages, salaries), although the actual values differ for each person.
 
-- An **Class** is a blueprint or template that defines a category of entities.
+- A **Class** is a blueprint or template that defines a category of entities.
 - An **Object** is a specific instance of a **Class** (e.g., Tom is an object of the `Employee` class).
 - **Attributes** (data or properties) describe the static state of an object (e.g., an employee's name, gender, or ID).
 - **Methods** (functions or VIs) define the behaviors or actions an object can perform (e.g., `Calculate Pay` or `Clock In`).

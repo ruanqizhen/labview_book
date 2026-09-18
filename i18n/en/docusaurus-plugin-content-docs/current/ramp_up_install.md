@@ -36,7 +36,7 @@ The start menu shortcut included in the installation package might not work out 
 
 ![images_2/image18.png](../../../../docs/images_2/image18.png "Linux system program start menu")
 
-Linux desktop shortcuts are stored in `/usr/share/applications/`. Find the file named `labview64-20xx.desktop`, open it in a text editor, and update the `Exec` line to: `Exec=/usr/local/natinst/LabVIEW-2021-64/labviewcommunity %F`. This will enable launching LabVIEW directly from your system's application menu.
+Linux desktop shortcuts are stored in `/usr/share/applications/`. Find the file named `labview64-20xx.desktop`, open it in a text editor, and update the `Exec` line to (replacing `20xx` with your version year, e.g. `LabVIEW-2021-64`): `Exec=/usr/local/natinst/LabVIEW-20xx-64/labviewcommunity %F`. This will enable launching LabVIEW directly from your system's application menu.
 
 While using an officially supported OS is critical for commercial work, troubleshooting these configurations is a great way to deepen your technical knowledge during the learning phase.
 

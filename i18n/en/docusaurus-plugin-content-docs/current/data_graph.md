@@ -29,7 +29,7 @@ This means a Waveform Chart is typically placed *inside* a loop to plot values i
 
 When executed, both display the same final curve. However, during execution, the chart updates progressively point-by-point, whereas the graph remains empty until the loop completes, at which point it renders the entire curve instantaneously:
 
-![images_2/image78.png](../../../../docs/images_2/image78.gif "Waveform Drawing Result")
+![Waveform Drawing Result](../../../../docs/images_2/image78.gif "Waveform Drawing Result")
 
 If you run the VI again, the Waveform Chart will append the new data to the old data. To start fresh each time, you can clear its historical buffer programmatically using a **History Data** Property Node. Create the Property Node, change its access mode to Write, and wire an empty array to it:
 

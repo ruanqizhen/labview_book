@@ -82,7 +82,7 @@ Drag the String Constant onto the block diagram. Once placed, type `Hello, World
 
 LabVIEW uses **wires** to pass data between nodes. Hover your cursor over the output terminal on the right side of the String Constant; the cursor will change into a wire spool icon. Click once to start the wire, move the cursor to the input terminal of the String Indicator, and click again to connect them.
 
-Notice that the wire and the terminals are pink. In LabVIEW, wire colors represent specific data types. Pink indicates string (text) data, orange or blue represents numeric data, and green represents Boolean (True/False) values. This color coding is a powerful feature of graphical programming, letting you identify data types and flow at a glance.
+Notice that the wire and the terminals are pink. In LabVIEW, wire colors represent specific data types. Pink indicates string (text) data, orange or blue represent numeric data, and green represents Boolean (True/False) values. This color coding is a powerful feature of graphical programming, letting you identify data types and flow at a glance.
 
 ![](../../../../docs/images/image10.gif "Initiating a Wire")
 
@@ -143,7 +143,7 @@ Wires can branch to send the same data to multiple targets:
 
 ![](../../../../docs/images/image16.png "data directed into 2 branches")
 
-When a wire branches, LabVIEW duplicates the data so that both receiving nodes process it independently (in practice, LabVIEW optimized this with smart buffers, which we will discuss later).
+When a wire branches, LabVIEW duplicates the data so that both receiving nodes process it independently (in practice, LabVIEW optimizes this with smart buffers, which we will discuss later).
 
 Conversely, you cannot connect multiple data sources to a single input terminal. Doing so creates a **broken wire**, indicated by a dashed line with a red 'X':
 

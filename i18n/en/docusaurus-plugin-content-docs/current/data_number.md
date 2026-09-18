@@ -72,7 +72,7 @@ Use this table as a quick reference when choosing the appropriate representation
 
 The exact byte size of the Extended Precision (EXT) type depends on your operating system and CPU architecture. On macOS and Linux, it typically occupies 16 bytes. On Windows, it is often an 80-bit float padded to 10 or 12 bytes, or defaults to 8 bytes on 64-bit systems.
 
-Always choose a representation that comfortably fits your expected data range. For example, a 16-bit signed integer (I16) supports values from -32,768 to 32,767. If you perform a basic operation like `300 * 300`, the result (`90,000`) exceeds the I16 limit. If you multiply two I16 constants with values of 300 and output the result to an I16 indicator, you will experience an overflow, resulting in incorrect data (specifically, `-24,464`). Such errors can be hard to track down in larger applications.
+Always choose a representation that comfortably fits your expected data range. For example, a 16-bit signed integer (I16) supports values from -32,768 to 32,767. If you perform a basic operation like `300 * 300`, the result (`90,000`) exceeds the I16 limit. If you multiply two I16 constants with values of 300 and output the result to an I16 indicator, you will experience an overflow, resulting in incorrect data (specifically, `24,464`, since 90,000 − 65,536 = 24,464). Such errors can be hard to track down in larger applications.
 
 ![](../../../../docs/images/image507.png "overflow")
 
@@ -270,7 +270,7 @@ These actions define exactly when the Boolean value toggles during a mouse click
 - *Switch When Pressed* (first row, first option) for toggles, which updates the value the instant the user clicks the control.
 - *Latch When Released* (second row, second option) for command buttons, which emits a single `True` pulse the moment the user releases the mouse button.
 
-Buttons are commonly used to trigger Event Structures, which we discuss in the [Event Structure](pattern_ui) section. We will cover [local variables and property nodes](data_and_controls) in later chapters. While you can typically read or write controls using local variables or the **Value** property node, LabVIEW enforces a strict rule: **you cannot read Latch-action Boolean controls via local variables or Value properties**. Attempting to do so breaks the VI run arrow. This restriction is necessary because the latching mechanism relies on a single, guaranteed read from the Front Panel terminal to safely reset the button to its default state.
+Buttons are commonly used to trigger Event Structures, which we discuss in the [Event Structure](pattern_ui) section. We will cover [local variables and property nodes](data_and_controls) in later chapters. While you can typically read or write controls using local variables or the **Value** property node, LabVIEW enforces a strict rule: **you cannot read from or write to Latch-action Boolean controls via local variables or Value properties** — attempting to do so returns run-time error 1193. This restriction is necessary because the latching mechanism relies on a single, guaranteed read from the Front Panel terminal to safely reset the button to its default state.
 
 
 ## Type Casting
@@ -301,7 +301,7 @@ In contrast, if you **Type Cast** the DBL `13.4` to an I64, the resulting intege
 
 This highlights the core mechanism of type casting: the underlying memory buffer remains unchanged, but its interpretation shift yields a completely different value.
 
-C/C++ developers should note a critical detail: **endianness**. Most modern desktop CPUs are Little-Endian. A native C++ program on Windows will store and interpret bytes in reverse order compared to LabVIEW, which universally stores and transmits data in **Big-Endian** format (network byte order). As a result, performing this exact type cast in C++ on Windows will yield a different integer unless you manually reverse the byte order.
+C/C++ developers should note a critical detail: **endianness**. Most modern desktop CPUs are Little-Endian. A native C++ program on Windows stores multi-byte values in the machine's native byte order (Little-Endian on x86), and so does LabVIEW: in-memory data follows the host byte order. LabVIEW only uses **Big-Endian** (network byte order) in serialized output such as **Flatten To String** or TCP transfers. As a result, performing this exact type cast in C++ on Windows will yield the same integer for in-memory data; byte order only matters when exchanging flattened/binary data with external systems.
 
 ### Applications of Type Casting
 

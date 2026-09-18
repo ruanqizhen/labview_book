@@ -195,7 +195,7 @@ However, a running VI *can* modify the labels of controls in *other* VIs (which 
 
 To style a specific substring inside a string indicator, we first use a Property Node to select the characters by index, then apply font styles to that selection. We can combine these steps in a single Property Node:
 
-![](../../../../docs/images/image154.png "Modifing the font of selected text")
+![](../../../../docs/images/image154.png "Modifying the font of selected text")
 
 *Note: The red color constant is located in the Functions Palette under **Programming -> Graphics and Sound -> Picture Functions**. The corresponding terminal for the font properties can be configured by right-clicking the node.*
 
@@ -230,7 +230,7 @@ For example, to disable the second option (index `1`), wire an array containing 
 
 ![Disabling Certain Items in Enum Controls](../../../../docs/images/image152.png "Disabling Certain Items in Enum Controls")
 
-When the user clicks the Enum drop-down menu, the disabled option will be greyed out and unselectable:
+When the user clicks the Enum drop-down menu, the disabled option will be grayed out and unselectable:
 
 ![Run Result](../../../../docs/images/image153.png "Run Result")
 
@@ -342,7 +342,7 @@ In applications that generate automated PDF or HTML reports, you often need to s
 
 ![](../../../../docs/images_2/z251.png "Capturing Control Screenshots")
 
-Since report document backgrounds are usually white, it is best to set the **Image Background Color** input of the method to white to prevent grey borders in your report.
+Since report document backgrounds are usually white, it is best to set the **Image Background Color** input of the method to white to prevent gray borders in your report.
 
 We pass the output of **Get Image** to **Draw Flattened Pixmap.vi** to render it inside a **2D Picture** control on our Front Panel, and call **Write PNG File.vi** to save it as an image file on disk:
 
@@ -353,4 +353,4 @@ These graphics utility VIs are located in the Functions Palette under **Programm
 
 ## Practice Exercise
 
-- Create a VI where the front panel displays text (e.g., "LabVIEW") along with a control for color selection. When the VI runs, the text color on the front panel should change to match the color selected by the user.d by the user.
+- Create a VI where the front panel displays text (e.g., "LabVIEW") along with a control for color selection. When the VI runs, the text color on the front panel should change to match the color selected by the user.

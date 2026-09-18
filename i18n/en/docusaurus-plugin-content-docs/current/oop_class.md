@@ -33,7 +33,7 @@ The **New** submenu provides several choices for creating methods and resources:
 * **Virtual Folder**: Used to organize methods logically, which is helpful when a class contains many VIs.
 * **Property Definition Folder**: A special folder for accessor VIs that read or write class properties.
 * **VI Based on Dynamic Dispatch Template**: Creates a method that can be overridden by subclasses. This is equivalent to "virtual functions" in text-based OOP languages.
-* **VI Based on Static Dispatch Template**: Creates a method that cannot be overridden by subclasses. The main structural difference from dynamic dispatch is that its class input and output terminals are statically allocated.
+* **VI Based on Static Dispatch Template**: Creates a method that cannot be overridden by subclasses. The main structural difference from dynamic dispatch is that its class input and output terminals are statically dispatched (bound to the class at edit time).
 * **VIs for Data Member Access**: Since class data in LabVIEW is always private, public accessor VIs are required to read or write it. This option serves as a shortcut, generating accessors with pre-built data-handling code in the block diagram.
 * **VIs for Overriding**: Generates a VI in a subclass to override a parent method of the same name. It applies the dynamic dispatch template and automatically includes a "Call Parent Method" node in the block diagram.
 * **Type Definition**: Creates a custom control (typedef) to define unique data structures for the class.

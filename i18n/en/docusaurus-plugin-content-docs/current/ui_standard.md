@@ -53,7 +53,7 @@ You can also configure splitter bar properties programmatically at runtime. Alth
 
 By default, users can manually drag splitter bars during execution to resize panes. To prevent this, right-click the splitter bar and select **Lock** to fix its position.
 
-Splitter bars do not have a built-in "Hide" property. If you want to make a splitter bar invisible at runtime, use a **Classic Splitter Bar**, select the **Color Set** tool, and paint it the same color as the window background. This creates invisible boundary divisions. Additionally, note that the panes on either side of a splitter bar can be configured with different background colors.
+Splitter bars do not have a built-in "Hide" property. If you want to make a splitter bar invisible at runtime, use a **Classic Splitter Bar**, select the **Coloring** tool, and paint it the same color as the window background. This creates invisible boundary divisions. Additionally, note that the panes on either side of a splitter bar can be configured with different background colors.
 
 Panes also lack a "Hide" property. To hide a specific pane dynamically during execution, programmatically adjust the position of its boundary splitter bar to collapse the pane to a size of zero.
 

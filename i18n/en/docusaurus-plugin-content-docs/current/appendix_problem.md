@@ -139,5 +139,4 @@ In the future, LabVIEW's role may consolidate around its core strengths: high-sp
 
 At the same time, LabVIEW is not without potential opportunities. Emerging technologies such as generative graph models and multimodal large language models (MLLMs) may eventually enable AI systems to generate executable graphical code directly. If such technologies mature, LabVIEW could potentially redefine its role in the AI era.
 
-Regardless of the outcome, the coming years will bring significant challenges and transformation. The tide of AI will not slow down. Only by continuing to evolve can LabVIEW avoid being left behind by the currents of technological change.
- by the currents of technological change.
+Regardless of the outcome, the coming years will bring significant challenges and transformation. The tide of AI will not slow down. Only by continuing to evolve can LabVIEW avoid being left behind.

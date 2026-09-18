@@ -23,9 +23,9 @@ Many reference types do not have dedicated controls on the palette. For example,
 
 ![Reference Controls on Sub VI Front Panel](../../../../docs/images/image230.png "Reference Controls on Sub VI Front Panel")
 
-A reference is simply a 4-byte pointer to a target object. The program interacts with the underlying object, not the 4-byte refnum. The type of a reference determines what kind of object it points to—such as files, instruments, VIs, or controls.
+A reference is simply a pointer to a target object (4 bytes on a 32-bit OS, 8 bytes on a 64-bit OS). The program interacts with the underlying object, not the refnum itself. The type of a reference determines what kind of object it points to—such as files, instruments, VIs, or controls.
 
-On the block diagram, only the 4-byte reference value flows along the data wire, while the target object remains anchored in memory. If the reference points to a massive array or database, passing the 4-byte refnum is extremely fast and memory-efficient. When a reference wire splits on the block diagram, LabVIEW only copies the 4-byte pointer, not the target object itself. Both branches point to the same shared object, allowing parallel processes to read and write to it.
+On the block diagram, only the small reference value flows along the data wire, while the target object remains anchored in memory. If the reference points to a massive array or database, passing the refnum is extremely fast and memory-efficient. When a reference wire splits on the block diagram, LabVIEW only copies the pointer, not the target object itself. Both branches point to the same shared object, allowing parallel processes to read and write to it.
 
 
 ## Global Variables
@@ -186,12 +186,12 @@ Thus, semaphores in LabVIEW are simply wrapped queues: an empty queue indicates 
 
 ## Utilizing C Language for References
 
-You can also pass references by allocating memory in a C/C++ DLL and passing the memory address (pointer) as a U32 integer or custom Refnum inside LabVIEW. This is useful when integrating legacy C code.
+You can also pass references by allocating memory in a C/C++ DLL and passing the memory address (pointer) as an address-sized unsigned integer (U64 on 64-bit systems, U32 on 32-bit systems) or custom Refnum inside LabVIEW. This is useful when integrating legacy C code.
 
-The C++ code allocates memory and returns a pointer:
+The C++ code below allocates memory and returns a pointer (it requires `#include <cstring>` for `memcpy`):
 
 ```cpp
-int stdcall CreateBuffer ( // Allocate memory and return pointer
+int __stdcall CreateBuffer ( // Allocate memory and return pointer
   const char data[],       // Data to store
   int size,                // Data size
   char** bufPointer        // Pointer to return the memory address
@@ -203,7 +203,7 @@ int stdcall CreateBuffer ( // Allocate memory and return pointer
   return 0;
 }
 
-int stdcall GetBufferData (   // Retrieve data from memory address
+int __stdcall GetBufferData (   // Retrieve data from memory address
   char* bufPointer,           // Data pointer
   char* data                  // Buffer to copy data into
 ) {
@@ -213,7 +213,7 @@ int stdcall GetBufferData (   // Retrieve data from memory address
 }
 ```
 
-In LabVIEW, we pass the pointer value between VIs. When we need the data, we call the DLL to read it. To make the code safer, we cast the U32 address pointer into a custom Refnum:
+In LabVIEW, we pass the pointer value between VIs. When we need the data, we call the DLL to read it. To make the code safer, we cast the address-sized integer pointer into a custom Refnum:
 
 ![Using Data Reference Created Using C Language](../../../../docs/images/image326.png "Using Data Reference Created Using C Language")
 

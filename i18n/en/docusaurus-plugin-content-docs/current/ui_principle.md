@@ -17,7 +17,7 @@ Consistency is critical for making a user interface easy to learn and operate. I
 
 ### Internal Program Consistency
 
-Different software applications cater to different domains and audiences. For instance, educational software designed for children—like the LEGO MINDSTORMS edition of LabVIEW—often features bright cartoon imagery to make it fun and engaging. In contrast, most LabVIEW applications are deployed in industrial, test, or laboratory environments for professional users. These applications should opt for a clean, professional, and uncluttered design that highlights utility rather than visual flair.
+Different software applications cater to different domains and audiences. For instance, educational software designed for children—like LEGO MINDSTORMS robots programmed with NXT-G/EV3-G (based on LabVIEW)—often features bright cartoon imagery to make it fun and engaging. In contrast, most LabVIEW applications are deployed in industrial, test, or laboratory environments for professional users. These applications should opt for a clean, professional, and uncluttered design that highlights utility rather than visual flair.
 
 Regardless of the style you choose, all interfaces within an application—such as dialog boxes, setup screens, and subpanels—must maintain a consistent look and feel. Using a uniform style across all screens creates a cohesive, professional user experience.
 

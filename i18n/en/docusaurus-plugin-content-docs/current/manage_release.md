@@ -171,7 +171,7 @@ To create a Web Service, right-click **Build Specifications** and select `New ->
 
 ## Installers
 
- standalone applications and shared libraries require the **LabVIEW Run-Time Engine** to execute on a target PC. To package your application along with its dependencies, configuration files, and the required runtime engines, create an **Installer**.
+ Standalone applications and shared libraries require the **LabVIEW Run-Time Engine** to execute on a target PC. To package your application along with its dependencies, configuration files, and the required runtime engines, create an **Installer**.
 
 Select `New -> Installer` from the build specifications menu. On the **Source Files** tab, specify the files to install:
 

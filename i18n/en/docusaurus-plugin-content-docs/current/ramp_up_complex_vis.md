@@ -109,7 +109,7 @@ A quick way to do this is by clicking the **Run Continuously** button (![Run Con
 
 *Warning: Using the Run Continuously and Abort Execution buttons is highly discouraged. Aborting a program abruptly kills its execution thread. If the code is writing to a file or controlling hardware, it won't have the chance to safely close file references or power down instruments, potentially causing file corruption or leaving hardware in a dangerous state.*
 
-The professional standard for continuous execution is using a **While Loop**. In the Functions Palette, select **Programming -> Structures -> While Loop** and drag a rectangle to enclose your code. The While Loop is represented by a grey border. The loop repeats all code inside it until its stop condition is met. We will cover loop structures in detail in the [Loop Structures](data_array#while-loop) section.
+The professional standard for continuous execution is using a **While Loop**. In the Functions Palette, select **Programming -> Structures -> While Loop** and drag a rectangle to enclose your code. The While Loop is represented by a gray border. The loop repeats all code inside it until its stop condition is met. We will cover loop structures in detail in the [Loop Structures](data_array#while-loop) section.
 
 In the bottom-right corner of the loop border is the **Loop Condition** (a red stop sign). Right-click this icon and select **Create Control**. This generates a **Stop** button on your Front Panel connected to the loop condition.
 
@@ -129,7 +129,7 @@ Writing clean, organized code is vital in any language, but it is especially imp
 
 If your diagram gets messy, you can use the **Clean Up Diagram** tool (the broom icon on the toolbar). This tool automatically aligns nodes and routes wires:
 
-![images_2/z221.gif](../../../../docs/images_2/z221.gif "Organizing up Block Diagram")
+![Cleaning up the Block Diagram](../../../../docs/images_2/z221.gif "Cleaning up the Block Diagram")
 
 *Warning: While the Clean Up tool is great for small diagrams, running it on a complex, custom-architected block diagram can break your carefully designed layout. Instead of cleaning the entire diagram, select a specific messy section by dragging a selection box around it, right-click, and select **Clean Up Selection** (or click the Clean Up button while the selection is active). This cleans up only the target area, preserving the rest of your layout.*
 
@@ -168,7 +168,7 @@ Let's build a simple subVI that converts temperature from Fahrenheit to Celsius.
 
 Next, we configure the parameter inputs and outputs. The connector pane is located in the top-right corner of the Front Panel, next to the VI icon.
 
-If you are using an older version of LabVIEW, right-click the VI icon and select **Show Connector Pane** to reveal the terminal grid: ![](../../../../docs/images/image49.png). By default, LabVIEW uses a grid layout with 12 terminals arranged in a 4-2-2-4 pattern (four terminals on the left, four on the right, and four in the middle). While you can select different patterns by right-clicking the pane and choosing **Patterns**, it is standard practice to stick to the default **4-2-2-4** layout. This consistency makes it easy to wire VIs in a modular way.
+If you are using an older version of LabVIEW, right-click the VI icon and select **Show Connector Pane** to reveal the terminal grid: ![](../../../../docs/images/image49.png). By default, LabVIEW uses a grid layout with 12 terminals arranged in a 4-2-2-4 pattern (four terminals on the left, four on the right, two in the middle-top and two in the middle-bottom). While you can select different patterns by right-clicking the pane and choosing **Patterns**, it is standard practice to stick to the default **4-2-2-4** layout. This consistency makes it easy to wire VIs in a modular way.
 
 Because data flows from left to right, always map inputs (controls) to the left terminals and outputs (indicators) to the right terminals.
 

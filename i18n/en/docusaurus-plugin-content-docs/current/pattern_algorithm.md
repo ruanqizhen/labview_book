@@ -143,7 +143,7 @@ Bubble Sort is popular for its simplicity. Here is a LabVIEW implementation:
 
 These three algorithms have a time complexity of $O(n^2)$ because they perform redundant comparisons. If you know $a > b$ and $b > c$, you do not need to compare $a$ and $c$.
 
-**Quick Sort** avoids redundant comparisons. It selects a pivot element, divides the array into elements larger than the pivot and elements smaller, and then recursively sorts the sub-arrays. This reduces the time complexity to $O(n \log_2 n)$. LabVIEW's built-in sorting functions use Quick Sort.
+**Quick Sort** avoids redundant comparisons. It selects a pivot element, divides the array into elements larger than the pivot and elements smaller than the pivot, and then recursively sorts the sub-arrays. This reduces the time complexity to $O(n \log_2 n)$. LabVIEW's built-in sorting functions use Quick Sort.
 
 Can we sort faster than $O(n \log_2 n)$? For comparison-based sorting, $O(n \log_2 n)$ is the theoretical limit. However, if we know the range of the elements, we can sort using index lookups instead of comparisons.
 

@@ -205,7 +205,7 @@ The Front Panel:
 - **Program 2: The Empty Array Trap**
 Consider this program and guess the output of 'Output Integer':
 
-![](../../../../docs/images/image195.png "直接相连的输入输出隧道")
+![](../../../../docs/images/image195.png "Directly wired input/output tunnels")
 
 Because the input array is empty, the loop executes zero times. The output tunnel never receives data and simply returns its default value (`0`), rather than the input `33`. This is a classic For Loop bug.
 
@@ -291,7 +291,7 @@ You can configure initialization behavior via the shortcut menu:
 
 For example:
 
-![](../../../../docs/images_2/z198.png "两种初始化")
+![](../../../../docs/images_2/z198.png "Two initialization modes")
 
 On the first run, both outputs are `2`. On subsequent runs, `result 1` increments continuously while `result 2` resets to `2`.
 

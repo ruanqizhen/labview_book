@@ -263,7 +263,7 @@ This mechanism translates the ActiveX event into a standard LabVIEW event, allow
 
 ### ActiveX Documents
 
-ActiveX documents allow files from applications like Microsoft Office to be displayed and edited directly within an ActiveX container in LabVIEW (for example, embedding a Excel chart):
+ActiveX documents allow files from applications like Microsoft Office to be displayed and edited directly within an ActiveX container in LabVIEW (for example, embedding an Excel chart):
 
 ![](../../../../docs/images/image379.png "Inserting a Chart ActiveX Document")
 

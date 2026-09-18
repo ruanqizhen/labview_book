@@ -134,4 +134,4 @@ In this book, we use VI Snippets for code illustrations wherever possible. You c
 ## Practice Exercise
 
 - Search a LabVIEW forum and sign up for an account.
-- If you know of any popular LabVIEW forums or discussion groups, please share them in the comments section below this chapter.
+- If you know of any popular LabVIEW forums or discussion groups, please share them in this book's [GitHub Discussions](https://github.com/ruanqizhen/labview_book/discussions).

@@ -109,7 +109,7 @@ Right-click the `.xnode` library in the Project Explorer and select **Add -> Abi
 
 Select **GetBounds** from the dialog:
 
-![images_2/z075.png](../../../../docs/images_2/z075.png "Dialogue Box for Adding Function VI")
+![Dialog Box for Adding Function VI](../../../../docs/images_2/z075.png "Dialog Box for Adding Function VI")
 
 Open `GetBounds.vi`. The VI has a single output cluster named **Bounds**. We configure this to return a size of $64 \times 64$ pixels:
 
