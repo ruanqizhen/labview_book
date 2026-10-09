@@ -3,6 +3,7 @@ import DocPaginator from '@theme-original/DocPaginator';
 import Giscus from '@giscus/react';
 import { useLocation } from 'react-router-dom';
 import {useColorMode} from '@docusaurus/theme-common';
+import {useDocusaurusContext} from '@docusaurus/useDocusaurusContext';
 
 export default function DocPaginatorWrapper(props) {
   let location = useLocation();
@@ -12,6 +13,8 @@ export default function DocPaginatorWrapper(props) {
     giscus_term = 'index';
   }
   const {colorMode} = useColorMode();
+  const {i18n} = useDocusaurusContext();
+  const giscusLang = i18n.currentLocale === 'en' ? 'en' : 'zh-CN';
   
   return (
     <>
@@ -28,7 +31,7 @@ export default function DocPaginatorWrapper(props) {
         emitMetadata='1'
         inputPosition='top'
         theme={colorMode}
-        lang='en'
+        lang={giscusLang}
         loading="lazy"
       />
     </>
