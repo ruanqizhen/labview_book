@@ -27,7 +27,7 @@ First, let's define the interface and behavior for this chessboard XControl:
 
 To create an XControl, right-click a folder or target in the Project Explorer and select **New >> XControl**:
 
-![](../../../../docs/images/image748.png "Creating a New XControl")
+![Creating a New XControl](../../../../docs/images/image748.png)
 
 Structurally, an XControl is a specialized project library (saved as a `.xctl` file). It contains core **Ability VIs** (or functional VIs) that govern its behavior, along with optional custom properties and methods. A newly created XControl contains four mandatory Ability VIs:
 
@@ -44,11 +44,11 @@ These optional Ability VIs are not included by default. To add them, right-click
 
 An XControl is saved as a `.xctl` file. Because it is a specialized type of LabVIEW library, its properties and namespace settings are identical to standard LabVIEW project libraries (.lvlib):
 
-![](../../../../docs/images/image749.png "XControl Property Settings")
+![XControl Property Settings](../../../../docs/images/image749.png)
 
 First, save the XControl and its components. Note that the physical filenames of the files inside the library do not have to match their logical ability names. For example, we will save the files under descriptive English names:
 
-![](../../../../docs/images/image750.png "Newly Saved Blank XControl")
+![Newly Saved Blank XControl](../../../../docs/images/image750.png)
 
 > [!IMPORTANT]
 > Ability VIs are called directly by the LabVIEW runtime engine. They have strict connector pane templates. **Do not modify their controls, indicators, or connector pane layouts.** Furthermore, never call these VIs directly in your application code.
@@ -61,7 +61,7 @@ An XControl uses two custom controls (.ctl) to manage data: **Data** and **State
 
 The **Data** control is a strict type definition. The data type you configure here is the exact type that flows through the XControl's terminal on the host VI's Block Diagram. For our chessboard, this is a 2D U16 array:
 
-![](../../../../docs/images/image751.png "“Data” Functional Control")
+![“Data” Functional Control](../../../../docs/images/image751.png)
 
 ## "State" Functional Control
 
@@ -69,7 +69,7 @@ The **State** control is a custom control (typically a cluster). It holds all th
 
 The figure below shows the **State** cluster for the Reversi chessboard XControl:
 
-![](../../../../docs/images/image752.png "“State” Functional Control")
+![“State” Functional Control](../../../../docs/images/image752.png)
 
 It contains the following elements:
 
@@ -90,7 +90,7 @@ The **Facade VI** is the core of an XControl, defining its visual look and event
 
 The Front Panel of the Facade VI is what the user sees when they drag the XControl onto their application's Front Panel. We can copy the layout from [UI Design Cases](ui_cases) directly onto this panel. The boundaries of the Facade VI window determine the default size of the XControl instance, so crop the window layout closely around the chessboard:
 
-![](../../../../docs/images/image753.png "Front Panel of the Facade Functional VI")
+![Front Panel of the Facade Functional VI](../../../../docs/images/image753.png)
 
 If you want the XControl to be resizable at edit time on the host VI, you must configure the controls within the Facade VI to resize dynamically.
 
@@ -111,7 +111,7 @@ In a typical application, the event loop runs continuously. In contrast, the Fac
 
 To ensure the Facade VI exits immediately after processing an event, the Event Structure's timeout is set to `0`, and the Timeout event case is configured to stop the While Loop:
 
-![](../../../../docs/images/image756.png "Timeout Handling in the Facade Functional VI")
+![Timeout Handling in the Facade Functional VI](../../../../docs/images/image756.png)
 
 ### Parameters
 
@@ -141,7 +141,7 @@ In our chessboard XControl, when the host VI writes a new 8×8 board layout, the
 
 The figure below shows how the Facade VI handles **Data Change**: it updates the Picture Ring array on the panel and uses a helper VI to compute valid move positions for the active player. Since these valid positions are stored in the internal **State** cluster, the code updates **Display State Out** and sets `State Changed?` to True in the **Action** cluster to notify LabVIEW of the state update:
 
-![](../../../../docs/images/image757.png "Handling Data Change Event")
+![Handling Data Change Event](../../../../docs/images/image757.png)
 
 ### Display State Change Event
 
@@ -151,7 +151,7 @@ When a display state change occurs, the Facade VI must update the Front Panel to
 
 The Facade VI's response to this event is shown below. It inspects the `method` variable in **Display State In**. If it matches 'Play One', the VI calculates the new piece layout, flips the captured pieces, and updates the board display. Because this operation updates both the chessboard data (value) and the internal state, the code sets both `Data Changed?` and `State Changed?` to True:
 
-![](../../../../docs/images/image758.png "Display State Update Event Handling")
+![Display State Update Event Handling](../../../../docs/images/image758.png)
 
 
 ### Direction Change and Execution State Change Events
@@ -160,7 +160,7 @@ A **Direction Change** event fires when the XControl instance is switched betwee
 
 Often, these events require you to enable or disable UI interactions. In our Reversi XControl, when the control is set to an Indicator or when the host VI is in Edit Mode, we must disable user inputs on the chessboard:
 
-![](../../../../docs/images/image759.png "Handling Direction Change Event")
+![Handling Direction Change Event](../../../../docs/images/image759.png)
 
 This is analogous to native controls: for instance, switching a Numeric control to an Indicator automatically hides its increment/decrement buttons.
 
@@ -172,7 +172,7 @@ In the chessboard XControl, the primary user interface event is when the player 
 
 When a mouse click on the chessboard array is detected, the Facade VI checks if the selected coordinate is a valid move. If so, it places the piece, updates the layout, and fires a user event to notify the host application:
 
-![](../../../../docs/images/image760.png "Handling User Move Event")
+![Handling User Move Event](../../../../docs/images/image760.png)
 
 ## "Save for State Change" Functional VI
 
@@ -180,7 +180,7 @@ The **Save for State Change** Ability VI controls which parts of the XControl's 
 
 Often, most state variables (such as temporary layout coordinates, turn indicators, or dynamic calculations) do not need to be saved across sessions. Only configuration properties (like custom colors or grid sizes) should be preserved. In our chessboard XControl, since all game state is recalculated at startup, we do not need to save any state data. We can simply write an empty cluster to the output in this VI:
 
-![](../../../../docs/images/image761.png "“Save for State Change” Functional VI")
+![“Save for State Change” Functional VI](../../../../docs/images/image761.png)
 
 
 ## "Init" Functional VI
@@ -189,13 +189,13 @@ The **Init** Ability VI runs when the XControl is loaded. It performs two duties
 
 Since we are using a custom User Event to notify the host application of player moves, we create the User Event in the **Init** VI and store its refnum in the XControl's State cluster:
 
-![](../../../../docs/images/image762.png "Initialization")
+![Initialization](../../../../docs/images/image762.png)
 
 ## "Uninit" Functional VI
 
 The **Uninit** Ability VI runs when the XControl is unloaded from memory. It must release any resources allocated during initialization. For the chessboard XControl, we must destroy the User Event refnum here to prevent memory leaks:
 
-![](../../../../docs/images/image763.png "Uninitialization")
+![Uninitialization](../../../../docs/images/image763.png)
 
 ## Properties
 
@@ -205,11 +205,11 @@ To add a property, right-click the XControl library in the Project Explorer and 
 
 For instance, the read-only **Current Color** property returns whose turn it is. Its read VI is implemented below:
 
-![](../../../../docs/images/image764.png "Read Property VI")
+![Read Property VI](../../../../docs/images/image764.png)
 
 Once defined, these custom properties appear in the standard Property Node menu for the XControl instance:
 
-![](../../../../docs/images/image765.png "Property Node of an XControl Instance Widget")
+![Property Node of an XControl Instance Widget](../../../../docs/images/image765.png)
 
 
 ## Methods
@@ -218,11 +218,11 @@ Custom methods are executed via Invoke Nodes. While properties read or write sin
 
 To create a method, right-click the XControl library and select **New >> Method**. Like properties, method VIs interact with the State cluster. If your method requires parameters, you must define them in the method configuration dialog rather than editing the VI connector pane directly. Right-click the method VI in the Project Explorer and select **Configure Method**:
 
-![](../../../../docs/images/image766.png "Method VI Configuration Dialog")
+![Method VI Configuration Dialog](../../../../docs/images/image766.png)
 
 For example, the *Play One Step* method allows the application (or AI) to make a move. The actual game logic is executed in the Facade VI's **Display State Change** handler. Thus, this method simply validates the move coordinates and writes the target position and the 'Play One' command into the state:
 
-![](../../../../docs/images/image767.png "Implementing an XControl Method")
+![Implementing an XControl Method](../../../../docs/images/image767.png)
 
 Initially, it verifies the legality of the placement position. If deemed valid, the state is updated with the move's position. This method also modifies the "method" data, informing the "Facade" Functional VI which method has been activated.
 
@@ -237,18 +237,18 @@ To work around this limitation, you must use **User Events**:
 
 The host application block diagram for registering and handling this custom event is shown below:
 
-![](../../../../docs/images/image768.png "Utilizing Events within XControl")
+![Utilizing Events within XControl](../../../../docs/images/image768.png)
 
 
 ## Using the Chessboard XControl
 
 Using an XControl in an application is simple: drag the `.xctl` file from the Project Explorer onto your host Front Panel. The figure below shows a demo application interface containing our chessboard XControl and general control buttons:
 
-![](../../../../docs/images/image769.png "Demo Program Interface")
+![Demo Program Interface](../../../../docs/images/image769.png)
 
 The block diagram uses a standard Event Structure loop. The host program coordinates the game by reading the XControl's properties, registering its player move event, and calling its methods:
 
-![](../../../../docs/images/image770.png "Demo Program Block Diagram")
+![Demo Program Block Diagram](../../../../docs/images/image770.png)
 
 ### Artificial Intelligence in Chess
 
@@ -296,15 +296,15 @@ The architecture works as follows:
 
 The simplified block diagram of the background loop is shown below:
 
-![](../../../../docs/images/image771.png "Background Task Timing Code")
+![Background Task Timing Code](../../../../docs/images/image771.png)
 
 The background task is launched inside the XControl's **Init** Ability VI. Because multiple instances of the XControl can exist on the same Front Panel, the background VI must be configured as reentrant. When calling **Open VI Reference**, set the `options` input parameter to `0x08` (prepare reentrant clone) so that each XControl instance spawns its own isolated timing thread:
 
-![](../../../../docs/images/image772.png "XControl's Init Functional VI")
+![XControl's Init Functional VI](../../../../docs/images/image772.png)
 
 Correspondingly, the XControl's **Uninit** VI must stop the background task. It does this by firing an exit event to notify the timing thread to shut down:
 
-![](../../../../docs/images/image773.png "XControl's Uninit Functional VI")
+![XControl's Uninit Functional VI](../../../../docs/images/image773.png)
 
 
 ## Accessing Information from the VI Hosting the XControl Instance
@@ -315,7 +315,7 @@ For example, let's create a "Mischievous Button" XControl. When the user tries t
 
 The Facade VI code for handling the **Mouse Enter** event is shown below. It reads the XControl's position and the parent panel bounds, calculates a safe random coordinate, and updates its own **Position** property:
 
-![](../../../../docs/images/image774.png "Mouse Enter Event Handling for Button Widget in XControl's Facade Functional VI")
+![Mouse Enter Event Handling for Button Widget in XControl's Facade Functional VI](../../../../docs/images/image774.png)
 
 Note: In this event case, a brief loop is used to slide the button to its new position. While loops in the Facade VI should generally be avoided to prevent blocking the UI, this slide transition is extremely brief (a few milliseconds) and does not perceptibly impact UI responsiveness.
 
@@ -332,11 +332,11 @@ Debugging an XControl is very similar to debugging standard VIs. You can place b
 
 When an XControl is active on an open Front Panel, LabVIEW locks the XControl library in the Project Explorer to prevent edits that could crash the active instances. To modify the code, right-click the XControl library in the Project Explorer and select **Unlock Library for Editing**:
 
-![](../../../../docs/images/image775.png "Unlocking XControl")
+![Unlocking XControl](../../../../docs/images/image775.png)
 
 While unlocked for editing, all instances of the XControl on active Front Panels are replaced by a generic placeholder box with a red "X", indicating they are temporarily offline:
 
-![](../../../../docs/images/image776.png "Inactive XControl Instance")
+![Inactive XControl Instance](../../../../docs/images/image776.png)
 
 Once you finish editing, right-click the library in the Project Explorer and select **Apply Instance Changes** to compile the updates and restore all active instances to their normal operating state.
 
