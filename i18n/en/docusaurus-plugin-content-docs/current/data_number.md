@@ -6,7 +6,7 @@
 
 The first section you will typically encounter on the LabVIEW Controls palette is dedicated to numeric controls:
 
-![](../../../../docs/images/image62.png "Numeric Controls Palette")
+![Numeric Controls Palette](../../../../docs/images/image62.png)
 
 Despite their varying appearances on the Front Panel, the controls on this palette all represent numeric data. The two controls in the upper right are designed for 'time', which is ultimately stored as numeric data. Other controls located in different palettes, such as drop-down lists and list boxes, also handle numeric data types.
 
@@ -14,11 +14,11 @@ The top two controls are the most frequently used numeric controls. They are sim
 
 LabVIEW numeric controls offer diverse settings and display options, many of which are accessible via the right-click shortcut menu. These include configuring the data representation (base) and display units:
 
-![](../../../../docs/images_2/z139.png "Numeric Control Right-Click Menu")
+![Numeric Control Right-Click Menu](../../../../docs/images_2/z139.png)
 
 For more advanced customization, you can open the control's Properties dialog box by right-clicking it and selecting **Properties**:
 
-![](../../../../docs/images/image63.png "Configuring Numeric Control Display Format")
+![Configuring Numeric Control Display Format](../../../../docs/images/image63.png)
 
 Here, you can adjust the control's appearance, size, data range, and more. The options are largely self-explanatory. For example, setting a data range prevents out-of-bounds inputs during runtime, while choosing a specific display format makes data easier to read.
 
@@ -28,7 +28,7 @@ Configuring custom time formats can be slightly intricate. First, set the Type t
 
 Here is how the value `0.0` appears when formatted as absolute time:
 
-![](../../../../docs/images/image64.png "Numeric Control Displaying Time Format")
+![Numeric Control Displaying Time Format](../../../../docs/images/image64.png)
 
 In LabVIEW, a real number representing absolute time indicates the number of seconds elapsed since 12:00 AM on January 1, 1904, Greenwich Mean Time (GMT). For instance, on a computer set to Beijing Time (GMT+8), `0.0` displays as `1904-01-01 08:00:00`.
 
@@ -46,7 +46,7 @@ LabVIEW offers multiple numeric representations to accommodate different ranges 
 
 You can view or change the representation of a Front Panel numeric control or a Block Diagram numeric constant by right-clicking it and selecting **Representation**:
 
-![](../../../../docs/images/image67.png "Representations")
+![Representations](../../../../docs/images/image67.png)
 
 The LabVIEW Help topic 'Numeric Data Types' provides detailed specifications for each option. In binary systems, 8 bits make up 1 byte. Different representations allocate different numbers of bytes, as summarized in the table below:
 
@@ -74,7 +74,7 @@ The exact byte size of the Extended Precision (EXT) type depends on your operati
 
 Always choose a representation that comfortably fits your expected data range. For example, a 16-bit signed integer (I16) supports values from -32,768 to 32,767. If you perform a basic operation like `300 * 300`, the result (`90,000`) exceeds the I16 limit. If you multiply two I16 constants with values of 300 and output the result to an I16 indicator, you will experience an overflow, resulting in incorrect data (specifically, `24,464`, since 90,000 − 65,536 = 24,464). Such errors can be hard to track down in larger applications.
 
-![](../../../../docs/images/image507.png "overflow")
+![overflow](../../../../docs/images/image507.png)
 
 While a 64-bit signed integer (I64) can represent numbers up to approximately $9 \times 10^{18}$, even it can only calculate factorials up to 20! before overflowing. When you need a broader range or must handle fractional numbers, use floating-point (real) representations instead.
 
@@ -91,13 +91,13 @@ In summary, larger data types provide a wider range and higher precision at the 
 
 Converting between numeric representations in LabVIEW is straightforward and often happens automatically. When you wire a value of one representation to a terminal of a different representation, LabVIEW performs an implicit conversion. For functions like Add, which can accept different numeric types, LabVIEW automatically coerces the smaller-range data type to match the larger-range input. The output then adopts the larger representation. To indicate an implicit conversion, LabVIEW displays a red dot, known as a **coercion dot**, at the input terminal:
 
-![](../../../../docs/images/image114.png "representation change")
+![representation change](../../../../docs/images/image114.png)
 
 While coercion dots on simple scalar values are usually harmless, coercion on large arrays forces LabVIEW to duplicate the entire array in memory, which can severely degrade performance.
 
 A common recommendation is to eliminate all coercion dots. However, simply inserting an explicit conversion function (found under **Programming -> Numeric -> Conversion**) right before the terminal does not save memory; the compiler performs the exact same buffer allocation. Use explicit conversion nodes only when you need to deliberately change data types midway through a calculation. To truly optimize your code, match the data representations at their source—by updating the representation of your numeric constants or Front Panel controls directly.
 
-![](../../../../docs/images/image115.png "explicitly conversion")
+![explicitly conversion](../../../../docs/images/image115.png)
 
 
 ### Special Numbers
@@ -111,7 +111,7 @@ In LabVIEW, operations that exceed a data type's range or involve undefined math
 
 In the complex number domain, operations that are undefined for real numbers yield valid results. For example, the square root of `-1` is valid and theoretically equals $i$ (the imaginary unit). However, due to floating-point precision limits, the calculated result in LabVIEW may include a tiny, non-zero real part (e.g., $1.11 \times 10^{-16}$). This demonstrates the precision limits inherent in floating-point representations.
 
-![](../../../../docs/images_2/z141.png "Complex Number Calculations")
+![Complex Number Calculations](../../../../docs/images_2/z141.png)
 
 These examples highlight why you should exercise caution when comparing floating-point numbers for equality. Even operations that mathematically should yield exact results often carry tiny rounding errors due to binary floating-point representation.
 
@@ -122,7 +122,7 @@ Understanding how LabVIEW handles overflows, division by zero, and floating-poin
 
 The primary functions for numeric manipulation are located under **Programming -> Numeric** on the Functions palette:
 
-![](../../../../docs/images/image68.png "Numeric palette")
+![Numeric palette](../../../../docs/images/image68.png)
 
 These nodes are intuitive, representing common operations like addition, subtraction, rounding, and reciprocals. For advanced math operations, refer to the **Mathematics** palette. Detailed function references are available in the LabVIEW Help and are not repeated here.
 
@@ -148,7 +148,7 @@ Expression Nodes are best suited for calculations with a single input and a sing
 
 Consider converting Fahrenheit to Celsius. While easily implemented with basic arithmetic nodes, a graphical representation of the formula is harder to read at a glance than the familiar algebraic formula. This is a limitation of graphical languages when representing pure math. Text-based expressions align naturally with standard mathematical notation. In LabVIEW, an Expression Node lets you type the equation directly, keeping the logic clear and intuitive (as shown in the lower half of the figure below):
 
-![](../../../../docs/images/image69.png "Expression Node")
+![Expression Node](../../../../docs/images/image69.png)
 
 Additionally, Expression Nodes consume far less Block Diagram space than equivalent clusters of math nodes.
 
@@ -160,11 +160,11 @@ The LabVIEW Help documents the operators and functions supported inside Expressi
 
 For calculations that require multiple inputs, the **Formula Express VI** is a convenient tool:
 
-![](../../../../docs/images/image71.png "Formula Express VI")
+![Formula Express VI](../../../../docs/images/image71.png)
 
 The design and applications of [Express VIs](measurement_express_vi) are covered in later chapters. For now, here is a brief overview: you can find the Formula Express VI under **Mathematics -> Scripts & Formulas** on the Functions palette. Dragging it onto the Block Diagram opens a configuration dialog that resembles a scientific calculator, making it easy to build equations without writing code:
 
-![](../../../../docs/images/image70.png "configuration panel")
+![configuration panel](../../../../docs/images/image70.png)
 
 The Formula Express VI supports up to eight inputs and produces a single output. A key drawback is that the formula is hidden inside the configuration dialog rather than displayed on the Block Diagram. To view or edit the equation, you must double-click the node to reopen its configuration panel, which can slow down code reviews.
 
@@ -172,7 +172,7 @@ The Formula Express VI supports up to eight inputs and produces a single output.
 
 For Multiple-Input-Multiple-Output (MIMO) systems or complex equations, the **Formula Node** is the ideal choice. It is located under **Programming -> Structures** on the Functions palette:
 
-![](../../../../docs/images/image72.png "Formula Node")
+![Formula Node](../../../../docs/images/image72.png)
 
 The Formula Node is an advanced, multi-input/multi-output version of the Expression Node. Its syntax is based on C, acting as a subset of C for mathematical operations. If you are familiar with C, you will find Formula Nodes highly intuitive. Even without C experience, learning its basic syntax is highly recommended for implementing complex formulas.
 
@@ -186,11 +186,11 @@ Using Formula Nodes for complex calculations can significantly clean up your Blo
 
 The image below shows a subVI from a chess game designed to calculate a piece's legal moves. Although it performs basic indexing on a 2D array, the code becomes highly complex and hard to read due to nested loops and nested Case structures. (The actual chess logic is not important; it is shown merely to illustrate graphical complexity).
 
-![](../../../../docs/images/image73.png "calculate the position")
+![calculate the position](../../../../docs/images/image73.png)
 
 Here is the same subVI refactored with a Formula Node. For programmers with basic familiarity with both C and LabVIEW, this version is vastly easier to read, as the nested logic is consolidated into a clean, text-based block.
 
-![](../../../../docs/images/image74.png "employs a Formula Node")
+![employs a Formula Node](../../../../docs/images/image74.png)
 
 However, Formula Nodes have some limitations. For developers with no text-based coding experience, learning the syntax introduces an extra learning curve.
 
@@ -202,33 +202,33 @@ In engineering and scientific applications, LabVIEW stands out for its native su
 
 LabVIEW automatically handles unit conversions. For example, to calculate the number of days in two years, you can wire them together directly, and LabVIEW converts the units automatically:
 
-![](../../../../docs/images/image75.png "conversions between different units")
+![conversions between different units](../../../../docs/images/image75.png)
 
 Just as LabVIEW prevents wiring mismatched data types (such as an integer to a string), it also enforces strict unit consistency. It prevents you from wiring incompatible physical quantities—for instance, you cannot wire a length value (meters) to a time indicator (seconds).
 
 Wiring incompatible units results in a broken wire, preventing common dimensional analysis errors at edit time:
 
-![](../../../../docs/images/image76.png "mix incompatible units")
+![mix incompatible units](../../../../docs/images/image76.png)
 
 For calculations between physical quantities and unitless numbers, some operations are allowed while others are blocked. For example, multiplying a diameter of 2 meters by the unitless constant $\pi$ (`2m * \pi`) to find the circumference is valid. However, adding a unitless number to a value with a unit (e.g., `2m + 3`) is physically meaningless and results in a broken wire:
 
-![](../../../../docs/images_2/z136.png "operations between quantity with and without unit")
+![operations between quantity with and without unit](../../../../docs/images_2/z136.png)
 
 While strict unit checking prevents errors, it can limit code reuse. For instance, a subVI designed to add two time values cannot be reused to add two length values. To solve this, LabVIEW supports **unit wildcards**.
 
 Unit wildcards let you write generic subVIs that adapt to whatever unit is wired to them. Represented as `$1` through `$9`, wildcards act as placeholders. For example, in a generic addition subVI, you can assign the unit `$1` to both inputs and the output. If you wire meters to it, the output becomes meters; if you wire seconds, the output becomes seconds.
 
-![](../../../../docs/images/image77.png "Unit wildcards")
+![Unit wildcards](../../../../docs/images/image77.png)
 
 However, many built-in LabVIEW VIs and functions do not support unit wildcards. Wiring unit-carrying data directly to them causes errors. The standard workaround is to strip the units before calling the function, perform the operation, and then re-apply the units to the output.
 
 The **Convert Unit** function (located under **Programming -> Numeric -> Conversion**) handles this task. It can strip units from a quantity or append units to a raw number. For example, to generate a random length between 1 and 2 meters, you can use the built-in `Random Number (Range).vi`. Since this VI does not support unit-carrying inputs, you must strip the units beforehand and re-apply them afterwards:
 
-![](../../../../docs/images_2/z137.png "Convert Unit")
+![Convert Unit](../../../../docs/images_2/z137.png)
 
 For converting between different units (e.g., inches to meters), use the **Cast Unit Bases** function on the same palette. Note that the **Convert Unit** node looks identical to an **Expression Node**. Although they look the same and share similar right-click menus, their operations are completely different. The two setups below look similar but yield entirely different results:
 
-![](../../../../docs/images_2/z138.png "Convert Unit vs expression node")
+![Convert Unit vs expression node](../../../../docs/images_2/z138.png)
 
 ## Boolean
 
@@ -236,32 +236,32 @@ For converting between different units (e.g., inches to meters), use the **Cast 
 
 Booleans represent binary states: `True` or `False`. While a single bit is sufficient to represent a Boolean value, modern CPUs process data in bytes. Consequently, LabVIEW stores Booleans as 8-bit bytes, where `0` represents `False` and any non-zero value represents `True`. The following code demonstrates conversion between numeric and Boolean types:
 
-![](../../../../docs/images/image117.png "Conversion Between Boolean and Numeric")
+![Conversion Between Boolean and Numeric](../../../../docs/images/image117.png)
 
 Numeric comparisons yield Boolean results (e.g., checking if $2 > 1$ returns `True`). However, you must take care when comparing floating-point numbers for equality or handling special values.
 
 Floating-point comparisons must account for rounding errors. Because computers represent real numbers with limited precision, small rounding errors occur. Two floating-point numbers should be considered equal only if their difference falls within a small acceptable range (epsilon). This tolerance varies depending on your application. For example, checking if the real part of $\sqrt{-1}$ is exactly `0` might return `False` on one computer and `True` on another due to processor and compiler variations. To ensure consistent results, check if the absolute difference is less than an acceptable threshold:
 
-![](../../../../docs/images_2/z142.png "Real number comparisons")
+![Real number comparisons](../../../../docs/images_2/z142.png)
 
 Is the expression `x == x + 100` always false? Mathematically, yes, but not in programming if `x` is infinity. In LabVIEW, `Inf` is equal to `Inf`. Any arithmetic operation on infinity (like `Inf + 100`) simply returns `Inf`:
 
-![](../../../../docs/images_2/z143.png "infinity is equal to infinity")
+![infinity is equal to infinity](../../../../docs/images_2/z143.png)
 
 Conversely, `NaN` (Not a Number) is unequal to everything, including itself (e.g., `NaN == NaN` returns `False`). To check if a value is `NaN`, you must use the **Not A Number/Path/Refnum?** function:
 
-![](../../../../docs/images_2/z144.png "Checking for NaN")
+![Checking for NaN](../../../../docs/images_2/z144.png)
 
 
 ### Boolean Controls {#boolean-controls}
 
 LabVIEW offers Boolean controls in many visual styles, including toggle switches, pushbuttons, and LEDs:
 
-![](../../../../docs/images_2/z145.png "Boolean control palette")
+![Boolean control palette](../../../../docs/images_2/z145.png)
 
 These controls mimic both the appearance and physical behaviors of real-world hardware. By right-clicking a Boolean control and selecting **Mechanical Action**, you can configure how it responds to clicks. LabVIEW provides six mechanical actions, grouped into **Switch** behaviors and **Latch** behaviors:
 
-![](../../../../docs/images/image92.png "boolean mechanical actions")
+![boolean mechanical actions](../../../../docs/images/image92.png)
 
 - **Switch actions** (top row: *Switch When Pressed*, *Switch When Released*, *Switch Until Released*) toggle and hold their state until clicked again, behaving like a physical light switch.
 - **Latch actions** (bottom row: *Latch When Pressed*, *Latch When Released*, *Latch Until Released*) behave like momentary push buttons. They toggle their state temporarily and revert to their default value as soon as the LabVIEW Block Diagram reads the control's value.
@@ -289,7 +289,7 @@ int64 intValue = *intPointer;
 
 The equivalent block diagram in LabVIEW looks like this:
 
-![](../../../../docs/images/image133.png "Type Cast DBL to I64")
+![Type Cast DBL to I64](../../../../docs/images/image133.png)
 
 It is important to distinguish Type Casting from the representation conversions discussed earlier (such as converting a single-precision float to a double-precision float, or a number to a Boolean). Those conversions preserve the *value* or *meaning* of the data by converting its binary representation under the hood. For example, the number `13.4` can be stored as a DBL, an SGL, or converted to the [string](data_string) `'13.4'`. The binary representation in memory changes for each, but the value is preserved.
 
@@ -313,11 +313,11 @@ Therefore, type casting is primarily used when transmitting raw bytes over netwo
 
 Casting between Booleans and U8 (or I8) values is straightforward because both occupy a single byte in memory. The following two examples show different ways to convert between Booleans and numeric bytes. The first uses **Type Cast**:
 
-![](../../../../docs/images/image134.png "type cast Boolean U8")
+![type cast Boolean U8](../../../../docs/images/image134.png)
 
 The second uses standard conversion functions:
 
-![](../../../../docs/images/image117.png "converison between Boolean and Numeric")
+![converison between Boolean and Numeric](../../../../docs/images/image117.png)
 
 If you expand the numeric type to a multi-byte value (such as a 16-bit integer, I16), these two approaches yield different outcomes. Standard conversions work as expected (e.g., checking if the I16 is non-zero, or using a Select node). However, type casting is risky here.
 
@@ -333,19 +333,19 @@ For example, a relative duration of 2 minutes is represented by `120.0` seconds.
 
 You can convert between timestamps and double-precision floats using the standard conversion functions. Use **To Double Precision Float** to get the numeric seconds, and **To Timestamp** ![](../../../../docs/images/image123.png) to convert numeric seconds back into a timestamp. To convert between a timestamp and calendar components (year, month, day, hour, etc.), use the **Date/Time to Seconds** and **Seconds to Date/Time** functions. Here is an example program:
 
-![](../../../../docs/images_2/z158.png "conversion between time and numberic")
+![conversion between time and numberic](../../../../docs/images_2/z158.png)
 
 The execution results are shown below:
 
-![](../../../../docs/images_2/z159.png "time conversion results")
+![time conversion results](../../../../docs/images_2/z159.png)
 
 Because a timestamp is stored in memory as a 128-bit structure (64-bit integer seconds + 64-bit fractional seconds), you can use **Type Cast** to unpack its raw structure. Below, a timestamp is cast into a cluster containing two 64-bit unsigned integers (U64). The first represents the epoch seconds, and the second represents the fractional seconds:
 
-![](../../../../docs/images/image136.png "type cast between time and numberic")
+![type cast between time and numberic](../../../../docs/images/image136.png)
 
 The output matches standard LabVIEW timestamp values:
 
-![](../../../../docs/images/image137.png "type cast result")
+![type cast result](../../../../docs/images/image137.png)
 
 While this exercise demonstrates how LabVIEW manages timestamps under the hood, you should always prefer standard conversion functions over Type Cast in production code. Incorrect casting of complex structures can easily introduce bugs.
 
