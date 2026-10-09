@@ -46,13 +46,13 @@ When multiple call sites of a reentrant VI use shared clones, they retrieve clon
 
 The image below shows a simple sub-VI that increments its output by one each time it is executed:
 
-![](../../../../docs/images/image255.png "Sub-VI Counting the Number of Calls")
+![Sub-VI Counting the Number of Calls](../../../../docs/images/image255.png)
 
 This VI employs a feedback node, which plays a critical role in its operation. Each time the VI runs, the feedback node provides the value from the previous execution. The VI increments this value by one and feeds it back to the node for the next run. The '0' beneath the feedback node indicates its initial value, which is output on the very first execution after the main program launches.
 
 Consider the following diagram of an application that calls this "Run Count" sub-VI:
 
-![](../../../../docs/images/image256.png "Testing Run Count")
+![Testing Run Count](../../../../docs/images/image256.png)
 
 In this setup, the behavior of the "Run Count" sub-VI significantly influences the output. The main program contains two parallel loops: one runs 10 times and the other runs 20 times. Because there is no data connection between them, they run in parallel, and their execution order is indeterminate.
 
