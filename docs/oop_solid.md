@@ -26,11 +26,11 @@
 
 比如：当我们考虑设计一个宠物店的系统时，在这个系统中，有多种动物，如猫、狗。尽管这些动物有很多不同的特性，但它们也有一些共同点。例如，每种动物都有一个名字，都需要吃食物，都可以发出声音。这些共同点，就可以抽象成为一个“动物”接口：
 
-![](images_2/z345.png "项目")
+![项目](images_2/z345.png)
 
 在这个 IAnimal 接口中，我们定义了共同的方法 set_name, eat 和 speak。但是，我们并没有为这些方法提供具体的实现。在这一步抽象完成之后，我们可以基于这个抽象的 Animal 接口，再去定义具体的动物类。项目最终的继承关系如下：
 
-![](images_2/z344.png "继承关系")
+![继承关系](images_2/z344.png)
 
 每个具体的动物类都实现了 IAnimal 接口，并为 speak 方法提供了具体的实现。通过这样的设计，我们可以轻松地向系统中添加更多的动物种类，而不必每次都从头开始定义共同的属性和行为。这就是抽象的威力所在。
 
@@ -48,7 +48,7 @@
 
 为了遵循里氏替换原则，我们可以重新设计这两个类，使得 PortableMultimeter 不是 Multimeter 的子类，而是两者都是更通用的一些接口的子类。比如，我们可以暂时定义一个用于测量电压的接口 IVoltageMeasurable，和一个用于测量电流的接口 ICurrentMeasurable，继承关系如下：
 
-![](images_2/z346.png "继承关系")
+![继承关系](images_2/z346.png)
 
 如此一来，PortableMultimeter 和 Multimeter 都是实现了某些特定接口的类。但它们之间并没有子类和父类的关系，是两个平等独立的类。我们在程序里也就不用担心有人使用 PortableMultimeter 去替代 Multimeter，因此不再违反里氏替换原则。从这个示例中，我们可以看到：面向对象编程中的类，本质上是为软件开发服务的，在设计类，设计类与类之间的关系时，最主要考虑程序的逻辑关系，而不是这些事物在现实世界中的关系。
 
@@ -66,7 +66,7 @@
 
 下面是一个简化了的，Printer 类中的 print_document.vi：
 
-![](images_2/z347.png "print_document.vi")
+![print_document.vi](images_2/z347.png)
 
 在这个例子中，print_document.vi 接受一个 IReport 接口的对象作为参数并打印其内容。这意味着 Printer 依赖于 IReport，但这种依赖关系并不意味着 Printer 拥有 IReport，或者 IReport 的生命周期取决于 Printer。它只是表示 Printer 类在其某些操作中使用了 IReport 接口。
 
@@ -83,14 +83,14 @@
 
 为了更好地解释这个原则，我们考虑这样一个报告生成示例：假设我们有一个 ReportService 类，它直接依赖于具体的 PDFStudentReport 类来生成 PDF 报告。下图是 ReportService 类的 create_report.vi 的程序框图：
 
-![](images_2/z348.png "create_report.vi")
+![create_report.vi](images_2/z348.png)
 
 create_report.vi 直接拿到保存在数据中的 PDFStudentReport 类的一个实例，然后调用了 PDFStudentReport类 的 generate.vi 生成一份 PDF 报告。
 
 这个设计的问题在于： ReportService 直接依赖于 PDFStudentReport。当需求发生变动的时候，比如，新的要求是生成一个 Web 格式的报告，我们就必须要修改 ReportService 类。如果我们遵循依赖倒置原则，就可以不修改 ReportService 而直接支持新的报告格式了。实现方法如下：
 我们定义一个抽象的 IReport 接口，然后让 PDFStudentReport 和 WebStudentReport 都去实现这个接口。
 
-![](images_2/z349.png "create_report.vi")
+![create_report.vi](images_2/z349.png)
 
 关键的改变在于 ReportService 类的私有数据簇（.ctl 文件）：它的内部不再保存 PDFStudentReport 的具体对象，而是保存一个 IReport 接口类型的线缆。
 
