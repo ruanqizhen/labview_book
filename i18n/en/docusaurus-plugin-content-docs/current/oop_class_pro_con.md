@@ -134,7 +134,7 @@ A LabVIEW developer once complained that their application took several minutes 
 
 LabVIEW provides property nodes to query which VIs are currently loaded in memory. You can use these to profile your application's memory footprint:
 
-![](../../../../docs/images/image817.png "Viewing all VIs in memory")
+![Viewing all VIs in memory](../../../../docs/images/image817.png)
 
 If a VI is independent (or belongs to a standard project library, `.lvlib`) and has no subVIs, opening it loads *only* that specific VI into memory. However, opening any VI belonging to a `.lvclass` triggers the loading of the **entire class** (all member VIs) into memory. Furthermore, if the class has parent or ancestor classes, all VIs inside those ancestor classes are loaded as well.
 
