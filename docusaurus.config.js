@@ -89,6 +89,20 @@ const config = {
         { name: 'description', content: '《我和LabVIEW:一个NI工程师的十年编程经验》，是一本广受好评的畅销书。介绍了各种控件，节点，结构的使用方法和编程模式，调试优化等高级功能。' },
         { name: 'author', content: 'Qizhen Ruan 阮奇桢' },
       ],
+      footer: {
+        style: 'dark',
+        links: [
+          {
+            title: '本站',
+            items: [
+              { label: '返回主页', href: 'https://qizhen.xyz' },
+              { label: 'GitHub', href: 'https://github.com/ruanqizhen/labview_book' },
+              { label: 'MIT License', href: 'https://github.com/ruanqizhen/labview_book/blob/main/LICENSE' },
+            ],
+          },
+        ],
+        copyright: 'Copyright © 2026 阮奇桢',
+      },
     }
   ),
   plugins: [
