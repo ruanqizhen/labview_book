@@ -17,13 +17,13 @@ The Project Explorer also integrates with source code control (SCC) tools, allow
 
 Below is a screenshot of the Project Explorer. It uses a tree structure to organize VIs, controls, libraries, and build settings:
 
-![](../../../../docs/images/image531.png "Project Explorer Window")
+![Project Explorer Window](../../../../docs/images/image531.png)
 
 The top-level item in the tree represents the project itself. A LabVIEW project is saved on disk as an XML-formatted text file with a `.lvproj` extension.
 
 The second level shows the execution targets. By default, you will see **My Computer**, representing the local PC. If you have toolkits installed for other hardware platforms (such as LabVIEW Real-Time or LabVIEW FPGA), those target devices (e.g., RT PXI controllers, CompactRIO chassis, or FPGA cards) will also appear at this level, as shown below:
 
-![](../../../../docs/images/image532.png "A project with multiple target devices")
+![A project with multiple target devices](../../../../docs/images/image532.png)
 
 Under each target, you can organize your VIs (`.vi`), controls (`.ctl`), project libraries (`.lvlib`), classes (`.lvclass`), and XControls (`.xctl`). 
 
@@ -55,15 +55,15 @@ You can resolve cross-linking and move files physically on disk by dragging them
 
 For multi-developer projects, integrating LabVIEW with source code control (such as Git, Perforce, or Visual SourceSafe) is highly recommended. You can select your SCC provider globally under `Tools -> Options -> Source Control`:
 
-![](../../../../docs/images/image534.png "Configuring Source Code Control Tool Options")
+![Configuring Source Code Control Tool Options](../../../../docs/images/image534.png)
 
 You can also override these settings for a specific project in the Project Properties dialog:
 
-![](../../../../docs/images/image535.png "Project Properties Dialog for Source Code Control Options")
+![Project Properties Dialog for Source Code Control Options](../../../../docs/images/image535.png)
 
 Once configured, file status icons appear next to project items in the Project Explorer. A small green square indicates a file is synchronized with the server; a red checkmark indicates the file is checked out and modified locally:
 
-![](../../../../docs/images/image536.png "Source Code Control Functionality")
+![Source Code Control Functionality](../../../../docs/images/image536.png)
 
 You can perform common operations like checkout, check-in, and reverting changes directly from the Project Explorer toolbar or context menu.
 
@@ -74,13 +74,13 @@ Because LabVIEW code is graphical, standard text-based diff tools cannot compare
 
 If SCC is configured, you can right-click a VI in the Project Explorer and select **Show Differences** to compare the local version with the latest version in repository. You can also manually compare any two VIs by selecting `Tools -> Compare -> Compare VIs` from the main menu:
 
-![](../../../../docs/images/image537.png "Comparing VIs")
+![Comparing VIs](../../../../docs/images/image537.png)
 
 The differences are listed in a dialog box. Double-clicking any item in the list will automatically open both VIs and highlight the discrepancies on their Block Diagrams or Front Panels.
 
 If two developers modify the same VI concurrently, you can use the **Merge VIs** tool (accessible via `Tools -> Merge -> Merge VIs`) to resolve conflicts and merge changes:
 
-![](../../../../docs/images/image538.png "Merge VI Tool")
+![Merge VI Tool](../../../../docs/images/image538.png)
 
 
 ### Application Instances (Execution Environments)
@@ -89,11 +89,11 @@ VIs in LabVIEW are identified in memory by their names. In older versions of Lab
 
 With the introduction of projects, LabVIEW introduced **Application Instances**. Each target in a project (and the project itself) operates in its own isolated memory space. VIs running in different application instances do not conflict, allowing you to open same-named VIs simultaneously without interference:
 
-![](../../../../docs/images/image540.png "Same-named VIs from different projects can be opened simultaneously")
+![Same-named VIs from different projects can be opened simultaneously](../../../../docs/images/image540.png)
 
 The active application instance name is displayed at the bottom-left corner of the VI window:
 
-![](../../../../docs/images/image539.png "Project name displayed on VI")
+![Project name displayed on VI](../../../../docs/images/image539.png)
 
 If you need to use VIs with identical names within the *same* target (for instance, if you have two different instruments that both use a subVI named `Initialize.vi`), you must place them into separate **Project Libraries**.
 
@@ -106,18 +106,18 @@ In software development, "library" often refers to dynamic-link libraries (DLLs)
 
 To create a library, right-click a target in the Project Explorer and select `New -> Library`. You can add VIs and controls directly to the library and organize them using folders:
 
-![](../../../../docs/images/image541.png "File Organization in a Library")
+![File Organization in a Library](../../../../docs/images/image541.png)
 
 
 ### Namespace Isolation
 
 Standard VIs are identified solely by their filenames.
 
-![](../../../../docs/images/image542.png "VI Name")
+![VI Name](../../../../docs/images/image542.png)
 
 When a VI is added to a Project Library, its qualified name changes to include the library name as a namespace prefix, formatted as `LibraryName.lvlib:VIName.vi`. For example, a VI named `New.vi` inside `NI_XML.lvlib` is identified in memory as `NI_XML.lvlib:New.vi`:
 
-![](../../../../docs/images/image543.png "VI Name Comprises Library File Name and VI File Name")
+![VI Name Comprises Library File Name and VI File Name](../../../../docs/images/image543.png)
 
 Because the qualified name includes the library prefix, VIs in different libraries can share the same file name without conflict, even within the same application instance.
 
@@ -132,7 +132,7 @@ Without access control, other developers would discover and call the internal he
 
 Project Libraries solve this problem by allowing you to define access permissions (**Public** or **Private**) for VIs:
 
-![](../../../../docs/images/image544.png "Setting Access Permissions for VIs in a Library")
+![Setting Access Permissions for VIs in a Library](../../../../docs/images/image544.png)
 
 - **Public**: The VI can be called by VIs outside the library. This constitutes the module's API.
 - **Private**: The VI can only be called by other VIs within the same library. 

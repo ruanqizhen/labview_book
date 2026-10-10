@@ -28,11 +28,11 @@ First, icons convey meaning much faster than code syntax. A beginner looking at 
 
 Here's an example of a labeled function:
 
-![](../../../../docs/images/image20.png "labeled function")
+![labeled function](../../../../docs/images/image20.png)
 
 Second, LabVIEW organizes all functions, structures, and subVIs into a hierarchical, categorized menu called the **Functions Palette**:
 
-![](../../../../docs/images/image21.png "function palette")
+![function palette](../../../../docs/images/image21.png)
 
 Most text-based languages do not offer a visual, categorized directory of all their built-in features for real-time reference. In a text editor, you write functions manually. While autocompletion helps—typing `sq` might suggest `sqrt`—it cannot help if you don't know the name of the function you need (for instance, a function to convert a float to a hex string). In that case, you have to search external documentation or write the helper function yourself.
 
@@ -52,7 +52,7 @@ The LabVIEW Help is an essential yet underutilized tool. While older versions we
 
 The fastest way to get help is the **Context Help** window. This floating window dynamically displays description and wiring information for whatever object your mouse is hovering over. To open it, click the yellow question mark icon (![Context Help Icon](../../../../docs/images/image22.png)) on the toolbar of either the front panel or the block diagram, select **Help -> Show Context Help** from the menu, or press **Ctrl+H**:
 
-![](../../../../docs/images/image23.png "Context Help")
+![Context Help](../../../../docs/images/image23.png)
 
 In the example above, the **Format Date/Time String** function is placed on the block diagram. While its name suggests its general purpose, formatting a date/time string requires specific format codes (like `%Y` or `%m`). Hovering your mouse over the function with Context Help open immediately displays a list of these codes in the floating window.
 
@@ -60,7 +60,7 @@ In the bottom-left corner of the Context Help window, you will find three small 
 
 While Context Help is great for quick reference, it is often too brief. For deeper explanations, hover over the node and click the **Detailed Help** link at the bottom of the Context Help window (or click the blue question mark). This will open the main LabVIEW Help browser directly to the documentation page for that specific function:
 
-![](../../../../docs/images/image24.png "LabVIEW online help")
+![LabVIEW online help](../../../../docs/images/image24.png)
 
 This official documentation details the behavior of every node and parameter. It is the most complete and authoritative reference available. Make it your first stop when exploring new functions.
 
@@ -75,11 +75,11 @@ While documentation is helpful, abstract concepts are often much easier to under
 
 At the bottom of many help pages, you will find direct links to related example VIs. Clicking **Open Example** opens the program in LabVIEW so you can run it and inspect its block diagram:
 
-![](../../../../docs/images/image25.png "example links in help doc")
+![example links in help doc](../../../../docs/images/image25.png)
 
 You can also browse all available examples using the **NI Example Finder**. Launch it by selecting **Find Examples** on the LabVIEW welcome screen, or by going to **Help -> Find Examples** in the menu:
 
-![](../../../../docs/images/image26.png "NI Example Finder")
+![NI Example Finder](../../../../docs/images/image26.png)
 
 The Example Finder allows you to browse examples by category. For example, to learn about file I/O, you would navigate to **Basics -> File Input and Output**.
 
@@ -89,7 +89,7 @@ If you are online, checking the **Include ni.com examples** box in the bottom-le
 
 Many of these online examples are contributed by the community. You can search or share your own VIs on the [NI Forums](https://forums.ni.com/):
 
-![](../../../../docs/images/image27.png "NI Developer Community")
+![NI Developer Community](../../../../docs/images/image27.png)
 
 Finally, keep in mind that many built-in LabVIEW functions and palette VIs are open; you can double-click them to inspect their block diagrams and learn how NI's engineers wrote them. The example VIs shown in this book are also available in our GitHub repository at [code](https://github.com/ruanqizhen/labview_book/tree/main/code).
 
@@ -119,15 +119,15 @@ You have three primary options for sharing LabVIEW code, each with its trade-off
 
 To create a VI Snippet, select the portion of code you want to share on your block diagram, select **Edit -> Create VI Snippet from Selection** from the menu, and save the file:
 
-![](../../../../docs/images_2/z205.gif "Create VI Snippet")
+![Create VI Snippet](../../../../docs/images_2/z205.gif)
 
 A VI Snippet includes a distinctive border indicating it can be dragged into LabVIEW. Here is a VI Snippet of a simple block diagram:
 
-![](../../../../docs/images_2/z206.png "VI Snippet")
+![VI Snippet](../../../../docs/images_2/z206.png)
 
 In this book, we use VI Snippets for code illustrations wherever possible. You can test these programs by dragging the images directly from your browser onto a blank VI's block diagram:
 
-![](../../../../docs/images_2/z209.gif "Using VI Snippet")
+![Using VI Snippet](../../../../docs/images_2/z209.gif)
 
 *Warning: LabVIEW embeds the code logic inside the PNG file's metadata. If you upload a Snippet to platforms that compress images or strip metadata (such as Discord, Slack, WeChat, or image-hosting sites like Imgur), the embedded code will be lost. The image will become a flat screenshot. To preserve the metadata when sharing via chat or email, compress the PNG into a `.zip` archive first.*
 

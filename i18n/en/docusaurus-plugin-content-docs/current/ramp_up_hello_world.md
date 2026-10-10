@@ -68,7 +68,7 @@ Once placed, clicking the indicator reveals eight small blue or black selection 
 
 The block diagram is where the program's logic is implemented. When you placed the String Indicator on the Front Panel, LabVIEW automatically added a corresponding **terminal** to the Block Diagram:
 
-![](../../../../docs/images/image8.png "Block Diagram with a Control Terminal")
+![Block Diagram with a Control Terminal](../../../../docs/images/image8.png)
 
 Any data wired to this terminal on the block diagram will be displayed in the front panel indicator when the program runs. If we send the string "Hello, World!" to this terminal (labeled "String"), the text box on the user interface will display "Hello, World!".
 
@@ -76,7 +76,7 @@ When the Block Diagram window is active, the **Functions Palette** becomes avail
 
 In the Functions Palette, select **Programming -> String** to locate the **String Constant**:
 
-![](../../../../docs/images/image9.png "String Functions Palette")
+![String Functions Palette](../../../../docs/images/image9.png)
 
 Drag the String Constant onto the block diagram. Once placed, type `Hello, World!` inside it.
 
@@ -84,11 +84,11 @@ LabVIEW uses **wires** to pass data between nodes. Hover your cursor over the ou
 
 Notice that the wire and the terminals are pink. In LabVIEW, wire colors represent specific data types. Pink indicates string (text) data, orange or blue represent numeric data, and green represents Boolean (True/False) values. This color coding is a powerful feature of graphical programming, letting you identify data types and flow at a glance.
 
-![](../../../../docs/images/image10.gif "Initiating a Wire")
+![Initiating a Wire](../../../../docs/images/image10.gif)
 
 With the wire connected, our program is complete! Switch back to the Front Panel and click the **Run** button (the single white arrow icon on the far left of the toolbar) to execute it. The text "Hello, World!" will instantly appear in the String Indicator:
 
-![](../../../../docs/images/image11.gif "Execution Result")
+![Execution Result](../../../../docs/images/image11.gif)
 
 *Warning: Avoid clicking the **Run Continuously** button (the icon with two circular arrows) next to the Run button. This forces the VI to run in an infinite loop, which is generally a bad programming practice because it bypasses programmatic control over when the software stops.*
 
@@ -126,7 +126,7 @@ The execution logic of LabVIEW programs can be understood as follows:
 
 Data originates from a source node on the block diagram and follows the connecting wire to an input terminal of the subsequent node. After processing at this node, the data exits through the node's output terminal and continues along the wire to the next node. This flow persists until the data reaches a terminal node. Thus, the sequence of data flow dictates the execution order, characterizing LabVIEW programs as dataflow-driven.
 
-![](../../../../docs/images/image15.png "simple mathematical operation")
+![simple mathematical operation](../../../../docs/images/image15.png)
 
 The figure above shows a simple mathematical operation. Data originates at the input terminal, flows through a wire to the **Increment** function, passes from the output of the Increment function to the **Square Root** function, and finally flows into the output terminal.
 
@@ -141,17 +141,17 @@ Functions and subVIs have fixed terminal directions: inputs on the left, outputs
 
 Wires can branch to send the same data to multiple targets:
 
-![](../../../../docs/images/image16.png "data directed into 2 branches")
+![data directed into 2 branches](../../../../docs/images/image16.png)
 
 When a wire branches, LabVIEW duplicates the data so that both receiving nodes process it independently (in practice, LabVIEW optimizes this with smart buffers, which we will discuss later).
 
 Conversely, you cannot connect multiple data sources to a single input terminal. Doing so creates a **broken wire**, indicated by a dashed line with a red 'X':
 
-![](../../../../docs/images/image17.png "connect 2 sources")
+![connect 2 sources](../../../../docs/images/image17.png)
 
 When a block diagram has a broken wire, the Run button on the toolbar breaks into a fractured arrow, and clicking it opens the Error List detailing the conflict:
 
-![](../../../../docs/images/image18.png "error message")
+![error message](../../../../docs/images/image18.png)
 
 
 ## Practice Exercise

@@ -6,7 +6,7 @@ LabVIEW's default settings might not always align with your preferences. Fortuna
 
 To explore and adjust settings, navigate to **Tools -> Options** in the LabVIEW menu. This opens the Options dialog:
 
-![](../../../../docs/images/image54.png "LabVIEW's Options")
+![LabVIEW's Options](../../../../docs/images/image54.png)
 
 This dialog contains a wide range of configurable settings. If you are unsure what a specific option does, click the **Help** button on the dialog for detailed explanations.
 
@@ -16,7 +16,7 @@ Configuring your environment is highly subjective; there is no one-size-fits-all
 
 For example, a common tweak is changing how Front Panel terminals appear on the Block Diagram. By default, LabVIEW places them as large icons:
 
-![](../../../../docs/images/image55.png "Control terminal Displayed as Icon")
+![Control terminal Displayed as Icon](../../../../docs/images/image55.png)
 
 While these icons are colorful, they occupy a significant amount of space and quickly clutter the diagram. As a professional best practice, it is highly recommended to display terminals as small text nodes. To make this the default behavior, go to **Tools -> Options -> Block Diagram** and uncheck **Place front panel terminals as icons**.
 
@@ -39,7 +39,7 @@ If you are placing many functions, click the **thumbtack** icon in the top-left 
 
 When you first open a palette, it may show only a few default categories, hiding others:
 
-![](../../../../docs/images/image56.png "Default Function Palette Layout")
+![Default Function Palette Layout](../../../../docs/images/image56.png)
 
 You can customize the visible categories to match your needs:
 
@@ -47,7 +47,7 @@ You can customize the visible categories to match your needs:
 2. Click the **Customize** button on the palette toolbar and select **Change Visible Palettes**.
 3. In the dialog box, check the categories you want to see and uncheck those you rarely use to keep the menu clean:
 
-![](../../../../docs/images/image57.png "Need to Change the Default Display Items of the Function Palette")
+![Need to Change the Default Display Items of the Function Palette](../../../../docs/images/image57.png)
 
 Since LabVIEW expands the topmost category by default, placing your most-used category at the top of the list will save you extra clicks.
 
@@ -55,7 +55,7 @@ Since LabVIEW expands the topmost category by default, placing your most-used ca
 
 To move a category within the palette, click the **Customize** button on the pinned palette and select **Change Visible Palettes**. You can also drag categories directly: hover your mouse over the double vertical lines to the left of a category name (like **Favorites**), and drag it to a new position. Moving **Favorites** to the top ensures it is the first menu that expands when you open the palette:
 
-![](../../../../docs/images/image58.png "Adjust the Position of the Item")
+![Adjust the Position of the Item](../../../../docs/images/image58.png)
 
 ### Adding Items to Favorites
 
@@ -64,11 +64,11 @@ The **Favorites** category is highly customizable. You can add frequently used f
 1. Navigate to **Programming -> Structures**.
 2. Right-click the **Structures** title bar in the palette and select **Add Subpalette to Favorites**:
 
-![](../../../../docs/images/image59.png "Add Sub-Category to Favorites")
+![Add Sub-Category to Favorites](../../../../docs/images/image59.png)
 
 Adding your most-used subpalettes to **Favorites** puts your daily tools right at your fingertips when you open the palette:
 
-![](../../../../docs/images/image60.png "Customized Function Selection Palette")
+![Customized Function Selection Palette](../../../../docs/images/image60.png)
 
 
 ## Finding Functions and Controls
