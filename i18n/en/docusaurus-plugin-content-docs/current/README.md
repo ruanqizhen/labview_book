@@ -1,3 +1,7 @@
+---
+description: The open-source edition of "My Decade of LabVIEW Programming" — a complete free LabVIEW tutorial by a former NI engineer, covering basics, programming patterns, object-oriented programming and performance optimization.
+---
+
 # LabVIEW Tutorial
 
 ## About This Book
