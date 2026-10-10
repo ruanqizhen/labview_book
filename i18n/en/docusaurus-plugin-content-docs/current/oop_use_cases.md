@@ -57,17 +57,17 @@ Consider a simple program that needs to process two types of data: a raw number 
 
 Using class-based polymorphism, we can write a single subVI call that handles both types:
 
-![](../../../../docs/images/image796.png "The same method can handle different data types")
+![The same method can handle different data types](../../../../docs/images/image796.png)
 
 To implement this, we wrap the two different structures into separate subclasses: a `Numeric` class and a `Cluster` class. We then define a parent class with no data to serve as their common ancestor:
 
-![](../../../../docs/images/image797.png "Class structure for handling different data types")
+![Class structure for handling different data types](../../../../docs/images/image797.png)
 
 The `Add 1.vi` method is defined as dynamic dispatch in the parent class and overridden in each subclass.
 
 While **Polymorphic VIs** can also dispatch calls based on the input type, they are resolved at edit-time. You cannot group different data types into the same collection (like an array of polymorphic types) and loop through them. With classes, you can cast the different subclasses into an array of the parent class type and process them inside a single For Loop:
 
-![](../../../../docs/images/image798.png "Placing different types of data within the same data structure")
+![Placing different types of data within the same data structure](../../../../docs/images/image798.png)
 
 By decoupling the algorithm from concrete types, you can reuse the same loop structure to process any new data type by simply creating a new subclass and overriding the dynamic dispatch method.
 
@@ -86,15 +86,15 @@ Each plugin is built as a separate class that implements `PluginInterface.lvclas
 
 The project structure looks like this:
 
-![](../../../../docs/images_2/z016.png "Interface and plugin classes")
+![Interface and plugin classes](../../../../docs/images_2/z016.png)
 
 Here is the implementation of `execute.vi` inside `Task1`:
 
-![](../../../../docs/images_2/z017.png "Plugin interface method block diagram")
+![Plugin interface method block diagram](../../../../docs/images_2/z017.png)
 
 Below is the main framework block diagram that dynamically loads and runs the plugins:
 
-![](../../../../docs/images_2/z018.png "Framework-plugin structure program implementation method")
+![Framework-plugin structure program implementation method](../../../../docs/images_2/z018.png)
 
 The framework scans the directory, locates the `.lvclass` paths, and uses the **Get LV Class Default Value** node to load the class definitions into memory. Since this node is generic, it outputs a reference typed as **LabVIEW Object**.
 
