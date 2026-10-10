@@ -48,11 +48,11 @@ if (conditionA) {
 
 If you directly duplicate this nested structure in LabVIEW, the block diagram becomes cluttered with nested Case Structures. In text-based code, nesting still displays all lines sequentially on the screen, letting you scroll to read the logic. In LabVIEW, a Case Structure only displays one case at a time. Tracing logic across nested Case Structures requires clicking through selector menus on multiple layers, which is highly tedious and hides the code flow:
 
-![](../../../../docs/images/image672.png "Nested Case structures lead to decreased code readability")
+![Nested Case structures lead to decreased code readability](../../../../docs/images/image672.png)
 
 To optimize this for LabVIEW's dataflow model, you should combine the multiple Boolean inputs into a single selector value using array conversion or logical operations. Then, wire the combined value to a single, multi-case Case Structure (as shown below). This flat design eliminates nesting, making every execution path clean and inspectable at a glance:
 
-![](../../../../docs/images/image673.png "Case structure usage that aligns with LabVIEW programming philosophy")
+![Case structure usage that aligns with LabVIEW programming philosophy](../../../../docs/images/image673.png)
 
 In the example above, the Boolean inputs are bundled into an array and converted to an integer, so the Case Structure selector labels use binary representations (e.g., `000`, `001`, `010`). This clearly documents the state combinations on each case banner.
 

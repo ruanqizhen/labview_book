@@ -32,17 +32,17 @@ A readable Block Diagram relies on clean spacing, logical node alignment, and st
 
 The example below shows a program block diagram that is exceptionally easy to read due to its well-organized wiring:
 
-![](../../../../docs/images/image709.png "Typically well-organized block diagram")
+![Typically well-organized block diagram](../../../../docs/images/image709.png)
 
 Wiring manually can be tedious. LabVIEW includes the **Block Diagram Clean Up** tool (the broom icon on the Block Diagram toolbar, or **Ctrl+U**). Clicking this automatically realigns nodes, reroutes wires, and compacts structures without altering your code logic.
 
 For example, this messy Block Diagram:
 
-![](../../../../docs/images/image710.png "Disorganized block diagram")
+![Disorganized block diagram](../../../../docs/images/image710.png)
 
 ...becomes this clean layout after applying the cleanup tool:
 
-![](../../../../docs/images/image711.png "Block diagram after using the 'Clean Up Diagram' tool")
+![Block diagram after using the 'Clean Up Diagram' tool](../../../../docs/images/image711.png)
 
 While the automated cleanup tool is highly convenient, it is not a complete replacement for manual layout. It can sometimes group nodes tightly or create unnecessary bends. A professional developer should use the cleanup tool as a starting point and make manual adjustments to maximize clarity and beauty.
 
@@ -65,7 +65,7 @@ For general block diagram comments, you can double-click any empty space on the 
 
 Free labels can drift if you run the **Block Diagram Clean Up** tool, as the layout engine is unaware of which node a label refers to. To prevent this, use **Callouts (anchored arrows)**. When you hover over a Free Label, a small circle icon appears in the corner. Dragging this icon pulls out an arrow line that you can anchor directly to a specific wire or node:
 
-![](../../../../docs/images/image712.png "Using arrows to indicate the target of comments")
+![Using arrows to indicate the target of comments](../../../../docs/images/image712.png)
 
 Even if you move the node or run the cleanup tool, the label and arrow remain logically linked and move together:
 
@@ -73,7 +73,7 @@ Even if you move the node or run the cleanup tool, the label and arrow remain lo
 
 Another method is numbering comments and placing matching number tags on the diagram, though anchored callout arrows are generally preferred because they are fully interactive:
 
-![](../../../../docs/images/image713.png "Using labels to indicate the target of comments")
+![Using labels to indicate the target of comments](../../../../docs/images/image713.png)
 
 
 ## Type Definitions (.ctl)
@@ -105,17 +105,17 @@ The industry standard is the **4-2-2-4** connector pane layout (the numbers indi
 
 Using a uniform 4-2-2-4 layout across all SubVIs ensures that common inputs and outputs (like references and errors) align at the exact same height on the Block Diagram, creating straight, parallel wires:
 
-![](../../../../docs/images/image718.png "Uniform use of the 4224 connector pane across all subVIs")
+![Uniform use of the 4224 connector pane across all subVIs](../../../../docs/images/image718.png)
 
 If SubVIs mix different layouts (e.g., one uses 4-2-2-4 and another uses 5-3-3-5), aligning the wires becomes impossible, resulting in messy bends and crossovers:
 
-![](../../../../docs/images/image719.png "Varying connector pane patterns across subVIs")
+![Varying connector pane patterns across subVIs](../../../../docs/images/image719.png)
 
 The 4-2-2-4 pattern provides 12 terminals. If a VI requires more than 12 inputs and outputs, do not switch to a denser grid. Instead, **refactor the VI**. A VI with more than 8 to 10 terminals is difficult to read and maintain. You should group related parameters into a custom Strict TypeDef Cluster to pass them as a single wire, or break the VI into smaller, more focused SubVIs.
 
 Additionally, organize the physical layout of controls on your Front Panel to match the relative positions on the connector pane. This visual correspondence makes it intuitive for developers to know which Front Panel control maps to which connector terminal:
 
-![](../../../../docs/images/image720.png "A VI's front panel and connector pane")
+![A VI's front panel and connector pane](../../../../docs/images/image720.png)
 
 
 ## Designing SubVI Icons
@@ -126,8 +126,8 @@ A professional SubVI should have a custom, descriptive icon. Here are the core g
 - **Prefer Glyphs Over Text**: Visual shapes and glyphs are processed much faster by the human brain than words. Use icons with clear graphical representations rather than just typing the VI's name in text.
 - **Unified Banner / Color Coding**: VIs belonging to the same project library (`.lvlib`), class, or driver should share a unified style. Use a consistent top header banner (e.g., color-coded) and a shared label (such as a hardware identifier) so developers can instantly identify which module the VI belongs to:
 
-![](../../../../docs/images/image721.png "A set of instrument driver VIs")
-![](../../../../docs/images/image722.png "A set of icons with a unified style")
+![A set of instrument driver VIs](../../../../docs/images/image721.png)
+![A set of icons with a unified style](../../../../docs/images/image722.png)
 
 
 ### Irregularly Shaped Icons
@@ -136,21 +136,21 @@ Standard SubVI icons are 32×32 pixel squares. However, you can create irregular
 
 When designing an irregular icon, choose a connector pane pattern that fits the shape. For instance, if you have a triangular function node (`My Function.vi`) with a single output at the apex, the standard 4-2-2-4 grid will not align properly. You can right-click the icon on the Front Panel, select **Show Connector**, and change the **Pattern** to a custom grid (such as the 5-2-2-2-5 pattern):
 
-![](../../../../docs/images/image724.png "Choosing the 52225 connector pane pattern")
+![Choosing the 52225 connector pane pattern](../../../../docs/images/image724.png)
 
 When drawing the irregular icon in the **Icon Editor**:
 - Do not draw a border box around the perimeter.
 - If using LabVIEW's legacy icon editor, synchronize the black-and-white, 16-color, and 256-color slots. The black-and-white slot acts as the transparency mask; any pixel left blank in the black-and-white grid will be transparent on the Block Diagram.
 - In modern LabVIEW (which features the vector-based Icon Editor), transparency is handled natively via the alpha channel, making it simple to draw irregular shapes:
 
-![](../../../../docs/images_2/z321.png "Editing an irregular icon")
+![Editing an irregular icon](../../../../docs/images_2/z321.png)
 
 
 ### Hiding Large Cluster Constants
 
 Large, complex cluster constants on the Block Diagram can occupy massive visual space and clutter the code:
 
-![](../../../../docs/images/image727.png "A large constant can be visually disruptive")
+![A large constant can be visually disruptive](../../../../docs/images/image727.png)
 
 To keep the diagram clean, you can hide these bulky constants using one of two methods:
 
@@ -159,13 +159,13 @@ To keep the diagram clean, you can hide these bulky constants using one of two m
    - Create a Strict TypeDef for the cluster.
    - Create a helper VI containing only the cluster constant wired to an output indicator. Configure the connector pane to output the cluster:
 
-![](../../../../docs/images/image729.png "VI designed to conceal the large constant")
+![VI designed to conceal the large constant](../../../../docs/images/image729.png)
    - Design a compact, descriptive icon for this helper VI (e.g., representing the config value):
 
-![](../../../../docs/images/image730.png "Icon for the constant data VI")
+![Icon for the constant data VI](../../../../docs/images/image730.png)
    - Place this SubVI on your main Block Diagram. It acts as a visual constant but takes up only the size of a standard icon, keeping your code neat:
 
-![](../../../../docs/images/image731.png "After the redesign block diagram")
+![After the redesign block diagram](../../../../docs/images/image731.png)
 
 
 ## Automated Code Reviews with VI Analyzer
@@ -178,14 +178,14 @@ The wizard will guide you through the following steps:
 
 1. **Select VIs**: Choose which files, directories, or project items you want to scan:
 
-![](../../../../docs/images/image732.png "Selecting VIs")
+![Selecting VIs](../../../../docs/images/image732.png)
 
 2. **Select Tests**: Choose which rules to enforce. You can enable or disable specific tests (such as performance checks for variables inside loops) to customize the ruleset:
 
-![](../../../../docs/images/image733.png "Selecting Test Items")
+![Selecting Test Items](../../../../docs/images/image733.png)
 
 3. **View Results**: The analyzer runs and displays a report. Items with red indicators are critical style/logic violations, while blue indicators mark minor warnings. Double-clicking any error in the list automatically opens the target VI and highlights the exact node or wire that failed the test:
 
-![](../../../../docs/images/image734.png "Test Results")
+![Test Results](../../../../docs/images/image734.png)
 
 Using the VI Analyzer as part of your testing workflow ensures that your codebase remains clean, uniform, and free of common data-flow bugs.
