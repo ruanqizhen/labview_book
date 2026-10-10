@@ -8,7 +8,7 @@ Producing clean, robust code demands patience, attention to detail, and accumula
 
 Below is an example program previously introduced in the [Numeric Representation](data_number#representations) section:
 
-![](../../../../docs/images/image507.png "Numeric Overflow Error")
+![Numeric Overflow Error](../../../../docs/images/image507.png)
 
 This VI performs a simple multiplication: $300 \times 300$. Mathematically, the answer is $90,000$. However, the program outputs $24,464$. The multiplication node itself is correct; the error occurs because the inputs and output use the `I16` (16-bit signed integer) representation, which has a maximum value of $32,767$. Consequently, a numeric overflow occurs, meaning the calculation exceeds the range that the data type can represent.
 
@@ -23,13 +23,13 @@ However, if data is fed into a For Loop and must be passed out to subsequent nod
 
 Consider the program below, which is designed to write data to a file inside a For Loop:
 
-![](../../../../docs/images/image508.png "Passing Data Using Loop Structure Tunnels")
+![Passing Data Using Loop Structure Tunnels](../../../../docs/images/image508.png)
 
 In this example, both the file reference (refnum) and the error cluster are passed into and out of the For Loop via standard non-indexed tunnels. If the input array is empty, the For Loop runs zero times. As a result, the file refnum output from the loop is a null reference rather than the valid open file refnum, preventing the downstream code from closing the file properly. I have encountered and resolved many memory and file resource leaks caused by this exact issue.
 
 Therefore, you must use shift registers when passing refnums, handles, and other state data into and out of a For Loop:
 
-![](../../../../docs/images/image509.png "Correct Data Passing Method Should Use Shift Registers")
+![Correct Data Passing Method Should Use Shift Registers](../../../../docs/images/image509.png)
 
 Similarly, the error cluster must always be passed via shift registers. This not only preserves error details if the loop runs zero times, but also allows you to implement a conditional exit or skip logic within the loop if an error is encountered in an earlier iteration.
 
@@ -47,7 +47,7 @@ While Loops can also use auto-indexed tunnels, their iteration count is determin
 
 The program below uses auto-indexing in a While Loop, which reduces code clarity. Take a moment to think about what the value of `array out` will be after execution:
 
-![](../../../../docs/images/image510.png "Uninitialized Shift Register")
+![Uninitialized Shift Register](../../../../docs/images/image510.png)
 
 Interestingly, even if the input `array in` is constant, the size of the output `array out` increases every time you run the VI. This occurs because the shift register is uninitialized.
 
@@ -58,15 +58,15 @@ Uninitialized shift registers retain their values in memory between consecutive 
 
 The program below takes an input cluster named `info` and outputs a modified cluster named `info out`. Both clusters contain the elements `name`, `high`, and `weight`. The code modifies these values and passes them downstream. Assuming the inputs are `high = 10` and `weight = 21`, you might expect the output to reflect those same values:
 
-![](../../../../docs/images/image511.png "Modifying an Element in a Cluster")
+![Modifying an Element in a Cluster](../../../../docs/images/image511.png)
 
 However, running the program yields unexpected values:
 
-![](../../../../docs/images/image512.png "Program Output")
+![Program Output](../../../../docs/images/image512.png)
 
 The root cause is that the logical order of elements within a cluster's data structure does not necessarily match their visual arrangement on the Front Panel. You can drag controls around in a cluster shell without changing their underlying data index. Right-clicking the cluster border and selecting **Reorder Controls in Cluster** displays the data indexes:
 
-![](../../../../docs/images/image513.png "Setting the Order of Data in a Cluster")
+![Setting the Order of Data in a Cluster](../../../../docs/images/image513.png)
 
 In this example, the element order in `info out` does not match the order in `info`. Because the wire passes the cluster data as a flat structure, the elements are mismatched.
 
@@ -83,13 +83,13 @@ Because LabVIEW is inherently multi-threaded and dataflow-driven, parallel secti
 
 Consider the program below: the developer intends to open a file, have subVI A and subVI B read/write to it in parallel, and then close the file.
 
-![](../../../../docs/images/image514.png "VI with Parallel Execution Sections")
+![VI with Parallel Execution Sections](../../../../docs/images/image514.png)
 
 The bug here is the lack of sequence control. Because the file close function has no data dependency on subVI A or subVI B, LabVIEW might execute the close node before subVI B has finished running, leading to a file access error.
 
 To control the execution sequence, use the error wire to establish a clear dataflow path, ensuring the file is closed only after both subVI A and subVI B have completed:
 
-![](../../../../docs/images/image515.png "Using Error Cluster Data Wire to Control Execution Sequence")
+![Using Error Cluster Data Wire to Control Execution Sequence](../../../../docs/images/image515.png)
 
 Timing issues are also common when exiting While Loops. Consider the example below:
 
@@ -108,7 +108,7 @@ A race condition is a specific timing error that occurs when multiple parallel e
 
 To avoid race conditions, minimize the use of local and global variables. If you must use them, protect the shared resource using **Semaphores**. A semaphore acts as a lock: before a thread accesses a resource, it must acquire the semaphore. If another thread holds the lock, the requesting thread waits. Once the lock is acquired, the thread performs its read/write operation and releases the semaphore, allowing other threads to proceed:
 
-![](../../../../docs/images/image518.png "Preventing Race Conditions with Semaphores")
+![Preventing Race Conditions with Semaphores](../../../../docs/images/image518.png)
 
 Semaphore VIs are located under `Programming -> Synchronization -> Semaphore`. For more information, see [Using Semaphores to Avoid Data Race Conditions](pattern_global_data#using-semaphores-to-avoid-data-race-conditions).
 

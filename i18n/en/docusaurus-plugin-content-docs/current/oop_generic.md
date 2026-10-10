@@ -29,7 +29,7 @@ LabVIEW offers several techniques to build VIs that support multiple data types.
 
 The **Variant** is a unique data type in LabVIEW that can represent any G data type. You can convert any variable to a variant using the **To Variant** function, and convert it back using the **Variant To Data** function (both located in the **Programming -> Cluster, Class & Variant -> Variant** palette):
 
-![](../../../../docs/images_2/z224.png "Variant Functions Palette")
+![Variant Functions Palette](../../../../docs/images_2/z224.png)
 
 The Variant data type functions similarly to `void*` in C or `Variant` in Visual Basic.
 
@@ -39,19 +39,19 @@ When you convert data to a variant, the variant retains the original data type i
 
 Below is an example of converting a custom cluster into a variant and then restoring it:
 
-![](../../../../docs/images/image125.png "Variant Data Conversion")
+![Variant Data Conversion](../../../../docs/images/image125.png)
 
 During debugging, you can right-click a variant indicator or control and select **Show Type** and **Show Data** to inspect its internal type metadata and actual value directly on the front panel:
 
-![](../../../../docs/images/image126.png "Displaying the Internal Data's Type and Value in the Variant Control")
+![Displaying the Internal Data's Type and Value in the Variant Control](../../../../docs/images/image126.png)
 
 If you need to inspect the data type programmatically, use `Get Type Information.vi` inside the **Data Type Parsing** subpalette. This subpalette contains several advanced VIs for parsing complex data structures, such as inspecting the data type of individual fields inside a cluster:
 
-![](../../../../docs/images_2/z225.png "Data Type Analysis")
+![Data Type Analysis](../../../../docs/images_2/z225.png)
 
 The program below demonstrates converting cluster data to a variant and extracting its internal type structure:
 
-![](../../../../docs/images/image127.png "Extracting Original Data Type Information from a Variant")
+![Extracting Original Data Type Information from a Variant](../../../../docs/images/image127.png)
 
 
 ### Applying Variants as Parameters

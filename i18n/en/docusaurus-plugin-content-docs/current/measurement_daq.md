@@ -12,11 +12,11 @@ For stand-alone instruments, LabVIEW features the **Find Instrument Drivers** fi
 
 The figure below shows the startup screen of the tool:
 
-![](../../../../docs/images/image454.png "Find Instrument Drivers Tool")
+![Find Instrument Drivers Tool](../../../../docs/images/image454.png)
 
 To use this tool, log in using your ni.com credentials. You can then search for drivers by manufacturer, model name, or keywords. The figure below shows typical search results:
 
-![](../../../../docs/images/image455.png "Search Results")
+![Search Results](../../../../docs/images/image455.png)
 
 
 ## Calling C-Language Drivers in LabVIEW
@@ -35,13 +35,13 @@ For simpler or custom-built devices that do not come with any driver software, y
 
 Instruments connect to PCs via physical buses like GPIB, USB, Serial (RS-232), or Ethernet (TCP/IP). In LabVIEW, you control these connections using the **Virtual Instrument Software Architecture (VISA)** API (located under **Programming >> Instrument I/O >> VISA**). The most common functions are **VISA Write** and **VISA Read**:
 
-![](../../../../docs/images/image456.png "VISA Functions")
+![VISA Functions](../../../../docs/images/image456.png)
 
 By supplying a properly formatted **VISA Resource Name** (e.g., `GPIB0::2::INSTR` or `TCPIP0::192.168.1.100::inst0::INSTR`), VISA handles the underlying hardware protocol transport automatically.
 
 Calling raw VISA functions directly in your application code is bad practice. Instead, you should design a custom Instrument Driver. This is a modular VI library that encapsulates command sequences into logical VIs (e.g., *Initialize.vi*, *Configure Voltage.vi*, *Read Measurement.vi*, *Close.vi*). For example, a single *Read Measurement.vi* might perform a serial sequence of: **VISA Write** (sending the query command), **VISA Read** (retrieving the ASCII response), and string formatting (parsing the text into a numeric double). The block diagram below shows a VI from the Agilent 34401 multimeter driver, which encapsulates this exact command-response pattern using VISA functions:
 
-![](../../../../docs/images/image457.png "Driver VI Block Diagram")
+![Driver VI Block Diagram](../../../../docs/images/image457.png)
 
 When building an instrument driver, align its architecture with industry standards like the National Instruments Instrument Driver Guidelines. Organizing the driver VIs in a standard palette structure (Initialize, Configure, Action/Status, Data, Utility, Close) makes it immediately familiar to other LabVIEW developers, reducing their learning curve.
 
@@ -54,7 +54,7 @@ Traditional instrument drivers bind your software application to a specific inst
 
 To achieve this, the IVI Foundation standardized API interfaces for common instrument classes, such as oscilloscopes, digital multimeters (DMMs), and function generators. Each category has an **IVI Class Driver** defining standard properties and functions, and an **IVI Specific Driver** written for a particular instrument model. The class driver acts as a polymorphic interface: it intercepts calls from the application and routes them to the active specific driver (e.g., the `IviDmm` class driver routing commands to the `fl45` specific driver).
 
-![](../../../../docs/images/image458.png "IVI Architecture")
+![IVI Architecture](../../../../docs/images/image458.png)
 
 The mapping between the Class Driver and the Specific Driver is configured externally in the IVI Configuration Store. You configure these logical names, driver sessions, and hardware assets using **Measurement & Automation Explorer (MAX)**, which is installed alongside LabVIEW. 
 
@@ -79,7 +79,7 @@ For general software timing, LabVIEW provides several primitives in the **Progra
 
 To measure execution time, you can query **Tick Count (ms)** before and after a block of code, as shown below:
 
-![](../../../../docs/images/image167.png "Using Flat Sequence Structure")
+![Using Flat Sequence Structure](../../../../docs/images/image167.png)
 
 The **Elapsed Time** Express VI provides similar timing measurements but includes built-in output flags for elapsed time thresholds.
 
@@ -91,14 +91,14 @@ For basic UI loops, **Wait (ms)** is perfectly sufficient. For low-speed softwar
 
 In loop-based software execution, the two most common timing functions are **Wait (ms)** and **Wait Until Next ms Multiple**.
 
-![](../../../../docs/images/image234.png "Wait Function")
+![Wait Function](../../../../docs/images/image234.png)
 
 - **Wait (ms)**: Pauses execution for the specified $n$ milliseconds. The delay begins when the execution path hits the function.
 - **Wait Until Next ms Multiple**: Pauses execution until the system millisecond clock becomes an integer multiple of $n$.
 
 Let's compare these functions inside a While Loop. In the figure below, suppose the combined execution time of the **Read Data** and **Write Data** functions is $m$ milliseconds. If $m < 50$ ms, and the target loop time is 100 ms:
 
-![](../../../../docs/images/image235.png "Timing Functions Inside a Loop")
+![Timing Functions Inside a Loop](../../../../docs/images/image235.png)
 
 #### Cumulative Error (Jitter)
 
@@ -106,7 +106,7 @@ The **Wait (ms)** function starts its delay *after* the other VIs in the loop fi
 
 Conversely, **Wait Until Next ms Multiple** aligns execution with absolute system clock intervals (e.g., waking up at exactly 100 ms, 200 ms, 300 ms, etc.). Even if $m$ fluctuates, the function adjusts the sleep duration dynamically to hit the next multiple. Jitter is limited to the OS scheduling variation of a single iteration (typically $\pm$1–5 ms under Windows), and the error does not accumulate over time.
 
-![](../../../../docs/images/image236.png "Cumulative Errors of Two Timing Functions")
+![Cumulative Errors of Two Timing Functions](../../../../docs/images/image236.png)
 
 
 #### Timing the First Iteration
@@ -126,7 +126,7 @@ If your loop requires a precise delay on the very first iteration, you can run a
 
 In the loops above, the timing functions run in parallel with the data tasks. This allows the delay to dictate the loop time. However, if you wire the timing function in series (using sequence structures or error wires) to enforce a specific execution order:
 
-![](../../../../docs/images/image239.png "Serial Usage")
+![Serial Usage](../../../../docs/images/image239.png)
 
 - For **Wait (ms)**, serial wiring forces the total loop duration to become $2m + 100$ ms. Any change in the execution time of the read/write VIs directly increases the loop period.
 - For **Wait Until Next ms Multiple**, the loop duration remains exactly 100 ms (provided that $2m < 100$ ms), because the function dynamically adjusts its sleep time to meet the absolute wake-up grid.
@@ -138,7 +138,7 @@ An **Event Structure** can act as a loop timer via its Timeout terminal (the hou
 
 Timing via Event Structure timeouts has similar precision to the **Wait (ms)** function. If your application already uses an Event Structure for UI interaction, adding a timeout case is a clean, low-overhead way to handle periodic tasks (such as updating an animation frame or refreshing a sensor readout):
 
-![](../../../../docs/images/image240.png "Timing with Timeout Event")
+![Timing with Timeout Event](../../../../docs/images/image240.png)
 
 
 ### Timed Loops
@@ -165,6 +165,6 @@ Consider a continuous audio capture example. Using a Sound Capture Express VI is
 
 The diagram below shows a continuous audio capture program. First, **Configure Sound Input** sets the hardware clock to a sampling rate of 22,050 Hz. We configure it to read 5,000 samples per iteration. The sound card's onboard hardware clock handles the high-precision sampling, filling a buffer. When 5,000 points are collected, the driver transfers them to PC memory in a single batch, and the While Loop displays the waveform:
 
-![](../../../../docs/images/image459.png "Continuous Audio Capture")
+![Continuous Audio Capture](../../../../docs/images/image459.png)
 
 Reading and displaying data in batches is highly CPU-efficient and ensures that no samples are lost, achieving gapless, high-precision signal acquisition.

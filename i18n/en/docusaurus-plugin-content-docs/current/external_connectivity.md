@@ -196,7 +196,7 @@ This section focuses on how to call ActiveX controls in LabVIEW. For the technic
 
 To use an ActiveX control, place an **ActiveX Container** on the Front Panel (located under `Modern -> Containers` on the Control Palette). Right-click the container and select **Insert ActiveX Object** to display a list of all registered ActiveX controls on your system:
 
-![](../../../../docs/images/image366.png "Selecting an ActiveX Object")
+![Selecting an ActiveX Object](../../../../docs/images/image366.png)
 
 Note that some controls in the list require specific licensing or developer keys and may not work directly without proper authorization.
 
@@ -206,15 +206,15 @@ LabVIEW does not include a native web browser control. Instead, it can embed the
 
 In recent versions of LabVIEW, common .NET and ActiveX controls (such as the web browser and Windows Media Player) are pre-configured on the Control Palette under the **.NET & ActiveX** category for easy access:
 
-![](../../../../docs/images/image367.png "ActiveX Control Palette")
+![ActiveX Control Palette](../../../../docs/images/image367.png)
 
 To display a webpage, call the `Navigate` method of the browser control on the Block Diagram using an **Invoke Node**:
 
-![](../../../../docs/images/image368.png "Using the 'Navigate' Method of the Browser Control")
+![Using the 'Navigate' Method of the Browser Control](../../../../docs/images/image368.png)
 
 Executing the program will render the webpage inside the container on your Front Panel:
 
-![](../../../../docs/images/image369.png "Web Browsing Interface")
+![Web Browsing Interface](../../../../docs/images/image369.png)
 
 ActiveX controls expose a large number of properties and methods. You can consult the manufacturer's documentation for the specific control you are using to leverage all of its capabilities.
 
@@ -222,11 +222,11 @@ ActiveX controls expose a large number of properties and methods. You can consul
 
 The Windows Media Player ActiveX control provides robust media playback capabilities. Below is an example Front Panel utilizing Windows Media Player:
 
-![](../../../../docs/images/image370.png "VI Front Panel with Windows Media Player ActiveX Control")
+![VI Front Panel with Windows Media Player ActiveX Control](../../../../docs/images/image370.png)
 
 Here is the corresponding Block Diagram that controls the media playback:
 
-![](../../../../docs/images/image371.png "Block Diagram for Implementing Media Playback")
+![Block Diagram for Implementing Media Playback](../../../../docs/images/image371.png)
 
 
 ### ActiveX Control Events
@@ -237,43 +237,43 @@ Since LabVIEW's native Event Structure cannot directly capture these external ev
 
 This node requires three inputs: the ActiveX control reference, the callback VI reference, and user parameters. Connect the control reference to the top-left input, and select the desired event from the dropdown list (e.g., `ButtonClick`):
 
-![](../../../../docs/images/image373.png "Selecting an ActiveX Event")
+![Selecting an ActiveX Event](../../../../docs/images/image373.png)
 
 The **User Parameter** input accepts data of variant type, allowing you to pass arbitrary data to the callback VI. For example, you can pass a reference to a user-defined event so that the callback VI can notify the main event loop. (For details on user-defined events and callback VIs, see [User Interface Design Patterns](pattern_ui#callback-vis).)
 
 Once the event is selected, right-click the **VI Reference** input and select **Create Callback VI**:
 
-![](../../../../docs/images/image374.png "Creating a Callback VI")
+![Creating a Callback VI](../../../../docs/images/image374.png)
 
 LabVIEW automatically generates a callback VI template with the correct inputs: `Event Common Data`, `Control Reference`, `Event Data`, and `User Parameter`.
 
-![](../../../../docs/images/image375.png "Front Panel and Block Diagram of the Newly Created Callback VI")
-![](../../../../docs/images/image376.png "Front Panel and Block Diagram of the Newly Created Callback VI")
+![Front Panel and Block Diagram of the Newly Created Callback VI](../../../../docs/images/image375.png)
+![Front Panel and Block Diagram of the Newly Created Callback VI](../../../../docs/images/image376.png)
 
 The `Event Data` cluster contains parameters passed by the ActiveX control. For a toolbar click, it includes a reference to the clicked button, allowing you to read properties like its `Key` (label).
 
 In this example, the callback VI reads the clicked button's label and generates a corresponding LabVIEW user-defined event named after it. Unused inputs on the Block Diagram should be left connected to preserve the interface.
 
-![](../../../../docs/images/image377.png "Event Handling Process")
+![Event Handling Process](../../../../docs/images/image377.png)
 
 This mechanism translates the ActiveX event into a standard LabVIEW event, allowing you to handle it in a centralized Event Structure in the main program:
 
-![](../../../../docs/images/image378.png "Managing the 'Stop' Button Event in the Main Program")
+![Managing the 'Stop' Button Event in the Main Program](../../../../docs/images/image378.png)
 
 
 ### ActiveX Documents
 
 ActiveX documents allow files from applications like Microsoft Office to be displayed and edited directly within an ActiveX container in LabVIEW (for example, embedding an Excel chart):
 
-![](../../../../docs/images/image379.png "Inserting a Chart ActiveX Document")
+![Inserting a Chart ActiveX Document](../../../../docs/images/image379.png)
 
 Unlike ActiveX controls, ActiveX documents cannot be programmatically controlled. To edit the embedded document, right-click it and select **Edit Object**. This launches the document's native editor (e.g., Microsoft Excel) in place or in a separate window:
 
-![](../../../../docs/images/image380.png "Editor for a Chart ActiveX Document")
+![Editor for a Chart ActiveX Document](../../../../docs/images/image380.png)
 
 The resulting display will reflect your edits:
 
-![](../../../../docs/images/image381.png "Using a Chart ActiveX Document")
+![Using a Chart ActiveX Document](../../../../docs/images/image381.png)
 
 
 ### ActiveX Automation
@@ -282,15 +282,15 @@ ActiveX automation allows LabVIEW to create and control out-of-process COM serve
 
 To instantiate an ActiveX automation server, use the **Open Automation Refnum** node (located under `Connectivity -> ActiveX` on the Function Palette). Drag the node onto the Block Diagram, right-click the **Automation Refnum** input, and select the ActiveX class.
 
-![](../../../../docs/images/image382.png "Creating an ActiveX Object")
+![Creating an ActiveX Object](../../../../docs/images/image382.png)
 
 For example, to use Microsoft's Text-to-Speech (TTS) service, select the **Microsoft Speech Object Library** type library and choose the **ISpeechVoice** class:
 
-![](../../../../docs/images/image383.png "Selecting ActiveX Object Dialog Box")
+![Selecting ActiveX Object Dialog Box](../../../../docs/images/image383.png)
 
 This creates the automation refnum. You can then use standard Property Nodes and Invoke Nodes to set properties or call methods. Calling the `Speak` method of `ISpeechVoice` with a string will play the audio through your speakers:
 
-![](../../../../docs/images/image384.png "Text-to-Speech")
+![Text-to-Speech](../../../../docs/images/image384.png)
 
 
 ## .NET
@@ -299,11 +299,11 @@ The Microsoft .NET Framework provides a massive class library and ecosystem. You
 
 To use a .NET control, place a **.NET Container** on the Front Panel and select the desired assembly and class. For example, you can embed the .NET **WebBrowser** control from the `System.Windows.Forms` assembly:
 
-![](../../../../docs/images/image385.png "Selecting the Web Browser .NET Control")
+![Selecting the Web Browser .NET Control](../../../../docs/images/image385.png)
 
 To load a webpage, call its `Navigate` method using an Invoke Node:
 
-![](../../../../docs/images/image386.png "Browsing a Webpage")
+![Browsing a Webpage](../../../../docs/images/image386.png)
 
 
 ## Running System Executables (EXE)
@@ -312,6 +312,6 @@ Using the **System Exec** VI (located under `Connectivity -> Libraries & Executa
 
 The example below demonstrates how to launch Notepad from LabVIEW:
 
-![](../../../../docs/images/image387.png "Invoking Other Applications")
+![Invoking Other Applications](../../../../docs/images/image387.png)
 
 For more examples, refer to the `Calling System Exec.vi` sample located in the `[LabVIEW]\examples\comm` directory.

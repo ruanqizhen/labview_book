@@ -10,17 +10,17 @@ First, creating a clear and meaningful icon for every VI you write is not just g
 
 An icon is a 32x32 pixel graphic located in the top-right corner of both the Front Panel and Block Diagram windows:
 
-![](../../../../docs/images/image28.png "the icon")
+![the icon](../../../../docs/images/image28.png)
 
 Icons are a unique feature of LabVIEW. Text-based languages do not require (or support) designing a custom graphic for every function. However, because our brains process visual information much faster than text, reading LabVIEW code that uses intuitive icons is far more efficient than scrolling through text-based code. For example, the icon below immediately tells you the VI is used for waveform generation:
 
-![](../../../../docs/images/image29.png "waveform generation")
+![waveform generation](../../../../docs/images/image29.png)
 
 While designing icons requires a bit of effort, the payoff is substantial. LabVIEW's Icon Editor (greatly improved since version 2009) includes features common to modern drawing apps, making it easy to create polished graphics.
 
 To open the Icon Editor, simply double-click the icon in the top-right corner of the Front Panel or Block Diagram:
 
-![](../../../../docs/images/image30.png "The Template Page")
+![The Template Page](../../../../docs/images/image30.png)
 
 The editor contains several tabs to help you design and customize your icons:
 
@@ -36,13 +36,13 @@ This tab lets you write text directly onto the icon. It supports up to four line
 
 For our first VI, let's add a simple "1" using the Icon Text tab:
 
-![](../../../../docs/images/image31.png "The Text Page")
+![The Text Page](../../../../docs/images/image31.png)
 
 #### Glyphs
 
 This is the most useful tab for most developers. It contains a library of small, pre-made graphics (glyphs) representing common software and hardware concepts. You can search the library and drag glyphs directly onto your icon canvas:
 
-![](../../../../docs/images/image32.png "The Glyphs Page")
+![The Glyphs Page](../../../../docs/images/image32.png)
 
 If you can't find the right glyph, you can draw custom shapes directly using the brush, eraser, and bucket tools on the toolbar. You can also import external images via **Edit -> Import Image from File** (just remember they will be scaled to 32x32 pixels).
 
@@ -50,7 +50,7 @@ If you can't find the right glyph, you can draw custom shapes directly using the
 
 Like Photoshop, the Icon Editor supports layers. The background template, text, and glyphs are placed on separate layers, allowing you to edit or move one element without affecting the others:
 
-![](../../../../docs/images/image33.gif "The Layers Page")
+![The Layers Page](../../../../docs/images/image33.gif)
 
 A new VI defaults to a layer containing the standard LabVIEW logo. A good habit is to delete this default layer and start your design on a clean sheet.
 
@@ -65,7 +65,7 @@ Our Front Panel currently has a single string indicator displaying a small messa
 
 This styling applies to all text elements in LabVIEW, including labels, captions, and control values:
 
-![](../../../../docs/images_2/z202.gif "text settings")
+![text settings](../../../../docs/images_2/z202.gif)
 
 We will discuss fonts, colors, and UI layouts in detail in the [Interface Design](ui__) chapter.
 
@@ -73,20 +73,20 @@ We will discuss fonts, colors, and UI layouts in detail in the [Interface Design
 
 By default, the title of the VI window is the filename. To make your application look more professional, you can set a custom title. Open the **VI Properties** dialog box by selecting **File -> VI Properties** from the menu, or by right-clicking the VI icon and choosing **VI Properties**:
 
-![](../../../../docs/images/image36.png "VI Properties")
+![VI Properties](../../../../docs/images/image36.png)
 
 Select the **Window Appearance** category from the drop-down menu at the top, and customize the window title. The VI Properties dialog contains dozens of settings for customizing how your VI behaves, which we will explore throughout this book.
 
 With these cosmetic updates, our VI looks much more polished:
 
-![](../../../../docs/images/image37.png "polished UI")
+![polished UI](../../../../docs/images/image37.png)
 
 
 ### Alternative Implementation: Pop-up Dialogs
 
 Alternatively, you can display a "Hello, World!" message in a pop-up dialog using the **One Button Dialog** function:
 
-![](../../../../docs/images/image38.png "One Button Dialog")
+![One Button Dialog](../../../../docs/images/image38.png)
 
 This function is located in the **Functions Palette** under **Programming -> Dialog & User Interface**.
 
@@ -97,11 +97,11 @@ Our first program runs once and immediately stops. However, most real-world soft
 
 Let's consider a simple addition program to illustrate this:
 
-![](../../../../docs/images/image40.png "addition program")
+![addition program](../../../../docs/images/image40.png)
 
 On the Front Panel, we have a **Knob** and a **Dial** as inputs, and a **Gauge** as the output:
 
-![](../../../../docs/images/image39.png "addition program front panel")
+![addition program front panel](../../../../docs/images/image39.png)
 
 Normally, this VI calculates the sum of the inputs once, updates the gauge, and stops. To update the gauge continuously in real-time as we spin the knob or dial, we need to keep the program running.
 
@@ -141,19 +141,19 @@ As VIs grow, their block diagrams can quickly become cluttered with wires and no
 
 Here is an example of a modular block diagram:
 
-![](../../../../docs/images/image45.png "Utilizing Sub VIs")
+![Utilizing Sub VIs](../../../../docs/images/image45.png)
 
 Even without looking inside the subVIs, you can easily tell the program follows a logical sequence: open device -> configure -> read data -> close.
 
 If all this code were written on a single diagram without subVIs, it would be overwhelming. Take a look at this monolithic block diagram:
 
-![](../../../../docs/images/image46.png "complex VI")
+![complex VI](../../../../docs/images/image46.png)
 
 This diagram is so large that understanding it is almost impossible. The screenshot shows only a small fraction of the code. If you ever have to navigate a massive diagram like this, you can open the **Navigation Window** (**View -> Navigation Window**) to see a thumbnail layout of the entire canvas.
 
 In text-based programming, subroutines are usually created for code reuse. In LabVIEW, subVIs are just as important for readability and code organization. A well-designed project should resemble a pyramid structure, which you can visualize by selecting **View -> VI Hierarchy** from the menu. The top-level VI calls a layer of high-level subVIs, which in turn call mid-level utility VIs:
 
-![](../../../../docs/images/image47.png "VI Hierarchy")
+![VI Hierarchy](../../../../docs/images/image47.png)
 
 
 ## Designing a SubVI and Setting the Connector Pane
@@ -164,7 +164,7 @@ On a subVI's Front Panel, **controls** act as input parameters and **indicators*
 
 Let's build a simple subVI that converts temperature from Fahrenheit to Celsius. The VI needs one numeric control (input) and one numeric indicator (output). Here is the conversion logic on the block diagram:
 
-![](../../../../docs/images/image48.png "Fahrenheit to Celsius")
+![Fahrenheit to Celsius](../../../../docs/images/image48.png)
 
 Next, we configure the parameter inputs and outputs. The connector pane is located in the top-right corner of the Front Panel, next to the VI icon.
 
@@ -179,13 +179,13 @@ To map a control to a terminal:
 
 The terminal will change color to match the data type of the connected control. A fully configured connector pane looks like this:
 
-![](../../../../docs/images/image50.gif "connector pane")
+![connector pane](../../../../docs/images/image50.gif)
 
 To call this subVI from a main VI, simply drag the subVI file from your computer's file explorer (or the LabVIEW Project Explorer) directly onto the main VI's block diagram. You can also select **Select a VI...** from the Functions Palette and choose the file.
 
 Once placed, you can wire data to its inputs and outputs:
 
-![](../../../../docs/images/image51.png "calling a sub VI")
+![calling a sub VI](../../../../docs/images/image51.png)
 
 Hovering your cursor over the subVI icon on the block diagram displays a tooltip showing the linked terminals, making it easy to wire the inputs and outputs correctly.
 
@@ -199,7 +199,7 @@ As your block diagram grows, you may want to clean it up by refactoring a sectio
 
 LabVIEW will automatically package the selected code into a new subVI, create the inputs/outputs, wire the terminals, and replace the selected block diagram area with the new subVI icon:
 
-![](../../../../docs/images_2/z204.gif "Creating Sub VIs from the Block Diagram")
+![Creating Sub VIs from the Block Diagram](../../../../docs/images_2/z204.gif)
 
 When refactoring code this way, keep two things in mind:
 
@@ -213,7 +213,7 @@ For applications that require multiple VIs (or large systems containing thousand
 
 When starting any serious application, you should begin by creating a LabVIEW Project (`.lvproj`). On the Getting Started window, select **Create Project** or choose **File -> New Project** to open the Project Explorer:
 
-![](../../../../docs/images/image44.png "Project Explorer")
+![Project Explorer](../../../../docs/images/image44.png)
 
 The Project Explorer structures project files in a tree hierarchy:
 

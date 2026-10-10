@@ -40,17 +40,17 @@ An important consideration is that DLLs utilizing C++ classes as interfaces cann
 
 Upon initially dragging a CLFN onto the Block Diagram in LabVIEW, its appearance is as depicted below:
 
-![](../../../../docs/images/image334.png "An Initial State CLFN")
+![An Initial State CLFN](../../../../docs/images/image334.png)
 
 Configuration is required before it can be utilized. Double-clicking this CLFN opens its configuration dialog, which contains four tabs. The first tab specifies the function being called:
 
-![](../../../../docs/images/image335.png "Configuring the CLFN Page One")
+![Configuring the CLFN Page One](../../../../docs/images/image335.png)
 
 The **Library name or path** field is designated for the DLL file name or its complete path. If the DLL resides in the system path, only the file name is needed; otherwise, the full path is required. Unchecking **Specify path on diagram** means the DLL will be statically loaded by LabVIEW (also known as a static call). When the VI that invokes this DLL is loaded into memory, the DLL is simultaneously loaded, even if the VI has not yet executed. After the VI execution concludes, the DLL remains in memory and is not unloaded until all VIs using the DLL are closed.
 
 Selecting **Specify path on diagram** invalidates the DLL path configured in the dialog. The CLFN then gains two additional "path" terminals for entering the DLL's path directly on the Block Diagram:
 
-![](../../../../docs/images/image336.png "Specifying the DLL Path on the Block Diagram")
+![Specifying the DLL Path on the Block Diagram](../../../../docs/images/image336.png)
 
 At this juncture, LabVIEW dynamically loads the DLL (a dynamic call). The path cannot be determined until the VI execution reaches the CLFN, preventing the DLL from being preloaded. Only when execution reaches this node does LabVIEW load the required DLL into memory. LabVIEW does not immediately unload the DLL from memory after the node executes. If subsequent CLFNs also utilize this DLL, reloading is unnecessary. LabVIEW only unloads the DLL once a null path is passed to the CLFN.
 
@@ -65,7 +65,7 @@ In the CLFN configuration dialog, the **Function name** field specifies the func
 
 The **Thread** option determines the thread in which the invoked DLL function will execute. The CLFN offers two thread options: **Run in UI thread** and **Run in any thread**. A CLFN's thread choice is immediately apparent on the Block Diagram through its color coding. Nodes set to **Run in UI thread** appear in a darker shade of orange, whereas those set to **Run in any thread** are displayed in a lighter shade of yellow:
 
-![](../../../../docs/images/image337.png "Different colors indicating the CLFN's thread settings")
+![Different colors indicating the CLFN's thread settings](../../../../docs/images/image337.png)
 
 Opting for **Run in UI thread** means that the called function executes within the UI (User Interface) thread. Regardless of a LabVIEW program's complexity, it maintains just one user interface thread, which is responsible for all tasks related to the user interface, such as data display or user event generation. Given the singular nature of the UI thread, configuring multiple called functions to run in this thread ensures they execute sequentially within the same thread.
 
@@ -86,7 +86,7 @@ For DLL users, understanding the intricate details of calling conventions isn't 
 
 The second tab in the CLFN configuration dialog focuses on setting up parameters:
 
-![](../../../../docs/images/image338.png "Configuring the CLFN's Second Page")
+![Configuring the CLFN's Second Page](../../../../docs/images/image338.png)
 
 The most challenging part of utilizing the CLFN lies in accurately mapping the data types of function parameters to their equivalent data types in LabVIEW. When transferring parameters between DLLs and LabVIEW, the three most frequently encountered data types are numeric, string, and numeric arrays. Configuring these parameter types is generally straightforward.
 
@@ -246,7 +246,7 @@ An [XNode](oop_xnode) can be considered a more complex VI, which can be used her
 
 This node has three inputs: the pointer (the data's memory address), the data type, and the byte alignment method. By providing the correct parameters, `GetValueByPointer.xnode` returns the data pointed to by the pointer.
 
-![](../../../../docs/images/image364.jpeg "Retrieving the content pointed to by the pointer using GetValueByPointer.xnode")
+![Retrieving the content pointed to by the pointer using GetValueByPointer.xnode](../../../../docs/images/image364.jpeg)
 
 In the example shown above, the CLFN `DLLMemory.dll:ReturnPointerToConstant` returns a pointer to an integer constant declared in C. Passing this pointer to `GetValueByPointer.xnode` and specifying the data type as `I32`, the node retrieves and returns the content pointed to by the pointer.
 
@@ -269,7 +269,7 @@ Subsequently, users are prompted to specify the path and name for the VI Library
 
 The final step involves configuring the VI and controls. This page is dedicated to setting the properties for each VI and control. Having understood the CLFN configuration options, this page should be straightforward as it mirrors the configuration options found within the CLFN itself.
 
-![](../../../../docs/images/image365.png "Import Shared Library Tool - Configuring VI and Control Page")
+![Import Shared Library Tool - Configuring VI and Control Page](../../../../docs/images/image365.png)
 
 The Import Shared Library Tool strives to design the most appropriate wrapper VI based on the function's declaration. However, the tool sometimes cannot make precise judgments. For instance, if a parameter is of type `int*`, the tool cannot discern whether the parameter is intended to pass a single integer or an array of integers, nor can it determine whether it is meant for input or output. Consequently, the tool defaults to assuming it transmits a single datum and is designated for both input and output. These default configurations are modifiable on the **Configure VI and Controls** page. Regrettably, adjustments must be made for each VI individually, which is challenging if a series of similar modifications are required. For example, if all array-passing parameters are declared as `int*`, you must manually alter each of these data types from passing a pointer to passing an array on this configuration page. A more convenient approach involves altering the declarations of array-passing parameters in the DLL header file to `int foo[]` before utilizing the tool. This adjustment allows the tool to directly recognize these parameters as array-passing.
 
@@ -282,7 +282,7 @@ More often than not, DLLs are invoked to utilize functionalities that others hav
 
 First, designing data types does not need to be as cumbersome as mentioned earlier. One approach is to initially configure the CLFN, setting up the LabVIEW data types for its parameters. For instance, the CLFN shown below uses **Adapt to Type** when configuring parameters, making its terminals versatile enough to accept any data type. Subsequently, the necessary data types, such as a numeric type or a cluster, are connected to this CLFN. Then, by selecting **Create C File** from the CLFN's context menu:
 
-![](../../../../docs/images_2/z302.png "Creating a C File")
+![Creating a C File](../../../../docs/images_2/z302.png)
 
 LabVIEW automatically generates the function declaration that the CLFN can call. For example, the C code generated for the above CLFN is as follows:
 
@@ -313,7 +313,7 @@ Debugging of C code is typically performed in programming environments such as V
 
 Given that DLLs cannot run independently, Visual Studio needs to be configured to call LabVIEW for debugging. This is achieved by setting the **Debugging -> Command** in the Visual Studio project properties to the `LabVIEW.exe` executable:
 
-![](../../../../docs/images/image530.png "Configuring Debugging Command in VC")
+![Configuring Debugging Command in VC](../../../../docs/images/image530.png)
 
 Once the debugging command is configured, initiating the **Start Debugging** command in Visual Studio will launch LabVIEW. If there are breakpoints in the code, the program will pause at those points when the CLFN is executed.
 

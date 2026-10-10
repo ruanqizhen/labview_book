@@ -10,11 +10,11 @@ Setting the signal values to `0` during the dropout window is incorrect, as this
 
 For example, to display only the positive halves of a sine wave, we can replace all values less than 0 with NaN. The Block Diagram below implements this logic:
 
-![](../../../../docs/images/image467.png "Displaying only the positive parts of the sine curve")
+![Displaying only the positive parts of the sine curve](../../../../docs/images/image467.png)
 
 Here's the outcome:
 
-![](../../../../docs/images/image468.png "Sine curve showing only the positive parts")
+![Sine curve showing only the positive parts](../../../../docs/images/image468.png)
 
 This technique is also useful for creating multi-color plots. For example, if you want a sine wave to be red when positive and green when negative, you can pass a 2D array representing two separate plots to the Waveform Graph/Chart: one plot containing the positive data (with negative values replaced by NaN) styled as red, and the other containing the negative data (with positive values replaced by NaN) styled as green. Because the plots are aligned, they appear to the user as a single, dynamically color-changing curve.
 
@@ -37,7 +37,7 @@ For example, suppose a signal is sampled at 10 kHz for 10 seconds (100,000 raw p
 
 If the user zooms in to inspect the interval between the 3rd and 4th seconds, the display area focuses on raw samples 30,000 to 40,000 (10,000 points). To display this 1-second window on the 200-pixel graph, the application reads the 10,000 raw points and extracts every 50th sample, resulting in a 200-point array that reveals the high-resolution details of that specific second.
 
-![](../../../../docs/images/image469.png "Using the zoom tool to view waveform details")
+![Using the zoom tool to view waveform details](../../../../docs/images/image469.png)
 
 
 ## High-Speed Real-Time Visualization
@@ -50,17 +50,17 @@ While decimation works for general monitoring, it loses high-frequency transient
 
 If the signal is periodic (like a sine or square wave), we can stabilize the display using the operating principles of an **Oscilloscope**. By ensuring that each rendering frame starts at the exact same phase of the signal's period, successive frames will overlap perfectly. This eliminates jitter and flickering, making the waveform appear static and clear even at high update rates (e.g., 20 to 30 Hz):
 
-![](../../../../docs/images_2/z003.png "Oscilloscope operation principle")
+![Oscilloscope operation principle](../../../../docs/images_2/z003.png)
 
 To achieve this, the software must implement a **Trigger** algorithm (such as an analog edge trigger). The algorithm scans the buffer for a specific trigger condition—such as the signal crossing a threshold voltage on a rising edge. Once the trigger point is located, a fixed window of data starting from that index is sliced and plotted.
 
 The figure below shows a basic software oscilloscope that captures and displays audio signals from a PC sound card. The block diagram reads the audio buffer, detects the trigger point using a threshold check, and extracts a slice of the waveform for display:
 
-![](../../../../docs/images/image470.png "Sound card oscilloscope program diagram")
+![Sound card oscilloscope program diagram](../../../../docs/images/image470.png)
 
 The figure below shows the running interface of the sound card oscilloscope. We generate a clean square wave through the computer speakers and capture it using a microphone. Due to acoustic and transducer distortion, the captured signal is deformed, but the periodic waveform remains locked and stable on the graph thanks to the software trigger. Adjusting the square wave's frequency or amplitude immediately updates the display in real-time without flickering:
 
-![](../../../../docs/images/image471.png "Display effect of the sound card oscilloscope")
+![Display effect of the sound card oscilloscope](../../../../docs/images/image471.png)
 
 
 ### Detecting and Selecting Plots with the Mouse

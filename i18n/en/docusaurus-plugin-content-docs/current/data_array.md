@@ -6,11 +6,11 @@
 
 A **Cluster** is a composite data type in LabVIEW. Unlike arrays, which mandate uniform elements, a cluster can group multiple, diverse data types into a single entity. This is analogous to a `struct` in C/C++ or a named tuple in Python.
 
-![](../../../../docs/images_2/z191.png "Cluster Control Palette")
+![Cluster Control Palette](../../../../docs/images_2/z191.png)
 
 Unlike simple controls, placing a Cluster on the Front Panel initially displays a blank, empty container shell. To define its data structure, you must drag and drop other controls (such as numerics, Booleans, or strings) inside it. The image below shows a populated cluster control containing several elements:
 
-![](../../../../docs/images_2/z192.png "cluster with elements")
+![cluster with elements](../../../../docs/images_2/z192.png)
 
 Clusters can be nested (a cluster can contain another cluster). Creating a cluster constant on the Block Diagram follows the same process.
 
@@ -18,7 +18,7 @@ The visual arrangement of controls inside a cluster on the Front Panel does not 
 
 Simply dragging controls around inside the cluster container does not alter their logical index. To change the logical sequence, right-click the cluster border and select **Reorder Controls in Cluster...**. This displays black index badges on each control; you click the controls in the desired order to assign their new logical index numbers:
 
-![](../../../../docs/images/image513.png "the order of elements")
+![the order of elements](../../../../docs/images/image513.png)
 
 Properly managing cluster order ensures consistent data matching when wiring clusters across subVIs.
 
@@ -32,11 +32,11 @@ In contrast, **Bundle By Name** and **Unbundle By Name** allow you to expand the
 
 In professional code, **always prefer Bundle By Name and Unbundle By Name** over the standard positional nodes. They make the Block Diagram much more self-documenting and prevent bugs caused by index shifting:
 
-![](../../../../docs/images/image107.png "bundle")
+![bundle](../../../../docs/images/image107.png)
 
 A classic example of clusters is the standard LabVIEW **Error Cluster**:
 
-![](../../../../docs/images/image106.png "error in cluster")
+![error in cluster](../../../../docs/images/image106.png)
 
 Error clusters are central to [error handling](pattern_error_handling) in LabVIEW. An error cluster contains a Boolean `status` (True indicates an error), an I32 `code` (the numeric error identifier), and a string `source` (where the error occurred). Grouping these variables simplifies error propagation across VIs.
 
@@ -44,7 +44,7 @@ By grouping related parameters into clusters, you simplify the Block Diagram wir
 
 You can sometimes perform math operations directly on clusters without unbundling them. This is called **cluster polymorphism**. For instance, if all elements in a cluster are compatible numeric types, you can perform basic operations directly on the cluster wire:
 
-![](../../../../docs/images_2/z193.png "cluster operations")
+![cluster operations](../../../../docs/images_2/z193.png)
 
 In the left example, adding two coordinates clusters (`x` and `y`) adds their elements correspondingly. In the right example, passing a cluster of strings directly to the **String Length** function outputs a cluster of integers containing the lengths of the respective strings.
 
@@ -57,19 +57,19 @@ Since real-world clusters usually group mixed data types, polymorphic operations
 
 An **Array** is a collection of elements of the exact same data type. To create an array control or constant, place an empty **Array Shell** from the palette onto the Front Panel (or Block Diagram), and then drag a data control (numeric, Boolean, string, cluster) inside it to define the element type:
 
-![](../../../../docs/images_2/z194.png "create array control")
+![create array control](../../../../docs/images_2/z194.png)
 
 Arrays are index-based, starting at index `0`. The index display in the upper-left corner of the array control determines which element is currently visible at the top of the container.
 
 To show multiple elements at once on the Front Panel, click and drag the outer border of the array shell to resize it. For large arrays, incrementing the index box manually is slow; instead, right-click the array border and enable a scrollbar for faster navigation:
 
-![](../../../../docs/images_2/z195.gif "display several elements")
+![display several elements](../../../../docs/images_2/z195.gif)
 
 A single index field represents a one-dimensional (1D) array. To convert it to a two-dimensional (2D) array (rows and columns), hover over the index display box and drag its border downwards to add a second index box. You can continue adding indexes to construct multi-dimensional arrays.
 
 You can build arrays out of almost any LabVIEW type. The only restriction is that **an array cannot contain an array directly**. If you need a jagged array (an array of arrays), you must wrap the inner array inside a cluster, and then build an array of those clusters:
 
-![](../../../../docs/images/image93.png "an array in an array")
+![an array in an array](../../../../docs/images/image93.png)
 
 ### Array Calculations
 
@@ -77,7 +77,7 @@ LabVIEW provides a rich set of functions for array operations under **Programmin
 
 Many scalar operations (like Add or AND) are polymorphic and can accept arrays. For example, adding a scalar constant to a numeric array adds that value to every element. Adding two arrays adds their corresponding elements. If the arrays have different lengths, the resulting array is truncated to match the shorter input array:
 
-![](../../../../docs/images/image94.png "adding two arrays")
+![adding two arrays](../../../../docs/images/image94.png)
 
 ### Comparing Arrays
 
@@ -86,11 +86,11 @@ Standard comparison functions (like Equals? or Greater?) can compare arrays. By 
 - **Compare Elements**: Compares elements individually, returning a Boolean array of the same size.
 - **Compare Aggregates**: Treats the entire array as a single object, returning a single Boolean value. The arrays are equal only if their dimensions match and all elements are identical:
 
-![](../../../../docs/images/image95.png "Comparison")
+![Comparison](../../../../docs/images/image95.png)
 
 The execution result:
 
-![](../../../../docs/images/image96.png "Comparison Result")
+![Comparison Result](../../../../docs/images/image96.png)
 
 Before processing or indexing an array, use **Array Size** to find its element count. For a 1D array, it returns a scalar integer. For multi-dimensional arrays, it outputs a 1D array where each element represents the size of a dimension (e.g., number of rows or columns).
 
@@ -100,15 +100,15 @@ Use the **Index Array** function to retrieve elements at specific positions. The
 
 To index multiple elements, drag the lower border of the **Index Array** node downwards to expose more output terminals. If you leave index inputs unwired, they default to sequential indices following the last wired index (e.g., if you wire index `2` to the first terminal and leave the next unwired, it automatically retrieves index `3`):
 
-![](../../../../docs/images/image97.png "index")  Index results: ![](../../../../docs/images/image98.png "index result")
+![index](../../../../docs/images/image97.png)  Index results: ![index result](../../../../docs/images/image98.png)
 
 For multi-dimensional arrays, you can index a single scalar element by wiring all dimension indices, or extract entire sub-arrays (like an entire row or column) by leaving some dimension terminals unwired:
 
-![](../../../../docs/images/image99.png "multi-dimensional array index")
+![multi-dimensional array index](../../../../docs/images/image99.png)
 
 Index results:
 
-![](../../../../docs/images/image100.png "multi-dimensional array index")
+![multi-dimensional array index](../../../../docs/images/image100.png)
 
 ### Merging Arrays
 
@@ -116,11 +116,11 @@ The **Build Array** function adds elements to an array or merges arrays. If you 
 
 To merge two 1D arrays into a single, longer 1D array, right-click the input terminal and check **Concatenate Inputs**:
 
-![](../../../../docs/images/image101.png "Build Array")
+![Build Array](../../../../docs/images/image101.png)
 
 Merge result:
 
-![](../../../../docs/images/image102.png "Results of building array")
+![Results of building array](../../../../docs/images/image102.png)
 
 You can drag the border of the **Build Array** node to add more inputs.
 
@@ -130,15 +130,15 @@ Several advanced LabVIEW UI controls are driven by array data under the hood, su
 
 For example, you can write a VI to generate a 2D array of sine wave values:
 
-![](../../../../docs/images/image103.png "generates a two-dimensional array using a sine function")
+![generates a two-dimensional array using a sine function](../../../../docs/images/image103.png)
 
 Instead of a standard array indicator, you can use a **Table** control to view the numbers in a grid:
 
-![](../../../../docs/images/image104.png "table")
+![table](../../../../docs/images/image104.png)
 
 To visualize patterns, you can use an **Intensity Graph** indicator, which maps values to color gradients:
 
-![](../../../../docs/images/image105.png "intensity graph")
+![intensity graph](../../../../docs/images/image105.png)
 
 (See [Graphical Data Representation](data_graph) for more details).
 
@@ -149,11 +149,11 @@ Array operations often require loop structures to process elements iteratively. 
 
 Unlike functions, structures are resizable rectangular frames that enclose the code they execute:
 
-![](../../../../docs/images_2/z196.gif "create a for loop")
+![create a for loop](../../../../docs/images_2/z196.gif)
 
 The **For Loop** repeats code a set number of times. The **loop count (N)** terminal at the upper-left defines the iterations. The **iteration (i)** terminal at the lower-left displays the current iteration count (0-indexed).
 
-![](../../../../docs/images/image189.png "for loop")
+![for loop](../../../../docs/images/image189.png)
 
 ### Input Tunnels
 
@@ -163,7 +163,7 @@ If you wire an array to a loop border, LabVIEW enables **Auto-Indexing** by defa
 
 If you wire multiple auto-indexed arrays of different sizes, the loop count defaults to the size of the smallest array. If you also wire the `N` terminal, the loop count is the smaller of `N` and the array sizes.
 
-![](../../../../docs/images/image190.png "Tunnel")
+![Tunnel](../../../../docs/images/image190.png)
 
 In the program above, because the array is auto-indexed, you do not need to specify `N`. We can compare manual indexing with `Index Array` to automatic indexing via the tunnel.
 
@@ -171,7 +171,7 @@ If an auto-indexed tunnel receives an empty array, the loop iterates zero times.
 
 Wiring a multi-dimensional array to an auto-indexed tunnel peels off one dimension per loop level. To process a 2D array element-by-element, nest two loops:
 
-![](../../../../docs/images/image191.png "nested loop")  The results: ![](../../../../docs/images/image192.png "nested loop results")
+![nested loop](../../../../docs/images/image191.png)  The results: ![nested loop results](../../../../docs/images/image192.png)
 
 ### Output Tunnels {#output-tunnel}
 
@@ -185,27 +185,27 @@ You can also enable a **Conditional** terminal on the output tunnel (adds a `?` 
 
 For example, this program demonstrates the different output modes:
 
-![](../../../../docs/images_2/z200.png "Output Tunnel")
+![Output Tunnel](../../../../docs/images_2/z200.png)
 
 With these outputs:
 
-![](../../../../docs/images_2/z201.png "output tunnel results")
+![output tunnel results](../../../../docs/images_2/z201.png)
 
 ### Examples of For Loop Applications
 
 - **Program 1: Displaying Filenames with a Progress Bar**
 This program lists all VIs in a directory and displays their filenames along with a progress bar. The `Recursive File List.vi` lists the files, and the For Loop iterates through them. We divide the current iteration `i` by the total count `N` to drive a progress bar from 0.0 to 1.0:
 
-![](../../../../docs/images/image193.png "progress bar")
+![progress bar](../../../../docs/images/image193.png)
 
 The Front Panel:
 
-![](../../../../docs/images/image194.png "progress bar UI")
+![progress bar UI](../../../../docs/images/image194.png)
 
 - **Program 2: The Empty Array Trap**
 Consider this program and guess the output of 'Output Integer':
 
-![](../../../../docs/images/image195.png "Directly wired input/output tunnels")
+![Directly wired input/output tunnels](../../../../docs/images/image195.png)
 
 Because the input array is empty, the loop executes zero times. The output tunnel never receives data and simply returns its default value (`0`), rather than the input `33`. This is a classic For Loop bug.
 
@@ -213,35 +213,35 @@ Because the input array is empty, the loop executes zero times. The output tunne
 
 While tunnels pass data into and out of loops, **Shift Registers** pass data between loop iterations. Right-click the loop border and select **Add Shift Register** to create a pair of terminals. The right terminal stores data at the end of an iteration, and the left terminal outputs that data at the start of the next iteration:
 
-![](../../../../docs/images/image196.png "Shift Register")
+![Shift Register](../../../../docs/images/image196.png)
 
 In LabVIEW dataflow, shift registers are the correct way to maintain state across loop iterations. Do not use local variables for this.
 
 We can fix the bug in **Program 2** by replacing the tunnels with a shift register. Right-click the tunnel and select **Replace with Shift Register**:
 
-![](../../../../docs/images/image197.png "Replace with Shift Register")
+![Replace with Shift Register](../../../../docs/images/image197.png)
 
 The improved program:
 
-![](../../../../docs/images/image198.png "improved program")
+![improved program](../../../../docs/images/image198.png)
 
 Now, if the loop runs zero times, the input value `33` passes straight through to the output.
 
 Always initialize your shift registers by wiring an initial value to the left terminal outside the loop. If you leave a shift register uninitialized:
 
-![](../../../../docs/images/image199.png "uninitialized shift register")
+![uninitialized shift register](../../../../docs/images/image199.png)
 
 The VI will reuse the last in-memory value on subsequent runs, making the output unpredictable.
 
 You can stack multiple left-hand terminals on a shift register by dragging its bottom border. This lets you access values from older iterations ($i-1$, $i-2$, etc.):
 
-![](../../../../docs/images/image200.png "multiple left terminals")
+![multiple left terminals](../../../../docs/images/image200.png)
 
 ### Stop Conditions
 
 You can add an early exit condition to a For Loop by right-clicking its border and selecting **Conditional Terminal** (similar to a `break` statement):
 
-![](../../../../docs/images/image216.png "Conditional Terminal")
+![Conditional Terminal](../../../../docs/images/image216.png)
 
 In the example above, the loop searches an array for a target string. If a match is found, it sends a `True` value to the stop terminal, exiting the loop early to save CPU cycles.
 
@@ -266,7 +266,7 @@ While Loops support tunnels and shift registers. However, be careful with auto-i
 
 For loops are more memory-efficient than While Loops when building arrays via output indexing tunnels. In a For Loop, LabVIEW knows the array size in advance and preallocates memory. In a While Loop, LabVIEW must dynamically resize the memory buffer as iterations occur, which degrades performance:
 
-![](../../../../docs/images/image219.png "constructs arrays")
+![constructs arrays](../../../../docs/images/image219.png)
 
 Thus, for scenarios where the iteration count is known beforehand, a For Loop is generally more efficient.
 
@@ -277,11 +277,11 @@ Thus, for scenarios where the iteration count is known beforehand, a For Loop is
 
 A **Feedback Node** is an alternative way to pass data between loop iterations, visually representing feedback loops:
 
-![](../../../../docs/images/image201.png "Feedback Node")
+![Feedback Node](../../../../docs/images/image201.png)
 
 You can convert between a Feedback Node and a Shift Register by right-clicking them. If you wire a function's output back to its input, LabVIEW automatically inserts a Feedback Node:
 
-![](../../../../docs/images_2/z197.gif "connections within a loop structure")
+![connections within a loop structure](../../../../docs/images_2/z197.gif)
 
 The initializer terminal `❇` sets the default value. You can right-click the node and select **Move Initializer One Loop Out** to place it on the loop border.
 
@@ -291,7 +291,7 @@ You can configure initialization behavior via the shortcut menu:
 
 For example:
 
-![](../../../../docs/images_2/z198.png "Two initialization modes")
+![Two initialization modes](../../../../docs/images_2/z198.png)
 
 On the first run, both outputs are `2`. On subsequent runs, `result 1` increments continuously while `result 2` resets to `2`.
 
@@ -299,33 +299,33 @@ On the first run, both outputs are `2`. On subsequent runs, `result 1` increment
 
 Feedback Nodes keep Block Diagrams clean by eliminating long wires running across structures. However, they can make dataflow direction ambiguous if not used carefully:
 
-![](../../../../docs/images/image204.png "an isolated feedback node")
+![an isolated feedback node](../../../../docs/images/image204.png)
 
 With known initial states, we can trace feedback values. In a single loop:
 
-![](../../../../docs/images/image205.png "feedback node in single-loop")
+![feedback node in single-loop](../../../../docs/images/image205.png)
 
 In nested loops, the feedback node is initialized based on its position. If placed in nested loops, it behaves like stacked shift registers:
 
-![](../../../../docs/images/image206.png "multi-level nested loop")
+![multi-level nested loop](../../../../docs/images/image206.png)
 
 You can also show an **Enable Terminal** on the Feedback Node (via right-click) to update its value only when a condition is met:
 
-![](../../../../docs/images/image207.png "with an enable input")
+![with an enable input](../../../../docs/images/image207.png)
 
 Here, the node only counts even iterations, returning `3`.
 
 You can configure a feedback node to delay values by multiple iterations (right-click -> Properties -> Delays):
 
-![](../../../../docs/images_2/z199.png "set delays")
+![set delays](../../../../docs/images_2/z199.png)
 
 This cycles values every three iterations:
 
-![](../../../../docs/images/image208.png "feedback node with delays")
+![feedback node with delays](../../../../docs/images/image208.png)
 
 In a nested loop, this delay count increments on each inner loop run:
 
-![](../../../../docs/images/image209.png "multi-level nested loop with delay")
+![multi-level nested loop with delay](../../../../docs/images/image209.png)
 
 Avoid writing overly complex feedback paths that obscure dataflow:
 
@@ -335,23 +335,23 @@ Avoid writing overly complex feedback paths that obscure dataflow:
 
 Feedback Nodes can also be placed **outside** of loops to act as global state counters:
 
-![](../../../../docs/images/image211.png "Feedback Nodes Independent of Loops")
+![Feedback Nodes Independent of Loops](../../../../docs/images/image211.png)
 
 If you place this VI in two locations in a main program:
 
-![](../../../../docs/images/image212.png "counter subVI in action")
+![counter subVI in action](../../../../docs/images/image212.png)
 
 They will share the same internal feedback state:
 
-![](../../../../docs/images/image213.png "result")
+![result](../../../../docs/images/image213.png)
 
 This applies even across separate loops:
 
-![](../../../../docs/images/image214.png "call in different loops")
+![call in different loops](../../../../docs/images/image214.png)
 
 Yielding:
 
-![](../../../../docs/images/image215.png "result of 2 loops")
+![result of 2 loops](../../../../docs/images/image215.png)
 
 To separate their states, configure the subVI as **reentrant** (see [Reentrant VIs](pattern_reentrant_vi)).
 

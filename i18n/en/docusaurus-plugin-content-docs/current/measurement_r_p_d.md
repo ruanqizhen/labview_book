@@ -10,7 +10,7 @@ The number of hierarchical layers depends on the project's scale. A simple tool 
 
 While you can visualize simple projects using LabVIEW's built-in **VI Hierarchy** window (see [Using SubVIs](ramp_up_complex_vis#utilizing-sub-vis)), this tool is overwhelming for large applications. In a large project, the hierarchy diagram is a dense web of hundreds of nodes, making it impossible to analyze visually:
 
-![](../../../../docs/images/image443.png "A Complex Program's VI Hierarchy Diagram")
+![A Complex Program's VI Hierarchy Diagram](../../../../docs/images/image443.png)
 
 A standard architectural pattern for test and measurement systems splits the software into three distinct layers:
 
@@ -25,11 +25,11 @@ The main VI employs various program structures when invoking several functional 
 
 The baseline process of a measurement system runs through four sequential steps: acquisition $\rightarrow$ processing $\rightarrow$ display $\rightarrow$ storage. The simplest program structure is shown below:
 
-![](../../../../docs/images/image444.png "Simple Test Program Model")
+![Simple Test Program Model](../../../../docs/images/image444.png)
 
 To monitor a system continuously, you must repeat this sequence in a loop. This **Single-Loop** architecture is shown below:
 
-![](../../../../docs/images/image445.png "Sequential Test Program Model")
+![Sequential Test Program Model](../../../../docs/images/image445.png)
 
 The loop terminates when a stop condition is met. Because this single-loop model executes sequentially, it is easy to program, debug, and understand.
 
@@ -40,7 +40,7 @@ However, the sequential dependency between stages is a major performance bottlen
 
 We can optimize performance by running these tasks in parallel, similar to a manufacturing assembly line. In a **Pipeline** architecture, while the acquisition stage collects block $N$ of data, the processing stage analyzes block $N-1$, and the display/storage stage writes block $N-2$ to disk:
 
-![](../../../../docs/images/image446.png "Pipeline Processing Data")
+![Pipeline Processing Data](../../../../docs/images/image446.png)
 
 This pipeline model improves throughput. The overall loop execution period is no longer the *sum* of all stages, but is dictated by the *slowest single stage* in the pipeline.
 
@@ -53,7 +53,7 @@ Implementing this buffer model in LabVIEW leads to the **Producer-Consumer** arc
 
 In this design, a **FIFO Queue** acts as the buffer. The acquisition loop (the **Producer**) writes newly acquired data blocks directly to the queue. Enqueueing is extremely fast, ensuring that the hardware interface loop never stalls or misses a sample. A separate execution loop (the **Consumer**) continuously dequeues and processes the data:
 
-![](../../../../docs/images/image447.png "Data Collection and Processing Program with Buffer")
+![Data Collection and Processing Program with Buffer](../../../../docs/images/image447.png)
 
 This Producer-Consumer pattern decouples the timing of the acquisition thread from the processing/storage threads. You can find pre-built templates for this architecture in LabVIEW's **New...** project dialog box. 
 

@@ -4,7 +4,7 @@
 
 A **Case Structure** is a conditional structure containing multiple subdiagrams (cases). It evaluates an input value at its selection terminal and executes exactly one subdiagram. This is equivalent to `if-else` or `switch` statements in text-based programming languages.
 
-![](../../../../docs/images/image173.png "Case Structure")
+![Case Structure](../../../../docs/images/image173.png)
 
 Like loops, the Case Structure is a resizable rectangular frame. It houses multiple branch pages (cases), but only one case is visible on the Block Diagram at a time.
 
@@ -22,15 +22,15 @@ You can also hover your cursor inside the Case Structure frame, hold **Ctrl**, a
 
 When you wire a Boolean value to the selector terminal, the Case Structure configures itself with two cases: `True` and `False`:
 
-![](../../../../docs/images/image174.png "Boolean Case Structure")
+![Boolean Case Structure](../../../../docs/images/image174.png)
 
 Boolean Case Structures are the standard way to handle error state flow. Most low-level subVIs receive an `Error In` cluster and output an `Error Out` cluster. The `Error In` wire is connected directly to the Case Selector. This turns the Case Structure into an **Error Case Structure** with `Error` and `No Error` cases:
 
-![](../../../../docs/images/image175.png "Handling No Error")
+![Handling No Error](../../../../docs/images/image175.png)
 
 And:
 
-![](../../../../docs/images/image176.png "Handling an Error")
+![Handling an Error](../../../../docs/images/image176.png)
 
 If `Error In` carries an error, the `Error` case executes. Because an upstream node already failed, the subVI skips its main logic and passes the error cluster straight through to the output.
 
@@ -76,11 +76,11 @@ Consider this and guess the outcome of the following program:
 
 For open-ended types (like integers and strings), a Case Structure must define a **Default** case to handle all inputs that do not match the explicit case labels. If you wire an integer and do not cover all possible integer values, and have no default case, the run arrow breaks:
 
-![](../../../../docs/images_2/z222.png "Branches Do Not cover All Conditions")
+![Branches Do Not cover All Conditions](../../../../docs/images_2/z222.png)
 
 To fix this, right-click any case and select **Make This The Default Case**, or add explicit cases to cover all possible inputs:
 
-![](../../../../docs/images_2/z223.png "Completing the Branches")
+![Completing the Branches](../../../../docs/images_2/z223.png)
 
 Which design is better?
 
@@ -117,7 +117,7 @@ To simplify development, you can right-click the output tunnel and select **Use 
 
 While convenient, **Use Default If Unwired is considered a poor programming practice** in professional code. It hides errors: if you forget to wire a case, it silently outputs `0` or `False` rather than throwing a compiler error. This can introduce subtle runtime bugs. Instead, explicitly wire all outputs. If an input simply passes through the structure in some cases, use **Linked Input Tunnels** (via right-click -> **Connect Input Tunnels**) to route the wire through clean and automatically:
 
-![](../../../../docs/images/image181.png "Connecting Input and Output Tunnels")
+![Connecting Input and Output Tunnels](../../../../docs/images/image181.png)
 
 ### Avoid Placing Control Terminals Inside Case Structures
 
@@ -225,7 +225,7 @@ Sequence Locals make code hard to read because they reverse dataflow direction, 
 
 We can convert the stacked sequence to a **Flat Sequence Structure** by right-clicking it and selecting **Replace with Flat Sequence Structure**. This displays all frames side-by-side, allowing normal data wiring and eliminating the need for Sequence Locals:
 
-![](../../../../docs/images/image167.png "Flat Sequence Structure")
+![Flat Sequence Structure](../../../../docs/images/image167.png)
 
 This makes the dataflow clear and easy to audit.
 
@@ -237,27 +237,27 @@ Consider setting up an instrument and reading its data, where we must wait 1 sec
 
 - **Flawed implementation**: The wait function is unwired, meaning it runs in parallel with the setup rather than after it:
 
-![](../../../../docs/images/image168.png "Initial Code for Test Application")
+![Initial Code for Test Application](../../../../docs/images/image168.png)
 
 - **Using a Sequence Structure**: We place the wait function in a separate frame to enforce order:
 
-![](../../../../docs/images/image169.png "Use Sequence Structure")
+![Use Sequence Structure](../../../../docs/images/image169.png)
 
 - **Optimized Sequence**: We only wrap the wait function, utilizing the error wire to enforce order:
 
-![](../../../../docs/images/image170.png "Optimized Use of Sequence Structure")
+![Optimized Use of Sequence Structure](../../../../docs/images/image170.png)
 
 - **Dataflow Alternative (Preferred)**: We avoid the sequence structure entirely by packaging the delay into a subVI that accepts and outputs the error cluster. If an error is detected, the subVI skips the delay:
 
-![](../../../../docs/images/image171.png "Delay subVI")
+![Delay subVI](../../../../docs/images/image171.png)
 
 The resulting main program is clean and sequence-free, using the error wire to enforce execution order:
 
-![](../../../../docs/images/image172.png "Test Program Code using Delay Sub VI")
+![Test Program Code using Delay Sub VI](../../../../docs/images/image172.png)
 
 Most built-in LabVIEW functions and VIs (such as **Time Delay** or **High Resolution Polling Wait**) support error terminals so you can wire them inline to control execution order:
 
-![](../../../../docs/images_2/z212.png "LabVIEW built-in Delay VI")
+![LabVIEW built-in Delay VI](../../../../docs/images_2/z212.png)
 
 
 ## Practice Exercises

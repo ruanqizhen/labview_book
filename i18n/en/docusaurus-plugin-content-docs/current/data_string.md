@@ -4,9 +4,9 @@
 
 In LabVIEW, strings are stored in memory as arrays of 8-bit unsigned integers (U8), which is similar to how strings are represented in C. However, they differ in how they define the string's end. A C string is null-terminated (ending with a `\0` character), whereas a LabVIEW string is length-prefixed, meaning it explicitly stores the character count and does not require a special terminator.
 
-Because strings are stored in memory similarly to U8 arrays, converting between them is simple and efficient. When a U8 array is converted to a string, each element is interpreted as the ASCII code of a character. Similarly, displaying a string in hexadecimal mode exposes these ASCII codes directly. LabVIEW provides built-in functions for these conversions: **String To Byte Array** ![](../../../../docs/images/image116.png "String to Byte Array Conversion") and **Byte Array To String**. Because these dedicated functions exist, you do not need to use Type Cast. The two methods shown below produce the exact same outcome in memory:
+Because strings are stored in memory similarly to U8 arrays, converting between them is simple and efficient. When a U8 array is converted to a string, each element is interpreted as the ASCII code of a character. Similarly, displaying a string in hexadecimal mode exposes these ASCII codes directly. LabVIEW provides built-in functions for these conversions: **String To Byte Array** ![String to Byte Array Conversion](../../../../docs/images/image116.png) and **Byte Array To String**. Because these dedicated functions exist, you do not need to use Type Cast. The two methods shown below produce the exact same outcome in memory:
 
-![](../../../../docs/images/image135.png "string and U8 array")
+![string and U8 array](../../../../docs/images/image135.png)
 
 :::caution
 
@@ -18,7 +18,7 @@ As of the current version, LabVIEW does not officially support Unicode on Window
 
 LabVIEW string controls and indicators support several display modes beyond standard text. These include **'\' Codes Display**, **Hex Display**, and **Password Display**:
 
-![](../../../../docs/images/image108.png "different display methods")
+![different display methods](../../../../docs/images/image108.png)
 
 Non-printable characters (like carriage returns or line feeds) are difficult to inspect visually. In **'\' Codes Display** mode, LabVIEW represents these characters using standard backslash escape codes. This is identical to the string escaping used in C and other text-based languages. Common escape codes in LabVIEW include `\n` for a newline, `\r` for a carriage return, `\t` for a horizontal tab, `\s` for a space, and `\\` for a literal backslash.
 
@@ -35,7 +35,7 @@ A **Combo Box** is also a string-based control. It presents a list of predefined
 
 String manipulation functions are located under **Programming -> String** on the Functions palette:
 
-![](../../../../docs/images_2/z160.png "String function palette")
+![String function palette](../../../../docs/images_2/z160.png)
 
 Basic functions like String Length or Concatenate Strings are intuitive. Here, we focus on converting between numeric and string representations.
 
@@ -45,11 +45,11 @@ Consider the example program: **Hex Character to Boolean Array**. This program t
 
 The program performs three steps: first, it sanitizes the input string to accept only hex characters (`0-9`, `A-F`); second, it converts the character into a U8 integer; and third, it unpacks the lower 4 bits of the U8 value into a Boolean array. We display the complete implementation below on a single Block Diagram:
 
-![](../../../../docs/images/image148.png "String conversion to boolean array")
+![String conversion to boolean array](../../../../docs/images/image148.png)
 
 The corresponding output showing the Boolean state of the hex character is shown below:
 
-![](../../../../docs/images/image149.png "String conversion to boolean array")
+![String conversion to boolean array](../../../../docs/images/image149.png)
 
 ### String Formatting
 
@@ -67,19 +67,19 @@ For complex formatting, LabVIEW provides two powerful nodes under **Programming 
 
 If you are unfamiliar with format codes, LabVIEW offers an interactive builder. Right-click the node and select **Edit Format String** to open the configuration dialog. You can select your operations, and LabVIEW will automatically generate the corresponding format codes:
 
-![](../../../../docs/images_2/z167.png "Edit Format String")
+![Edit Format String](../../../../docs/images_2/z167.png)
 
 **Scan From String** performs the reverse operation, parsing structured variables out of a single text input. The following example demonstrates formatting two variables into a string, and then scanning them back out using the same format string:
 
-![](../../../../docs/images_2/z161.png "Scan From String")
+![Scan From String](../../../../docs/images_2/z161.png)
 
 The output matches the inputs perfectly:
 
-![](../../../../docs/images_2/z162.png "Scan From String result")
+![Scan From String result](../../../../docs/images_2/z162.png)
 
 Be careful when using `%s` in **Scan From String** to parse contiguous text inputs. Because `%s` is greedy and matches spaces, parsing multiple strings can sometimes produce unexpected results or parsing errors:
 
-![](../../../../docs/images_2/z163.png "Scan From String for strings")
+![Scan From String for strings](../../../../docs/images_2/z163.png)
 
 This happens because the first `%s` consumes the entire rest of the string, leaving nothing for the subsequent specifiers. To perform complex text parsing, use **Regular Expressions** instead.
 
@@ -89,7 +89,7 @@ This is more complex than simple type conversion. While we previously discussed 
 
 Instead of building a parser from scratch, check if LabVIEW has a built-in solution. Under **Mathematics -> Scripts & Formulas**, you will find the **Eval Formula String** VI, which evaluates a dynamic mathematical expression at runtime:
 
-![](../../../../docs/images/image147.png "String Formula Evaluation")
+![String Formula Evaluation](../../../../docs/images/image147.png)
 
 For reference, we will implement a simplified mathematical formula parser using a state machine in the [State Machine](pattern_state_machine) section. This built-in VI highlights the advanced capabilities LabVIEW provides for handling text-based inputs dynamically.
 
@@ -99,7 +99,7 @@ To display timestamps in user interfaces, you must convert them to strings. The 
 
 Parsing a date/time string back into a timestamp is more complex due to the variety of date formats. LabVIEW does not have a single, automatic parser. Instead, you use **Scan From String** with a precise format string that describes the exact structure of your time text:
 
-![](../../../../docs/images/image124.png "Conversion between Time and Strings")
+![Conversion between Time and Strings](../../../../docs/images/image124.png)
 
 Note that the time format specifiers (such as `%T` or `%Y-%m-%d`) are specific extensions in LabVIEW and differ slightly from standard C printf format characters.
 
@@ -118,7 +118,7 @@ LabVIEW provides two regex-based nodes: **Match Pattern** and **Match Regular Ex
 
 The following example extracts all numeric values from a block of text using **Match Pattern**. A While Loop processes the text iteratively, extracting the matched numbers and passing the remaining text to the next iteration:
 
-![](../../../../docs/images_2/z164.png "extracting all values text")
+![extracting all values text](../../../../docs/images_2/z164.png)
 
 Running this program on the sample text yields the array `[33, 0.95]`. The regex pattern used is `[0-9]+[.]?[0-9]*`, which breaks down as follows:
 
@@ -262,7 +262,7 @@ Different LabVIEW data types use different memory structures. While basic number
 
 For example, in a string array, the array itself stores an array of memory pointers (handles) that point to separate heap locations where the actual text data resides. This creates a non-contiguous structure:
 
-![](../../../../docs/images/image818.png "string array in memory")
+![string array in memory](../../../../docs/images/image818.png)
 
 To transmit this array over TCP/IP or write it to a file, this fragmented structure must be packed into a single, contiguous byte stream. This packing process is called **flattening**. Flattening a string array consolidates the length information and string characters into a linear, contiguous byte array.
 
@@ -284,11 +284,11 @@ This tags the value `34.2` as a double-precision float (DBL) labeled `input`.
 
 The **Flatten to XML** function (under **Programming -> File I/O -> XML**) serializes any LabVIEW data type into XML text. Use **Unflatten from XML** to deserialize it back. Here is a program that flattens a numeric value:
 
-![](../../../../docs/images/image131.png "Flatten to XML")
+![Flatten to XML](../../../../docs/images/image131.png)
 
 The resulting XML string:
 
-![](../../../../docs/images/image132.png "Flattened XML Text")
+![Flattened XML Text](../../../../docs/images/image132.png)
 
 LabVIEW generates readable tags: the `<DBL>` element denotes a double-precision number, `<Name>` specifies the control name, and `<Val>` stores the value `12.3`.
 

@@ -217,7 +217,7 @@ Explorer 设计的。通过定义容器（调用 ActiveX 控件的程序）和�
 
 使用 ActiveX 控件首先需要在 VI 的前面板上创建一个 ActiveX 容器，该控件在控件选板“新式 -\> 容器”中。在 ActiveX 容器控件的右键菜单中选择“插入 ActiveX 对象”，LabVIEW 即会列出所有的可被使用的 ActiveX 控件：
 
-![](images/image366.png "选择 ActiveX 对象")
+![选择 ActiveX 对象](images/image366.png)
 
 
 选中一个控件，就可以把它放置在 VI 前面板上的 ActiveX 容器中了。但是，并非所有在“选择 ActiveX 对象”对话框中列出的 ActiveX 控件都可以直接在 LabVIEW 中使用。有些 ActiveX 控件是有版权的，需要得到它的生产厂家的授权后，才可以使用。
@@ -228,15 +228,15 @@ LabVIEW 自身并没有提供上网浏览网页的控件，但是它可以利用
 
 在新版的 LabVIEW 中，已经把一些常用的 ActiveX 控件和.NET 控件放置在了控件选板上（位于“.NET 与 ActiveX”控件选板），它包括网页浏览控件、Windows Media Player 等，可以直接选择使用：
 
-![](images/image367.png "使用 ActiveX 的控件选板")
+![使用 ActiveX 的控件选板](images/image367.png)
 
 这些控件是由其它公司提供的 ActiveX 和.NET 控件，并不是由 LabVIEW 提供的。需要浏览网页时，调用“WebBrowser”控件的“Navigate”方法就可以了：
 
-![](images/image368.png "调用浏览器控件的“浏览”方法")
+![调用浏览器控件的“浏览”方法](images/image368.png)
 
 运行调用了“Navigate”方法的程序，被浏览的网页就会出现在页面上：
 
-![](images/image369.png "浏览网页的界面")
+![浏览网页的界面](images/image369.png)
 
 这里需要注意的是，ActiveX 控件通常都提供了大量的属性和方法。如果想了解这些属性和方法的使用，需要查看这个 ActiveX 控件的帮助文档。如果无法找到相关文档，可以联系 ActiveX 控件的生产厂家以寻求帮助。
 
@@ -244,11 +244,11 @@ LabVIEW 自身并没有提供上网浏览网页的控件，但是它可以利用
 
 Windows Media Player ActiveX 控件具有媒体播放的功能。如果程序需要播放 mp3 或视频等，可以使用这一个控件。下图是使用 Windows Media Player ActiveX 控件的 VI 前面板：
 
-![](images/image370.png "使用 Windows Media Player ActiveX 控件的 VI 前面板")
+![使用 Windows Media Player ActiveX 控件的 VI 前面板](images/image370.png)
 
 程序框图如下：
 
-![](images/image371.png "实现媒体播放的程序框图")
+![实现媒体播放的程序框图](images/image371.png)
 
 
 
@@ -260,7 +260,7 @@ LabVIEW 的事件结构无法捕获这些事件，但是可以通过回调 VI（
 
 事件回调注册节点有三个输入参数：“事件”、“VI 引用”和“用户参数”。在使用这个节点时，首先需要把 ActiveX 控件传递给“事件”参数，然后在这个参数的下拉框中选取需要处理的事件。比如，我们需要处理的是“Toolbar”控件的“ButtonClick”事件：
 
-![](images/image373.png "选择 ActiveX 的事件")
+![选择 ActiveX 的事件](images/image373.png)
 
 选取了事件之后，就要考虑是否需要传递某些用户参数。事件回调注册函数的“用户参数”，默认采用变体数据类型，它可以接收用户指定的任何类型的数据，使用者可以根据自己的需传把某些数据递给回调 VI。比如，假设回调 VI 需要记录主 VI 的名字，就可以把主 VI 的名字（一个字符串）作为用户参数传递给这个事件回调注册函数的“用户参数”。回调 VI 在被调用时，就会得到这个传递进来的数据。 
 
@@ -268,41 +268,41 @@ LabVIEW 的事件结构无法捕获这些事件，但是可以通过回调 VI（
 
 设置好用户参数，鼠标右键点击“VI 引用”参数，即可为这个事件创建一个回调 VI：
 
-![](images/image374.png "创建回调 VI")
+![创建回调 VI](images/image374.png)
 
 新创建出的回调 VI 没有任何程序代码，但是，事件相关的输入参数已经被放置在 VI 上了，它们包括：“事件通用数据”、“控件引用”、“事件数据”和“用户参数”：
 
-![](images/image375.png "刚创建的回调 VI 的前面板与框图")
-![](images/image376.png "刚创建的回调 VI 的前面板与框图")
+![刚创建的回调 VI 的前面板与框图](images/image375.png)
+![刚创建的回调 VI 的前面板与框图](images/image376.png)
 
 
 事件数据是 ActiveX 控件产生事件时，同事件一起发出的数据。在“Toolbar”控件产生“ButtonClick”事件时，它同时发出的数据是按钮的引用。通过这个按钮的引用，我们可以得到按钮的相关信息，比如我们在程序中需要用到的按钮的 “Key（标签）”。
 
 我们的回调 VI 所要做的工作，就是得到被点击的按钮，然后抛出一个以按钮标签为名的 LabVIEW 用户自定义事件。程序中未使用到的输入参数也不能删除，仍旧保留在框图中即可。
 
-![](images/image377.png "事件处理程序")
+![事件处理程序](images/image377.png)
 
 
 经过这个简单的回调函数的处理，ActiveX 控件的事件，被转换成了 LabVIEW 的用户自定义事件。这样，就可以在主程序的循环事件结构中添加相关的处理代码了：
 
-![](images/image378.png "主程序中处理 Stop 按钮被按下的分支")
+![主程序中处理 Stop 按钮被按下的分支](images/image378.png)
 
 
 ### ActiveX 文档
 
 Microsoft Office 等软件提供的服务，可以让它们的文档通过 ActiveX 容器在其它应用程序中显示出来。这样的文档就是 ActiveX 文档。在 LabVIEW 中的 ActiveX 容器中，除了插入控件，也可以插入 ActiveX 文档，比如选择插入一个图表文档：
 
-![](images/image379.png "插入图表 ActiveX 文档")
+![插入图表 ActiveX 文档](images/image379.png)
 
 
 与 ActiveX 控件不同，ActiveX 文档不能通过 LabVIEW 程序来修改。在 ActiveX 文档的鼠标右键上选择“编辑对象”，文档相关的编辑器就会被打开（比如 Microsoft Office），必须通过这个编辑器来编辑相关的文档：
 
-![](images/image380.png "图表 ActiveX 文档的编辑器")
+![图表 ActiveX 文档的编辑器](images/image380.png)
 
 
 编辑好了的 ActiveX 文档的效果如下图所示：
 
-![](images/image381.png "使用图表 ActiveX 文档")
+![使用图表 ActiveX 文档](images/image381.png)
 
 
 
@@ -312,16 +312,16 @@ ActiveX 在广义上是指微软公司的整个 COM 架构。LabVIEW 可以通�
 
 由于没有对应的控件，LabVIEW 就不能直接从控件得到这个 ActiveX 对象的引用。因此，需要使用“互联接口 -\>ActiveX-\> 打开自动化”函数来创建一个 ActiveX 对象并得到它的引用。使用这个函数时，需要为创建的 ActiveX 对象指定类型：首先把打开自动化拖到程序框图上，然后为其“自动化引用句柄”输入创建一个常量，再用右键点击创建出来的常量，为其选择 ActiveX 类：
 
-![](images/image382.png "创建 ActiveX 对象")
+![创建 ActiveX 对象](images/image382.png)
 
 
 假如我们需要使用微软提供的文本朗读服务，我们需要选择 ActiveX 对象对话框中，选择“Microsoft Speech Object Library”类型库，再选择“ISpeechVoice”对象：
 
-![](images/image383.png "选择 ActiveX 对象对话框")
+![选择 ActiveX 对象对话框](images/image383.png)
 
 这样，我们就创建了一个 ActiveX 对象。在后续的程序中可以使用属性节点和调用节点来设置 ActiveX 对象的属性或调用方法。调用“ISpeechVoice”的“Speak”方法，可以让计算机把一段文本朗读出来。例如，运行下图中的程序，可以让计算机读出“I love LabVIEW!”这句话。
 
-![](images/image384.png "朗读文本")
+![朗读文本](images/image384.png)
 
 
 ## .NET
@@ -330,12 +330,12 @@ ActiveX 在广义上是指微软公司的整个 COM 架构。LabVIEW 可以通�
 
 .NET 库中也有网页浏览控件。在 VI 的前面板上放置一个.NET 容器，然后插入“System.Windows.Forms”程序集中的“WebBrowser”控件：
 
-![](images/image385.png "选择网页浏览.NET 控件")
+![选择网页浏览.NET 控件](images/image385.png)
 
 
 然后调用它的“Navigate”方法，即可浏览一个网页：
 
-![](images/image386.png "浏览网页")
+![浏览网页](images/image386.png)
 
 
 ## EXE
@@ -344,7 +344,7 @@ ActiveX 在广义上是指微软公司的整个 COM 架构。LabVIEW 可以通�
 
 下图中的例子是在 LabVIEW 中打开记事本软件的程序框图。
 
-![](images/image387.png "调用其它应用程序")
+![调用其它应用程序](images/image387.png)
 
 其它使用执行系统命令的示例可参考 `[LabVIEW]\examples\comm` 目录中的 Calling System Exec VI。
 

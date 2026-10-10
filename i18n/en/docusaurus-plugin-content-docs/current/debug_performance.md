@@ -19,11 +19,11 @@ Not all issues related to execution efficiency will be visible in the Performanc
 
 When debugging or testing, you are often concerned with the actual elapsed time (wall-clock time) a specific section of code takes to execute. This can be accomplished by writing a straightforward timing script. Utilizing a Flat Sequence Structure, you can record the current time (using the **Tick Count (ms)** function) just before the code segment starts and again immediately after it concludes. The difference between these two times represents the execution duration of that segment. This approach has been frequently used in examples throughout this book:
 
-![](../../../../docs/images/image520.jpeg "A method to measure program execution time")
+![A method to measure program execution time](../../../../docs/images/image520.jpeg)
 
 Alternatively, you can use a **Timed Loop** or a **Timed Sequence Structure**. In the example shown below, the **Frame Duration** output serves a similar purpose as the manual subtraction calculation in the previous illustration:
 
-![](../../../../docs/images/image521.jpeg "Using a timing sequence structure to measure program execution time")
+![Using a timing sequence structure to measure program execution time](../../../../docs/images/image521.jpeg)
 
 Both methods have a maximum precision of 1 millisecond. Note that employing a Timed Sequence Structure might alter the thread in which the enclosed code runs, potentially impacting the measured execution time.
 
@@ -45,15 +45,15 @@ While you cannot increase the speed of the hardware itself, you can mitigate thi
 1. **Parallel Execution**: Perform intensive data processing and UI updates in parallel threads (e.g., using a Producer/Consumer design pattern) while the I/O thread is waiting for the device.
 2. **Minimize I/O Operations**: Optimize the program structure to reduce the number of accesses to files or instruments. For instance, consider a program that writes $10,000$ strings to a file sequentially inside a loop:
 
-![](../../../../docs/images/image522.png "Inefficient file writing method")
+![Inefficient file writing method](../../../../docs/images/image522.png)
 
 This code is extremely inefficient because the file is opened and closed $10,000$ times. Running this code on a typical PC takes over 2 seconds. You do not need to open and close the file with each write operation. Instead, move the open and close operations outside the loop, as shown below:
 
-![](../../../../docs/images/image523.png "Improved file writing method")
+![Improved file writing method](../../../../docs/images/image523.png)
 
 With this simple optimization, the same file-writing operation now takes only 60 milliseconds. We can optimize this further by buffering the data and performing a single write operation after the loop:
 
-![](../../../../docs/images/image524.png "Highly efficient file writing method")
+![Highly efficient file writing method](../../../../docs/images/image524.png)
 
 In this version, all file functions are invoked only once. Executing this code requires only 30 milliseconds.
 
@@ -66,15 +66,15 @@ Consider a scenario where data is collected and displayed on the interface as a 
 
 Some interface refreshes are triggered unintentionally. For example, the program below displays messages in a Tree control with a main entry and 300 sub-entries:
 
-![](../../../../docs/images/image525.png "Inefficient method for setting up tree control")
+![Inefficient method for setting up tree control](../../../../docs/images/image525.png)
 
 This loop iterates 300 times, adding an entry to the Tree control in each iteration. Each addition triggers a visual refresh of the control, which is extremely slow. Fortunately, the Tree control provides a method to add all entries at once. By doing so, the control only refreshes once:
 
-![](../../../../docs/images/image526.png "Efficient method for setting up tree control")
+![Efficient method for setting up tree control](../../../../docs/images/image526.png)
 
 If a control does not support updating all data at once (for example, when modifying individual properties of multiple curves on a Waveform Graph inside a loop), each property change will trigger a redraw. To prevent these intermediate redraws, use the **Defer Panel Updates** property of the VI. Set this property to `True` before starting the loop, apply the changes, and then set it back to `False` once the loop completes. This forces the Front Panel to redraw only once for the entire batch of updates, greatly enhancing performance:
 
-![](../../../../docs/images/image527.png "Setting properties for each curve on the waveform graph")
+![Setting properties for each curve on the waveform graph](../../../../docs/images/image527.png)
 
 
 ## Loop Computations
@@ -84,11 +84,11 @@ Code inside loops must be designed with extra caution. A minor inefficiency that
 - **Hardware Resources**: Keep hardware reference open/close operations outside of loops. Open the device session at the start of the application, pass the reference into the loop, and close it when the loop terminates.
 - **Avoid Variables inside Loops**: A common pitfall is using local or global variables inside a loop to pass data between iterations, rather than shift registers:
 
-![](../../../../docs/images/image528.png "Reading and writing to local or global variables inside loops")
+![Reading and writing to local or global variables inside loops](../../../../docs/images/image528.png)
 
 Reading and writing variables in LabVIEW involves thread synchronizations and data copies, which are slow. Use shift registers to pass data between iterations, and write the final value to the variable only after the loop completes:
 
-![](../../../../docs/images/image529.png "Optimizing by moving local or global variable operations outside the loop")
+![Optimizing by moving local or global variable operations outside the loop](../../../../docs/images/image529.png)
 
 
 ## Debug Information

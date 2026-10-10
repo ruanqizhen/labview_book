@@ -15,7 +15,7 @@ What, then, is the closest equivalent to a variable in LabVIEW? The answer is **
 
 In LabVIEW, controls have two text properties that are often confused: **Labels** and **Captions**.
 
-![](../../../../docs/images_2/z226.png "Labels and Captions")
+![Labels and Captions](../../../../docs/images_2/z226.png)
 
 While both provide a descriptive name for a control, they serve very different purposes:
 
@@ -47,7 +47,7 @@ When a VI is called as a subVI, its Front Panel controls act as input parameters
 
 For example, the Context Help for the **Open Config Data.vi** shows that the **Create File if Necessary** input has a default value of `True` (indicated by parentheses: `(True)`). If you want it to create the file, you can leave the input terminal unwired, and LabVIEW will automatically pass `True` during execution:
 
-![](../../../../docs/images/image138.png "Using Default Values While Calling a Sub-VI")
+![Using Default Values While Calling a Sub-VI](../../../../docs/images/image138.png)
 
 
 ## Local Variables
@@ -84,7 +84,7 @@ Since there is only one physical **Stop** terminal on the diagram, we link it to
 
 What happens if we try to stop both loops using a direct wire instead of a local variable, like this?
 
-![](../../../../docs/images/image141.png "Data Wire Connecting Two Loops")
+![Data Wire Connecting Two Loops](../../../../docs/images/image141.png)
 
 In LabVIEW, a loop cannot output data until it has fully finished executing. In the diagram above, the wire carrying the Stop value must exit the top loop before it can enter the bottom loop. This introduces a sequential dependency: the top loop runs first, while the bottom loop waits. When you click **Stop**, the top loop exits, the wire finally passes the `True` value to the bottom loop, and the bottom loop starts and immediately stops after a single iteration. The two loops fail to run in parallel. Using a local variable is essential here to break this sequential wire dependency.
 
@@ -174,15 +174,15 @@ These position and size properties apply to all UI elements, including static de
 
 To do this, we must change the caption of the numeric control dynamically. The caption itself is an object containing sub-properties like position, font, and visibility. To change the text, we navigate the hierarchy to **Caption -> Text**:
 
-![](../../../../docs/images/image150.png "Changing the caption of the control during execution")
+![Changing the caption of the control during execution](../../../../docs/images/image150.png)
 
 The resulting UI updates the text box label dynamically:
 
-![](../../../../docs/images/image151.png "Changing the caption")
+![Changing the caption](../../../../docs/images/image151.png)
 
 What if we tried to modify the **Label** of the control instead?
 
-![](../../../../docs/images_2/z230.png "Adjusting the label of the control")
+![Adjusting the label of the control](../../../../docs/images_2/z230.png)
 
 Running this returns an error: *"This property is writable only when the VI is in edit mode."* In LabVIEW, a running VI cannot modify its own control labels because labels act as compilation identifiers.
 
@@ -195,13 +195,13 @@ However, a running VI *can* modify the labels of controls in *other* VIs (which 
 
 To style a specific substring inside a string indicator, we first use a Property Node to select the characters by index, then apply font styles to that selection. We can combine these steps in a single Property Node:
 
-![](../../../../docs/images/image154.png "Modifying the font of selected text")
+![Modifying the font of selected text](../../../../docs/images/image154.png)
 
 *Note: The red color constant is located in the Functions Palette under **Programming -> Graphics and Sound -> Picture Functions**. The corresponding terminal for the font properties can be configured by right-clicking the node.*
 
 When run, only the selected characters are styled:
 
-![](../../../../docs/images/image155.png "result")
+![result](../../../../docs/images/image155.png)
 
 
 ### Example: Alerting Users with Blinking Elements {#implementing-blinking-controls-for-alerts}
@@ -278,7 +278,7 @@ The Block Diagram has two distinct sections:
 2. **Setting Icons:** We iterate through the list and assign a folder icon to directories and a VI icon to `.vi` files. To do this, we write index integers to the **Item Symbol** property of each row. We select these index integers using the **Listbox Symbol Ring** constant (found under **Programming -> Dialog & User Interface**).
 3. **Handling Selection:** Inside the While Loop, we poll the Listbox value (which returns the selected row index) and use it to retrieve and display the selected item name:
 
-![](../../../../docs/images_2/z238.gif "Select files from folder")
+![Select files from folder](../../../../docs/images_2/z238.gif)
 
 
 ### Customizing Listbox Symbols
@@ -301,15 +301,15 @@ In this program, we read `VI.png` using **Read PNG File.vi** (located in the Fun
 
 Listbox and Tree controls support drag-and-drop interactions natively. To enable this, right-click the control on the Front Panel and check **Allow Drag** and/or **Allow Drop**:
 
-![](../../../../docs/images_2/z239.png "Allow Drag and Drop")
+![Allow Drag and Drop](../../../../docs/images_2/z239.png)
 
 For example, we can place two Listbox controls on a panel:
 
-![](../../../../docs/images_2/z240.png "Dragging and Dropping items between different Listbox controls")
+![Dragging and Dropping items between different Listbox controls](../../../../docs/images_2/z240.png)
 
 When run, users can drag items directly between the two lists without any additional backend code:
 
-![](../../../../docs/images_2/z241.gif "Dragging and Dropping items between different Listbox controls")
+![Dragging and Dropping items between different Listbox controls](../../../../docs/images_2/z241.gif)
 
 For complex workflows (e.g., validating files before dropping them, or moving items instead of copying them), you can customize drag-and-drop behavior using Event Structures. We will cover this in [Event Structures and Program Interfaces](pattern_ui).
 
@@ -318,21 +318,21 @@ For complex workflows (e.g., validating files before dropping them, or moving it
 
 A **Multicolumn Listbox** acts as a 2D grid, making it ideal for displaying spreadsheets, reports, or test logs:
 
-![](../../../../docs/images_2/z242.png "Displaying Report Card")
+![Displaying Report Card](../../../../docs/images_2/z242.png)
 
 In this program, we write to the **Column Header Strings** and **ItemNames** properties to initialize the table headers and cell text. Then, we use a nested loop to check each test score. If a score falls below `60`, we change its cell background to red:
 
-![](../../../../docs/images_2/z243.png "Displaying Report Card")
+![Displaying Report Card](../../../../docs/images_2/z243.png)
 
 Notice that we write to **Active Cell** first, and then to **Cell Background Color** in the *same* Property Node. Because Property Nodes execute sequentially from top to bottom, this guarantees LabVIEW will select the correct cell before changing its color. If you split these into two separate Property Nodes running in parallel, you would create a race condition where LabVIEW might apply the color before selecting the cell, highlighting the wrong data.
 
 LabVIEW also offers a **Table** control, which behaves similarly to a Multicolumn Listbox but has a simpler interface. For example, we can use a Table control to display zebra-striped rows to improve readability:
 
-![](../../../../docs/images_2/z244.png "Alternating Row Background Color")
+![Alternating Row Background Color](../../../../docs/images_2/z244.png)
 
 In this configuration, we set the column index of the **Active Cell** to `-2` to select the entire row (in LabVIEW tables, `-1` means no selection, and `-2` or less selects the entire row or column). The resulting UI displays alternating rows:
 
-![](../../../../docs/images_2/z245.png "Alternating Row Background Color")
+![Alternating Row Background Color](../../../../docs/images_2/z245.png)
 
 The data type of a Table control is simply a 2D array of strings. You can write data to its terminal directly, which is faster than using property nodes. For basic 2D data display, a Table is the most efficient choice. However, if you need advanced user interactions—such as drag-and-drop reordering or cell-specific formatting—use a Multicolumn Listbox instead.
 
@@ -340,13 +340,13 @@ The data type of a Table control is simply a 2D array of strings. You can write 
 
 In applications that generate automated PDF or HTML reports, you often need to save screenshots of graphs, charts, or tables. LabVIEW provides the **Get Image** method on Invoke Nodes to capture a control's visual state:
 
-![](../../../../docs/images_2/z251.png "Capturing Control Screenshots")
+![Capturing Control Screenshots](../../../../docs/images_2/z251.png)
 
 Since report document backgrounds are usually white, it is best to set the **Image Background Color** input of the method to white to prevent gray borders in your report.
 
 We pass the output of **Get Image** to **Draw Flattened Pixmap.vi** to render it inside a **2D Picture** control on our Front Panel, and call **Write PNG File.vi** to save it as an image file on disk:
 
-![](../../../../docs/images_2/z252.png "Capturing Control Screenshots")
+![Capturing Control Screenshots](../../../../docs/images_2/z252.png)
 
 These graphics utility VIs are located in the Functions Palette under **Programming -> Graphics and Sound**.
 

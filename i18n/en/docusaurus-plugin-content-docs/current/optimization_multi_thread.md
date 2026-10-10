@@ -6,13 +6,13 @@ LabVIEW inherently supports multithreading: if the code within a VI is capable o
 
 Consider a simple VI running a single, continuous While Loop without any delays. In this case, the thread executing the loop is under heavy load, while other threads remain largely idle. On a single-core CPU, this execution thread would consume 100% of the CPU. The Task Manager screenshot below (from a dual-core system) shows that because this loop structure can only run on a single thread at any given time, it can utilize at most 50% of the total CPU capacity.
 
-![](../../../../docs/images/image698.png "Dual-core CPU computer executing a computation-intensive task")
+![Dual-core CPU computer executing a computation-intensive task](../../../../docs/images/image698.png)
 
 Although this single loop is limited to one thread at any given moment, the operating system may schedule it across different CPU cores over time. However, this single loop segment itself can never run on multiple cores simultaneously.
 
 The program below features two parallel While Loops with no data dependencies (no connecting wires). LabVIEW automatically assigns these independent loops to separate execution threads. The operating system then schedules these two threads on distinct CPU cores, fully utilizing a dual-core processor.
 
-![](../../../../docs/images/image699.png "Dual-core CPU computer executing two computation-intensive tasks")
+![Dual-core CPU computer executing two computation-intensive tasks](../../../../docs/images/image699.png)
 
 This illustrates the primary method for leveraging multi-core processors in LabVIEW: design independent tasks to run in parallel. A key guideline is to place parallelizable code blocks side-by-side on the Block Diagram, avoiding unnecessary sequential constraints like data wires or Flat Sequence Structures. LabVIEW automatically handles the scheduling, mapping these tasks to separate threads for concurrent execution to reduce overall run time.
 
@@ -25,7 +25,7 @@ LabVIEW introduced support for multithreading with version 5.0. Prior to this re
 
 This mechanism is called the **Execution System**. Modern LabVIEW provides six distinct execution systems: **User Interface**, **Standard**, **Instrument I/O**, **Data Acquisition**, **Other 1**, and **Other 2**. You can configure individual VIs to run in specific execution systems. To set this, open **VI Properties (Ctrl+I)**, select the **Execution** category, and choose from the dropdown list:
 
-![](../../../../docs/images/image700.png "VI property's 'Execution' settings page")
+![VI property's 'Execution' settings page](../../../../docs/images/image700.png)
 
 
 ### The Relationship Between Execution Systems and Threads
@@ -49,8 +49,8 @@ Because the UI Execution System has only one thread, VIs assigned to it execute 
 
 Even on a single thread, the loops still execute concurrently through cooperative multitasking. The indicators on the Front Panel will alternate updates:
 
-![](../../../../docs/images/image701.png "Parallel tasks running on a single thread in the User Interface Execution System")
-![](../../../../docs/images/image702.png "Parallel tasks running on a single thread in the User Interface Execution System")
+![Parallel tasks running on a single thread in the User Interface Execution System](../../../../docs/images/image701.png)
+![Parallel tasks running on a single thread in the User Interface Execution System](../../../../docs/images/image702.png)
 
 If you are integrating third-party DLLs or legacy code that is not thread-safe, running them on the **User Interface** execution system is a common safety measure to force single-threaded execution on the main thread.
 
@@ -72,7 +72,7 @@ For most applications, the User Interface Execution System and the Standard Exec
 
 VI priority settings encompass six levels: Background, Normal, Above Normal, High, Time Critical, and Subroutine. These levels are ordered from the lowest to highest priority. A higher priority gives the VI's thread precedence in the OS scheduler. For instance, setting a computationally intensive background VI to **Time Critical** priority can starve other threads of CPU cycles. This can make the user interface laggy or unresponsive, as the UI thread is starved of time slices.
 
-![](../../../../docs/images_2/z358.png "VI property's 'Execution' settings page")
+![VI property's 'Execution' settings page](../../../../docs/images_2/z358.png)
 
 The **Subroutine** priority is a special setting that changes the compiler behavior and execution rules of the VI:
 - The subVI's Front Panel and Block Diagram are optimized away at runtime (they cannot be displayed, and user interactions are not supported).
@@ -118,65 +118,65 @@ The scenario is quite different when writing multithreaded programs in LabVIEW. 
 
 Occasionally, the operating system's strategy for CPU allocation may not be the most efficient. For example, consider a program comprising data acquisition, display, and analysis modules running in parallel. On a dual-core system, the OS might initially allocate one core to data acquisition and the other to display. Once data acquisition completes, the first core might switch to data processing—a relatively heavy task. If one core is dedicated to data processing while the other remains idle, this leads to an imbalanced load and suboptimal CPU utilization.
 
-![](../../../../docs/images/image703.jpeg "Operating system automatically allocating CPUs for multithreaded programs")
-![](../../../../docs/images/image704.jpeg "Operating system automatically allocating CPUs for multithreaded programs")
+![Operating system automatically allocating CPUs for multithreaded programs](../../../../docs/images/image703.jpeg)
+![Operating system automatically allocating CPUs for multithreaded programs](../../../../docs/images/image704.jpeg)
 
 For performance-critical or deterministic applications, LabVIEW's timed structures allow you to manually bind tasks to specific CPU cores.
 
 A **Timed Loop** or **Timed Sequence** structure lets you define a precise execution rate and specify the target CPU core. The input node on the left of these structures allows you to wire a CPU core index directly:
 
-![](../../../../docs/images/image705.gif "A Timed Sequence structure")
+![A Timed Sequence structure](../../../../docs/images/image705.gif)
 
 You can configure this statically in the structure's configuration dialog:
 
-![](../../../../docs/images/image706.png "Timed Sequence structure's input configuration panel")
+![Timed Sequence structure's input configuration panel](../../../../docs/images/image706.png)
 
 CPU cores can also be specified dynamically during program execution, as illustrated below:
 
-![](../../../../docs/images/image707.jpeg "Manually specifying CPUs for each task")
+![Manually specifying CPUs for each task](../../../../docs/images/image707.jpeg)
 
 Running the program below, the two lightweight tasks are pinned to one core, while the heavy calculation task is pinned to another. This manual load balancing prevents the CPU-intensive task from starving the critical or time-sensitive tasks:
 
-![](../../../../docs/images/image708.jpeg "Balanced CPU load")
+![Balanced CPU load](../../../../docs/images/image708.jpeg)
 
 
 ### Parallel For Loops
 
 Usually, parallel execution in LabVIEW requires placing separate structures on the Block Diagram. However, if you have a single **For Loop** where each iteration is independent and performs heavy calculations, running them sequentially on a single thread underutilizes the CPU. For example:
 
-![](../../../../docs/images_2/z313.png "Time-consuming loop")
+![Time-consuming loop](../../../../docs/images_2/z313.png)
 
 This program consists of a single loop performing extensive mathematical operations, heavily taxing CPU resources. When run, the system resource monitor shows it consuming 100% of one CPU core's resources:
 
-![](../../../../docs/images_2/z312.png "Occupying one CPU core")
+![Occupying one CPU core](../../../../docs/images_2/z312.png)
 
 Although three CPU cores were allocated to the system running LabVIEW, only the second CPU core is fully utilized during this program's execution.
 
 For loops like this, you can enable **For Loop Iteration Parallelism**. Right-click the For Loop border and select **Configure Iteration Parallelism...**:
 
-![](../../../../docs/images_2/z314.png "Configuring a parallel loop")
+![Configuring a parallel loop](../../../../docs/images_2/z314.png)
 
 This action opens the configuration window for parallel loop execution:
 
-![](../../../../docs/images_2/z315.png "Parallel loop configuration")
+![Parallel loop configuration](../../../../docs/images_2/z315.png)
 
 In this dialog, check **Enable loop iteration parallelism** and specify the number of parallel instances (threads). Typically, setting this to the number of available physical cores is optimal. Adding more instances than CPU cores will introduce scheduling overhead without any performance gains.
 
 Once enabled, the For Loop displays a parallel terminal (marked with a **P**) at the top-left. You can wire a value to this terminal to change the number of parallel instances dynamically at runtime:
 
-![](../../../../docs/images_2/z317.png "Parallel loop")
+![Parallel loop](../../../../docs/images_2/z317.png)
 
 Running the parallelized loop distributes iterations across the three configured CPU cores, reducing the execution time to nearly a third of the sequential version:
 
-![](../../../../docs/images_2/z316.png "Using three CPU cores")
+![Using three CPU cores](../../../../docs/images_2/z316.png)
 
 Note that not all loops can run in parallel. If an iteration depends on the results of a prior iteration (e.g., using **Shift Registers** or **Feedback Nodes**), the iterations must execute sequentially. For example:
 
-![](../../../../docs/images_2/z318.png "Non-parallelizable loop")
+![Non-parallelizable loop](../../../../docs/images_2/z318.png)
 
 This loop has a Shift Register, which represents a data dependency between iterations. If you attempt to enable parallelism on this loop, LabVIEW will flag a compilation error:
 
-![](../../../../docs/images_2/z319.png "Error for non-parallelizable loop")
+![Error for non-parallelizable loop](../../../../docs/images_2/z319.png)
 
 
 ## Inter-thread Communication and Synchronization
@@ -192,40 +192,40 @@ Parallel loops often need to coordinate, synchronize execution, or pass data. Wh
 
 The figure below shows a basic data acquisition and display application. The left loop simulates data acquisition using a random number generator and a delay, while the right loop displays the data on a Waveform Chart:
 
-![](../../../../docs/images_2/z326.png "Sequential data acquisition and display")
+![Sequential data acquisition and display](../../../../docs/images_2/z326.png)
 
 Because a standard data wire links the loops, the display loop cannot start until the acquisition loop completes its entire execution. Running this program will freeze the chart for 5 seconds during the acquisition phase; only when the loop terminates does the chart display all data at once. To execute them concurrently, we traditionally refactor this into a **Producer-Consumer** architecture using a queue:
 
-![](../../../../docs/images_2/z327.png "Producer-consumer model")
+![Producer-consumer model](../../../../docs/images_2/z327.png)
 
 Although this achieves concurrency, the block diagram becomes cluttered with queue creation, destruction, and transfer functions. We can achieve the exact same behavior with much cleaner code using Channel Wires. Right-click the terminal or wire where you want to send data and select **Create -> Channel Writer**. LabVIEW will prompt you to choose the channel template:
 
-![](../../../../docs/images_2/z328.png "Type of channel wire")
+![Type of channel wire](../../../../docs/images_2/z328.png)
 
 For simple streaming, select the **Stream** template. This creates a FIFO channel with a single writer and a single reader. When selected, LabVIEW places a Channel Writer endpoint on the diagram. You can then right-click the destination terminal to create a matching Channel Reader endpoint. The resulting code is incredibly clean:
 
-![](../../../../docs/images_2/z329.png "Program reimagined with channel wires")
+![Program reimagined with channel wires](../../../../docs/images_2/z329.png)
 
 Running this revised program reveals it too can display acquisition results in real-time, yet its block diagram is significantly simpler than its queue-utilizing counterpart.
 
 When setting up Channel Wires, you can also select the endpoint style. The basic style reads/writes single elements. Other styles include batch endpoints (reading/writing arrays of elements at once) and cancelable endpoints (which include abort terminals). Below is an example using batch endpoints:
 
-![](../../../../docs/images_2/z330.png "Simultaneous multiple data transactions")
+![Simultaneous multiple data transactions](../../../../docs/images_2/z330.png)
 
 
 #### Messengers
 
 While a **Stream** channel is strictly point-to-point, a **Messenger** channel supports multiple writers and readers, allowing many loops to write to the same channel. For example:
 
-![](../../../../docs/images_2/z331.png "Multiple Inputs and Outputs")
+![Multiple Inputs and Outputs](../../../../docs/images_2/z331.png)
 
 Running this program demonstrates the simultaneous acquisition and display of data from both channels:
 
-![](../../../../docs/images_2/z332.gif "Multiple Inputs and Outputs")
+![Multiple Inputs and Outputs](../../../../docs/images_2/z332.gif)
 
 Messenger channels can also be used to feed data back to prior steps, creating an asynchronous feedback loop:
 
-![](../../../../docs/images_2/z333.png "Feedback")
+![Feedback](../../../../docs/images_2/z333.png)
 
 This behaves similarly to a **Feedback Node**, but since Channel Wires are asynchronous, the feedback path can loop outside the structure, connecting different nodes or loops without blocking.
 
@@ -233,7 +233,7 @@ This behaves similarly to a **Feedback Node**, but since Channel Wires are async
 
 An **Event Messenger** is a specialized channel that automatically fires a **User Event** whenever data is written to it. This allows you to handle incoming channel data directly inside an **Event Structure**, making it a perfect fit for event-driven architectures.
 
-![](../../../../docs/images_2/z334.png "Event Messenger")
+![Event Messenger](../../../../docs/images_2/z334.png)
 
 #### Other Types of Channel Wires
 
