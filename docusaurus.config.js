@@ -12,12 +12,13 @@ const config = {
   tagline: 'LabVIEW, 编程, 经验, 教程, 开源, 免费, 电子书, 下载, PDF, 示例, Tutorial',
   url: 'https://lv.qizhen.xyz',
   baseUrl: '/',
-  // Match how the host serves pages: the host redirects /page to /page/,
-  // but without this Docusaurus emits canonical/sitemap URLs without the
-  // trailing slash, so every canonical pointed at a redirect (Search
-  // Console: "Alternate page with proper canonical tag" / "Duplicate,
-  // Google chose different canonical than user").
-  trailingSlash: true,
+  // trailingSlash: false, not true: this book's docs use bare relative
+  // links (e.g. pattern_ui/), which resolve against the page's directory
+  // under trailingSlash: true and fail the dead-link check (186 broken
+  // links on 45 pages in a clean build). With false Docusaurus emits
+  // foo.html, which Cloudflare serves at /foo with a 200 and no redirect,
+  // so canonical/sitemap and the actual URL still agree.
+  trailingSlash: false,
   onBrokenLinks: 'throw',
   markdown: {
     hooks: {
@@ -50,9 +51,9 @@ const config = {
           changefreq: 'weekly',
           priority: 0.5,
           // /search is a thin client-side utility page, not content.
-          // (With trailingSlash: true the route paths end with a slash,
-          // so the patterns must include it to match.)
-          ignorePatterns: ['/search/', '/en/search/'],
+          // (With trailingSlash: false the route paths have no trailing
+          // slash, so the patterns must not include one to match.)
+          ignorePatterns: ['/search', '/en/search'],
         },
         gtag: {
           trackingID: 'G-9EFRGQK2N0',
