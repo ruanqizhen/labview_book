@@ -12,6 +12,12 @@ const config = {
   tagline: 'LabVIEW, 编程, 经验, 教程, 开源, 免费, 电子书, 下载, PDF, 示例, Tutorial',
   url: 'https://lv.qizhen.xyz',
   baseUrl: '/',
+  // Match how the host serves pages: the host redirects /page to /page/,
+  // but without this Docusaurus emits canonical/sitemap URLs without the
+  // trailing slash, so every canonical pointed at a redirect (Search
+  // Console: "Alternate page with proper canonical tag" / "Duplicate,
+  // Google chose different canonical than user").
+  trailingSlash: true,
   onBrokenLinks: 'throw',
   markdown: {
     hooks: {
@@ -43,6 +49,10 @@ const config = {
         sitemap: {
           changefreq: 'weekly',
           priority: 0.5,
+          // /search is a thin client-side utility page, not content.
+          // (With trailingSlash: true the route paths end with a slash,
+          // so the patterns must include it to match.)
+          ignorePatterns: ['/search/', '/en/search/'],
         },
         gtag: {
           trackingID: 'G-9EFRGQK2N0',
